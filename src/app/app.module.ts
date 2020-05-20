@@ -12,6 +12,7 @@ import { PatientLayoutComponent } from './patient-layout/patient-layout.componen
 import { SalonLayoutComponent } from './salon-layout/salon-layout.component';
 import { HospitalLayoutComponent } from './hospital-layout/hospital-layout.component';
 import { OwlModule } from 'ngx-owl-carousel';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
