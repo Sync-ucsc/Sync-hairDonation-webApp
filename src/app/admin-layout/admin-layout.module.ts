@@ -6,6 +6,8 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TestComponent } from './test/test.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { UserBanComponent } from './user-ban/user-ban.component';
+import { UserActionBanComponent } from './user-action-ban/user-action-ban.component';
 
 @NgModule({
   imports: [
@@ -17,6 +19,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
   declarations: [
     DashboardComponent,
     TestComponent,
+    UserBanComponent,
+    UserActionBanComponent,
   ]
 })
 
