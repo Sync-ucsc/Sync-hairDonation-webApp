@@ -13,6 +13,8 @@ import { SalonLayoutComponent } from './salon-layout/salon-layout.component';
 import { HospitalLayoutComponent } from './hospital-layout/hospital-layout.component';
 import { OwlModule } from 'ngx-owl-carousel';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     HospitalLayoutComponent,
     HomeComponent,
     DashboardComponent,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

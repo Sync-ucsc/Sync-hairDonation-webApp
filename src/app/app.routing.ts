@@ -8,6 +8,7 @@ import { SalonLayoutComponent } from './salon-layout/salon-layout.component';
 import { DonorLayoutComponent } from './donor-layout/donor-layout.component';
 import { PatientLayoutComponent } from './patient-layout/patient-layout.component';
 import { HospitalLayoutComponent } from './hospital-layout/hospital-layout.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'dash',
     component: DashboardComponent
+  },
+  {
+    path: 'signup',
+    component: SignupComponent
   },
   {
     path: 'admin',
