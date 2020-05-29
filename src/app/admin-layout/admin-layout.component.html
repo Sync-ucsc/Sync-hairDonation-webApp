@@ -1136,6 +1136,30 @@
                                     </ul>
                                 </div>
                             </li>
+                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']"
+                                data-menu-toggle="click" aria-haspopup="true">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <span class="menu-text">Salons</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                                    <ul class="menu-subnav">
+                                        <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="salons" class="menu-link">
+                                                <span class="menu-text">Add a Salon</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-item " [routerLinkActive]="['menu-item-here']"  aria-haspopup="true">
+                                            <a routerLink="user-action-ban" class="menu-link ">
+                                                <span class="menu-text">View,Update,Delete Salons</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            
                         </ul>
                         <!--end::Header Nav-->
                     </div>

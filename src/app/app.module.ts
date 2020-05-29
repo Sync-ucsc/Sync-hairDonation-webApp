@@ -15,6 +15,7 @@ import { OwlModule } from 'ngx-owl-carousel';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,10 @@ import { SignupComponent } from './signup/signup.component';
     BrowserModule,
     AppRoutingModule,
     OwlModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAkGlhRjMfmotb0UBMf8EAcmkTB6v3WEVM',
+      libraries: ['places']
+    })
   ],
   providers: [
   ],
