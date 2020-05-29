@@ -1,6 +1,6 @@
 /// <reference types="@types/googlemaps" />
 import { Component, OnInit, ViewChild, ElementRef, NgZone  } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 
 
@@ -12,12 +12,22 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 
 
 export class SalonsComponent implements OnInit {
-  choice: string;
+
   latitude: number;
   longitude: number;
   zoom: number;
   address: string;
+  placeaddress;
   private geoCoder;
+
+  salonForm= new FormGroup({
+    name: new FormControl('',Validators.required),
+    email: new FormControl('',[Validators.required,Validators.email]),
+    telephone: new FormControl('',[Validators.required,Validators.minLength(10)]),
+    checkSystem: new FormControl('',Validators.required),
+    checkSms: new FormControl('',Validators.required),
+    checkEmail: new FormControl('',Validators.required),
+  })
   
 
   @ViewChild('search')
@@ -31,7 +41,7 @@ export class SalonsComponent implements OnInit {
 
   ngOnInit(): void {
     this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
+      
       this.geoCoder = new google.maps.Geocoder;
 
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
@@ -48,27 +58,12 @@ export class SalonsComponent implements OnInit {
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
+          this.placeaddress=place;
           this.zoom = 12;
         });
       });
     });
   }
- 
- select(value:string){
-   this.choice=value;
-
- }
-
- private setCurrentLocation() {
-  if ('geolocation' in navigator) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
-      this.zoom = 8;
-      this.getAddress(this.latitude, this.longitude);
-    });
-  }
-}
 
 
 markerDragEnd($event: MouseEvent) {
@@ -96,5 +91,10 @@ getAddress(latitude, longitude) {
   });
 }
 
+
+ onSubmit(){
+   console.log(this.salonForm.value);
+   console.log(this.placeaddress.formatted_address);
+ }
 
 }
