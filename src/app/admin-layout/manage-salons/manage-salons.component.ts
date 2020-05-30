@@ -6,6 +6,7 @@ import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-manage-salons',
   templateUrl: './manage-salons.component.html',
@@ -47,8 +48,8 @@ export class ManageSalonsComponent implements OnInit {
 public updateRef: TemplateRef<any>; 
 
 
-@ViewChild('search')
-  public searchElementRef: ElementRef;
+ @ViewChild('search')
+public searchElementRef: ElementRef;
 
  
 
