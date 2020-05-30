@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+declare const getFingerprint: any;
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+    console.log(getFingerprint());
+  }
 
   ngOnInit(): void {
   }
