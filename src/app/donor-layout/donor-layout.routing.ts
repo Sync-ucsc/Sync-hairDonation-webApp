@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DonorRequestComponent } from './donor-request/donor-request.component';
 
 export const DonorLayoutRoutes: Routes = [
     // {
@@ -46,4 +47,5 @@ export const DonorLayoutRoutes: Routes = [
     //     }]
     // }
     { path: 'dashboard',      component: DashboardComponent },
+    { path: 'donate_hair',      component: DonorRequestComponent },
 ];
