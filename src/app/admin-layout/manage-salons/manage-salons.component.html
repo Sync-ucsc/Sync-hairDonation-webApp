@@ -1,0 +1,133 @@
+<div class="active-purple-4 mb-4">
+    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+    
+  </div>
+
+
+
+<div class="card card-custom">
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name of the Salon</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Telephone</th>
+            <th scope="col">Address</th>
+          
+           
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <tr *ngFor="let salon of Salon; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{salon.name}}</td>
+            <td>{{salon.email}}</td>
+            <td>{{salon.telephone}}</td>
+            <td>{{salon.address}}</td>
+           
+            
+            <td class="text-center edit-block">
+                <span class="edit" (click)="openUpdateRef(salon)">
+                  <button type="button" class="btn btn-outline-primary btn-sm">Update</button>
+                </span>
+                <span class="delete" (click)="removeSalon(salon, i)">
+                  <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                </span>
+              </td>
+            
+        </tr>
+        
+    </tbody>
+</table>
+</div>
+
+
+
+
+<!-- update form ng template -->
+<ng-template #dialog>
+    <div class="modal position-relative d-block" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update a Salon</h5>
+                  
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="updateForm" (ngSubmit)="updateSalon()">
+                        <div class="card-body">
+                    
+                            <div class="form-group row">
+                                <label  class="col-2 col-form-label">Name</label>
+                                <div class="col-10">
+                                    <input class="form-control" type="text" placeholder="Name of the salon" formControlName="name"/>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label  class="col-2 col-form-label">E-mail</label>
+                                <div class="col-10">
+                                    <input class="form-control" type="email" placeholder="Working E-mail of the salon" formControlName="email"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label  class="col-2 col-form-label">Telephone</label>
+                                <div class="col-10">
+                                    <input class="form-control" type="tel" placeholder="Ex : 077 1234567" formControlName="telephone"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Communication:</label>
+                                <div class="checkbox-list">
+                                    <label class="checkbox">
+                                        <input type="checkbox" formControlName="checkSystem" [(ngModel)]="checkSystem"> System
+                                        <span></span>
+                                    </label>
+                                    
+                                    <label class="checkbox">
+                                        <input type="checkbox" formControlName="checkSms" [(ngModel)]="checkSms"> SMS
+                                        <span></span>
+                                    </label>
+                                    <label class="checkbox">
+                                        <input type="checkbox" formControlName="checkEmail" [(ngModel)]="checkEmail"> E-mail
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="form-group">
+                                  <label>Address</label>
+                                  <input type="text" class="form-control"  (keydown.enter)="$event.preventDefault()" placeholder="Type the address of the salon" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+                                </div>
+                              
+                                <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                                  <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                                    (dragEnd)="markerDragEnd($event)"></agm-marker>
+                                </agm-map>
+                              
+                                
+                                <div>Latitude: {{latitude}}</div>
+                                <div>Longitude: {{longitude}}</div>
+                              </div>
+
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="!updateForm.valid">Save changes</button>
+                    </div>
+                </form>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+  </ng-template>
+
+
+
+
+  

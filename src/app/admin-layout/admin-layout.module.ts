@@ -10,6 +10,11 @@ import { UserBanComponent } from './user-ban/user-ban.component';
 import { UserActionBanComponent } from './user-action-ban/user-action-ban.component';
 import { SalonsComponent } from './salons/salons.component';
 import { AgmCoreModule } from '@agm/core';
+import { ManageSalonsComponent } from './manage-salons/manage-salons.component';
+import { HttpClientModule } from '@angular/common/http';
+import {MatDialogModule} from '@angular/material/dialog'; 
+
+
 
 @NgModule({
   imports: [
@@ -20,7 +25,10 @@ import { AgmCoreModule } from '@agm/core';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAkGlhRjMfmotb0UBMf8EAcmkTB6v3WEVM',
       libraries: ['places']
-    })
+    }),
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatDialogModule
 
   ],
   declarations: [
@@ -29,6 +37,7 @@ import { AgmCoreModule } from '@agm/core';
     UserBanComponent,
     UserActionBanComponent,
     SalonsComponent,
+    ManageSalonsComponent,
   ],
   
 })
