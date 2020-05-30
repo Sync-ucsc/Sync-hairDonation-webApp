@@ -11,6 +11,9 @@ import { UserActionBanComponent } from './user-action-ban/user-action-ban.compon
 import { SalonsComponent } from './salons/salons.component';
 import { AgmCoreModule } from '@agm/core';
 import { ManageSalonsComponent } from './manage-salons/manage-salons.component';
+import { HttpClientModule } from '@angular/common/http';
+import {MatDialogModule} from '@angular/material/dialog'; 
+
 
 
 @NgModule({
@@ -23,7 +26,9 @@ import { ManageSalonsComponent } from './manage-salons/manage-salons.component';
       apiKey: 'AIzaSyAkGlhRjMfmotb0UBMf8EAcmkTB6v3WEVM',
       libraries: ['places']
     }),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatDialogModule
 
   ],
   declarations: [

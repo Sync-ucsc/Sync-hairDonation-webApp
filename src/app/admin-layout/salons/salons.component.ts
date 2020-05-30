@@ -2,6 +2,8 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone  } from '@angular/core';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { SalonApiService } from './../../service/salon-api.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,20 +15,29 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 
 export class SalonsComponent implements OnInit {
 
+  submitted=false;
   latitude: number;
   longitude: number;
   zoom: number;
   address: string;
   placeaddress;
   private geoCoder;
+  checkSystem=false;
+  checkSms=false;
+  checkEmail=false;
 
   salonForm= new FormGroup({
     name: new FormControl('',Validators.required),
     email: new FormControl('',[Validators.required,Validators.email]),
     telephone: new FormControl('',[Validators.required,Validators.minLength(10)]),
-    checkSystem: new FormControl('',Validators.required),
-    checkSms: new FormControl('',Validators.required),
-    checkEmail: new FormControl('',Validators.required),
+    checkSystem: new FormControl(''),
+    checkSms: new FormControl(''),
+    checkEmail: new FormControl(''),
+    address:new FormControl(''),
+    latitude:new FormControl(''),
+    longitude:new FormControl('')
+    
+
   })
   
 
@@ -36,7 +47,9 @@ export class SalonsComponent implements OnInit {
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private router: Router,
+    private apiService: SalonApiService
   ) { }
 
   ngOnInit(): void {
@@ -93,8 +106,27 @@ getAddress(latitude, longitude) {
 
 
  onSubmit(){
-   console.log(this.salonForm.value);
+   
    console.log(this.placeaddress.formatted_address);
+   this.salonForm.patchValue({
+     address:this.placeaddress.formatted_address,
+     latitude:this.latitude,
+     longitude:this.longitude
+   })
+   console.log(this.salonForm.value);
+   this.submitted=true;
+
+   if (!this.salonForm.valid) {
+    return false;
+  } else {
+    this.apiService.createSalon(this.salonForm.value).subscribe(
+      (res) => {
+        console.log('Salon successfully created!')
+        this.ngZone.run(() => this.router.navigateByUrl('/admin/manage-salons'))
+      }, (error) => {
+        console.log(error);
+      });
+  }
  }
 
 }

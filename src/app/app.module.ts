@@ -15,7 +15,17 @@ import { OwlModule } from 'ngx-owl-carousel';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+
+//google maps
 import { AgmCoreModule } from '@agm/core';
+
+//http client
+import { HttpClientModule } from '@angular/common/http';
+
+//salon api service
+
+import { SalonApiService } from './service/salon-api.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -38,10 +48,14 @@ import { AgmCoreModule } from '@agm/core';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAkGlhRjMfmotb0UBMf8EAcmkTB6v3WEVM',
       libraries: ['places']
-    })
+    }),
+    HttpClientModule,
+    BrowserAnimationsModule,
   ],
   providers: [
+    SalonApiService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  
 })
 export class AppModule { }

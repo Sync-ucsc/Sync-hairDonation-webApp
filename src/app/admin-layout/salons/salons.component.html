@@ -31,15 +31,16 @@
                         <label>Communication:</label>
                         <div class="checkbox-list">
                             <label class="checkbox">
-                                <input type="checkbox" formControlName="checkSystem" /> System
+                                <input type="checkbox" formControlName="checkSystem" [(ngModel)]="checkSystem"> System
+                                <span></span>
+                            </label>
+                            
+                            <label class="checkbox">
+                                <input type="checkbox" formControlName="checkSms" [(ngModel)]="checkSms"> SMS
                                 <span></span>
                             </label>
                             <label class="checkbox">
-                                <input type="checkbox" formControlName="checkSms"/> SMS
-                                <span></span>
-                            </label>
-                            <label class="checkbox">
-                                <input type="checkbox" formControlName="checkEmail"/> E-mail
+                                <input type="checkbox" formControlName="checkEmail" [(ngModel)]="checkEmail"> E-mail
                                 <span></span>
                             </label>
                         </div>
