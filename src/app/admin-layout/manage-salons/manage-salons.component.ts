@@ -10,7 +10,7 @@ export interface DialogData {
   animal:any;
 }
 
-//view and delete component
+// view and delete component
 @Component({
   selector: 'app-manage-salons',
   templateUrl: './manage-salons.component.html',
@@ -31,19 +31,19 @@ constructor(private apiService:SalonApiService,
    }
 
   ngOnInit(): void { }
- 
-//view salons
+
+// view salons
 
  getSalons(){
-  
+
     this.apiService.getSalons().subscribe((data) => {
      this.Salon = data;
-    })    
-  
+    })
+
  }
 
 
- //deleting the salon 
+ // deleting the salon
 
  removeSalon(salon, index) {
    console.log(salon);
@@ -51,11 +51,11 @@ constructor(private apiService:SalonApiService,
       this.apiService.deleteSalon(salon._id).subscribe((data) => {
         this.Salon.splice(index, 1);
       }
-    )    
+    )
   }
 }
 
-//opening the update dialog
+// opening the update dialog
 
 openUpdateRef(salon){
   this.selectedSalon=salon;
@@ -70,18 +70,20 @@ openUpdateRef(salon){
   });
 
   console.log(this.selectedSalon);
-  
+
 }
 }
 
 
-//update component
+// update component
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'upload-dialog',
   templateUrl: 'upload-dialog.html',
 })
+// tslint:disable-next-line: class-name
 export class uploadDialogComponent {
-   
+
  latitude: number;
  longitude: number;
  zoom: number;
@@ -106,13 +108,13 @@ export class uploadDialogComponent {
     address:new FormControl(''),
     latitude:new FormControl(''),
     longitude:new FormControl('')
-    
-  
+
+
   })
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
-  
+
   constructor(private apiService:SalonApiService,
     public dialog: MatDialog,
     private mapsAPILoader: MapsAPILoader,
@@ -124,6 +126,7 @@ export class uploadDialogComponent {
     ;
    }
 
+  // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit(): void {
 
     this.mapsAPILoader.load().then(() => {
@@ -152,7 +155,7 @@ export class uploadDialogComponent {
     });
   }
 
- //update salons
+ // update salons
 updateSalon(){
 
 
