@@ -76,8 +76,8 @@ agm-map {
     
     
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" [disabled]="!updateForm.valid" (click)="updateSalon()">Save changes</button>
+                    <button mat-button mat-dialog-close  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button mat-button [mat-dialog-close]="true" cdkFocusInitial type="submit" class="btn btn-primary" [disabled]="!updateForm.valid" (click)="updateSalon()">Save changes</button>
                 </div>
             </form>
     
