@@ -121,6 +121,10 @@ export class uploadDialogComponent {
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
       this.selectedSalon=data.animal;
+      this.latitude=data.animal.latitude;
+      this.longitude=data.animal.longitude;
+      this.zoom=12;
+      this.address=data.animal.address;
       console.log(data.animal);
     ;
    }
@@ -149,6 +153,7 @@ export class uploadDialogComponent {
           this.longitude = place.geometry.location.lng();
           this.placeaddress=place;
           this.zoom = 12;
+          
         });
       });
     });
@@ -159,7 +164,7 @@ updateSalon(){
 
 
   this.updateForm.patchValue({
-    address:this.placeaddress.formatted_address,
+    address:this.placeaddress==undefined? this.selectedSalon.address: this.placeaddress.formatted_address ,
     latitude:this.latitude,
     longitude:this.longitude
   })
@@ -167,16 +172,17 @@ updateSalon(){
     if (!this.updateForm.valid) {
       return false;
     } else {
-      if (window.confirm('Are you sure?')) {
+      
         const id=this.selectedSalon._id;
         this.apiService.updateSalon(id, this.updateForm.value)
           .subscribe(res => {
             this.router.navigateByUrl('/admin/manage-salons');
-            console.log('Salon updated successfully!')
+            console.log('Salon updated successfully!');
+            window.location.reload();
           }, (error) => {
             console.log(error)
           })
-      }
+          
     }
 
 
