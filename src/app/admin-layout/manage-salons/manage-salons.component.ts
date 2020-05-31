@@ -1,11 +1,16 @@
 /// <reference types="@types/googlemaps" />
-import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject } from '@angular/core';
 import { SalonApiService } from './../../service/salon-api.service';
-import { MatDialog ,MatDialogConfig} from '@angular/material/dialog';
+import { MatDialog ,MatDialogConfig,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router } from '@angular/router';
 
+export interface DialogData {
+  animal:any;
+}
+
+//view and delete component
 @Component({
   selector: 'app-manage-salons',
   templateUrl: './manage-salons.component.html',
@@ -19,73 +24,13 @@ export class ManageSalonsComponent implements OnInit {
 
  selectedSalon;
 
- latitude: number;
- longitude: number;
- zoom: number;
- address: string;
- placeaddress;
- private geoCoder;
- checkSystem=false;
- checkSms=false;
- checkEmail=false;
 
- updateForm= new FormGroup({
-  name: new FormControl('',Validators.required),
-  email: new FormControl('',[Validators.required,Validators.email]),
-  telephone: new FormControl('',[Validators.required,Validators.minLength(10)]),
-  checkSystem: new FormControl(''),
-  checkSms: new FormControl(''),
-  checkEmail: new FormControl(''),
-  address:new FormControl(''),
-  latitude:new FormControl(''),
-  longitude:new FormControl('')
-  
-
-})
- 
- @ViewChild('dialog')
-public updateRef: TemplateRef<any>; 
-
-
-@ViewChild('search')
-  public searchElementRef: ElementRef;
-
- 
-
-  constructor(private apiService:SalonApiService,
-    public dialog: MatDialog,
-    private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone,
-    private router: Router,) {
+constructor(private apiService:SalonApiService,
+    public dialog: MatDialog,) {
     this.getSalons();
    }
 
-  ngOnInit(): void {
-    
-    this.mapsAPILoader.load().then(() => {
-      
-      this.geoCoder = new google.maps.Geocoder;
-
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-
-          //set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.placeaddress=place;
-          this.zoom = 12;
-        });
-      });
-    });
-  }
+  ngOnInit(): void { }
  
 //view salons
 
@@ -114,12 +59,99 @@ public updateRef: TemplateRef<any>;
 
 openUpdateRef(salon){
   this.selectedSalon=salon;
+  const dialogRef = this.dialog.open(uploadDialogComponent,{
+    data: {
+      animal:this.selectedSalon
+    }
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log(`Dialog result: ${result}`);
+  });
+
   console.log(this.selectedSalon);
-  this.dialog.open(this.updateRef);
+  
+}
 }
 
 
-//update salons
+//update component
+@Component({
+  selector: 'upload-dialog',
+  templateUrl: 'upload-dialog.html',
+})
+export class uploadDialogComponent {
+   
+ latitude: number;
+ longitude: number;
+ zoom: number;
+ address: string;
+ placeaddress;
+ private geoCoder;
+ checkSystem=false;
+ checkSms=false;
+ checkEmail=false;
+ selectedSalon;
+
+
+
+
+  updateForm= new FormGroup({
+    name: new FormControl('',Validators.required),
+    email: new FormControl('',[Validators.required,Validators.email]),
+    telephone: new FormControl('',[Validators.required,Validators.minLength(10)]),
+    checkSystem: new FormControl(''),
+    checkSms: new FormControl(''),
+    checkEmail: new FormControl(''),
+    address:new FormControl(''),
+    latitude:new FormControl(''),
+    longitude:new FormControl('')
+    
+  
+  })
+
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+  
+  constructor(private apiService:SalonApiService,
+    public dialog: MatDialog,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
+    private router: Router,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+      this.selectedSalon=data.animal;
+      console.log(data.animal);
+    ;
+   }
+
+  ngOnInit(): void {
+    
+    this.mapsAPILoader.load().then(() => {
+      
+      this.geoCoder = new google.maps.Geocoder;
+
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          //set latitude, longitude and zoom
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.placeaddress=place;
+          this.zoom = 12;
+        });
+      });
+    });
+  }
+
+ //update salons
 updateSalon(){
 
 

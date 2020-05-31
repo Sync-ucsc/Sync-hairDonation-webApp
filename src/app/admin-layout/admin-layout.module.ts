@@ -10,7 +10,7 @@ import { UserBanComponent } from './user-ban/user-ban.component';
 import { UserActionBanComponent } from './user-action-ban/user-action-ban.component';
 import { SalonsComponent } from './salons/salons.component';
 import { AgmCoreModule } from '@agm/core';
-import { ManageSalonsComponent } from './manage-salons/manage-salons.component';
+import { ManageSalonsComponent, uploadDialogComponent } from './manage-salons/manage-salons.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog'; 
 
@@ -38,6 +38,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     UserActionBanComponent,
     SalonsComponent,
     ManageSalonsComponent,
+    uploadDialogComponent
   ],
   
 })
