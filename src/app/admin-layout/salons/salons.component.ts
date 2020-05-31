@@ -36,14 +36,14 @@ export class SalonsComponent implements OnInit {
     address:new FormControl(''),
     latitude:new FormControl(''),
     longitude:new FormControl('')
-    
+
 
   })
-  
+
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
-  
+
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
@@ -54,21 +54,22 @@ export class SalonsComponent implements OnInit {
 
   ngOnInit(): void {
     this.mapsAPILoader.load().then(() => {
-      
+
+      // tslint:disable-next-line: new-parens
       this.geoCoder = new google.maps.Geocoder;
 
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-      autocomplete.addListener("place_changed", () => {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-          //verify result
+          // verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
 
-          //set latitude, longitude and zoom
+          // set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
           this.placeaddress=place;
@@ -87,7 +88,7 @@ markerDragEnd($event: MouseEvent) {
 }
 
 getAddress(latitude, longitude) {
-  this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+  this.geoCoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
     console.log(results);
     console.log(status);
     if (status === 'OK') {
@@ -106,7 +107,7 @@ getAddress(latitude, longitude) {
 
 
  onSubmit(){
-   
+
    console.log(this.placeaddress.formatted_address);
    this.salonForm.patchValue({
      address:this.placeaddress.formatted_address,

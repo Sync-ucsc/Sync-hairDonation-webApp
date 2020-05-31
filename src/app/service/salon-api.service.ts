@@ -8,7 +8,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 })
 export class SalonApiService {
 
-  baseUri:string = 'http://localhost:3000/salon';
+  baseUri = 'http://localhost:3000/salon';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 
@@ -16,7 +16,7 @@ export class SalonApiService {
 
  // Create
  createSalon(data): Observable<any> {
-  let url = `${this.baseUri}/create`;
+  const url = `${this.baseUri}/create`;
   return this.http.post(url, data)
     .pipe(
       catchError(this.errorMgmt)
@@ -25,7 +25,7 @@ export class SalonApiService {
 
 
 
- // Error handling 
+ // Error handling
  errorMgmt(error: HttpErrorResponse) {
   let errorMessage = '';
   if (error.error instanceof ErrorEvent) {
@@ -47,7 +47,7 @@ getSalons() {
 
 // Get a salon
 getSalon(id): Observable<any> {
-  let url = `${this.baseUri}/read/${id}`;
+  const url = `${this.baseUri}/read/${id}`;
   return this.http.get(url, {headers: this.headers}).pipe(
     map((res: Response) => {
       return res || {}
@@ -58,7 +58,7 @@ getSalon(id): Observable<any> {
 
 // Update salons
 updateSalon(id, data): Observable<any> {
-  let url = `${this.baseUri}/update/${id}`;
+  const url = `${this.baseUri}/update/${id}`;
   return this.http.put(url, data, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)
   )
@@ -66,7 +66,7 @@ updateSalon(id, data): Observable<any> {
 
 // Delete salon
 deleteSalon(id): Observable<any> {
-  let url = `${this.baseUri}/delete/${id}`;
+  const url = `${this.baseUri}/delete/${id}`;
   return this.http.delete(url, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)
   )
