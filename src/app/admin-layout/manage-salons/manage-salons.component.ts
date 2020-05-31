@@ -10,7 +10,7 @@ export interface DialogData {
   animal:any;
 }
 
-//view and delete component
+// view and delete component
 @Component({
   selector: 'app-manage-salons',
   templateUrl: './manage-salons.component.html',
@@ -18,8 +18,8 @@ export interface DialogData {
 })
 
 export class ManageSalonsComponent implements OnInit {
- 
- 
+
+
  Salon:any = [];
 
  selectedSalon;
@@ -31,19 +31,19 @@ constructor(private apiService:SalonApiService,
    }
 
   ngOnInit(): void { }
- 
-//view salons
+
+// view salons
 
  getSalons(){
-  
+
     this.apiService.getSalons().subscribe((data) => {
      this.Salon = data;
-    })    
-  
+    })
+
  }
 
 
- //deleting the salon 
+ // deleting the salon
 
  removeSalon(salon, index) {
    console.log(salon);
@@ -51,11 +51,11 @@ constructor(private apiService:SalonApiService,
       this.apiService.deleteSalon(salon._id).subscribe((data) => {
         this.Salon.splice(index, 1);
       }
-    )    
+    )
   }
 }
 
-//opening the update dialog
+// opening the update dialog
 
 openUpdateRef(salon){
   this.selectedSalon=salon;
@@ -70,18 +70,20 @@ openUpdateRef(salon){
   });
 
   console.log(this.selectedSalon);
-  
+
 }
 }
 
 
-//update component
+// update component
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'upload-dialog',
   templateUrl: 'upload-dialog.html',
 })
+// tslint:disable-next-line: class-name
 export class uploadDialogComponent {
-   
+
  latitude: number;
  longitude: number;
  zoom: number;
@@ -106,13 +108,13 @@ export class uploadDialogComponent {
     address:new FormControl(''),
     latitude:new FormControl(''),
     longitude:new FormControl('')
-    
-  
+
+
   })
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
-  
+
   constructor(private apiService:SalonApiService,
     public dialog: MatDialog,
     private mapsAPILoader: MapsAPILoader,
@@ -124,24 +126,26 @@ export class uploadDialogComponent {
     ;
    }
 
+  // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit(): void {
-    
+
     this.mapsAPILoader.load().then(() => {
-      
+
+      // tslint:disable-next-line: new-parens
       this.geoCoder = new google.maps.Geocoder;
 
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-      autocomplete.addListener("place_changed", () => {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-          //verify result
+          // verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
 
-          //set latitude, longitude and zoom
+          // set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
           this.placeaddress=place;
@@ -151,7 +155,7 @@ export class uploadDialogComponent {
     });
   }
 
- //update salons
+ // update salons
 updateSalon(){
 
 
@@ -165,7 +169,7 @@ updateSalon(){
       return false;
     } else {
       if (window.confirm('Are you sure?')) {
-        let id=this.selectedSalon._id;
+        const id=this.selectedSalon._id;
         this.apiService.updateSalon(id, this.updateForm.value)
           .subscribe(res => {
             this.router.navigateByUrl('/admin/manage-salons');
@@ -175,7 +179,7 @@ updateSalon(){
           })
       }
     }
-  
+
 
 }
 
@@ -192,7 +196,7 @@ markerDragEnd($event: MouseEvent) {
 }
 
 getAddress(latitude, longitude) {
-  this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+  this.geoCoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
     console.log(results);
     console.log(status);
     if (status === 'OK') {
