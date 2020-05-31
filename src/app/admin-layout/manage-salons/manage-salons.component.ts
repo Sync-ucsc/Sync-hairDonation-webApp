@@ -77,7 +77,6 @@ openUpdateRef(salon){
 
 // update component
 @Component({
-  // tslint:disable-next-line: component-selector
   selector: 'upload-dialog',
   templateUrl: 'upload-dialog.html',
 })
