@@ -125,7 +125,7 @@ $(document).ready(function () {
         $('.nav-item').removeClass('active');
         $(t).parent().addClass('active');
         $("html, body").stop().animate({
-            scrollTop: $(t.attr("href")).offset().top - 50
+            scrollTop: $(t.attr("href")).offset().top - 20
         }, 1500), o.preventDefault()
     }), $(document).on("click", ".navbar-collapse.show", function (o) {
         $(o.target).is("a") && $(this).collapse("hide")
