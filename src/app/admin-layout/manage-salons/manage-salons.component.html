@@ -21,8 +21,8 @@ matInput
 [formControl]="myControl"
 [matAutocomplete]="auto">
 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-<mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-{{SalonNames}}
+<mat-option *ngFor="let option of filteredOptions | async" [value]="option['name']">
+{{option['name']}}
 </mat-option>
 </mat-autocomplete>
 
@@ -50,12 +50,12 @@ matInput
     </thead>
     <tbody>
         <tr>
-            <tr *ngFor="let salon of Salon; let i = index">
+            <tr *ngFor="let salon of filteredOptions| async; let i = index">
             <th scope="row">{{i+1}}</th>
-            <td>{{salon.name}}</td>
-            <td>{{salon.email}}</td>
-            <td>{{salon.telephone}}</td>
-            <td>{{salon.address}}</td>
+            <td>{{salon['name']}}</td>
+            <td>{{salon['email']}}</td>
+            <td>{{salon['telephone']}}</td>
+            <td>{{salon['address']}}</td>
            
             
             <td class="text-center edit-block">

@@ -34,7 +34,7 @@ export class ManageSalonsComponent implements OnInit {
 
 
  myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
+  options:any =[];
   filteredOptions: Observable<string[]>;
 
 constructor(private apiService:SalonApiService,
@@ -51,8 +51,8 @@ constructor(private apiService:SalonApiService,
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
 
-    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 
 // view salons
@@ -64,11 +64,11 @@ constructor(private apiService:SalonApiService,
      this.SalonNames=this.Salon.map(function(el){
       return el.name;
     })
-     console.log(this.SalonNames);
+
+      this.options = data;
+     console.log(this.Salon);
     })
-   
-    
-  
+
  }
 
 
