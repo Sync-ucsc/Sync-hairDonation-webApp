@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
 // import swal from 'sweetalert';
 
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+import { Salon } from 'src/app/model/salon';
 
 export interface DialogData {
   animal:any;
@@ -23,18 +26,34 @@ export interface DialogData {
 
 export class ManageSalonsComponent implements OnInit {
 
-
+@ViewChild('dialog') templateRef: TemplateRef<any>;
  Salon:any = [];
-
+ SalonNames:any=[];
+ 
  selectedSalon;
 
+
+ myControl = new FormControl();
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]>;
 
 constructor(private apiService:SalonApiService,
     public dialog: MatDialog,) {
     this.getSalons();
    }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  }
 
 // view salons
 
@@ -42,8 +61,14 @@ constructor(private apiService:SalonApiService,
 
     this.apiService.getSalons().subscribe((data) => {
      this.Salon = data;
+     this.SalonNames=this.Salon.map(function(el){
+      return el.name;
     })
-
+     console.log(this.SalonNames);
+    })
+   
+    
+  
  }
 
 
@@ -136,6 +161,20 @@ openUpdateRef(salon){
   console.log(this.selectedSalon);
 
 }
+
+//opening the view dialog 
+
+openViewRef(salon){
+  this.selectedSalon=salon;
+  const dialogRef = this.dialog.open(this.templateRef);
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log(`Dialog result: ${result}`);
+  });
+
+}
+
+
 }
 
 

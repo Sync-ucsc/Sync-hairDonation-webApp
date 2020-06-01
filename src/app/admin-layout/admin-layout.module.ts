@@ -13,6 +13,10 @@ import { AgmCoreModule } from '@agm/core';
 import { ManageSalonsComponent, uploadDialogComponent } from './manage-salons/manage-salons.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog'; 
+import {MatIconModule} from '@angular/material/icon'; 
+
+
+import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
 
 
 
@@ -28,7 +32,10 @@ import {MatDialogModule} from '@angular/material/dialog';
     }),
     ReactiveFormsModule,
     HttpClientModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule,
+    MatAutocompleteModule
+    
 
   ],
   declarations: [
