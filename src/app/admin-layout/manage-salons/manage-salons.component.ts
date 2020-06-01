@@ -5,6 +5,10 @@ import { MatDialog ,MatDialogConfig,MAT_DIALOG_DATA} from '@angular/material/dia
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router } from '@angular/router';
+// declare const Swal: any;
+import Swal from 'sweetalert2'
+// import swal from 'sweetalert';
+
 
 export interface DialogData {
   animal:any;
@@ -47,12 +51,72 @@ constructor(private apiService:SalonApiService,
 
  removeSalon(salon, index) {
    console.log(salon);
-  if(window.confirm('Are you sure?')) {
-      this.apiService.deleteSalon(salon._id).subscribe((data) => {
-        this.Salon.splice(index, 1);
-      }
-    )
-  }
+   Swal.fire({
+     title: 'Are you sure?',
+     text: `You won't be able to revert this!`,
+     icon: 'warning',
+     showCancelButton: true,
+     confirmButtonText: 'Yes, delete it!',
+     cancelButtonText: 'No, cancel!',
+     reverseButtons: true,
+     preConfirm: (login) => {
+       this.apiService.deleteSalon(salon._id).subscribe((data) => {
+         if(data){
+          console.log(data.json())
+           
+         }else {
+           console.log(data)
+         }
+         
+        //  .then(response => {
+        //    if (!response) {
+        //      throw new Error(response.statusText)
+        //    }
+        //     console.log(response)
+        //  })
+        //  .catch(error => {
+        //    Swal.showValidationMessage(
+        //      `Request failed: ${error}`
+        //    )
+        //  })
+       }
+       )
+      //  return fetch(`//api.github.com/users/${login}`)
+      //    .then(response => {
+      //      if (!response.ok) {
+      //        throw new Error(response.statusText)
+      //      }
+      //      return response.json()
+      //    })
+      //    .catch(error => {
+      //      Swal.showValidationMessage(
+      //        `Request failed: ${error}`
+      //      )
+      //    })
+     },
+     // tslint:disable-next-line: only-arrow-functions
+   }).then(function (result) {
+     if (result.value) {
+       Swal.fire(
+         'Deleted!',
+         'Your file has been deleted.',
+         'success'
+       )
+     } else if (result.dismiss === Swal.DismissReason.cancel) {
+       Swal.fire(
+         'Cancelled',
+         'Your imaginary file is safe :)',
+         'error'
+       )
+     }
+   });
+  
+  // if(window.confirm('Are you sure?')) {
+  //   this.apiService.deleteSalon(salon._id).subscribe((data) => {
+  //       this.Salon.splice(index, 1);
+  //     }
+  //   )
+  // }
 }
 
 // opening the update dialog
