@@ -1,4 +1,5 @@
 /// <reference types="@types/googlemaps" />
+import * as io from 'socket.io-client';
 import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject } from '@angular/core';
 import { SalonApiService } from './../../service/salon-api.service';
 import { MatDialog ,MatDialogConfig,MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -26,6 +27,8 @@ export interface DialogData {
 
 export class ManageSalonsComponent implements OnInit {
 
+socket = io('http://localhost:3000/salon');
+
 @ViewChild('dialog') templateRef: TemplateRef<any>;
  Salon:any = [];
  SalonNames:any=[];
@@ -42,6 +45,9 @@ constructor(
     public dialog: MatDialog,
   ) {
     this.getSalons();
+    this.socket.on('update-data', function(data: any) {
+      this.getSalons();
+    }.bind(this));
    }
 
   ngOnInit(): void { 
@@ -90,7 +96,8 @@ constructor(
      reverseButtons: true,
      preConfirm: (login) => {
        this.apiService.deleteSalon(salon._id).subscribe((data) => {
-         console.log(data)
+         console.log(data);
+         this.socket.emit('updatedata', data);
          if(!data.msg)
            Swal.showValidationMessage(
              `Request failed`
@@ -166,6 +173,8 @@ openViewRef(salon){
 })
 // tslint:disable-next-line: class-name
 export class uploadDialogComponent {
+
+ socket = io('http://localhost:3000/salon');
 
  latitude: number;
  longitude: number;
@@ -271,7 +280,7 @@ updateSalon(){
             .subscribe(res => {
               this.router.navigateByUrl('/admin/manage-salons');
               console.log('Salon updated successfully!');
-             
+              this.socket.emit('updatedata', res);
             }, (error) => {
               console.log(error)
             })
