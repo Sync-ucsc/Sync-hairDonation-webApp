@@ -116,6 +116,7 @@ openViewRef(salon){
 
 // update component
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'upload-dialog',
   templateUrl: 'upload-dialog.html',
 })
@@ -192,7 +193,7 @@ export class uploadDialogComponent {
           this.longitude = place.geometry.location.lng();
           this.placeaddress=place;
           this.zoom = 12;
-          
+
         });
       });
     });
@@ -203,7 +204,7 @@ updateSalon(){
 
 
   this.updateForm.patchValue({
-    address:this.placeaddress==undefined? this.selectedSalon.address: this.placeaddress.formatted_address ,
+    address:this.placeaddress === undefined? this.selectedSalon.address: this.placeaddress.formatted_address ,
     latitude:this.latitude,
     longitude:this.longitude
   })
@@ -211,7 +212,7 @@ updateSalon(){
     if (!this.updateForm.valid) {
       return false;
     } else {
-      
+
         const id=this.selectedSalon._id;
         this.apiService.updateSalon(id, this.updateForm.value)
           .subscribe(res => {
@@ -221,7 +222,7 @@ updateSalon(){
           }, (error) => {
             console.log(error)
           })
-          
+
     }
 
 
