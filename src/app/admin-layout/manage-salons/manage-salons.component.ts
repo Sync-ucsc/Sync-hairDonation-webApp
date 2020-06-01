@@ -33,16 +33,19 @@ export class ManageSalonsComponent implements OnInit {
  selectedSalon;
 
 
- myControl = new FormControl();
+  myControl = new FormControl('',Validators.required);
   options:any =[];
   filteredOptions: Observable<string[]>;
 
-constructor(private apiService:SalonApiService,
-    public dialog: MatDialog,) {
+constructor(
+    private apiService:SalonApiService,
+    public dialog: MatDialog,
+  ) {
     this.getSalons();
    }
 
   ngOnInit(): void { 
+    
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
@@ -61,11 +64,7 @@ constructor(private apiService:SalonApiService,
 
     this.apiService.getSalons().subscribe((data) => {
      this.Salon = data;
-     this.SalonNames=this.Salon.map(function(el){
-      return el.name;
-    })
-
-      this.options = data;
+    this.options = data;
      console.log(this.Salon);
     })
 
@@ -86,38 +85,14 @@ constructor(private apiService:SalonApiService,
      reverseButtons: true,
      preConfirm: (login) => {
        this.apiService.deleteSalon(salon._id).subscribe((data) => {
-         if(data){
-          console.log(data.json())
-           
-         }else {
-           console.log(data)
-         }
-         
-        //  .then(response => {
-        //    if (!response) {
-        //      throw new Error(response.statusText)
-        //    }
-        //     console.log(response)
-        //  })
-        //  .catch(error => {
-        //    Swal.showValidationMessage(
-        //      `Request failed: ${error}`
-        //    )
-        //  })
-       }
+         console.log(data)
+         if(!data.msg)
+           Swal.showValidationMessage(
+             `Request failed`
+           )
+        }
        )
-      //  return fetch(`//api.github.com/users/${login}`)
-      //    .then(response => {
-      //      if (!response.ok) {
-      //        throw new Error(response.statusText)
-      //      }
-      //      return response.json()
-      //    })
-      //    .catch(error => {
-      //      Swal.showValidationMessage(
-      //        `Request failed: ${error}`
-      //      )
-      //    })
+
      },
      // tslint:disable-next-line: only-arrow-functions
    }).then(function (result) {
