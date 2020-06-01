@@ -10,7 +10,7 @@ import Swal from 'sweetalert2'
 // import swal from 'sweetalert';
 
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { startWith, map, endWith } from 'rxjs/operators';
 import { Salon } from 'src/app/model/salon';
 
 export interface DialogData {
@@ -50,6 +50,11 @@ constructor(
       startWith(''),
       map(value => this._filter(value))
     );
+    // this.myControl.valueChanges.subscribe((data) => {
+    //   if (!this.myControl.valid) {
+    //     this.filteredOptions = new Observable<string[]>();
+    //   }
+    // });
   }
 
   private _filter(value: string): string[] {
