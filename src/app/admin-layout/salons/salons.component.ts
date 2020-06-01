@@ -4,7 +4,7 @@ import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { SalonApiService } from './../../service/salon-api.service';
 import { Router } from '@angular/router';
-
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-salons',
@@ -120,9 +120,15 @@ getAddress(latitude, longitude) {
    if (!this.salonForm.valid) {
     return false;
   } else {
+
     this.apiService.createSalon(this.salonForm.value).subscribe(
       (res) => {
         console.log('Salon successfully created!')
+        Swal.fire(
+          'Done!',
+          'You added a new salon!',
+          'success'
+        )
         this.ngZone.run(() => this.router.navigateByUrl('/admin/manage-salons'))
       }, (error) => {
         console.log(error);
