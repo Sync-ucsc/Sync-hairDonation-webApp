@@ -5,6 +5,10 @@ import { MatDialog ,MatDialogConfig,MAT_DIALOG_DATA} from '@angular/material/dia
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router } from '@angular/router';
+// declare const Swal: any;
+import Swal from 'sweetalert2'
+// import swal from 'sweetalert';
+
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Salon } from 'src/app/model/salon';
@@ -30,7 +34,7 @@ export class ManageSalonsComponent implements OnInit {
 
 
  myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
+  options:any =[];
   filteredOptions: Observable<string[]>;
 
 constructor(private apiService:SalonApiService,
@@ -47,8 +51,8 @@ constructor(private apiService:SalonApiService,
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
 
-    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 
 // view salons
@@ -60,11 +64,11 @@ constructor(private apiService:SalonApiService,
      this.SalonNames=this.Salon.map(function(el){
       return el.name;
     })
-     console.log(this.SalonNames);
+
+      this.options = data;
+     console.log(this.Salon);
     })
-   
-    
-  
+
  }
 
 
@@ -72,12 +76,72 @@ constructor(private apiService:SalonApiService,
 
  removeSalon(salon, index) {
    console.log(salon);
-  if(window.confirm('Are you sure?')) {
-      this.apiService.deleteSalon(salon._id).subscribe((data) => {
-        this.Salon.splice(index, 1);
-      }
-    )
-  }
+   Swal.fire({
+     title: 'Are you sure?',
+     text: `You won't be able to revert this!`,
+     icon: 'warning',
+     showCancelButton: true,
+     confirmButtonText: 'Yes, delete it!',
+     cancelButtonText: 'No, cancel!',
+     reverseButtons: true,
+     preConfirm: (login) => {
+       this.apiService.deleteSalon(salon._id).subscribe((data) => {
+         if(data){
+          console.log(data.json())
+           
+         }else {
+           console.log(data)
+         }
+         
+        //  .then(response => {
+        //    if (!response) {
+        //      throw new Error(response.statusText)
+        //    }
+        //     console.log(response)
+        //  })
+        //  .catch(error => {
+        //    Swal.showValidationMessage(
+        //      `Request failed: ${error}`
+        //    )
+        //  })
+       }
+       )
+      //  return fetch(`//api.github.com/users/${login}`)
+      //    .then(response => {
+      //      if (!response.ok) {
+      //        throw new Error(response.statusText)
+      //      }
+      //      return response.json()
+      //    })
+      //    .catch(error => {
+      //      Swal.showValidationMessage(
+      //        `Request failed: ${error}`
+      //      )
+      //    })
+     },
+     // tslint:disable-next-line: only-arrow-functions
+   }).then(function (result) {
+     if (result.value) {
+       Swal.fire(
+         'Deleted!',
+         'Your file has been deleted.',
+         'success'
+       )
+     } else if (result.dismiss === Swal.DismissReason.cancel) {
+       Swal.fire(
+         'Cancelled',
+         'Your imaginary file is safe :)',
+         'error'
+       )
+     }
+   });
+  
+  // if(window.confirm('Are you sure?')) {
+  //   this.apiService.deleteSalon(salon._id).subscribe((data) => {
+  //       this.Salon.splice(index, 1);
+  //     }
+  //   )
+  // }
 }
 
 // opening the update dialog
