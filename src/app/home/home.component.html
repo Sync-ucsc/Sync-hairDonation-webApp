@@ -2,7 +2,7 @@
   .loader {
     border: 16px solid #818181;
     border-radius: 50%;
-    border-top: 16px solid #3498db;
+    border-top: 16px solid #db3466;
     opacity: 1;
     width: 120px;
     margin: auto;
@@ -56,8 +56,8 @@
       <div class="container">
         <!-- LOGO -->
         <a class="navbar-brand brand-logo mr-4" href>
-          <img alt class="img-fluid logo-light" src="../../assets/images/logo.png">
-          <img alt class="img-fluid logo-dark" src="../../assets/images/logo.png">
+          <img alt class="img-fluid logo-light" src="../../assets/images/logo.png" style="width:125px;height: 60px;">
+          <img alt class="img-fluid logo-dark" src="../../assets/images/logo.png" style="width:125px;height: 60px;">
         </a>
         <div class="navbar-collapse collapse justify-content-end mr-3" id="navbarCollapse">
           <ul class="navbar-nav navbar-center">
@@ -70,18 +70,22 @@
             <li class="nav-item">
               <a class="nav-link text-white transition text-uppercase" href="#Features">Features</a>
             </li>
-            <li class="nav-item">
+           
+            <!-- <li class="nav-item">
               <a class="nav-link text-white transition text-uppercase" href="#how_it_works">How it
                 works</a>
-            </li>
+            </li> -->
             <!--                        <li class="nav-item">-->
             <!--                            <a href="#Clients" class="nav-link text-white transition text-uppercase">Clients</a>-->
             <!--                        </li>-->
+            <li class="nav-item">
+              <a class="nav-link text-white transition text-uppercase" href="#Contactus">CONTACT</a>
+            </li>
           </ul>
         </div>
         <div class="contact_btn">
           <a class="btn theme-btn text-capitalize d-flex justify-content-center align-items-center"
-             href="#Contactus">CONTACT</a>
+             routerLink="login">Sign in</a>
           <button aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"
                   class="navbar-toggler ml-2 p-0 mb-0" data-target="#navbarCollapse" data-toggle="collapse"
                   type="button">
