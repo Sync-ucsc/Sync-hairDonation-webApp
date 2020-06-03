@@ -94,7 +94,7 @@ constructor(
    console.log(salon);
    Swal.fire({
      title: 'Are you sure?',
-     text: `You won't be able to revert this!`,
+     text: `Salon will be deleted permanently`,
      icon: 'warning',
      showCancelButton: true,
      confirmButtonText: 'Yes, delete it!',
@@ -102,7 +102,8 @@ constructor(
      reverseButtons: true,
      preConfirm: (login) => {
        this.apiService.deleteSalon(salon._id).subscribe((data) => {
-         console.log(data)
+         console.log(data);
+         this.socket.emit('updatedata', data);
          if(!data.msg)
            Swal.showValidationMessage(
              `Request failed`
@@ -116,13 +117,13 @@ constructor(
      if (result.value) {
        Swal.fire(
          'Deleted!',
-         'Your file has been deleted.',
+         'Salon has been deleted.',
          'success'
        )
      } else if (result.dismiss === Swal.DismissReason.cancel) {
        Swal.fire(
          'Cancelled',
-         'Your imaginary file is safe :)',
+         'Salon was not deleted',
          'error'
        )
      }
@@ -178,6 +179,8 @@ openViewRef(salon){
 })
 // tslint:disable-next-line: class-name
 export class uploadDialogComponent {
+
+ socket = io('http://localhost:3000/salon');
 
  latitude: number;
  longitude: number;
@@ -268,17 +271,46 @@ updateSalon(){
     if (!this.updateForm.valid) {
       return false;
     } else {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: `Salon will be updated permanently`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, update it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true,
+        preConfirm: (login) => {
 
-        const id=this.selectedSalon._id;
-        this.apiService.updateSalon(id, this.updateForm.value)
-          .subscribe(res => {
-            this.router.navigateByUrl('/admin/manage-salons');
-            console.log('Salon updated successfully!');
-            window.location.reload();
-          }, (error) => {
-            console.log(error)
-          })
+          const id=this.selectedSalon._id;
+          this.apiService.updateSalon(id, this.updateForm.value)
+            .subscribe(res => {
+              this.router.navigateByUrl('/admin/manage-salons');
+              console.log('Salon updated successfully!');
+              this.socket.emit('updatedata', res);
+            }, (error) => {
+              console.log(error)
+            })
+  
+   
+        },
+        // tslint:disable-next-line: only-arrow-functions
+      }).then(function (result) {
+        if (result.value) {
+          Swal.fire(
+            'Updated',
+            'Salon has been updated.',
+            'success'
+          )
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire(
+            'Cancelled',
+            'Salon was not updated',
+            'error'
+          )
+        }
+      });
 
+        
     }
 
 

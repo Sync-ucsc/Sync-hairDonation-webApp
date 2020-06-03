@@ -1,10 +1,11 @@
 /// <reference types="@types/googlemaps" />
+import * as io from 'socket.io-client';
 import { Component, OnInit, ViewChild, ElementRef, NgZone  } from '@angular/core';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { SalonApiService } from './../../service/salon-api.service';
 import { Router } from '@angular/router';
-
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-salons',
@@ -14,6 +15,8 @@ import { Router } from '@angular/router';
 
 
 export class SalonsComponent implements OnInit {
+  
+  socket = io('http://localhost:3000/salon');
 
   submitted=false;
   latitude: number;
@@ -120,9 +123,16 @@ getAddress(latitude, longitude) {
    if (!this.salonForm.valid) {
     return false;
   } else {
+
     this.apiService.createSalon(this.salonForm.value).subscribe(
       (res) => {
+        this.socket.emit('updatedata', res);
         console.log('Salon successfully created!')
+        Swal.fire(
+          'Done!',
+          'You added a new salon!',
+          'success'
+        )
         this.ngZone.run(() => this.router.navigateByUrl('/admin/manage-salons'))
       }, (error) => {
         console.log(error);
