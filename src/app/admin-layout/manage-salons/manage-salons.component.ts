@@ -6,9 +6,9 @@ import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router } from '@angular/router';
 // declare const Swal: any;
-import Swal from 'sweetalert2'
-// import swal from 'sweetalert';
-
+import Swal from 'sweetalert2';
+import io from 'socket.io-client';
+// socket = require('socket.io-client')('http://localhost:3000');
 import { Observable } from 'rxjs';
 import { startWith, map, endWith } from 'rxjs/operators';
 import { Salon } from 'src/app/model/salon';
@@ -25,7 +25,7 @@ export interface DialogData {
 })
 
 export class ManageSalonsComponent implements OnInit {
-
+socket;
 @ViewChild('dialog') templateRef: TemplateRef<any>;
  Salon:any = [];
  SalonNames:any=[];
@@ -41,11 +41,23 @@ constructor(
     private apiService:SalonApiService,
     public dialog: MatDialog,
   ) {
-    this.getSalons();
+    
+     this.socket = io.connect('http://localhost:3000');
+
    }
 
   ngOnInit(): void { 
-    
+    this.getSalons();
+    this.socket.on('new-salon', () => {
+      this.getSalons();
+    });
+    this.socket.on('update-salon', () => {
+      this.getSalons();
+    });
+    this.socket.on('delete-salon', () => {
+      this.getSalons();
+    });
+
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
@@ -90,7 +102,8 @@ constructor(
      reverseButtons: true,
      preConfirm: (login) => {
        this.apiService.deleteSalon(salon._id).subscribe((data) => {
-         console.log(data)
+         console.log(data);
+         this.socket.emit('updatedata', data);
          if(!data.msg)
            Swal.showValidationMessage(
              `Request failed`
@@ -166,6 +179,8 @@ openViewRef(salon){
 })
 // tslint:disable-next-line: class-name
 export class uploadDialogComponent {
+
+ socket = io('http://localhost:3000/salon');
 
  latitude: number;
  longitude: number;
@@ -271,7 +286,7 @@ updateSalon(){
             .subscribe(res => {
               this.router.navigateByUrl('/admin/manage-salons');
               console.log('Salon updated successfully!');
-             
+              this.socket.emit('updatedata', res);
             }, (error) => {
               console.log(error)
             })

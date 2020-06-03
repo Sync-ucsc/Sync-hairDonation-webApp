@@ -1,4 +1,5 @@
 /// <reference types="@types/googlemaps" />
+import * as io from 'socket.io-client';
 import { Component, OnInit, ViewChild, ElementRef, NgZone  } from '@angular/core';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
@@ -14,6 +15,8 @@ import Swal from 'sweetalert2'
 
 
 export class SalonsComponent implements OnInit {
+  
+  socket = io('http://localhost:3000/salon');
 
   submitted=false;
   latitude: number;
@@ -123,6 +126,7 @@ getAddress(latitude, longitude) {
 
     this.apiService.createSalon(this.salonForm.value).subscribe(
       (res) => {
+        this.socket.emit('updatedata', res);
         console.log('Salon successfully created!')
         Swal.fire(
           'Done!',
