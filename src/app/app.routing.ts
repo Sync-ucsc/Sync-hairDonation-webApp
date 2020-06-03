@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { AttendantLayoutComponent } from './attendant-layout/attendant-layout.component';
 import { SalonLayoutComponent } from './salon-layout/salon-layout.component';
+import { DriverLayoutComponent } from './driver-layout/driver-layout.component';
 import { DonorLayoutComponent } from './donor-layout/donor-layout.component';
 import { PatientLayoutComponent } from './patient-layout/patient-layout.component';
 import { HospitalLayoutComponent } from './hospital-layout/hospital-layout.component';
@@ -46,6 +47,14 @@ const routes: Routes = [
     children: [{
       path: '',
       loadChildren: () => import('./salon-layout/salon-layout.module').then(m => m.SalonLayoutModule)
+    }]
+  },
+  {
+    path: 'driver',
+    component: DriverLayoutComponent,
+    children: [{
+      path: '',
+      loadChildren: () => import('./driver-layout/driver-layout.module').then(m => m.DriverLayoutModule)
     }]
   },
   {

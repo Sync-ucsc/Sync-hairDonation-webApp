@@ -26,6 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { SalonApiService } from './service/salon-api.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { DriverLayoutComponent } from './driver-layout/driver-layout.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DashboardComponent,
     LoginComponent,
     SignupComponent,
+    DriverLayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       apiKey: 'AIzaSyAkGlhRjMfmotb0UBMf8EAcmkTB6v3WEVM',
       libraries: ['places']
     }),
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
   ],
@@ -56,6 +61,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SalonApiService
   ],
   bootstrap: [AppComponent],
-  
+
 })
-export class AppModule { }
+export class AppModule {
+}
