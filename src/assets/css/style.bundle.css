@@ -6953,6 +6953,15 @@ a.badge-dark-75:focus {
     border-radius: .42rem
 }
 
+.alert-form {
+  position: relative;
+  padding: .75rem 1.25rem;
+  color: #790c5a;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .42rem
+}
+
 .alert-heading {
     color: inherit
 }

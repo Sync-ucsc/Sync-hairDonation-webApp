@@ -1,1094 +1,1184 @@
 <style>
-    .loader {
-        border: 16px solid #818181;
-        border-radius: 50%;
-        border-top: 16px solid #3498db;
-        opacity: 1;
-        width: 120px;
-        margin: auto;
-        height: 120px;
-        -webkit-animation: spin 2s linear infinite;
-        /* Safari */
-        animation: spin 2s linear infinite;
-    }
-
-    .loader-class{
-        height: 100vh;
-        overflow: hidden;
-        position: fixed;
-        width: 100%;
-        background-color: #ffffff;
-        z-index: 100;
-        padding: 20% 45%;
-    }
-
+  .loader {
+    border: 16px solid #818181;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    opacity: 1;
+    width: 120px;
+    margin: auto;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
     /* Safari */
-    @-webkit-keyframes spin {
-        0% {
-            -webkit-transform: rotate(0deg);
-        }
+    animation: spin 2s linear infinite;
+  }
 
-        100% {
-            -webkit-transform: rotate(360deg);
-        }
+  .loader-class {
+    height: 100vh;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    background-color: #ffffff;
+    z-index: 100;
+    padding: 20% 45%;
+  }
+
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
     }
 
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
+    100% {
+      -webkit-transform: rotate(360deg);
     }
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 </style>
 
 <div class="loader-class" style="">
-    <div class="loader"></div>
+  <div class="loader"></div>
 </div>
 <div style="overflow: hidden;">
-    
-    <header class="head" style="display: none;">
 
-        <!--Start Navbar-->
-        <nav class="navbar navbar-expand-lg navbar-inner fixed-top custom-nav sticky w-100 rounded-0 mb-0">
-            <div class="container">
-                <!-- LOGO -->
-                <a class="navbar-brand brand-logo mr-4" href>
-                    <img src="../../assets/images/logo.png" class="img-fluid logo-light" alt>
-                    <img src="../../assets/images/logo-dark.png" class="img-fluid logo-dark" alt>
-                </a>
-                <div class="navbar-collapse collapse justify-content-end mr-3" id="navbarCollapse">
-                    <ul class="navbar-nav navbar-center">
-                        <li class="nav-item active">
-                            <a href="#home" class="nav-link text-white text-uppercase">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#Aboutus" class="nav-link text-white transition text-uppercase">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#Features" class="nav-link text-white transition text-uppercase">Features</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#how_it_works" class="nav-link text-white transition text-uppercase">How it
-                                works</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#Clients" class="nav-link text-white transition text-uppercase">Clients</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="contact_btn">
-                    <a href="#Contactus"
-                        class="btn theme-btn text-capitalize d-flex justify-content-center align-items-center">CONTACT</a>
-                    <button class="navbar-toggler ml-2 p-0 mb-0" type="button" data-toggle="collapse"
-                        data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <i class="mdi mdi-menu"></i>
-                    </button>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <!-- Home Start-->
-    <section class="main-header bg-header" id="home">
-        <div class="home-bg-img">
-            <div class="container">
-                <!-- <owl-carousel [options]="SlideOptions" [items]="divs" [carouselClasses]="['owl-theme', 'main-slider']">
-                    <div class="item" *ngFor="let div of divs">
-                        <div [innerHTML] = div></div>
-                    </div>
-                </owl-carousel> -->
-                <div class="owl-carousel owl-theme main-slider">
-                    <div class="item">
-                        <div class="row align-items-center">
-                            <div class="col-lg-7">
-                                <div class="content">
-                                    <h2 class="banner-title text-lg-left text-center text-white text-uppercase">
-                                        GROW YOUR BUSINESS<br>WITH US
-                                    </h2>
-                                    <p class="text-white text-lg-left text-center para-txt font-weight-medium f-16">
-                                        simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                                        the
-                                        industry's standard dummy text ever since the 1500s, when an unknown printer
-                                        took a
-                                        galley of type and scrambled it to make a type specimen book.
-                                    </p>
-                                    <div class="mt-md-4 mb-4 text-lg-left text-center">
-                                        <a routerLink='admin/dashboard' class="btn theme-btn text-white">GET STARTED</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-5">
-                                <div class="banner-img-02">
-                                    <img src="../../assets/images/main-banner-01.png" class="img-fluid" alt>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="row align-items-center">
-                            <div class="col-lg-7">
-                                <div class="content">
-                                    <h2 class="banner-title text-lg-left text-center text-white text-uppercase">
-                                        GROW YOUR BUSINESS<br>WITH US
-                                    </h2>
-                                    <p class="text-white text-lg-left text-center para-txt font-weight-medium f-16">
-                                        simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                                        the
-                                        industry's standard dummy text ever since the 1500s, when an unknown printer
-                                        took a
-                                        galley of type and scrambled it to make a type specimen book.
-                                    </p>
-                                    <div class="mt-md-4 mb-4 text-lg-left text-center">
-                                        <a href="#" class="btn theme-btn text-white">GET STARTED</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-5">
-                                <div class="banner-img-02">
-                                    <img src="../../assets/images/main-banner-01.png" class="img-fluid" alt>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="row align-items-center">
-                            <div class="col-lg-7">
-                                <div class="content">
-                                    <h2 class="banner-title text-lg-left text-center text-white text-uppercase">
-                                        GROW YOUR BUSINESS<br>WITH US
-                                    </h2>
-                                    <p class="text-white text-lg-left text-center para-txt font-weight-medium f-16">
-                                        simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                                        the
-                                        industry's standard dummy text ever since the 1500s, when an unknown printer
-                                        took a
-                                        galley of type and scrambled it to make a type specimen book.
-                                    </p>
-                                    <div class="mt-md-4 mb-4 text-lg-left text-center">
-                                        <a href="#" class="btn theme-btn text-white">GET STARTED</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-5">
-                                <div class="banner-img-02">
-                                    <img src="../../assets/images/main-banner-01.png" class="img-fluid" alt>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Home End -->
-    <!-- Start Aboutus -->
-    <section class="section bg-white" id="Aboutus">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-sm-6">
-                    <div class="mt-lg-0 mt-sm-4 mt-0">
-                        <div class="hover-block aboutus-inner transition p-4 shadow wow fadeInUp" data-wow-delay="0.2s"
-                            data-wow-duration="1.0s">
-                            <div class="about-inner-main text-center">
-                                <div class="about-inner-text">
-                                    <h2 class="f-40 theme-color text-md-left text-center">01.</h2>
-                                    <h5 class="my-3 theme-color text-md-left text-center font-weight-medium">Website
-                                        Design
-                                    </h5>
-                                    <p class="para-text text-md-left text-center mb-0">It is a long established fact
-                                        that a
-                                        reader will be distracted by the readable content of a page when looking at its
-                                        layout.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="mt-lg-0 mt-4">
-                        <div class="hover-block aboutus-inner transition p-4 shadow wow fadeInUp" data-wow-delay="0.4s"
-                            data-wow-duration="1.0s">
-                            <div class="about-inner-main text-center">
-                                <div class="about-inner-text">
-                                    <h2 class="f-40 theme-color text-md-left text-center">02.</h2>
-                                    <h5 class="my-3 theme-color text-md-left text-center font-weight-medium">Website
-                                        Development</h5>
-                                    <p class="para-text text-md-left text-center mb-0">It is a long established fact
-                                        that a
-                                        reader will be distracted by the readable content of a page when looking at its
-                                        layout.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="mt-lg-0 mt-4">
-                        <div class="hover-block aboutus-inner transition p-4 shadow wow fadeInUp" data-wow-delay="0.6s"
-                            data-wow-duration="1.0s">
-                            <div class="about-inner-main text-center">
-                                <div class="about-inner-text">
-                                    <h2 class="f-40 theme-color text-md-left text-center">03.</h2>
-                                    <h5 class="my-3 theme-color text-md-left text-center font-weight-medium">Launch
-                                        Website
-                                    </h5>
-                                    <p class="para-text text-md-left text-center mb-0">It is a long established fact
-                                        that a
-                                        reader will be distracted by the readable content of a page when looking at its
-                                        layout.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="about-bottom-section mt-5 wow fadeIn" data-wow-duration="1.0s">
-                <div class="title-section">
-                    <div class="subtitle-hr d-flex align-items-center">
-                        <h6 class="subtitle theme-color text-uppercase position-relative">ABOUT</h6>
-                        <hr>
-                    </div>
-                    <h2 class="title text-md-left text-center f-40">About Busiapp</h2>
-                </div>
-                <div class="mt-4">
-                    <div class="row align-items-center">
-                        <div class="col-lg-5">
-                            <img src="../../assets/images/aboutus/about-img.png" alt="about-img.png"
-                                class="w-100 img-fluid">
-                        </div>
-                        <div class="col-lg-7 mt-lg-0 mt-4">
-                            <h1 class="font-sm-24">Complete Business Solutions in One Place</h1>
-                            <p>It is a long established fact that a reader will be distracted by the readable content of
-                                a
-                                page when looking at its layout. The point of using Lorem Ipsum is that it has a
-                                more-or-less normal distribution of letters, as opposed to using 'Content here, content
-                                here', making it look like readable English.</p>
-                            <p>It is a long established fact that a reader will be distracted by the readable content of
-                                a
-                                page when looking at its layout. The point of using Lorem Ipsum is that it has a
-                                more-or-less normal distribution.</p>
-                            <ul class="about-list list-unstyled pl-4 mb-0">
-                                <li class="position-relative mb-4">It is a long established fact that a reader will be
-                                    distracted by the readable.</li>
-                                <li class="position-relative mb-4">It is a long established fact that a reader will be
-                                    distracted by the readable.</li>
-                                <li class="position-relative">It is a long established fact that a reader will be
-                                    distracted
-                                    by the readable.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Aboutus -->
+  <header class="head" style="display: none;">
 
-    <!-- Start Features section -->
-    <section class="section bg-light" id="Features">
-        <div class="container">
-            <div class="title-section">
-                <div class="subtitle-hr d-flex align-items-center">
-                    <h6 class="subtitle theme-color text-uppercase position-relative">SERVICES</h6>
-                    <hr>
-                </div>
-                <h2 class="title text-md-left text-center f-40">Check The Features</h2>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-sm-6">
-                    <div class="mt-4">
-                        <div class="hover-block p-4 shadow wow fadeIn" data-wow-duration="1.0s">
-                            <div class="features-inner-main text-center">
-                                <div class="features-inner-text text-sm-left text-center">
-                                    <div class="icon-block theme-bg d-inline-block rounded-circle p-3">
-                                        <span
-                                            class="icon transition mdi mdi-desktop-mac-dashboard d-flex align-items-center justify-content-center text-white f-40"></span>
-                                    </div>
-                                    <h5 class="my-3 theme-color text-sm-left text-center font-weight-medium">Clean
-                                        Design
-                                    </h5>
-                                    <p class="para-text text-sm-left text-center mb-0">It is a long established fact
-                                        that a
-                                        reader will be distracted by the readable content of a page when looking at its
-                                        layout.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="mt-4">
-                        <div class="hover-block p-4 shadow wow fadeIn" data-wow-duration="1.0s">
-                            <div class="features-inner-text text-sm-left text-center">
-                                <div class="icon-block theme-bg d-inline-block rounded-circle p-3">
-                                    <span
-                                        class="icon transition mdi mdi-responsive d-flex align-items-center justify-content-center text-white f-40"></span>
-                                </div>
-                                <h5 class="my-3 theme-color text-sm-left text-center font-weight-medium">Responsive
-                                    Design
-                                </h5>
-                                <p class="para-text text-sm-left text-center mb-0">It is a long established fact that a
-                                    reader will be distracted by the readable content of a page when looking at its
-                                    layout.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="mt-4">
-                        <div class="hover-block p-4 shadow wow fadeIn" data-wow-duration="1.0s">
-                            <div class="features-inner-text text-sm-left text-center">
-                                <div class="icon-block theme-bg d-inline-block rounded-circle p-3">
-                                    <span
-                                        class="icon transition mdi mdi-rocket d-flex align-items-center justify-content-center text-white f-40"></span>
-                                </div>
-                                <h5 class="my-3 theme-color text-sm-left text-center font-weight-medium">Fast Boot</h5>
-                                <p class="para-text text-sm-left text-center mb-0">It is a long established fact that a
-                                    reader will be distracted by the readable content of a page when looking at its
-                                    layout.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="mt-4">
-                        <div class="hover-block p-4 shadow wow fadeIn" data-wow-duration="1.0s">
-                            <div class="features-inner-text text-sm-left text-center">
-                                <div class="icon-block theme-bg d-inline-block rounded-circle p-3">
-                                    <span
-                                        class="icon transition mdi mdi-chat-processing d-flex align-items-center justify-content-center text-white f-40"></span>
-                                </div>
-                                <h5 class="my-3 theme-color text-sm-left text-center font-weight-medium">Chatting
-                                    Service
-                                </h5>
-                                <p class="para-text text-sm-left text-center mb-0">It is a long established fact that a
-                                    reader will be distracted by the readable content of a page when looking at its
-                                    layout.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="mt-4">
-                        <div class="hover-block p-4 shadow wow fadeIn" data-wow-duration="1.0s">
-                            <div class="features-inner-text text-sm-left text-center">
-                                <div class="icon-block theme-bg d-inline-block rounded-circle p-3">
-                                    <span
-                                        class="icon transition mdi mdi-chart-areaspline d-flex align-items-center justify-content-center text-white f-40"></span>
-                                </div>
-                                <h5 class="my-3 theme-color text-sm-left text-center font-weight-medium">Analysis</h5>
-                                <p class="para-text text-sm-left text-center mb-0">It is a long established fact that a
-                                    reader will be distracted by the readable content of a page when looking at its
-                                    layout.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="mt-4">
-                        <div class="hover-block p-4 shadow wow fadeIn" data-wow-duration="1.0s">
-                            <div class="features-inner-text text-sm-left text-center">
-                                <div class="icon-block theme-bg d-inline-block rounded-circle p-3">
-                                    <span
-                                        class="icon transition  mdi mdi-face-agent d-flex align-items-center justify-content-center text-white f-40"></span>
-                                </div>
-                                <h5 class="my-3 theme-color text-sm-left text-center font-weight-medium">Quick Support
-                                </h5>
-                                <p class="para-text text-sm-left text-center mb-0">It is a long established fact that a
-                                    reader will be distracted by the readable content of a page when looking at its
-                                    layout.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!--Start Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-inner fixed-top custom-nav sticky w-100 rounded-0 mb-0">
+      <div class="container">
+        <!-- LOGO -->
+        <a class="navbar-brand brand-logo mr-4" href>
+          <img alt class="img-fluid logo-light" src="../../assets/images/logo.png">
+          <img alt class="img-fluid logo-dark" src="../../assets/images/logo.png">
+        </a>
+        <div class="navbar-collapse collapse justify-content-end mr-3" id="navbarCollapse">
+          <ul class="navbar-nav navbar-center">
+            <li class="nav-item active">
+              <a class="nav-link text-white text-uppercase" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white transition text-uppercase" href="#Aboutus">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white transition text-uppercase" href="#Features">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white transition text-uppercase" href="#how_it_works">How it
+                works</a>
+            </li>
+            <!--                        <li class="nav-item">-->
+            <!--                            <a href="#Clients" class="nav-link text-white transition text-uppercase">Clients</a>-->
+            <!--                        </li>-->
+          </ul>
         </div>
-    </section>
-    <!-- End Features section -->
-
-    <!-- Start How it Works section -->
-    <section class="section" id="how_it_works">
-        <div class="container">
+        <div class="contact_btn">
+          <a class="btn theme-btn text-capitalize d-flex justify-content-center align-items-center"
+             href="#Contactus">CONTACT</a>
+          <button aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"
+                  class="navbar-toggler ml-2 p-0 mb-0" data-target="#navbarCollapse" data-toggle="collapse"
+                  type="button">
+            <i class="mdi mdi-menu"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- Home Start-->
+  <section class="main-header bg-header" id="home">
+    <div class="home-bg-img">
+      <div class="container">
+        <!-- <owl-carousel [options]="SlideOptions" [items]="divs" [carouselClasses]="['owl-theme', 'main-slider']">
+            <div class="item" *ngFor="let div of divs">
+                <div [innerHTML] = div></div>
+            </div>
+        </owl-carousel> -->
+        <div class="owl-carousel owl-theme main-slider">
+          <div class="item">
             <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="bs-example position-relative wow fadeIn" data-wow-duration="1.0s">
-                        <img id="video-cover" src="../../assets/images/how-it-works/01.png" alt="Video title"
-                            class="w-100 img-fluid">
-                        <a href="#myModal" class="play-btn transition d-flex" data-toggle="modal">
-                            <i class="mdi mdi-play mx-auto my-auto"></i>
-                        </a>
-                        <div id="myModal" class="modal">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content bg-transparent">
-                                    <div class="modal-body p-0">
-                                        <button type="button" class="close" data-dismiss="modal"
-                                            aria-hidden="true"><span>&times;</span></button>
-                                            <iframe src="https://www.youtube.com/embed/pJjjzarKotI?list=RDUWLr2va3hu0" frameborder="0"
-                                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                        <!-- <iframe src="https://www.youtube.com/embed/Kch8n4tcOZQ" allowfullscreen></iframe> -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              <div class="col-lg-7">
+                <div class="content">
+                  <h2 class="banner-title text-lg-left text-center text-white text-uppercase">
+                    SHOW YOU CARE, DONATE YOUR HAIR
+                  </h2>
+                  <p class="text-white text-lg-left text-center para-txt font-weight-medium f-16">
+                    Most women cut, restyle, or shave off their hair for either styling or religious purposes. We , at
+                    Cope with Cancer, aim to create awareness, to inspire people to donate their healthy hair for a
+                    noble cause to someone who needs it and make them feel complete from within. It is a kind, generous
+                    and satisfying way for those who want to give something back to society to show that they care
+                  </p>
+                  <div class="mt-md-4 mb-4 text-lg-left text-center">
+                    <a class="btn theme-btn text-white" href="#how_it_works">GET STARTED</a>
+                    <!--                    <a class="btn theme-btn text-white" routerLink='admin/dashboard' >GET STARTED</a>-->
+                  </div>
                 </div>
-                <div class="col-lg-6 mt-lg-0 mt-4">
-                    <div class="wow fadeIn" data-wow-duration="1.0s">
-                        <div class="title-section">
-                            <div class="subtitle-hr d-flex align-items-center">
-                                <h6 class="subtitle theme-color text-uppercase position-relative">STEPS</h6>
-                                <hr>
-                            </div>
-                            <h2 class="title text-md-left text-center f-40">How Does it Works?</h2>
-                        </div>
-                        <div class="text-md-left text-center">
-                            <p>It is a long established fact that a reader will be distracted by the readable content of
-                                a
-                                page when looking at its layout. </p>
-                            <p class="mb-0">It is a long established fact that a reader will be distracted by the
-                                readable
-                                content of a page when looking at its layout. </p>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 col-md-4 col-sm-6 mt-lg-4 mt-4 block-item">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-2">
-                                        <div class="d-inline-block text-lg-left text-center w-100">
-                                            <div
-                                                class="icon-block transition circle-outline d-flex justify-content-center align-items-center rounded-circle p-3 mx-auto">
-                                                <span
-                                                    class="icon transition mdi mdi-desktop-mac-dashboard d-flex align-items-center justify-content-center theme-color f-40"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-10">
-                                        <div class="d-inline-block text-lg-left text-center">
-                                            <h5 class="theme-color f-20 my-lg-2 my-3">Clean Design</h5>
-                                            <p class="m-0">
-                                                It is a long established fact that a reader will be distracted by
-                                                the readable content of a page when looking at its layout.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-4 col-sm-6 mt-lg-4 mt-4 block-item">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-2">
-                                        <div class="d-inline-block text-lg-left text-center w-100">
-                                            <div
-                                                class="icon-block transition circle-outline d-flex justify-content-center align-items-center rounded-circle p-3 mx-auto">
-                                                <span
-                                                    class="icon transition mdi mdi-code-tags d-flex align-items-center justify-content-center theme-color f-40"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-10">
-                                        <div class="d-inline-block text-lg-left text-center">
-                                            <h5 class="theme-color f-20 my-lg-2 my-3">Development</h5>
-                                            <p class="m-0">
-                                                It is a long established fact that a reader will be distracted by
-                                                the readable content of a page when looking at its layout.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-4 col-sm-6 mt-lg-4 mt-4 block-item mx-auto">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-2">
-                                        <div class="d-inline-block text-lg-left text-center w-100">
-                                            <div
-                                                class="icon-block transition circle-outline d-flex justify-content-center align-items-center rounded-circle p-3 mx-auto">
-                                                <span
-                                                    class="icon transition mdi mdi-rocket d-flex align-items-center justify-content-center theme-color f-40"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-10">
-                                        <div class="text-lg-left text-center my-lg-0">
-                                            <h5 class="theme-color f-20 my-lg-2 my-3">Launch Project</h5>
-                                            <p class="m-0">
-                                                It is a long established fact that a reader will be distracted by
-                                                the readable content of a page when looking at its layout.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="banner-img-02">
+                  <img alt class="img-fluid" src="../../assets/images/main-banner-01.png">
                 </div>
+              </div>
             </div>
+          </div>
+          <div class="item">
+            <div class="row align-items-center">
+              <div class="col-lg-7">
+                <div class="content">
+                  <h2 class="banner-title text-lg-left text-center text-white text-uppercase">
+                    ANYONE CAN DONATE
+                  </h2>
+                  <p class="text-white text-lg-left text-center para-txt font-weight-medium f-16">
+                    Donating hair for cancer patients is both easy and rewarding and anyone can do so. Our hair that
+                    takes so long to grow can be made into a beautiful wig for someone who really needs it to maintain a
+                    positive body image after her hair is shed due to chemotherapy.
+                  </p>
+                  <div class="mt-md-4 mb-4 text-lg-left text-center">
+                    <a class="btn theme-btn text-white" href="#">GET STARTED</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="banner-img-02">
+                  <img alt class="img-fluid" src="../../assets/images/main-banner-02.png">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="row align-items-center">
+              <div class="col-lg-7">
+                <div class="content">
+                  <h2 class="banner-title text-lg-left text-center text-white text-uppercase">
+                    THE NEED IS GREAT
+                  </h2>
+                  <p class="text-white text-lg-left text-center para-txt font-weight-medium f-16">
+                    Hair is an important part of our looks & the way we project ourselves to the world. Hair is precious
+                    and even more so to someone who loses it suddenly due to medical reasons. For cancer patients, hair
+                    loss is the most stressful & traumatic side effect of chemotherapy and radiation treatment. This
+                    effect on their appearance can be a further setback to patients who are already enduring physical
+                    and emotional hardship.
+                  </p>
+                  <div class="mt-md-4 mb-4 text-lg-left text-center">
+                    <a class="btn theme-btn text-white" href="#">GET STARTED</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="banner-img-02">
+                  <img alt class="img-fluid" src="../../assets/images/main-banner-03.png">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
-    <!-- End How it Works section -->
-    <!-- Start FAQ's And Meet Our Team -->
-    <section class="section bg-light">
-        <div class="container">
-            <div class="row align-items-baseline">
-                <div class="col-lg-6 ">
-                    <div class="wow fadeInLeft" data-wow-duration="1.0s">
-                        <div class="title-section">
-                            <div class="subtitle-hr d-flex align-items-center">
-                                <h6 class="subtitle theme-color text-uppercase position-relative">FAQ's</h6>
-                                <hr>
-                            </div>
-                            <h2 class="title text-md-left text-center f-40">Ask Question?</h2>
-                        </div>
-                        <div class="mt-4">
-                            <div id="accordion">
-                                <div class="accordion-card bg-white mb-4 shadow rounded active">
-                                    <div class="card-header border-0 p-0" id="headingOne">
-                                        <h5 class="mb-0">
-                                            <button
-                                                class="link-btn p-0 text-left border-0 bg-white w-100 d-flex justify-content-between align-items-center theme-color"
-                                                data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
-                                                aria-controls="collapseOne"><span class="font-weight-medium"> Made With
-                                                    Love</span><span><i
-                                                        class="mdi mdi-chevron-down d-flex f-30"></i></span></button>
-                                        </h5>
-                                    </div>
-                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                                        data-parent="#accordion">
-                                        <div class="pt-2">
-                                            <p class="m-0">
-                                                It is a long established fact that a reader will be distracted by the
-                                                read
-                                                able content of a page when looking at its layout.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-card bg-white mb-4 shadow rounded">
-                                    <div class="card-header border-0 p-0" id="headingTwo">
-                                        <h5 class="mb-0">
-                                            <button
-                                                class="link-btn p-0 text-left border-0 bg-white w-100 d-flex justify-content-between align-items-center theme-color collapsed"
-                                                data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
-                                                aria-controls="collapseTwo"><span class="font-weight-medium"> Made With
-                                                    Love?</span><span><i
-                                                        class="mdi mdi-chevron-down d-flex f-30"></i></span></button>
-                                        </h5>
-                                    </div>
-                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-                                        data-parent="#accordion">
-                                        <div class="pt-2">
-                                            <p class="m-0">
-                                                It is a long established fact that a reader will be distracted by the
-                                                read
-                                                able content of a page when looking at its layout.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-card bg-white mb-4 shadow rounded">
-                                    <div class="card-header border-0 p-0" id="headingThree">
-                                        <h5 class="mb-0">
-                                            <button
-                                                class="link-btn p-0 text-left border-0 bg-white w-100 d-flex justify-content-between align-items-center theme-color collapsed"
-                                                data-toggle="collapse" data-target="#collapseThree"
-                                                aria-expanded="false" aria-controls="collapseThree"><span
-                                                    class="font-weight-medium"> Made With
-                                                    Love?</span><span><i
-                                                        class="mdi mdi-chevron-down d-flex f-30"></i></span></button>
-                                        </h5>
-                                    </div>
-                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                                        data-parent="#accordion">
-                                        <div class="pt-2">
-                                            <p class="m-0">
-                                                It is a long established fact that a reader will be distracted by the
-                                                read
-                                                able content of a page when looking at its layout.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-card bg-white mb-4 shadow rounded">
-                                    <div class="card-header border-0 p-0" id="headingFour">
-                                        <h5 class="mb-0">
-                                            <button
-                                                class="link-btn p-0 text-left border-0 bg-white w-100 d-flex justify-content-between align-items-center theme-color collapsed"
-                                                data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
-                                                aria-controls="collapseFour"><span class="font-weight-medium"> Made With
-                                                    Love?</span><span><i
-                                                        class="mdi mdi-chevron-down d-flex f-30"></i></span></button>
-                                        </h5>
-                                    </div>
-                                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
-                                        data-parent="#accordion">
-                                        <div class="pt-2">
-                                            <p class="m-0">
-                                                It is a long established fact that a reader will be distracted by the
-                                                read
-                                                able content of a page when looking at its layout.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 mt-lg-0 mt-4">
-                    <div class="wow fadeInRight" data-wow-duration="1.0s">
-                        <div class="title-section">
-                            <div class="subtitle-hr d-flex align-items-center">
-                                <h6 class="subtitle theme-color text-uppercase position-relative">TEAM</h6>
-                                <hr>
-                            </div>
-                            <h2 class="title text-md-left text-center f-40">Meet our Team</h2>
-                        </div>
-                        <div class="mt-4">
-                            <div class="row team-slider owl-carousel owl-theme">
-                                <div class="col-12">
-                                    <div class="border bg-white transition text-center p-3">
-                                        <div class="rounded-circle overflow-hidden team-img mx-auto">
-                                            <img src="../../assets/images/team/team-01.jpg"
-                                                class="rounded-circle img-fluid" alt="team-01.jpg">
-                                        </div>
-                                        <div class="team-desc">
-                                            <h6 class="f-18 my-2 theme-color">David Joe</h6>
-                                            <p class="my-2 f-16">Company CEO</p>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-facebook transition f-34"></i>
-                                            </a>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-twitter transition f-34"></i>
-                                            </a>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-google-plus transition f-34"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="border bg-white transition text-center p-3">
-                                        <div class="rounded-circle overflow-hidden team-img mx-auto">
-                                            <img src="../../assets/images/team/team-02.jpg"
-                                                class="rounded-circle img-fluid" alt="team-02.jpg">
-                                        </div>
-                                        <div class="team-desc">
-                                            <h6 class="f-18 my-2 theme-color">David Joe</h6>
-                                            <p class="my-2 f-16">Company CEO</p>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-facebook transition f-34"></i>
-                                            </a>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-twitter transition f-34"></i>
-                                            </a>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-google-plus transition f-34"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="border bg-white transition text-center p-3">
-                                        <div class="rounded-circle overflow-hidden team-img mx-auto">
-                                            <img src="../../assets/images/team/team-01.jpg"
-                                                class="rounded-circle img-fluid" alt="team-01.jpg">
-                                        </div>
-                                        <div class="team-desc">
-                                            <h6 class="f-18 my-2 theme-color">David Joe</h6>
-                                            <p class="my-2 f-16">Company CEO</p>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-facebook transition f-34"></i>
-                                            </a>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-twitter transition f-34"></i>
-                                            </a>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-google-plus transition f-34"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="border bg-white transition text-center p-3">
-                                        <div class="rounded-circle overflow-hidden team-img mx-auto">
-                                            <img src="../../assets/images/team/team-02.jpg"
-                                                class="rounded-circle img-fluid" alt="team-02.jpg">
-                                        </div>
-                                        <div class="team-desc">
-                                            <h6 class="f-18 my-2 theme-color">David Joe</h6>
-                                            <p class="my-2 f-16">Company CEO</p>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-facebook transition f-34"></i>
-                                            </a>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-twitter transition f-34"></i>
-                                            </a>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-google-plus transition f-34"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="border bg-white transition text-center p-3">
-                                        <div class="rounded-circle overflow-hidden team-img mx-auto">
-                                            <img src="../../assets/images/team/team-01.jpg"
-                                                class="rounded-circle img-fluid" alt="team-02.jpg">
-                                        </div>
-                                        <div class="team-desc">
-                                            <h6 class="f-18 my-2 theme-color">David Joe</h6>
-                                            <p class="my-2 f-16">Company CEO</p>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-facebook transition f-34"></i>
-                                            </a>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-twitter transition f-34"></i>
-                                            </a>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-google-plus transition f-34"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="border bg-white transition text-center p-3">
-                                        <div class="rounded-circle overflow-hidden team-img mx-auto">
-                                            <img src="../../assets/images/team/team-02.jpg"
-                                                class="rounded-circle img-fluid" alt="team-02.jpg">
-                                        </div>
-                                        <div class="team-desc">
-                                            <h6 class="f-18 my-2 theme-color">David Joe</h6>
-                                            <p class="my-2 f-16">Company CEO</p>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-facebook transition f-34"></i>
-                                            </a>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-twitter transition f-34"></i>
-                                            </a>
-                                            <a href="#" class="mx-2 d-inline-block social-icon transition">
-                                                <i class="mdi theme-color mdi-google-plus transition f-34"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+  </section>
+  <!-- Home End -->
+  <!-- Start Aboutus -->
+  <section class="section bg-white" id="Aboutus">
+    <div class="container">
+      <!--      <div class="row justify-content-center">-->
+      <!--        <div class="col-lg-4 col-sm-6">-->
+      <!--          <div class="mt-lg-0 mt-sm-4 mt-0">-->
+      <!--            <div class="hover-block aboutus-inner transition p-4 shadow wow fadeInUp" data-wow-delay="0.2s"-->
+      <!--                 data-wow-duration="1.0s">-->
+      <!--              <div class="about-inner-main text-center">-->
+      <!--                <div class="about-inner-text">-->
+      <!--                  <h2 class="f-40 theme-color text-md-left text-center">01.</h2>-->
+      <!--                  <h5 class="my-3 theme-color text-md-left text-center font-weight-medium">Website-->
+      <!--                    Design-->
+      <!--                  </h5>-->
+      <!--                  <p class="para-text text-md-left text-center mb-0">It is a long established fact-->
+      <!--                    that a-->
+      <!--                    reader will be distracted by the readable content of a page when looking at its-->
+      <!--                    layout.</p>-->
+      <!--                </div>-->
+      <!--              </div>-->
+      <!--            </div>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--        <div class="col-lg-4 col-sm-6">-->
+      <!--          <div class="mt-lg-0 mt-4">-->
+      <!--            <div class="hover-block aboutus-inner transition p-4 shadow wow fadeInUp" data-wow-delay="0.4s"-->
+      <!--                 data-wow-duration="1.0s">-->
+      <!--              <div class="about-inner-main text-center">-->
+      <!--                <div class="about-inner-text">-->
+      <!--                  <h2 class="f-40 theme-color text-md-left text-center">02.</h2>-->
+      <!--                  <h5 class="my-3 theme-color text-md-left text-center font-weight-medium">Website-->
+      <!--                    Development</h5>-->
+      <!--                  <p class="para-text text-md-left text-center mb-0">It is a long established fact-->
+      <!--                    that a-->
+      <!--                    reader will be distracted by the readable content of a page when looking at its-->
+      <!--                    layout.</p>-->
+      <!--                </div>-->
+      <!--              </div>-->
+      <!--            </div>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--        <div class="col-lg-4 col-sm-6">-->
+      <!--          <div class="mt-lg-0 mt-4">-->
+      <!--            <div class="hover-block aboutus-inner transition p-4 shadow wow fadeInUp" data-wow-delay="0.6s"-->
+      <!--                 data-wow-duration="1.0s">-->
+      <!--              <div class="about-inner-main text-center">-->
+      <!--                <div class="about-inner-text">-->
+      <!--                  <h2 class="f-40 theme-color text-md-left text-center">03.</h2>-->
+      <!--                  <h5 class="my-3 theme-color text-md-left text-center font-weight-medium">Launch-->
+      <!--                    Website-->
+      <!--                  </h5>-->
+      <!--                  <p class="para-text text-md-left text-center mb-0">It is a long established fact-->
+      <!--                    that a-->
+      <!--                    reader will be distracted by the readable content of a page when looking at its-->
+      <!--                    layout.</p>-->
+      <!--                </div>-->
+      <!--              </div>-->
+      <!--            </div>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <div class="about-bottom-section mt-5 wow fadeIn" data-wow-duration="1.0s">
+        <div class="title-section">
+          <div class="subtitle-hr d-flex align-items-center">
+            <h6 class="subtitle theme-color text-uppercase position-relative">ABOUT</h6>
+            <hr>
+          </div>
+          <h2 class="title text-md-left text-center f-40">About Sync</h2>
         </div>
-    </section>
-    <!-- End FAQ's -->
-    <!-- Start Clients Section -->
-    <section class="clients-section section" id="Clients">
-        <div class="container">
-            <div class="title-section z-index position-relative">
-                <div class="subtitle-hr d-flex align-items-center">
-                    <h6 class="subtitle text-white text-uppercase position-relative">TESTIMONIALS</h6>
-                    <hr class="white-border">
-                </div>
-                <h2 class="title text-md-left text-center f-40 text-white">Client Says</h2>
+        <div class="mt-4">
+          <div class="row align-items-center">
+            <div class="col-lg-5">
+              <img alt="about-img.png" class="w-100 img-fluid"
+                   src="../../assets/images/aboutus/about-img.png">
             </div>
-            <div class="mt-4 owl-carousel owl-theme clients-slider">
-                <div class="px-3 item">
-                    <div class="user-pics overflow-hidden mx-auto">
-                        <img src="../../assets/images/clients/client-01.png" alt class="img-fluid">
-                    </div>
-                    <div class="clients-card bg-white">
-                        <div class="user-txt text-sm-left text-center">
-                            <div class="use-info">
-                                <h5 class="theme-color">Alee Tie</h5>
-                                <p class="f-14">Company CEO</p>
-                            </div>
-                        </div>
-                        <div class="shadow-md">
-                            <p class="m-0 text-sm-left text-center f-16 font-weight-medium"><em> It is a long
-                                    established
-                                    fact that a reader will be distracted by the readable content of a page when looking
-                                    at
-                                    its layout. the readable content of a page when looking at its layout.</em> </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="px-3 item">
-                    <div class="user-pics overflow-hidden mx-auto">
-                        <img src="../../assets/images/clients/client-02.png" alt class="img-fluid">
-                    </div>
-                    <div class="clients-card bg-white">
-                        <div class="user-txt text-sm-left text-center">
-                            <div class="use-info">
-                                <h5 class="theme-color">Kalvin Stafrd</h5>
-                                <p class="f-14">Company CEO</p>
-                            </div>
-                        </div>
-                        <div class="shadow-md">
-                            <p class="m-0 text-sm-left text-center f-16 font-weight-medium"><em> It is a long
-                                    established
-                                    fact that a reader will be distracted by the readable content of a page when looking
-                                    at
-                                    its layout. the readable content of a page when looking at its layout.</em> </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="px-3 item">
-                    <div class="user-pics overflow-hidden">
-                        <img src="../../assets/images/clients/client-03.png" alt class="img-fluid">
-                    </div>
-                    <div class="clients-card bg-white">
-                        <div class="user-txt text-sm-left text-center">
-                            <div class="use-info">
-                                <h5 class="theme-color">Elie Johnson</h5>
-                                <p class="f-14">Company CEO</p>
-                            </div>
-                        </div>
-                        <div class="shadow-md">
-                            <p class="m-0 text-sm-left text-center f-16 font-weight-medium"><em> It is a long
-                                    established
-                                    fact that a reader will be distracted by the readable content of a page when looking
-                                    at
-                                    its layout. the readable content of a page when looking at its layout.</em> </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="px-3 item">
-                    <div class="user-pics overflow-hidden mx-auto">
-                        <img src="../../assets/images/clients/client-02.png" alt class="img-fluid">
-                    </div>
-                    <div class="clients-card bg-white">
-                        <div class="user-txt text-sm-left text-center">
-                            <div class="use-info">
-                                <h5 class="theme-color">Elie Johnson</h5>
-                                <p class="f-14">Company CEO</p>
-                            </div>
-                        </div>
-                        <div class="shadow-md">
-                            <p class="m-0 text-sm-left text-center f-16 font-weight-medium"><em> It is a long
-                                    established
-                                    fact that a reader will be distracted by the readable content of a page when looking
-                                    at
-                                    its layout. the readable content of a page when looking at its layout.</em> </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="px-3 item">
-                    <div class="user-pics overflow-hidden mx-auto">
-                        <img src="../../assets/images/clients/client-01.png" alt class="img-fluid">
-                    </div>
-                    <div class="clients-card bg-white">
-                        <div class="user-txt text-sm-left text-center">
-                            <div class="use-info">
-                                <h5 class="theme-color">Elie Johnson</h5>
-                                <p class="f-14">Company CEO</p>
-                            </div>
-                        </div>
-                        <div class="shadow-md">
-                            <p class="m-0 text-sm-left text-center f-16 font-weight-medium"><em> It is a long
-                                    established
-                                    fact that a reader will be distracted by the readable content of a page when looking
-                                    at
-                                    its layout. the readable content of a page when looking at its layout.</em> </p>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-lg-7 mt-lg-0 mt-4">
+              <!--              <h1 class="font-sm-24">Complete Business Solutions in One Place</h1>-->
+              <p>Wig or hair prosthesis is a nonsurgical hair replacement solution specifically designed for those
+                suffering from hair loss. Wigs made from natural hair are custom made to fit the client’s head and are
+                sturdy and durable. The inside of the cap is made with comfortable soft material for sensitive scalp.
+                Special non-slip material is used in sections of the caps to prevent the wig from shifting and sliding
+                on the head. In addition, there are hook adjustments at the nape of the neck. The hair is hand tied onto
+                a scalp like base material which is breathable, comfortable and can be washed and styled as one desires,
+                giving one a totally natural appearance. This is the advantage of wig made out of natural hair as
+                compared to synthetic material.</p>
+              <!--              <p>It is a long established fact that a reader will be distracted by the readable content of-->
+              <!--                a-->
+              <!--                page when looking at its layout. The point of using Lorem Ipsum is that it has a-->
+              <!--                more-or-less normal distribution.</p>-->
+              <!--              <ul class="about-list list-unstyled pl-4 mb-0">-->
+              <!--                <li class="position-relative mb-4">It is a long established fact that a reader will be-->
+              <!--                  distracted by the readable.-->
+              <!--                </li>-->
+              <!--                <li class="position-relative mb-4">It is a long established fact that a reader will be-->
+              <!--                  distracted by the readable.-->
+              <!--                </li>-->
+              <!--                <li class="position-relative">It is a long established fact that a reader will be-->
+              <!--                  distracted-->
+              <!--                  by the readable.-->
+              <!--                </li>-->
+              <!--              </ul>-->
             </div>
+          </div>
         </div>
-    </section>
-    <!-- End Clients Section -->
-    <!-- Satrt Contact us -->
-    <section class="section contactus-section" id="Contactus">
-        <div class="container">
-            <div class="wow fadeInUp" data-wow-duration="1.0s">
-                <div class="title-section">
-                    <div class="subtitle-hr d-flex align-items-center">
-                        <h6 class="subtitle theme-color text-uppercase position-relative">CONTACT</h6>
-                        <hr>
-                    </div>
-                    <h2 class="title text-md-left text-center f-40">Get In Touch</h2>
-                </div>
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-4 py-sm-4 contact-item">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-2 col-md-3">
-                                        <div class="text-md-left text-center">
-                                            <div
-                                                class="icon-block transition bg-light d-inline-block rounded-circle p-3">
-                                                <span
-                                                    class="icon mdi mdi-map-marker d-flex align-items-center justify-content-center theme-color transition"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-10 col-md-9">
-                                        <div class="text-md-left text-center mt-lg-0 mt-4">
-                                            <h5 class="theme-color f-20">Location:</h5>
-                                            <a class="text-dark" href="https://www.google.com/maps" target="_blank">
-                                                A108 Adam Street, New York, NY 535022
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-sm-4 col-6 py-4 contact-item">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-2 col-md-3">
-                                        <div class="text-md-left text-center">
-                                            <div
-                                                class="icon-block transition bg-light d-inline-block rounded-circle p-3">
-                                                <span
-                                                    class="icon  mdi mdi-phone d-flex align-items-center justify-content-center theme-color transition"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-10 col-md-9">
-                                        <div class="text-md-left text-center mt-lg-0 mt-4">
-                                            <h5 class="theme-color f-20">Email:</h5>
-                                            <a href="mailto:info@yourdomain.com"
-                                                class="text-dark text-chat">info@yourdomian.com</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-sm-4 col-6 py-4 contact-item">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-2 col-md-3">
-                                        <div class="text-md-left text-center">
-                                            <div
-                                                class="icon-block transition bg-light d-inline-block rounded-circle p-3">
-                                                <span
-                                                    class="icon  mdi mdi-email d-flex align-items-center justify-content-center theme-color transition"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-10 col-md-9">
-                                        <div class="text-md-left text-center mt-lg-0 mt-4">
-                                            <h5 class="theme-color f-20">Call:</h5>
-                                            <a href="tel:+19876543210" class="text-dark">+1 987 654 3210</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-7">
-                        <form class="contact_form mt-md-4">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input name="name" id="name" type="text" class="form-control border-0"
-                                            placeholder="Your Name">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input name="email" id="email" type="email" class="form-control border-0"
-                                            placeholder="Your Email">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <input name="subject" id="subject" type="text" class="form-control border-0"
-                                            placeholder="Subject">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <textarea name="comments" id="comments" rows="6" class="form-control border-0"
-                                            placeholder="Message"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 text-left">
-                                    <button type="submit" class="mt-4 btn theme-btn contact-form-btn border-0"
-                                        value="Send">Send</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Contact us -->
-    <footer class="section footer position-relative">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-sm-3 mt-sm-0 mt-4">
-                    <ul class="list-unstyled mb-0">
-                        <li>
-                            <h5 class="text-white">Emergency Care</h5>
-                            <a href="tel:+911234567890" class="text-white transition">+91 12345 67890</a>
-                        </li>
-                        <li class="mt-4">
-                            <h5 class="text-white">Working Time</h5>
-                            <a href="#" class="text-white mb-0 transition">We are open 24/7</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-lg-5 col-sm-5 link-border-right mt-sm-0 mt-4">
-                    <h5 class="footer-title text-white">Links</h5>
-                    <div class="row">
-                        <div class="col-lg-4 col-sm-6">
-                            <ul class="footer_menu_list list-unstyled mb-0">
-                                <li>
-                                    <a href="#" class="text-white f-14 d-inline-block transition">Home</a>
-                                </li>
-                                <li>
-                                    <a href="#Aboutus" class="text-white f-14 d-inline-block transition">About Us</a>
-                                </li>
-                                <li>
-                                    <a href="#Features" class="text-white f-14 d-inline-block transition">Features</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <ul class="footer_menu_list list-unstyled mb-0">
-                                <li>
-                                    <a href="#how_it_works" class="text-white f-14 d-inline-block transition">How it
-                                        works</a>
-                                </li>
-                                <li>
-                                    <a href="#Clients" class="text-white f-14 d-inline-block transition">Clients</a>
-                                </li>
-                                <li>
-                                    <a href="#Contactus" class="text-white f-14 d-inline-block transition">Contact</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-4 my-sm-0 mt-4">
-                    <h5 class="footer-title text-white text-sm-right text-left">Follow Us</h5>
-                    <div class="footer_menu_list list-unstyled mb-0 text-sm-right text-left">
-                        <a href="#" class="transition icn-block d-inline-block transition">
-                            <i class="icon pr-2 mdi mdi-facebook text-white f-34 d-inline-block"></i>
-                        </a>
-                        <a href="#" class="transition icn-block d-inline-block transition">
-                            <i class="icon pr-2 mdi mdi-twitter text-white  f-34 d-inline-block"></i>
-                        </a>
-                        <a href="#" class="transition icn-block d-inline-block transition">
-                            <i class="icon pr-2 mdi mdi-google-plus text-white f-34 d-inline-block"></i>
-                        </a>
-                    </div>
-                    <div class="pt-4">
-                        <p class="mb-0 text-sm-right text-left text-white"> &copy; 2020 Busiapp.All Rights Reserved.</p>
-                    </div>
-                </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Aboutus -->
 
-            </div>
+  <!-- Start Features section -->
+  <section class="section bg-light" id="Features">
+    <div class="container">
+      <div class="title-section">
+        <div class="subtitle-hr d-flex align-items-center">
+          <h6 class="subtitle theme-color text-uppercase position-relative">SERVICES</h6>
+          <hr>
         </div>
-    </footer>
-    <!-- Back To Top -->
-    <a href="#" class="back_top rounded-circle text-center transition"><i
-            class="mdi mdi-monitor-dashboard d-block text-white"></i></a>
+        <h2 class="title text-md-left text-center f-40">Check The Features</h2>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-4 col-sm-6">
+        <div class="mt-4">
+          <div class="hover-block p-4 shadow wow fadeIn" data-wow-duration="1.0s">
+            <div class="features-inner-main text-center">
+              <div class="features-inner-text text-sm-left text-center">
+                <!--                  <div class="icon-block theme-bg d-inline-block rounded-circle p-3">-->
+                <!--                                        <span-->
+                <!--                                          class="icon transition mdi mdi-desktop-mac-dashboard d-flex align-items-center justify-content-center text-white f-40"></span>-->
+                <!--                  </div>-->
+                <h5 class="my-3 theme-color text-sm-left text-center font-weight-medium">ANYONE CAN DONATE</h5>
+                <p class="para-text text-sm-left text-center mb-0">
+                  Donating hair for cancer patients is both easy and rewarding and anyone can do so. Our hair that
+                  takes so long to grow can be made into a beautiful wig for someone who really needs it to maintain
+                  a positive body image after her hair is shed due to chemotherapy.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="col-lg-4 col-sm-6">
+          <div class="mt-4">
+            <div class="hover-block p-4 shadow wow fadeIn" data-wow-duration="1.0s">
+              <div class="features-inner-main text-center">
+                <div class="features-inner-text text-sm-left text-center">
+                  <!--                  <div class="icon-block theme-bg d-inline-block rounded-circle p-3">-->
+                  <!--                                        <span-->
+                  <!--                                          class="icon transition mdi mdi-desktop-mac-dashboard d-flex align-items-center justify-content-center text-white f-40"></span>-->
+                  <!--                  </div>-->
+                  <h5 class="my-3 theme-color text-sm-left text-center font-weight-medium">ANYONE CAN DONATE</h5>
+                  <p class="para-text text-sm-left text-center mb-0">
+                    Donating hair for cancer patients is both easy and rewarding and anyone can do so. Our hair that
+                    takes so long to grow can be made into a beautiful wig for someone who really needs it to maintain
+                    a positive body image after her hair is shed due to chemotherapy.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <div class="mt-4">
+            <div class="hover-block p-4 shadow wow fadeIn" data-wow-duration="1.0s">
+              <div class="features-inner-main text-center">
+                <div class="features-inner-text text-sm-left text-center">
+                  <!--                  <div class="icon-block theme-bg d-inline-block rounded-circle p-3">-->
+                  <!--                                        <span-->
+                  <!--                                          class="icon transition mdi mdi-desktop-mac-dashboard d-flex align-items-center justify-content-center text-white f-40"></span>-->
+                  <!--                  </div>-->
+                  <h5 class="my-3 theme-color text-sm-left text-center font-weight-medium">ANYONE CAN DONATE</h5>
+                  <p class="para-text text-sm-left text-center mb-0">
+                    Donating hair for cancer patients is both easy and rewarding and anyone can do so. Our hair that
+                    takes so long to grow can be made into a beautiful wig for someone who really needs it to maintain
+                    a positive body image after her hair is shed due to chemotherapy.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+<!--        <div class="col-lg-4 col-sm-6">-->
+<!--          <div class="mt-4">-->
+<!--            <div class="hover-block p-4 shadow wow fadeIn" data-wow-duration="1.0s">-->
+<!--              <div class="features-inner-text text-sm-left text-center">-->
+<!--&lt;!&ndash;                <div class="icon-block theme-bg d-inline-block rounded-circle p-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <span class="icon transition mdi mdi-responsive d-flex align-items-center justify-content-center text-white f-40"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--                <h5 class="my-3 theme-color text-sm-left text-center font-weight-medium">Responsive-->
+<!--                  Design-->
+<!--                </h5>-->
+<!--                <p class="para-text text-sm-left text-center mb-0">It is a long established fact that a-->
+<!--                  reader will be distracted by the readable content of a page when looking at its-->
+<!--                  layout.-->
+<!--                </p>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-sm-6">-->
+<!--          <div class="mt-4">-->
+<!--            <div class="hover-block p-4 shadow wow fadeIn" data-wow-duration="1.0s">-->
+<!--              <div class="features-inner-text text-sm-left text-center">-->
+<!--                <div class="icon-block theme-bg d-inline-block rounded-circle p-3">-->
+<!--                                    <span-->
+<!--                                      class="icon transition mdi mdi-rocket d-flex align-items-center justify-content-center text-white f-40"></span>-->
+<!--                </div>-->
+<!--                <h5 class="my-3 theme-color text-sm-left text-center font-weight-medium">Fast Boot</h5>-->
+<!--                <p class="para-text text-sm-left text-center mb-0">It is a long established fact that a-->
+<!--                  reader will be distracted by the readable content of a page when looking at its-->
+<!--                  layout.-->
+<!--                </p>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-sm-6">-->
+<!--          <div class="mt-4">-->
+<!--            <div class="hover-block p-4 shadow wow fadeIn" data-wow-duration="1.0s">-->
+<!--              <div class="features-inner-text text-sm-left text-center">-->
+<!--                <div class="icon-block theme-bg d-inline-block rounded-circle p-3">-->
+<!--                                    <span-->
+<!--                                      class="icon transition mdi mdi-chat-processing d-flex align-items-center justify-content-center text-white f-40"></span>-->
+<!--                </div>-->
+<!--                <h5 class="my-3 theme-color text-sm-left text-center font-weight-medium">Chatting-->
+<!--                  Service-->
+<!--                </h5>-->
+<!--                <p class="para-text text-sm-left text-center mb-0">It is a long established fact that a-->
+<!--                  reader will be distracted by the readable content of a page when looking at its-->
+<!--                  layout.-->
+<!--                </p>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-sm-6">-->
+<!--          <div class="mt-4">-->
+<!--            <div class="hover-block p-4 shadow wow fadeIn" data-wow-duration="1.0s">-->
+<!--              <div class="features-inner-text text-sm-left text-center">-->
+<!--                <div class="icon-block theme-bg d-inline-block rounded-circle p-3">-->
+<!--                                    <span-->
+<!--                                      class="icon transition mdi mdi-chart-areaspline d-flex align-items-center justify-content-center text-white f-40"></span>-->
+<!--                </div>-->
+<!--                <h5 class="my-3 theme-color text-sm-left text-center font-weight-medium">Analysis</h5>-->
+<!--                <p class="para-text text-sm-left text-center mb-0">It is a long established fact that a-->
+<!--                  reader will be distracted by the readable content of a page when looking at its-->
+<!--                  layout.-->
+<!--                </p>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-sm-6">-->
+<!--          <div class="mt-4">-->
+<!--            <div class="hover-block p-4 shadow wow fadeIn" data-wow-duration="1.0s">-->
+<!--              <div class="features-inner-text text-sm-left text-center">-->
+<!--                <div class="icon-block theme-bg d-inline-block rounded-circle p-3">-->
+<!--                                    <span-->
+<!--                                      class="icon transition  mdi mdi-face-agent d-flex align-items-center justify-content-center text-white f-40"></span>-->
+<!--                </div>-->
+<!--                <h5 class="my-3 theme-color text-sm-left text-center font-weight-medium">Quick Support-->
+<!--                </h5>-->
+<!--                <p class="para-text text-sm-left text-center mb-0">It is a long established fact that a-->
+<!--                  reader will be distracted by the readable content of a page when looking at its-->
+<!--                  layout.-->
+<!--                </p>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+    </div>
+  </section>
+  <!-- End Features section -->
+
+  <!-- Start How it Works section -->
+<!--  <section class="section" id="how_it_works">-->
+<!--    <div class="container">-->
+<!--      <div class="row align-items-center">-->
+<!--        <div class="col-lg-6">-->
+<!--          <div class="bs-example position-relative wow fadeIn" data-wow-duration="1.0s">-->
+<!--            <img alt="Video title" class="w-100 img-fluid" id="video-cover"-->
+<!--                 src="../../assets/images/how-it-works/01.png">-->
+<!--            <a class="play-btn transition d-flex" data-toggle="modal" href="#myModal">-->
+<!--              <i class="mdi mdi-play mx-auto my-auto"></i>-->
+<!--            </a>-->
+<!--            <div class="modal" id="myModal">-->
+<!--              <div class="modal-dialog modal-dialog-centered">-->
+<!--                <div class="modal-content bg-transparent">-->
+<!--                  <div class="modal-body p-0">-->
+<!--                    <button aria-hidden="true" class="close" data-dismiss="modal"-->
+<!--                            type="button"><span>&times;</span></button>-->
+<!--                    <iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
+<!--                            allowfullscreen-->
+<!--                            frameborder="0"-->
+<!--                            src="https://www.youtube.com/embed/pJjjzarKotI?list=RDUWLr2va3hu0"></iframe>-->
+<!--                    &lt;!&ndash; <iframe src="https://www.youtube.com/embed/Kch8n4tcOZQ" allowfullscreen></iframe> &ndash;&gt;-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-6 mt-lg-0 mt-4">-->
+<!--          <div class="wow fadeIn" data-wow-duration="1.0s">-->
+<!--            <div class="title-section">-->
+<!--              <div class="subtitle-hr d-flex align-items-center">-->
+<!--                <h6 class="subtitle theme-color text-uppercase position-relative">STEPS</h6>-->
+<!--                <hr>-->
+<!--              </div>-->
+<!--              <h2 class="title text-md-left text-center f-40">How Does it Works?</h2>-->
+<!--            </div>-->
+<!--            <div class="text-md-left text-center">-->
+<!--              <p>It is a long established fact that a reader will be distracted by the readable content of-->
+<!--                a-->
+<!--                page when looking at its layout. </p>-->
+<!--              <p class="mb-0">It is a long established fact that a reader will be distracted by the-->
+<!--                readable-->
+<!--                content of a page when looking at its layout. </p>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--              <div class="col-lg-12 col-md-4 col-sm-6 mt-lg-4 mt-4 block-item">-->
+<!--                <div class="row align-items-center">-->
+<!--                  <div class="col-lg-2">-->
+<!--                    <div class="d-inline-block text-lg-left text-center w-100">-->
+<!--                      <div-->
+<!--                        class="icon-block transition circle-outline d-flex justify-content-center align-items-center rounded-circle p-3 mx-auto">-->
+<!--                                                <span-->
+<!--                                                  class="icon transition mdi mdi-desktop-mac-dashboard d-flex align-items-center justify-content-center theme-color f-40"></span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="col-lg-10">-->
+<!--                    <div class="d-inline-block text-lg-left text-center">-->
+<!--                      <h5 class="theme-color f-20 my-lg-2 my-3">Clean Design</h5>-->
+<!--                      <p class="m-0">-->
+<!--                        It is a long established fact that a reader will be distracted by-->
+<!--                        the readable content of a page when looking at its layout.-->
+<!--                      </p>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="col-lg-12 col-md-4 col-sm-6 mt-lg-4 mt-4 block-item">-->
+<!--                <div class="row align-items-center">-->
+<!--                  <div class="col-lg-2">-->
+<!--                    <div class="d-inline-block text-lg-left text-center w-100">-->
+<!--                      <div-->
+<!--                        class="icon-block transition circle-outline d-flex justify-content-center align-items-center rounded-circle p-3 mx-auto">-->
+<!--                                                <span-->
+<!--                                                  class="icon transition mdi mdi-code-tags d-flex align-items-center justify-content-center theme-color f-40"></span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="col-lg-10">-->
+<!--                    <div class="d-inline-block text-lg-left text-center">-->
+<!--                      <h5 class="theme-color f-20 my-lg-2 my-3">Development</h5>-->
+<!--                      <p class="m-0">-->
+<!--                        It is a long established fact that a reader will be distracted by-->
+<!--                        the readable content of a page when looking at its layout.-->
+<!--                      </p>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="col-lg-12 col-md-4 col-sm-6 mt-lg-4 mt-4 block-item mx-auto">-->
+<!--                <div class="row align-items-center">-->
+<!--                  <div class="col-lg-2">-->
+<!--                    <div class="d-inline-block text-lg-left text-center w-100">-->
+<!--                      <div-->
+<!--                        class="icon-block transition circle-outline d-flex justify-content-center align-items-center rounded-circle p-3 mx-auto">-->
+<!--                                                <span-->
+<!--                                                  class="icon transition mdi mdi-rocket d-flex align-items-center justify-content-center theme-color f-40"></span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="col-lg-10">-->
+<!--                    <div class="text-lg-left text-center my-lg-0">-->
+<!--                      <h5 class="theme-color f-20 my-lg-2 my-3">Launch Project</h5>-->
+<!--                      <p class="m-0">-->
+<!--                        It is a long established fact that a reader will be distracted by-->
+<!--                        the readable content of a page when looking at its layout.-->
+<!--                      </p>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </section>-->
+  <!-- End How it Works section -->
+  <!-- Start FAQ's And Meet Our Team -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row align-items-baseline">
+        <div class="col-lg-12 ">
+          <div class="wow fadeInLeft" data-wow-duration="1.0s">
+            <div class="title-section">
+              <div class="subtitle-hr d-flex align-items-center">
+                <h6 class="subtitle theme-color text-uppercase position-relative">FAQ's</h6>
+                <hr>
+              </div>
+              <h2 class="title text-md-left text-center f-40">Ask Question?</h2>
+            </div>
+            <div class="mt-4">
+              <div id="accordion">
+                <div class="accordion-card bg-white mb-4 shadow rounded active">
+                  <div class="card-header border-0 p-0" id="headingOne">
+                    <h5 class="mb-0">
+                      <button
+                        aria-controls="collapseOne"
+                        aria-expanded="false"
+                        class="link-btn p-0 text-left border-0 bg-white w-100 d-flex justify-content-between align-items-center theme-color"
+                        data-target="#collapseOne"
+                        data-toggle="collapse"><span class="font-weight-medium"> How Does it Works?</span><span><i
+                        class="mdi mdi-chevron-down d-flex f-30"></i></span></button>
+                    </h5>
+                  </div>
+                  <div aria-labelledby="headingOne" class="collapse show" data-parent="#accordion"
+                       id="collapseOne">
+                    <div class="pt-2">
+                      <p class="m-0">
+                        You can get the hair cut at a selected salon. Hair has to be washed, dried and tied into a plait
+                        with
+                        rubber bands at both the ends before cutting.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-card bg-white mb-4 shadow rounded">
+                  <div class="card-header border-0 p-0" id="headingTwo">
+                    <h5 class="mb-0">
+                      <button
+                        aria-controls="collapseTwo"
+                        aria-expanded="false"
+                        class="link-btn p-0 text-left border-0 bg-white w-100 d-flex justify-content-between align-items-center theme-color collapsed"
+                        data-target="#collapseTwo"
+                        data-toggle="collapse"><span class="font-weight-medium"> Minimum length of a hair</span><span><i
+                        class="mdi mdi-chevron-down d-flex f-30"></i></span></button>
+                    </h5>
+                  </div>
+                  <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordion"
+                       id="collapseTwo">
+                    <div class="pt-2">
+                      <p class="m-0">
+                        Hair to be donated should be minimum 12 inches in length. The hair shorter than that is not
+                        usable for wigs as knotting the same in the wig scalp is difficult.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-card bg-white mb-4 shadow rounded">
+                  <div class="card-header border-0 p-0" id="headingThree">
+                    <h5 class="mb-0">
+                      <button
+                        aria-controls="collapseThree"
+                        aria-expanded="false"
+                        class="link-btn p-0 text-left border-0 bg-white w-100 d-flex justify-content-between align-items-center theme-color collapsed"
+                        data-target="#collapseThree" data-toggle="collapse"><span
+                        class="font-weight-medium"> Hair is require to making one wig</span><span><i
+                        class="mdi mdi-chevron-down d-flex f-30"></i></span></button>
+                    </h5>
+                  </div>
+                  <div aria-labelledby="headingThree" class="collapse" data-parent="#accordion"
+                       id="collapseThree">
+                    <div class="pt-2">
+                      <p class="m-0">
+                        At least 6 -7 women’s hair is required to make one wig. The donated hair we receive is sorted
+                        according to their quality and then used to make a wig. Grey, Treated, Coloured and streaked
+                        hair is accepted.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!--                <div class="accordion-card bg-white mb-4 shadow rounded">-->
+                <!--                  <div class="card-header border-0 p-0" id="headingFour">-->
+                <!--                    <h5 class="mb-0">-->
+                <!--                      <button-->
+                <!--                        aria-controls="collapseFour"-->
+                <!--                        aria-expanded="false"-->
+                <!--                        class="link-btn p-0 text-left border-0 bg-white w-100 d-flex justify-content-between align-items-center theme-color collapsed"-->
+                <!--                        data-target="#collapseFour"-->
+                <!--                        data-toggle="collapse"><span class="font-weight-medium"> Made With-->
+                <!--                                                    Love?</span><span><i-->
+                <!--                        class="mdi mdi-chevron-down d-flex f-30"></i></span></button>-->
+                <!--                    </h5>-->
+                <!--                  </div>-->
+                <!--                  <div aria-labelledby="headingFour" class="collapse" data-parent="#accordion"-->
+                <!--                       id="collapseFour">-->
+                <!--                    <div class="pt-2">-->
+                <!--                      <p class="m-0">-->
+                <!--                        It is a long established fact that a reader will be distracted by the-->
+                <!--                        read-->
+                <!--                        able content of a page when looking at its layout.-->
+                <!--                      </p>-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                </div>-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--        <div class="col-lg-6 mt-lg-0 mt-4">-->
+        <!--          <div class="wow fadeInRight" data-wow-duration="1.0s">-->
+        <!--            <div class="title-section">-->
+        <!--              <div class="subtitle-hr d-flex align-items-center">-->
+        <!--                <h6 class="subtitle theme-color text-uppercase position-relative">TEAM</h6>-->
+        <!--                <hr>-->
+        <!--              </div>-->
+        <!--              <h2 class="title text-md-left text-center f-40">Meet our Team</h2>-->
+        <!--            </div>-->
+        <!--            <div class="mt-4">-->
+        <!--              <div class="row team-slider owl-carousel owl-theme">-->
+        <!--                <div class="col-12">-->
+        <!--                  <div class="border bg-white transition text-center p-3">-->
+        <!--                    <div class="rounded-circle overflow-hidden team-img mx-auto">-->
+        <!--                      <img alt="team-01.jpg"-->
+        <!--                           class="rounded-circle img-fluid" src="../../assets/images/team/team-01.jpg">-->
+        <!--                    </div>-->
+        <!--                    <div class="team-desc">-->
+        <!--                      <h6 class="f-18 my-2 theme-color">David Joe</h6>-->
+        <!--                      <p class="my-2 f-16">Company CEO</p>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-facebook transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-twitter transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-google-plus transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                    </div>-->
+        <!--                  </div>-->
+        <!--                </div>-->
+        <!--                <div class="col-12">-->
+        <!--                  <div class="border bg-white transition text-center p-3">-->
+        <!--                    <div class="rounded-circle overflow-hidden team-img mx-auto">-->
+        <!--                      <img alt="team-02.jpg"-->
+        <!--                           class="rounded-circle img-fluid" src="../../assets/images/team/team-02.jpg">-->
+        <!--                    </div>-->
+        <!--                    <div class="team-desc">-->
+        <!--                      <h6 class="f-18 my-2 theme-color">David Joe</h6>-->
+        <!--                      <p class="my-2 f-16">Company CEO</p>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-facebook transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-twitter transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-google-plus transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                    </div>-->
+        <!--                  </div>-->
+        <!--                </div>-->
+        <!--                <div class="col-12">-->
+        <!--                  <div class="border bg-white transition text-center p-3">-->
+        <!--                    <div class="rounded-circle overflow-hidden team-img mx-auto">-->
+        <!--                      <img alt="team-01.jpg"-->
+        <!--                           class="rounded-circle img-fluid" src="../../assets/images/team/team-01.jpg">-->
+        <!--                    </div>-->
+        <!--                    <div class="team-desc">-->
+        <!--                      <h6 class="f-18 my-2 theme-color">David Joe</h6>-->
+        <!--                      <p class="my-2 f-16">Company CEO</p>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-facebook transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-twitter transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-google-plus transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                    </div>-->
+        <!--                  </div>-->
+        <!--                </div>-->
+        <!--                <div class="col-12">-->
+        <!--                  <div class="border bg-white transition text-center p-3">-->
+        <!--                    <div class="rounded-circle overflow-hidden team-img mx-auto">-->
+        <!--                      <img alt="team-02.jpg"-->
+        <!--                           class="rounded-circle img-fluid" src="../../assets/images/team/team-02.jpg">-->
+        <!--                    </div>-->
+        <!--                    <div class="team-desc">-->
+        <!--                      <h6 class="f-18 my-2 theme-color">David Joe</h6>-->
+        <!--                      <p class="my-2 f-16">Company CEO</p>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-facebook transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-twitter transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-google-plus transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                    </div>-->
+        <!--                  </div>-->
+        <!--                </div>-->
+        <!--                <div class="col-12">-->
+        <!--                  <div class="border bg-white transition text-center p-3">-->
+        <!--                    <div class="rounded-circle overflow-hidden team-img mx-auto">-->
+        <!--                      <img alt="team-02.jpg"-->
+        <!--                           class="rounded-circle img-fluid" src="../../assets/images/team/team-01.jpg">-->
+        <!--                    </div>-->
+        <!--                    <div class="team-desc">-->
+        <!--                      <h6 class="f-18 my-2 theme-color">David Joe</h6>-->
+        <!--                      <p class="my-2 f-16">Company CEO</p>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-facebook transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-twitter transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-google-plus transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                    </div>-->
+        <!--                  </div>-->
+        <!--                </div>-->
+        <!--                <div class="col-12">-->
+        <!--                  <div class="border bg-white transition text-center p-3">-->
+        <!--                    <div class="rounded-circle overflow-hidden team-img mx-auto">-->
+        <!--                      <img alt="team-02.jpg"-->
+        <!--                           class="rounded-circle img-fluid" src="../../assets/images/team/team-02.jpg">-->
+        <!--                    </div>-->
+        <!--                    <div class="team-desc">-->
+        <!--                      <h6 class="f-18 my-2 theme-color">David Joe</h6>-->
+        <!--                      <p class="my-2 f-16">Company CEO</p>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-facebook transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-twitter transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                      <a class="mx-2 d-inline-block social-icon transition" href="#">-->
+        <!--                        <i class="mdi theme-color mdi-google-plus transition f-34"></i>-->
+        <!--                      </a>-->
+        <!--                    </div>-->
+        <!--                  </div>-->
+        <!--                </div>-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
+      </div>
+    </div>
+  </section>
+  <!-- End FAQ's -->
+  <!-- Start Clients Section -->
+  <section class="clients-section section" id="Clients">
+    <div class="container">
+      <div class="title-section z-index position-relative">
+        <div class="subtitle-hr d-flex align-items-center">
+          <h6 class="subtitle text-white text-uppercase position-relative">TESTIMONIALS</h6>
+          <hr class="white-border">
+        </div>
+        <h2 class="title text-md-left text-center f-40 text-white">Client Says</h2>
+      </div>
+      <div class="mt-4 owl-carousel owl-theme clients-slider">
+        <!--        <div class="px-3 item">-->
+        <!--          <div class="user-pics overflow-hidden mx-auto">-->
+        <!--            <img alt class="img-fluid" src="../../assets/images/clients/client-01.png">-->
+        <!--          </div>-->
+        <!--          <div class="clients-card bg-white">-->
+        <!--            <div class="user-txt text-sm-left text-center">-->
+        <!--              <div class="use-info">-->
+        <!--                <h5 class="theme-color">Alee Tie</h5>-->
+        <!--                <p class="f-14">Company CEO</p>-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--            <div class="shadow-md">-->
+        <!--              <p class="m-0 text-sm-left text-center f-16 font-weight-medium"><em> It is a long-->
+        <!--                established-->
+        <!--                fact that a reader will be distracted by the readable content of a page when looking-->
+        <!--                at-->
+        <!--                its layout. the readable content of a page when looking at its layout.</em></p>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
+        <!--        <div class="px-3 item">-->
+        <!--          <div class="user-pics overflow-hidden mx-auto">-->
+        <!--            <img alt class="img-fluid" src="../../assets/images/clients/client-02.png">-->
+        <!--          </div>-->
+        <!--          <div class="clients-card bg-white">-->
+        <!--            <div class="user-txt text-sm-left text-center">-->
+        <!--              <div class="use-info">-->
+        <!--                <h5 class="theme-color">Kalvin Stafrd</h5>-->
+        <!--                <p class="f-14">Company CEO</p>-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--            <div class="shadow-md">-->
+        <!--              <p class="m-0 text-sm-left text-center f-16 font-weight-medium"><em> It is a long-->
+        <!--                established-->
+        <!--                fact that a reader will be distracted by the readable content of a page when looking-->
+        <!--                at-->
+        <!--                its layout. the readable content of a page when looking at its layout.</em></p>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
+        <!--        <div class="px-3 item">-->
+        <!--          <div class="user-pics overflow-hidden">-->
+        <!--            <img alt class="img-fluid" src="../../assets/images/clients/client-03.png">-->
+        <!--          </div>-->
+        <!--          <div class="clients-card bg-white">-->
+        <!--            <div class="user-txt text-sm-left text-center">-->
+        <!--              <div class="use-info">-->
+        <!--                <h5 class="theme-color">Elie Johnson</h5>-->
+        <!--                <p class="f-14">Company CEO</p>-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--            <div class="shadow-md">-->
+        <!--              <p class="m-0 text-sm-left text-center f-16 font-weight-medium"><em> It is a long-->
+        <!--                established-->
+        <!--                fact that a reader will be distracted by the readable content of a page when looking-->
+        <!--                at-->
+        <!--                its layout. the readable content of a page when looking at its layout.</em></p>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
+        <!--        <div class="px-3 item">-->
+        <!--          <div class="user-pics overflow-hidden mx-auto">-->
+        <!--            <img alt class="img-fluid" src="../../assets/images/clients/client-02.png">-->
+        <!--          </div>-->
+        <!--          <div class="clients-card bg-white">-->
+        <!--            <div class="user-txt text-sm-left text-center">-->
+        <!--              <div class="use-info">-->
+        <!--                <h5 class="theme-color">Elie Johnson</h5>-->
+        <!--                &lt;!&ndash;                <p class="f-14">Company CEO</p>&ndash;&gt;-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--            <div class="shadow-md">-->
+        <!--              <p class="m-0 text-sm-left text-center f-16 font-weight-medium">-->
+        <!--                <em>-->
+        <!--                  <span>-->
+        <!--                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. A eligendi esse eum-->
+        <!--                    harum inventore molestias odio optio. Distinctio esse itaque laborum libero-->
+        <!--                    magni nostrum quam quibusdam, sit suscipit voluptas. Quia.-->
+        <!--                  </span>-->
+        <!--                </em>-->
+        <!--              </p>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
+        <div class="px-3 item">
+          <div class="user-pics overflow-hidden mx-auto">
+            <img alt class="img-fluid" src="../../assets/images/clients/client-01.png">
+          </div>
+          <div class="clients-card bg-white">
+            <div class="user-txt text-sm-left text-center">
+              <div class="use-info">
+                <h5 class="theme-color">Elie Johnson</h5>
+<!--                <p class="f-14">Company CEO</p>-->
+              </div>
+            </div>
+            <div class="shadow-md">
+              <p class="m-0 text-sm-left text-center f-16 font-weight-medium">
+                <em>
+                  <span>The idea was to give A LITTLE MORE OF WHAT I HAD , TO SOMEONE WITH A LITTLE LESS of it. I’ve
+                    been growing my hair for two years for this purpose.I’m very happy to have this opportunity on my
+                    birthday and hope that my hair reach where they’re supposed
+                  </span>
+                </em>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Clients Section -->
+  <!-- Satrt Contact us -->
+  <section class="section contactus-section" id="Contactus">
+    <div class="container">
+      <div class="wow fadeInUp" data-wow-duration="1.0s">
+        <div class="title-section">
+          <div class="subtitle-hr d-flex align-items-center">
+            <h6 class="subtitle theme-color text-uppercase position-relative">CONTACT</h6>
+            <hr>
+          </div>
+          <h2 class="title text-md-left text-center f-40">Get In Touch</h2>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <div class="row">
+              <!--              <div class="col-md-12 col-sm-4 py-sm-4 contact-item">-->
+              <!--                <div class="row align-items-center">-->
+              <!--                  <div class="col-lg-2 col-md-3">-->
+              <!--                    <div class="text-md-left text-center">-->
+              <!--                      <div-->
+              <!--                        class="icon-block transition bg-light d-inline-block rounded-circle p-3">-->
+              <!--                                                <span-->
+              <!--                                                  class="icon mdi mdi-map-marker d-flex align-items-center justify-content-center theme-color transition"></span>-->
+              <!--                      </div>-->
+              <!--                    </div>-->
+              <!--                  </div>-->
+              <!--                  <div class="col-lg-10 col-md-9">-->
+              <!--                    <div class="text-md-left text-center mt-lg-0 mt-4">-->
+              <!--                      <h5 class="theme-color f-20">Location:</h5>-->
+              <!--                      <a class="text-dark" href="https://www.google.com/maps" target="_blank">-->
+              <!--                        A108 Adam Street, New York, NY 535022-->
+              <!--                      </a>-->
+              <!--                    </div>-->
+              <!--                  </div>-->
+              <!--                </div>-->
+              <!--              </div>-->
+              <div class="col-md-12 col-sm-4 col-6 py-4 contact-item">
+                <div class="row align-items-center">
+                  <div class="col-lg-2 col-md-3">
+                    <div class="text-md-left text-center">
+                      <div class="icon-block transition bg-light d-inline-block rounded-circle p-3">
+                        <!--                        <span class="icon  mdi mdi-phone d-flex align-items-center justify-content-center theme-color transition"></span>-->
+                        <span
+                          class="icon  mdi mdi-email d-flex align-items-center justify-content-center theme-color transition"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-10 col-md-9">
+                    <div class="text-md-left text-center mt-lg-0 mt-4">
+                      <h5 class="theme-color f-20">Email:</h5>
+                      <a class="text-dark text-chat"
+                         href="mailto:info@yourdomain.com">syncUcsc@gmail.com</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 col-sm-4 col-6 py-4 contact-item">
+                <div class="row align-items-center">
+                  <div class="col-lg-2 col-md-3">
+                    <div class="text-md-left text-center">
+                      <div class="icon-block transition bg-light d-inline-block rounded-circle p-3">
+                        <span
+                          class="icon  mdi mdi-phone d-flex align-items-center justify-content-center theme-color transition"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-10 col-md-9">
+                    <div class="text-md-left text-center mt-lg-0 mt-4">
+                      <h5 class="theme-color f-20">Call:</h5>
+                      <a class="text-dark" href="tel:0777000000">0777000000</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7">
+            <form [formGroup]="getInTouch" class="contact_form mt-md-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input class="form-control border-0"
+                           formControlName="name"
+                           id="name"
+                           name="name"
+                           placeholder="Your Name"
+                           type="text"
+                    >
+                    <div
+                      *ngIf="getInTouch.controls['name'].invalid && (getInTouch.controls['name'].dirty || getInTouch.controls['name'].touched)"
+                      class="alert">
+                      <div *ngIf="getInTouch.controls['name'].errors.required">name is required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input class="form-control border-0"
+                           formControlName="email"
+                           id="email"
+                           name="email"
+                           placeholder="Your Email"
+                           type="email">
+                    <div
+                      *ngIf="getInTouch.controls['email'].invalid && (getInTouch.controls['email'].dirty || getInTouch.controls['email'].touched)"
+                      class="alert">
+                      <div *ngIf="getInTouch.controls['email'].errors.required">email is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <input class="form-control border-0" formControlName="subject" id="subject" name="subject"
+                           placeholder="Subject"
+                           type="text">
+                    <div
+                      *ngIf="getInTouch.controls['subject'].invalid && (getInTouch.controls['subject'].dirty || getInTouch.controls['subject'].touched)"
+                      class="alert">
+                      <div *ngIf="getInTouch.controls['subject'].errors.required">subject is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                                        <textarea class="form-control border-0"
+                                                  formControlName="message" id="comments"
+                                                  name="comments"
+                                                  placeholder="Message"
+                                                  rows="6"></textarea>
+                    <div
+                      *ngIf="getInTouch.controls['message'].invalid && (getInTouch.controls['message'].dirty || getInTouch.controls['message'].touched)"
+                      class="alert">
+                      <div *ngIf="getInTouch.controls['message'].errors.required">message is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 text-left">
+                  <button (click)="submit()"
+                          [disabled]="getInTouch.invalid"
+                          class="mt-4 btn theme-btn contact-form-btn border-0"
+                          type="submit"
+                          value="Send">Send
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Contact us -->
+  <footer class="section footer position-relative">
+    <div class="container">
+      <div class="row">
+        <!--        <div class="col-lg-3 col-sm-3 mt-sm-0 mt-4">-->
+        <!--          <ul class="list-unstyled mb-0">-->
+        <!--            <li>-->
+        <!--              <h5 class="text-white">Emergency Care</h5>-->
+        <!--              <a class="text-white transition" href="tel:+911234567890">+91 12345 67890</a>-->
+        <!--            </li>-->
+        <!--            <li class="mt-4">-->
+        <!--              <h5 class="text-white">Working Time</h5>-->
+        <!--              <a class="text-white mb-0 transition" href="#">We are open 24/7</a>-->
+        <!--            </li>-->
+        <!--          </ul>-->
+        <!--        </div>-->
+        <div class="col-lg-5 col-sm-5 link-border-right mt-sm-0 mt-4">
+          <h5 class="footer-title text-white">Links</h5>
+          <div class="row">
+            <div class="col-lg-4 col-sm-6">
+              <ul class="footer_menu_list list-unstyled mb-0">
+                <li>
+                  <a class="text-white f-14 d-inline-block transition" href="#">Home</a>
+                </li>
+                <li>
+                  <a class="text-white f-14 d-inline-block transition" href="#Aboutus">About Us</a>
+                </li>
+                <li>
+                  <a class="text-white f-14 d-inline-block transition" href="#Features">Features</a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+              <ul class="footer_menu_list list-unstyled mb-0">
+                <li>
+                  <a class="text-white f-14 d-inline-block transition" href="#how_it_works">How it
+                    works</a>
+                </li>
+                <li>
+                  <a class="text-white f-14 d-inline-block transition" href="#Clients">Clients</a>
+                </li>
+                <li>
+                  <a class="text-white f-14 d-inline-block transition" href="#Contactus">Contact</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-4 my-sm-0 mt-4">
+          <h5 class="footer-title text-white text-sm-right text-left">Follow Us</h5>
+          <div class="footer_menu_list list-unstyled mb-0 text-sm-right text-left">
+            <a class="transition icn-block d-inline-block transition" href="#">
+              <i class="icon pr-2 mdi mdi-facebook text-white f-34 d-inline-block"></i>
+            </a>
+            <a class="transition icn-block d-inline-block transition" href="#">
+              <i class="icon pr-2 mdi mdi-twitter text-white  f-34 d-inline-block"></i>
+            </a>
+            <a class="transition icn-block d-inline-block transition" href="#">
+              <i class="icon pr-2 mdi mdi-google-plus text-white f-34 d-inline-block"></i>
+            </a>
+          </div>
+          <div class="pt-4">
+            <p class="mb-0 text-sm-right text-left text-white"> &copy; 2020 Sync.All Rights Reserved.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+  <!-- Back To Top -->
+  <a class="back_top rounded-circle text-center transition" href="#"><i
+    class="mdi mdi-monitor-dashboard d-block text-white"></i></a>
 </div>
