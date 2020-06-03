@@ -41,6 +41,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     DashboardComponent,
     LoginComponent,
     SignupComponent,
+    
   ],
   imports: [
     BrowserModule,
