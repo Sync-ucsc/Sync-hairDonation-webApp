@@ -12,4 +12,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ismobile(){
+    if(window.innerWidth<764){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }
