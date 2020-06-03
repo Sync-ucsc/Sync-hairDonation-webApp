@@ -11,7 +11,7 @@
     1.BASIC                     *
     2.HELPER                    *
     3.NAVBAR                    *
-    4.HOME                      *    
+    4.HOME                      *
     5.ABOUTUS                   *
     6.FEATURES                  *
     7.HOW IT WORKS              *
@@ -39,7 +39,7 @@ body {
     font-weight: 300;
     background-color: #fff;
 }
-h1
+h1,
 h2,
 h3,
 h4,
@@ -110,7 +110,7 @@ button:focus {
     display: none;
     right: 20px;
     z-index: 99;
-    background-image: linear-gradient(to right, #1ACC8D, #1ACC8D,#235FCD, #1C4CA3);
+    background-image: linear-gradient(to right, #e6739f, #e6739f,#cc0e74, #790c5a);
     background-size:300%;
     background-position: 0 0;
 }
@@ -149,7 +149,7 @@ button:focus {
 
     .theme-btn:hover,
     .theme-btn:focus,
-    .theme-btn:active {  
+    .theme-btn:active {
         color:#fff !important;
     }
 
@@ -164,29 +164,29 @@ button:focus {
 }
 .theme-color,
 .navbar-toggler{
-    color:#1C4CA3 !important;
+    color:#790c5a !important;
 }
 .theme-bg{
-    background-color: #1C4CA3;
+    background-color: #790c5a;
 }
 .contact_btn .btn,
 .theme-btn
 {
     transition: all ease 1s;
-    background-image: linear-gradient(to right, transparent, transparent,#1ACC8D, #1ACC8D);
+    background-image: linear-gradient(to right, transparent, transparent,#e6739f, #e6739f);
     background-size:300%;
     background-position: 0 0;
 }
 .custom-nav.sticky-header .contact_btn .btn {
-    background-image: linear-gradient(to right,#235FCD, #1C4CA3, #1ACC8D, #1ACC8D);
-    border: 2px solid #235FCD;
+    background-image: linear-gradient(to right,#cc0e74, #790c5a, #e6739f, #e6739f);
+    border: 2px solid #cc0e74;
 }
 .contact_btn .btn:hover,
 .theme-btn:hover,
 .custom-nav.sticky-header .contact_btn .btn:hover{
      background-position: 100% 0;
      color:#fff;
-     border: 2px solid #1ACC8D;
+     border: 2px solid #e6739f;
 }
 /*==========================
         3.NAVBAR
@@ -194,7 +194,7 @@ button:focus {
 
 .custom-nav {
     padding: 18px 0px;
-    z-index: 999;    
+    z-index: 999;
 }
     .custom-nav .container-fluid {
         width: 90%;
@@ -216,13 +216,13 @@ button:focus {
         position: absolute;
         bottom: 0;
         left: 0;
-        background-color: #1ACC8D;
+        background-color: #e6739f;
         height: 2px;
         width:0;
         opacity: 0;
         transition: all 0.5s;
         -moz-transition: all 0.5s;
-        -webkit-transition: all 0.5s;   
+        -webkit-transition: all 0.5s;
     }
     .custom-nav .navbar-nav li:hover a::after,
     .custom-nav .navbar-nav li.active a::after{
@@ -239,22 +239,24 @@ button:focus {
 
 .custom-nav .navbar-nav li.active a,
 .custom-nav .navbar-nav li:hover a {
-    color: #1ACC8D !important;
+    color: #e6739f !important;
 }
 
 .nav .open > a,
 .nav .open > a:focus,
 .nav .open > a:hover {
     background-color: transparent;
-    border-color: #1C4CA3;
+    border-color: #790c5a;
 }
 
 .brand-logo .logo-light {
     display: inline-block;
+    width: 8%;
 }
 
 .brand-logo .logo-dark {
     display: none;
+    width: 8%;
 }
 
 .sticky-header .brand-logo .logo-dark {
@@ -315,7 +317,7 @@ button:focus {
     height: 100%;
     width: 100%;
     z-index: 0;
-    background-color: rgba(28, 76, 163, 0.9);
+    background-color: rgba(121, 12, 90, 0.9);
 }
 .bg-header::before {
     content: "";
@@ -345,12 +347,12 @@ button:focus {
         5.ABOUTUS
 ============================*/
 .hover-block{
-    transition: all ease 1s;    
+    transition: all ease 1s;
     background-size:300%;
     background-position: 0 0;
 }
 .hover-block:hover{
-    background-image: linear-gradient(to right, #235FCD, #1C4CA3,#1C4CA3, #235FCD);
+    background-image: linear-gradient(to right, #cc0e74, #790c5a,#790c5a, #cc0e74);
     background-position: 100% 0;
     color: #fff !important;
 }
@@ -359,7 +361,7 @@ button:focus {
 }
 hr {
     border: 2px;
-    border-top: 2px solid #1ACC8D;
+    border-top: 2px solid #e6739f;
     width: 60px;
     margin: 0 10px;
     height: 7px;
@@ -372,7 +374,7 @@ hr {
     height: 12px;
     width: 12px;
     border-radius: 50%;
-    background-image: linear-gradient(to right, #235FCD, #1C4CA3,#1C4CA3, #235FCD);
+    background-image: linear-gradient(to right, #cc0e74, #790c5a,#790c5a, #cc0e74);
     background-position: 100% 0;
 }
 /*==========================
@@ -382,13 +384,13 @@ hr {
     background-color: #fff !important;
 }
 .hover-block:hover .theme-bg .text-white{
-    color: #1C4CA3 !important;
-}   
+    color: #790c5a !important;
+}
 /*==========================
         7.HOW IT WORKS
 ============================*/
 .block-item .circle-outline{
-    border:2px solid #1C4CA3;
+    border:2px solid #790c5a;
     height: 75px;
     width: 75px;
 }
@@ -408,7 +410,7 @@ hr {
 }
 
 .play-btn {
-    background-color: #1ACC8D;
+    background-color: #e6739f;
     height: 105px;
     width: 105px;
     position: absolute;
@@ -419,7 +421,7 @@ hr {
     border:none;
 }
 .play-btn:hover,.play-btn:hover::after{
-    background-color: #235FCD;
+    background-color: #cc0e74;
 }
 .play-btn::after{
     content: "";
@@ -427,7 +429,7 @@ hr {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #1ACC8D;
+    background-color: #e6739f;
     opacity: 0.5;
     height: 130px;
     width: 130px;
@@ -500,7 +502,7 @@ hr {
     transform: rotateZ(-180deg);
 }
 .social-icon:hover .mdi{
-    color: #1ACC8D !important;
+    color: #e6739f !important;
 }
 /*==========================
         9.TEAM
@@ -513,7 +515,7 @@ hr {
     text-align: center;
 }
 .owl-dot.active{
-    background: #1ACC8D !important;
+    background: #e6739f !important;
 }
 .owl-dot{
     background: #CCCCCC !important;
@@ -525,7 +527,7 @@ hr {
     margin: 0 5px;
 }
 .border.bg-white:hover{
-    border:1px solid #1C4CA3 !important;
+    border:1px solid #790c5a !important;
 }
 .team-img img{
     height: 200px;
@@ -535,7 +537,7 @@ hr {
 }
 /*==========================
         10.CLIENTS
-============================*/ 
+============================*/
 .clients-section{
     background-image: url(../../assets/images/clients/clients-bg.jpg);
     background-repeat: no-repeat;
@@ -549,11 +551,12 @@ hr {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: rgba(28, 76, 163, 0.9);
+    background-color: rgba(121, 12, 90, 0.9);
+    //background-color: #cc0e74;
     height: 100%;
     width: 100%;
 }
-.user-pics{   
+.user-pics{
     position: absolute;
     left: 0;
     right: auto;
@@ -591,7 +594,7 @@ hr {
 ============================*/
 .contact-form-btn{
     min-width: 140px;
-    background-image: linear-gradient(to right,#1ACC8D, #1ACC8D, #235FCD, #1C4CA3) !important;
+    background-image: linear-gradient(to right,#e6739f, #e6739f, #cc0e74, #790c5a) !important;
 }
 .contact-form-btn:hover{
     color: #fff !important;
@@ -617,33 +620,33 @@ hr {
 }
 .contactus-section input.form-control:focus,
 .contactus-section textarea.form-control:focus{
-    box-shadow: 0 0 0 2px #1ACC8D;
+    box-shadow: 0 0 0 2px #e6739f;
 }
 ::placeholder{
     color: #000;
     font-weight: 500;
 }
 .contact-item:hover .icon-block{
-    background-color:#1ACC8D !important; 
+    background-color:#e6739f !important;
 }
 .contact-item:hover .icon-block .icon{
-    color:#fff !important; 
+    color:#fff !important;
 }
 /*==========================
         12.FOOTER
 ============================*/
 .section.footer{
-    padding-top: 120px;  
-    background-image: linear-gradient(to right,#235FCD, #1C4CA3);
+    padding-top: 120px;
+    background-image: linear-gradient(to right,#cc0e74, #790c5a);
     background-position: 100% 0;
-    background-size:300%; 
+    background-size:300%;
 }
 .section.footer li:hover a{
     transform: scale(1.1);
     font-weight: 600;
 }
 .icn-block:hover .icon{
-    color: #1ACC8D !important;
+    color: #e6739f !important;
 }
 .footer::after{
     content: "";
@@ -661,7 +664,7 @@ hr {
     transform: rotateX(180deg);
 }
 .footer .icon-block:hover{
-    color: #1ACC8D !important;
+    color: #e6739f !important;
     transform: rotateY(180deg);
 }
 /*==========================
@@ -678,13 +681,13 @@ hr {
         top: -50px;
     }
 }
-@media (max-width: 991px) { 
+@media (max-width: 991px) {
     .banner-title {
         font-size: 35px;
     }
     .home-bg-img{
         padding: 50px 0 50px 0;
-    } 
+    }
     .owl-item .banner-img-02 img {
         max-width: 50%;
     }
@@ -701,14 +704,14 @@ hr {
         display: flex;
     }
     .contact_btn .btn {
-        background-image: linear-gradient(to right,#235FCD, #1C4CA3, #1ACC8D, #1ACC8D) !important;
-        border: 2px solid #235FCD;
+        background-image: linear-gradient(to right,#cc0e74, #790c5a, #e6739f, #e6739f) !important;
+        border: 2px solid #cc0e74;
     }
     .custom-nav {
         position: fixed;
         background-color: #fff !important;
         margin-top: 0px;
-        padding: 10px 0px !important;  
+        padding: 10px 0px !important;
     }
         .custom-nav .navbar-nav li a {
             color: #333333 !important;
@@ -719,7 +722,7 @@ hr {
         }
         .custom-nav .navbar-nav li.active a,
         .custom-nav .navbar-nav li:hover a {
-            background: -webkit-linear-gradient(#235FCD, #1C4CA3);
+            background: -webkit-linear-gradient(#cc0e74, #790c5a);
             -webkit-text-fill-color: white;
             color: #fff !important;
             border-radius: 0;
@@ -732,13 +735,13 @@ hr {
         }
     .navbar-collapse {
         background: #fff;
-        border-top: 2px solid #1C4CA3;
+        border-top: 2px solid #790c5a;
         position: fixed;
         top: 55px;
         left: 0;
         width: 100%;
         padding: 0;
-        border-bottom: 2px solid #1C4CA3;
+        border-bottom: 2px solid #790c5a;
         border-radius: 0 0 25px 25px;
     }
     .navbar-nav {
@@ -756,7 +759,7 @@ hr {
     }
     .container {
         max-width: 98%;
-    } 
+    }
     .aboutus-inner .row {
         justify-content: center;
     }
@@ -785,16 +788,16 @@ hr {
         width: 170px;
     }
 }
-@media (max-width: 900px) { 
+@media (max-width: 900px) {
     .footer::after {
         height: 80px;
     }
 }
-@media (max-width: 768px) { 
+@media (max-width: 768px) {
     .section {
         padding-top: 40px;
         padding-bottom: 40px;
-    } 
+    }
 }
 @media only screen and (max-width: 767px) {
     .container {
@@ -808,7 +811,7 @@ hr {
     }
     .link-btn {
         font-size: 16px;
-    } 
+    }
     .subtitle,.f-16,.contactus-section input.form-control, .contactus-section textarea.form-control{
         font-size: 14px;
     }
@@ -817,10 +820,10 @@ hr {
     }
     footer h5,.f-20{
         font-size: 16px;
-    }       
+    }
     .home-bg-img{
         padding: 50px 0 50px 0;
-    }    
+    }
      .text-sm-center{
         text-align: center;
     }
@@ -847,14 +850,14 @@ hr {
         top: 15px;
     }
 }
-@media (max-width: 600px) { 
+@media (max-width: 600px) {
     .footer::after {
         height: 73px;
     }
 }
-@media (max-width: 575px) {   
+@media (max-width: 575px) {
     .home-bg-img .banner-title {
-        font-size: 26px;
+        font-size: 18px;
     }
     .home-bg-img .para-txt{
         font-size: 14px;
@@ -891,7 +894,7 @@ hr {
         height: 500px;
     }
 }
-@media only screen and (max-width: 479px) { 
+@media only screen and (max-width: 479px) {
     .brand-logo.navbar-brand {
         margin-right: 5px !important;
     }
@@ -909,12 +912,12 @@ hr {
         height: 70px;
     }
 }
-@media only screen and (max-width: 440px) { 
+@media only screen and (max-width: 440px) {
     .footer::after {
         height: 65px;
     }
 }
-@media only screen and (max-width: 380px) { 
+@media only screen and (max-width: 380px) {
     .footer::after {
         height: 60px;
     }
