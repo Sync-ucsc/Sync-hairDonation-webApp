@@ -1062,6 +1062,7 @@
                     <div
                       *ngIf="getInTouch.controls['email'].invalid && (getInTouch.controls['email'].dirty || getInTouch.controls['email'].touched)"
                       class="alert">
+                      <div *ngIf="getInTouch.controls['email'].errors.email">Please enter a valid email.</div>
                       <div *ngIf="getInTouch.controls['email'].errors.required">email is required</div>
                     </div>
                   </div>
