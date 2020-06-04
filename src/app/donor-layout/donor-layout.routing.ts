@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DonorRequestComponent } from './donor-request/donor-request.component';
 import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
 
+
 export const DonorLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -49,5 +50,6 @@ export const DonorLayoutRoutes: Routes = [
     // }
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'donate_hair',      component: DonorRequestComponent },
-	{ path: 'book_appointment',      component: BookAppointmentComponent },
+    { path: 'book_appointment',      component: BookAppointmentComponent },
+    
 ];
