@@ -17,6 +17,7 @@ import { BookAppointmentComponent } from './book-appointment/book-appointment.co
   declarations: [
     DashboardComponent,
     DonorRequestComponent,
+	BookAppointmentComponent,
   ]
 })
 

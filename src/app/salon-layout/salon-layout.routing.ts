@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
+import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
+
 
 export const SalonLayoutRoutes: Routes = [
     // {
@@ -48,4 +50,5 @@ export const SalonLayoutRoutes: Routes = [
     // }
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'book_appointment',      component: BookAppointmentComponent },
+	{ path: 'appointment_details',      component: AppointmentDetailsComponent },
 ];

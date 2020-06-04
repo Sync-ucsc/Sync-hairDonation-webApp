@@ -1,0 +1,60 @@
+<div class="card card-custom">
+    <div class="card-header">
+        <div class="card-title">
+            <h3 class="card-label">
+                Appointment Calendar
+            </h3>
+        </div>
+    </div>
+    <div class="card-body">
+        <div >
+            <!-- <button (click)="updateEvents()" id="updateEvents">Update events</button>
+        <button (click)="updateHeader()" id="updateHeader">Update header</button> -->
+            <!-- <div class='app-calendar' *ngIf="calendarVisible"> -->
+            <!-- <full-calendar
+          #calendar
+          [selectable]=true
+          [editable]="true"
+          [droppable]= "true"
+          defaultView="dayGridMonth"
+          [header]="{
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+          }"
+          [plugins]="calendarPlugins"
+          [weekends]="calendarWeekends"
+          [events]="calendarEvents"
+          (dateClick)="handleDateClick($event)"
+        ></full-calendar> -->
+           
+                <full-calendar #calendar 
+                [editable]="true" 
+                [events]="calendarEvents"
+                [header]="options.header"
+                [eventLimit] = true
+
+                [height] = 500
+                [contentHeight] = 480
+                [aspectRatio] =3 
+
+                [nowIndicator] = true
+
+                defaultView = "dayGridMonth"
+                
+                [businessHours] = true
+                
+                    [customButtons]="options.customButtons" [weekends]="calendarWeekends"
+                    (eventDragStop)="eventDragStop($event)" [plugins]="options.plugins" (dayRender)="dayRender($event)"
+                    (eventReceive)="createTask($event)" (eventDrop)="updateTask($event)" (eventRender)="eventDo($event)"
+                    (eventClick)="deleteEvent($event)" (dateClick)="handleDateClick($event)"
+                    [columnHeaderHtml]="options.columnHeaderHtml"></full-calendar>
+        
+        
+        
+          
+        </div>
+    </div>
+</div>
+
+
