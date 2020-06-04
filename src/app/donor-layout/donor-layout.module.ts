@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DonorRequestComponent } from './donor-request/donor-request.component';
 import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +17,7 @@ import { BookAppointmentComponent } from './book-appointment/book-appointment.co
   declarations: [
     DashboardComponent,
     DonorRequestComponent,
+	BookAppointmentComponent,
   ]
 })
 
