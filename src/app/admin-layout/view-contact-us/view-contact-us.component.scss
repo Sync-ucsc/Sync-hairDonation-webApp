@@ -12,3 +12,11 @@ ul{
 .content,.flex-column-fluid{
   padding: 10px !important;
 }
+
+.btn.btn-light-primary.focus:not(.btn-text),
+.btn.btn-light-primary:focus:not(.btn-text),
+.btn.btn-light-primary:hover:not(.btn-text) {
+  color: #ccaead;
+  background-color: #cc0e74;
+  border-color: transparent
+}

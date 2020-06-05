@@ -1,36 +1,37 @@
-<ul>
-  <li  *ngFor="let message of messages">
-    <div class="content flex-column-fluid" id="kt_content">
+<ng-container *ngIf="!loading">
+  <ul>
+    <li  *ngFor="let message of messages">
+      <div class="content flex-column-fluid" id="kt_content">
 
-      <div class="card card-custom gutter-b">
-        <div class="card-body">
-          <!--begin::Top-->
-          <div class="d-flex">
-            <!--begin::Pic-->
-            <!--        <div class="flex-shrink-0 mr-7">-->
-            <!--          <div class="symbol symbol-50 symbol-lg-120">-->
-            <!--            <img alt="Pic"-->
-            <!--                 src="/metronic/themes/metronic/theme/html/demo8/dist/assets/media//users/300_1.jpg"/>-->
-            <!--          </div>-->
-            <!--        </div>-->
-            <!--end::Pic-->
+        <div class="card card-custom gutter-b">
+          <div class="card-body">
+            <!--begin::Top-->
+            <div class="d-flex">
+              <!--begin::Pic-->
+              <!--        <div class="flex-shrink-0 mr-7">-->
+              <!--          <div class="symbol symbol-50 symbol-lg-120">-->
+              <!--            <img alt="Pic"-->
+              <!--                 src="/metronic/themes/metronic/theme/html/demo8/dist/assets/media//users/300_1.jpg"/>-->
+              <!--          </div>-->
+              <!--        </div>-->
+              <!--end::Pic-->
 
-            <!--begin: Info-->
-            <div class="flex-grow-1">
-              <!--begin::Title-->
-              <div class="d-flex align-items-center justify-content-between flex-wrap mt-2">
-                <!--begin::User-->
-                <div class="mr-3">
-                  <!--begin::Name-->
-                  <a
-                    class="d-flex align-items-center text-dark text-hover-primary font-size-h5 font-weight-bold mr-3"
-                    href="#"> {{message?.name}} - {{message?.subject}}<i class="flaticon2-correct text-success icon-md ml-2"></i>
-                  </a>
-                  <!--end::Name-->
+              <!--begin: Info-->
+              <div class="flex-grow-1">
+                <!--begin::Title-->
+                <div class="d-flex align-items-center justify-content-between flex-wrap mt-2">
+                  <!--begin::User-->
+                  <div class="mr-3">
+                    <!--begin::Name-->
+                    <a
+                      class="d-flex align-items-center text-dark text-hover-primary font-size-h5 font-weight-bold mr-3"
+                    > {{message?.name}} - {{message?.subject}}<i class="flaticon2-correct text-success icon-md ml-2"></i>
+                    </a>
+                    <!--end::Name-->
 
-                  <!--begin::Contacts-->
-                  <div class="d-flex flex-wrap my-2">
-                    <a class="text-muted text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2" href="#">
+                    <!--begin::Contacts-->
+                    <div class="d-flex flex-wrap my-2">
+                      <a class="text-muted text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2" >
                                 <span class="svg-icon svg-icon-md svg-icon-gray-500 mr-1"><!--begin::Svg Icon | path:/metronic/themes/metronic/theme/html/demo8/dist/assets/media/svg/icons/Communication/Mail-notification.svg-->
                                   <svg
                                     height="24px" version="1.1"
@@ -45,38 +46,62 @@
                                     </g>
                                   </svg><!--end::Svg Icon-->
                                 </span> {{message?.email}}
-                    </a>
+                      </a>
+                      <a class="text-muted text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                <span class="svg-icon svg-icon-md svg-icon-gray-500 mr-1">
+                                  <!--begin::Svg Icon | path:/metronic/themes/metronic/theme/html/demo8/dist/assets/media/svg/icons/General/Lock.svg-->
+                                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                          <rect x="0" y="0" width="24" height="24"/>
+                                          <path d="M9.82829464,16.6565893 C7.02541569,15.7427556 5,13.1079084 5,10 C5,6.13400675 8.13400675,3 12,3 C15.8659932,3 19,6.13400675 19,10 C19,13.1079084 16.9745843,15.7427556 14.1717054,16.6565893 L12,21 L9.82829464,16.6565893 Z M12,12 C13.1045695,12 14,11.1045695 14,10 C14,8.8954305 13.1045695,8 12,8 C10.8954305,8 10,8.8954305 10,10 C10,11.1045695 10.8954305,12 12,12 Z" fill="#000000"/>
+                                      </g>
+                                  </svg><!--end::Svg Icon-->
+                                </span>{{message?.createdAt.toString().split('T')[0]}}
+                      </a>
+                    </div>
+                    <!--end::Contacts-->
                   </div>
-                  <!--end::Contacts-->
-                </div>
-                <!--begin::User-->
+                  <!--begin::User-->
 
-                <!--begin::Actions-->
-                <div class="my-lg-0 my-1">
-                  <a class="btn btn-sm btn-primary font-weight-bolder text-uppercase" routerLink="/admin/manage-contact-us">Send reply</a>
+                  <!--begin::Actions-->
+                  <div class="my-lg-0 my-1">
+                    <a class="btn btn-sm btn-light-primary font-weight-bolder text-uppercase mr-2" style="color: #cc8e9a" (click)="deleteMessage(message)">Delete</a>
+                    <a class="btn btn-sm btn-primary font-weight-bolder text-uppercase" routerLink="/admin/manage-contact-us">Send reply</a>
+                  </div>
+<!--                  <div class="my-lg-0 my-1">-->
+<!--                    <a class="btn btn-sm btn-primary font-weight-bolder text-uppercase" routerLink="/admin/manage-contact-us">Delete</a>-->
+<!--                    <a class="btn btn-sm btn-primary font-weight-bolder text-uppercase" routerLink="/admin/manage-contact-us">Send reply</a>-->
+<!--                  </div>-->
+                  <!--end::Actions-->
                 </div>
-                <!--end::Actions-->
-              </div>
-              <!--end::Title-->
+                <!--end::Title-->
 
-              <!--begin::Content-->
-              <div class="d-flex align-items-center flex-wrap justify-content-between">
-                <!--begin::Description-->
-                <div class="flex-grow-1 font-weight-bold text-dark-50 py-2 py-lg-2 mr-5">
-                  {{message.message}}
+                <!--begin::Content-->
+                <div class="d-flex align-items-center flex-wrap justify-content-between">
+                  <!--begin::Description-->
+                  <div class="flex-grow-1 font-weight-bold text-dark-50 py-2 py-lg-2 mr-5">
+                    {{message.message}}
+                  </div>
+                  <!--end::Description-->
                 </div>
-                <!--end::Description-->
+                <!--end::Content-->
               </div>
-              <!--end::Content-->
+              <!--end::Info-->
             </div>
-            <!--end::Info-->
+            <!--end::Top-->
           </div>
-          <!--end::Top-->
         </div>
+        <!--end::Card-->
+
       </div>
-      <!--end::Card-->
 
-    </div>
+    </li>
+  </ul>
 
-  </li>
-</ul>
+</ng-container>
+
+<ng-container *ngIf="loading">
+  <div class="content flex-column-fluid" id="kt_content2">
+    <ngx-spinner [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium"></ngx-spinner>
+  </div>
+</ng-container>
