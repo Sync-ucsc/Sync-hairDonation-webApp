@@ -54,15 +54,12 @@ import { ManageDriversComponent } from './manage-drivers/manage-drivers.componen
     SalonsComponent,
     ManageSalonsComponent,
     uploadDialogComponent,
-<<<<<<< HEAD
     ProfileComponent,
     ManageContactUsComponent,
-    ViewContactUsComponent
-=======
+    ViewContactUsComponent,
     DriversComponent,
     ManageDriversComponent,
     ProfileComponent
->>>>>>> origin/master
   ],
 
 })
