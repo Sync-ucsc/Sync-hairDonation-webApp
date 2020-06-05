@@ -46,6 +46,7 @@
     "moment": "^2.25.3",
     "mongoose": "^5.9.16",
     "ngx-owl-carousel": "^2.0.7",
+    "ngx-spinner": "^9.0.2",
     "ngx-toastr": "^12.1.0",
     "owl.carousel": "^2.3.4",
     "perfect-scrollbar": "^1.5.0",
