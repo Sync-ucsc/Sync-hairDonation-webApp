@@ -9,7 +9,7 @@
             <div id="kt_header_mobile" class="header-mobile ">
                 <!--begin::Logo-->
                 <a href>
-                    <img alt="Logo" src="/assets/media/logos/logo-default.png" class="max-h-30px">
+                    <img alt="Logo" src="../../assets/images/logo.png" class="max-h-30px">
                 </a>
                 <!--end::Logo-->
 
@@ -49,7 +49,7 @@
                     <div class="d-none d-lg-flex align-items-center mr-3">
                         <!--begin::Logo-->
                         <a href class="mr-20">
-                            <img alt="Logo" src="/assets/media/logos/logo-default.png" class="logo-default max-h-35px">
+                            <img alt="Logo" src="../../assets/images/logo.png" class="logo-default max-h-35px">
                         </a>
                         <!--end::Logo-->
                     </div>
@@ -1057,28 +1057,12 @@
                         class="header-menu header-menu-left header-menu-mobile  header-menu-layout-default header-menu-root-arrow ">
                         <!--begin::Header Nav-->
                         <ul class="menu-nav ">
-                            <li class="menu-item  menu-item-open menu-item-submenu menu-item-rel"  [routerLinkActive]="['menu-item-here']"
-                                data-menu-toggle="click" aria-haspopup="true">
-                                <a href="javascript:;" class="menu-link menu-toggle">
+                            <li class="menu-item  "  [routerLinkActive]="['menu-item-here']"
+                                 aria-haspopup="true">
+                                <a routerLink="dashboard" class="menu-link">
                                     <span class="menu-text">Dashboard</span>
-                                    <i class="menu-arrow"></i>
+                                    <i class="menu-desc"></i>
                                 </a>
-                                <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-                                    <ul class="menu-subnav">
-                                        <li class="menu-item  menu-item-active " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
-                                            <a routerLink="dashboard" class="menu-link ">
-                                                <span class="menu-text">Application</span>
-                                                <span class="menu-desc"></span>
-                                            </a>
-                                        </li>
-                                        <li class="menu-item " aria-haspopup="true">
-                                            <a href="builder.html"  class="menu-link ">
-                                                <span class="menu-text">Layout Builder</span>
-                                                <span class="menu-desc"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
                             </li>
                             <li class="menu-item"   [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
                                 <a routerLink=test  class="menu-link">
@@ -1089,19 +1073,7 @@
                                     <span class="menu-desc"></span>
                                 </a>
                             </li>
-                            <li class="menu-item" aria-haspopup="true">
-                                <a href="javascript:;" class="menu-link">
-                                    <span class="menu-text">Features</span>
-                                    <span class="menu-desc"></span>
-                                </a>
-                            </li>
-                            <li class="menu-item" aria-haspopup="true">
-                                <a href="javascript:;" class="menu-link">
-                                    <span class="menu-text">Features</span>
-                                    <span class="menu-desc"></span>
-                                </a>
-                            </li>
-                          <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']"
+                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']"
                                 data-menu-toggle="click" aria-haspopup="true">
                                 <a href="javascript:;" class="menu-link menu-toggle">
                                     <span class="menu-text">Action</span>
@@ -1147,6 +1119,7 @@
                                     </ul>
                                 </div>
                             </li>
+
                             <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']"
                                                        data-menu-toggle="click" aria-haspopup="true">
                                                        <a href="javascript:;" class="menu-link menu-toggle">
@@ -1171,6 +1144,13 @@
                                                        </div>
                                                    </li>
 
+
+                            <li class="menu-item  " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                <a routerLink="profile" class="menu-link">
+                                    <span class="menu-text">Profile</span>
+                                    <i class="menu-desc"></i>
+                                </a>
+                            </li>
                         </ul>
                         <!--end::Header Nav-->
                     </div>

@@ -1104,12 +1104,29 @@
                                     <span class="menu-desc"></span>
                                 </a>
                             </li>
-                            <li class="menu-item" aria-haspopup="true">
-                                <a href="javascript:;" class="menu-link">
-                                    <span class="menu-text">Features</span>
-                                    <span class="menu-desc"></span>
+                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']"
+                            data-menu-toggle="click" aria-haspopup="true">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                     <span class="menu-text">Appointment</span>
+                                    <i class="menu-arrow"></i>
                                 </a>
-                            </li>
+                                <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                                  <ul class="menu-subnav">
+                                    <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                        <a routerLink="book_appointment"class="menu-link">
+                                            <span class="menu-text">Book Appointment</span>
+                                            <span class="menu-desc"></span>
+                                         </a>
+                                    </li>
+                                    <li class="menu-item " [routerLinkActive]="['menu-item-here']"  aria-haspopup="true">
+                                        <a routerLink="appointment_details" class="menu-link ">
+                                            <span class="menu-text">Appointment Details</span>
+                                            <span class="menu-desc"></span>
+                                       </a>
+                                    </li>
+                                  </ul>
+                               </div>
+                             </li>
                             <li class="menu-item" aria-haspopup="true">
                                 <a href="javascript:;" class="menu-link">
                                     <span class="menu-text">Features</span>
