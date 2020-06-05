@@ -15,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import { ProfileComponent } from './profile/profile.component';
@@ -42,8 +42,8 @@ import { ManageDriversComponent } from './manage-drivers/manage-drivers.componen
     HttpClientModule,
     MatDialogModule,
     MatIconModule,
-    MatAutocompleteModule
-
+    MatAutocompleteModule,
+    NgxSpinnerModule
 
   ],
   declarations: [

@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import * as io from 'socket.io-client';
 import {HttpClient} from '@angular/common/http';
+import {ToastrService} from 'ngx-toastr';
+import {NgxSpinnerService} from 'ngx-spinner';
+import Swal from 'sweetalert2'
+
 import {environment} from '../../../environments/environment';
 import {Response} from '../../interfaces/response';
 
@@ -10,45 +14,99 @@ import {Response} from '../../interfaces/response';
   styleUrls: ['./view-contact-us.component.scss']
 })
 export class ViewContactUsComponent implements OnInit {
-  BASE_URL = environment.BASE_URL;
-  socket = io(`${this.BASE_URL}/getInTouch`);
+  BASE_URL = `${environment.BASE_URL}/getInTouch`;
+  socket = io(`${environment.BASE_URL}`);
   loading = true;
   messages;
-  constructor(private _http: HttpClient) {
+
+  constructor(private _http: HttpClient,
+              private _toastr: ToastrService,
+              public spinner: NgxSpinnerService) {
   }
 
   ngOnInit(): void {
     console.log('here');
+    this.spinner.show();
     this.getContactUs();
-    this.socket.on('new-contact-us', () => {
-    });
-    this.socket.on('update-contact-us', () => {
-    });
+    this.socket.on('new-contact-us', () => this.getContactUs());
     this.socket.on('delete-contact-us', () => {
+      console.log('trigger');
+      this.getContactUs()
     });
   }
 
   getContactUs() {
-    console.log('here2');
 
-    const url = `${this.BASE_URL}/getInTouch/all`;
-    console.log(url)
+    const url = `${this.BASE_URL}/all`;
 
-    this._http.get(`${this.BASE_URL}/getInTouch/all`).subscribe(
+    this._http.get(url).subscribe(
       (response: Response) => {
-        if(response.success){
-          this.loading = false;
+        this.loading = false;
+        if (response.success) {
+          this.spinner.hide();
           this.messages = response.data;
-          console.log(response.data);
-        }else {
-          console.log(response.debugMessage);
+        } else {
+          this.messages = null;
+          this.spinner.hide();
+          this._toastr.error('fail to fetch data');
         }
       },
       error => {
-        console.log('error');
-        console.log(error)
+        this.loading = false;
+        this.spinner.hide();
+        this._toastr.error('fail to fetch data');
+        this.messages = null;
       }
     )
   }
 
+  deleteMessage(message: any) {
+
+    const url = `${this.BASE_URL}/deleteOne`;
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Message will be deleted permanently`,
+      icon: 'warning',
+      showCancelButton: true,
+
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true,
+    }).then(result => {
+      if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Message was not deleted',
+          'error'
+        )
+      } else {
+        this._http.post(url, {id: message._id}).subscribe(
+          (response: Response) => {
+            if (!response.success) {
+              Swal.fire(
+                'Error',
+                'Message was not deleted',
+                'error'
+              )
+            } else {
+              Swal.fire(
+                'Deleted!',
+                'Message has been deleted.',
+                'success'
+              )
+            }
+          },
+          error => {
+            Swal.fire(
+              'Error',
+              'Message was not deleted',
+              'error'
+            )
+          }
+        )
+      }
+    });
+    console.log(message)
+  }
 }
