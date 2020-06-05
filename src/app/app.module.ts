@@ -24,17 +24,11 @@ import {HttpClientModule} from '@angular/common/http';
 
 //salon api service
 
-<<<<<<< HEAD
 import { SalonApiService } from './service/salon-api.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DriverLayoutComponent } from './driver-layout/driver-layout.component';
-=======
-import {SalonApiService} from './service/salon-api.service';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
->>>>>>> 85e119aa1a93f2206b708b8edc7da3f21e9162fc
-
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,6 +56,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     SalonApiService
