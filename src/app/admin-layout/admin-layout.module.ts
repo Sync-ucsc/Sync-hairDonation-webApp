@@ -17,7 +17,9 @@ import {MatIconModule} from '@angular/material/icon';
 
 
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { ProfileComponent } from './profile/profile.component'; 
+import { ProfileComponent } from './profile/profile.component';
+import { ManageContactUsComponent } from './manage-contact-us/manage-contact-us.component';
+import { ViewContactUsComponent } from './view-contact-us/view-contact-us.component'; 
 
 
 
@@ -47,7 +49,9 @@ import { ProfileComponent } from './profile/profile.component';
     SalonsComponent,
     ManageSalonsComponent,
     uploadDialogComponent,
-    ProfileComponent
+    ProfileComponent,
+    ManageContactUsComponent,
+    ViewContactUsComponent
   ],
   
 })

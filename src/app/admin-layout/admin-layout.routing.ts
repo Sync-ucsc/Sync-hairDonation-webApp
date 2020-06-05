@@ -7,6 +7,8 @@ import { UserActionBanComponent } from './user-action-ban/user-action-ban.compon
 import { SalonsComponent } from './salons/salons.component';
 import { ManageSalonsComponent } from './manage-salons/manage-salons.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ManageContactUsComponent } from './manage-contact-us/manage-contact-us.component';
+import { ViewContactUsComponent } from './view-contact-us/view-contact-us.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -57,5 +59,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user-ban', component: UserBanComponent },
     { path: 'user-action-ban', component: UserActionBanComponent },
     { path: 'salons', component: SalonsComponent },
-    { path: 'manage-salons', component: ManageSalonsComponent }
+    { path: 'manage-salons', component: ManageSalonsComponent },
+    { path: 'manage-contact-us', component: ManageContactUsComponent },
+    { path: 'view-contact-us', component: ViewContactUsComponent }
 ];
