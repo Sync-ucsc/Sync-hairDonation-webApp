@@ -6,9 +6,13 @@ import { UserBanComponent } from './user-ban/user-ban.component';
 import { UserActionBanComponent } from './user-action-ban/user-action-ban.component';
 import { SalonsComponent } from './salons/salons.component';
 import { ManageSalonsComponent } from './manage-salons/manage-salons.component';
+
+import { DriversComponent } from './drivers/drivers.component';
+import { ManageDriversComponent } from './manage-drivers/manage-drivers.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ManageContactUsComponent } from './manage-contact-us/manage-contact-us.component';
 import { ViewContactUsComponent } from './view-contact-us/view-contact-us.component';
+
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -61,5 +65,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'salons', component: SalonsComponent },
     { path: 'manage-salons', component: ManageSalonsComponent },
     { path: 'manage-contact-us', component: ManageContactUsComponent },
-    { path: 'view-contact-us', component: ViewContactUsComponent }
+    { path: 'view-contact-us', component: ViewContactUsComponent },
+    { path: 'drivers', component: DriversComponent },
+    { path: 'manage-drivers', component: ManageDriversComponent }
+
 ];
