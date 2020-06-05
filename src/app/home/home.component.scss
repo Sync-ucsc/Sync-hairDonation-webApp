@@ -191,9 +191,17 @@ button:focus {
 /*==========================
         3.NAVBAR
 ============================*/
-
+.navbar-brand {
+    display: inline-block;
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+}
 .custom-nav {
-    padding: 18px 0px;
+    padding: 5px 0px;
     z-index: 999;
 }
     .custom-nav .container-fluid {
@@ -251,12 +259,10 @@ button:focus {
 
 .brand-logo .logo-light {
     display: inline-block;
-    width: 8%;
 }
 
 .brand-logo .logo-dark {
     display: none;
-    width: 8%;
 }
 
 .sticky-header .brand-logo .logo-dark {
@@ -337,7 +343,7 @@ button:focus {
 .home-bg-img {
     z-index: 1;
     position: relative;
-    padding: 50px 0 50px 0;
+    padding: 70px 0 50px 0;
 }
 .banner-title{
     font-size: 50px;

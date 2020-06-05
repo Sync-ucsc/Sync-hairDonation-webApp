@@ -17,8 +17,11 @@ import {MatIconModule} from '@angular/material/icon';
 
 
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 import { DriversComponent } from './drivers/drivers.component';
 import { ManageDriversComponent } from './manage-drivers/manage-drivers.component';
+import { ProfileComponent } from './profile/profile.component'; 
+
 
 
 
@@ -49,7 +52,8 @@ import { ManageDriversComponent } from './manage-drivers/manage-drivers.componen
     ManageSalonsComponent,
     uploadDialogComponent,
     DriversComponent,
-    ManageDriversComponent
+    ManageDriversComponent,
+    ProfileComponent
   ],
 
 })
