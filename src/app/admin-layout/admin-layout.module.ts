@@ -12,12 +12,16 @@ import { SalonsComponent } from './salons/salons.component';
 import { AgmCoreModule } from '@agm/core';
 import { ManageSalonsComponent, uploadDialogComponent } from './manage-salons/manage-salons.component';
 import { HttpClientModule } from '@angular/common/http';
-import {MatDialogModule} from '@angular/material/dialog'; 
-import {MatIconModule} from '@angular/material/icon'; 
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
 
 
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
+import { DriversComponent } from './drivers/drivers.component';
+import { ManageDriversComponent } from './manage-drivers/manage-drivers.component';
 import { ProfileComponent } from './profile/profile.component'; 
+
 
 
 
@@ -36,7 +40,7 @@ import { ProfileComponent } from './profile/profile.component';
     MatDialogModule,
     MatIconModule,
     MatAutocompleteModule
-    
+
 
   ],
   declarations: [
@@ -47,9 +51,11 @@ import { ProfileComponent } from './profile/profile.component';
     SalonsComponent,
     ManageSalonsComponent,
     uploadDialogComponent,
+    DriversComponent,
+    ManageDriversComponent,
     ProfileComponent
   ],
-  
+
 })
 
 export class AdminLayoutModule {}

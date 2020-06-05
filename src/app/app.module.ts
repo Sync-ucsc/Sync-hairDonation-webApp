@@ -24,10 +24,18 @@ import {HttpClientModule} from '@angular/common/http';
 
 //salon api service
 
+
+import { SalonApiService } from './service/salon-api.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { DriverLayoutComponent } from './driver-layout/driver-layout.component';
+
 import {SalonApiService} from './service/salon-api.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -42,6 +50,7 @@ import { ToastrModule } from 'ngx-toastr';
     DashboardComponent,
     LoginComponent,
     SignupComponent,
+    DriverLayoutComponent,
   ],
   imports: [
     BrowserModule,
