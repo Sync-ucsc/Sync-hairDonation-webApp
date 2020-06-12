@@ -1,4 +1,3 @@
-/// <reference types="@types/googlemaps" />
 import * as io from 'socket.io-client';
 import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject } from '@angular/core';
 import { MatDialog ,MatDialogConfig,MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -28,7 +27,7 @@ export interface DialogData {
 })
 export class ManageDriversComponent implements OnInit {
 
-  socket = io('http://localhost:3000/salon');
+  socket = io('http://localhost:3000/driver');
 
   @ViewChild('dialog') templateRef: TemplateRef<any>;
    Driver:any = [];
@@ -70,11 +69,11 @@ export class ManageDriversComponent implements OnInit {
 
     }
 
-  // view salons
+  // view drivers
 
    getDriver(){
 
-      this.apiService.getDriver().subscribe((data) => {
+      this.apiService.getDrivers().subscribe((data) => {
        this.Driver = data;
       this.options = data;
        console.log(this.Driver);
@@ -83,7 +82,7 @@ export class ManageDriversComponent implements OnInit {
    }
 
 
-   // deleting the salon
+   // deleting the driver
 
    removeDriver(driver, index) {
      console.log(driver);
@@ -125,8 +124,8 @@ export class ManageDriversComponent implements OnInit {
      });
 
     // if(window.confirm('Are you sure?')) {
-    //   this.apiService.deleteSalon(salon._id).subscribe((data) => {
-    //       this.Salon.splice(index, 1);
+    //   this.apiService.deleteDriver(driver._id).subscribe((data) => {
+    //       this.Driver.splice(index, 1);
     //     }
     //   )
     // }
@@ -136,7 +135,7 @@ export class ManageDriversComponent implements OnInit {
 
   openUpdateRef(driver){
     this.selectedDriver=driver;
-    const dialogRef = this.dialog.open(uploadDialogComponent,{
+    const dialogRef = this.dialog.open(uploadDialog1Component,{
       data: {
         animal:this.selectedDriver
       }
@@ -169,11 +168,11 @@ export class ManageDriversComponent implements OnInit {
   // update component
   @Component({
     // tslint:disable-next-line: component-selector
-    selector: 'upload-dialog',
-    templateUrl: 'upload-dialog.html',
+    selector: 'upload-dialog1',
+    templateUrl: 'upload-dialog1.html',
   })
   // tslint:disable-next-line: class-name
-  export class uploadDialogComponent {
+  export class uploadDialog1Component {
 
    socket = io('http://localhost:3000/driver');
 
@@ -181,8 +180,6 @@ export class ManageDriversComponent implements OnInit {
    longitude: number;
    zoom: number;
    address: string;
-   placeaddress;
-   private geoCoder;
    checkSystem=false;
    checkSms=false;
    checkEmail=false;
@@ -198,12 +195,7 @@ export class ManageDriversComponent implements OnInit {
       telephone: new FormControl('',[Validators.required,Validators.minLength(10)]),
       checkSystem: new FormControl(''),
       checkSms: new FormControl(''),
-      checkEmail: new FormControl(''),
-      address:new FormControl(''),
-      latitude:new FormControl(''),
-      longitude:new FormControl('')
-
-
+      checkEmail: new FormControl('')
     })
 
     @ViewChild('search')
@@ -211,15 +203,9 @@ export class ManageDriversComponent implements OnInit {
 
     constructor(private apiService:DriverApiService,
       public dialog: MatDialog,
-      private mapsAPILoader: MapsAPILoader,
-      private ngZone: NgZone,
       private router: Router,
       @Inject(MAT_DIALOG_DATA) public data: DialogData) {
         this.selectedDriver=data.animal;
-        this.latitude=data.animal.latitude;
-        this.longitude=data.animal.longitude;
-        this.zoom=12;
-        this.address=data.animal.address;
         console.log(data.animal);
       ;
      }
@@ -227,42 +213,13 @@ export class ManageDriversComponent implements OnInit {
     // tslint:disable-next-line: use-lifecycle-interface
     ngOnInit(): void {
 
-      this.mapsAPILoader.load().then(() => {
-
-        // tslint:disable-next-line: new-parens
-        this.geoCoder = new google.maps.Geocoder;
-
-        const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-        autocomplete.addListener('place_changed', () => {
-          this.ngZone.run(() => {
-            // get the place result
-            const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-            // verify result
-            if (place.geometry === undefined || place.geometry === null) {
-              return;
-            }
-
-            // set latitude, longitude and zoom
-            this.latitude = place.geometry.location.lat();
-            this.longitude = place.geometry.location.lng();
-            this.placeaddress=place;
-            this.zoom = 12;
-
-          });
-        });
-      });
     }
 
-   // update salons
+   // update drivers
   updateDriver(){
 
 
-    this.updateForm.patchValue({
-      address:this.placeaddress === undefined? this.selectedDriver.address: this.placeaddress.formatted_address ,
-      latitude:this.latitude,
-      longitude:this.longitude
-    })
+    
 
       if (!this.updateForm.valid) {
         return false;
@@ -314,32 +271,5 @@ export class ManageDriversComponent implements OnInit {
 
 
 
-
-
-
-  markerDragEnd($event: MouseEvent) {
-    console.log($event);
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
-    this.getAddress(this.latitude, this.longitude);
-  }
-
-  getAddress(latitude, longitude) {
-    this.geoCoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log(results);
-      console.log(status);
-      if (status === 'OK') {
-        if (results[0]) {
-          this.zoom = 12;
-          this.address = results[0].formatted_address;
-        } else {
-          window.alert('No results found');
-        }
-      } else {
-        window.alert('Geocoder failed due to: ' + status);
-      }
-
-    });
-  }
-
 }
+

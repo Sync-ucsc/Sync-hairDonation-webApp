@@ -22,7 +22,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ManageContactUsComponent } from './manage-contact-us/manage-contact-us.component';
 import { ViewContactUsComponent } from './view-contact-us/view-contact-us.component';
 import { DriversComponent } from './drivers/drivers.component';
-import { ManageDriversComponent } from './manage-drivers/manage-drivers.component';
+import { ManageDriversComponent, uploadDialog1Component } from './manage-drivers/manage-drivers.component';
 
 
 
@@ -57,6 +57,7 @@ import { ViewManagerComponent } from './view-manager/view-manager.component';
     SalonsComponent,
     ManageSalonsComponent,
     uploadDialogComponent,
+    uploadDialog1Component,
     AddManagerComponent,
     ViewManagerComponent,
     ProfileComponent,
