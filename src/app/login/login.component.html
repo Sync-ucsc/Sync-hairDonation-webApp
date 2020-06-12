@@ -1,4 +1,9 @@
 <style>
+    .form-control.form-control-solid {
+        background-color: #c9c9c9;
+        border-color: #f3f6f9;
+        color: #464e5f;
+    }
     .loginform{
         width:40%;
     }
@@ -25,7 +30,7 @@
 </style>
 <div style="overflow: hidden;">
     <div class="row">
-        <div class="col-md-4" *ngIf="!ismobile()" style="padding: 0%;height: 100vh;background-color: #F2C98A;">
+        <div class="col-md-4 d-md-block d-none"  style="padding: 0%;height: 100vh;background-color: #F2C98A;">
             <img src="../../assets/images/aboutus/about3-img.png" alt="" style="width: 100%;height: 100%;">
         </div>
         <div class="col-md-8" style="padding: 0%;">
@@ -34,7 +39,7 @@
                 <div class="loginform">
                     <!--begin::Form-->
     
-                    <form class="form" novalidate="novalidate">
+                    <form class="form"  #login>
                         <!--begin::Title-->
                         <div class="pt-lg-14 mt-lg-7 pb-5">
                             
@@ -50,8 +55,8 @@
                         <!--begin::Form group-->
                         <div class="form-group">
                             <label class="font-size-h6 font-weight-bolder text-dark">Email</label>
-                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="text"
-                                name="username" autocomplete="off">
+                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="text" [(ngModel)] ="user.email"
+                               required name="username" autocomplete="off">
                         </div>
                         <!--end::Form group-->
     
@@ -67,14 +72,14 @@
                                 </a>
                             </div>
     
-                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="password"
-                                name="password" autocomplete="off">
+                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="password" [(ngModel)] = "user.password"
+                                required name="password" autocomplete="off">
                         </div>
                         <!--end::Form group-->
     
                         <!--begin::Action-->
                         <div class="pb-lg-0 pb-10">
-                            <button type="button"
+                            <button type="button" (click)="login()" [disabled] = !login.valid
                                 class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign In</button>
 
                         </div>
