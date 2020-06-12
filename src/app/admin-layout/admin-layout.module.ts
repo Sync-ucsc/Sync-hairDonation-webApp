@@ -26,6 +26,9 @@ import { ManageDriversComponent } from './manage-drivers/manage-drivers.componen
 
 
 
+import { AddManagerComponent } from './add-manager/add-manager.component';
+import { ViewManagerComponent } from './view-manager/view-manager.component'; 
+
 
 
 @NgModule({
@@ -54,6 +57,8 @@ import { ManageDriversComponent } from './manage-drivers/manage-drivers.componen
     SalonsComponent,
     ManageSalonsComponent,
     uploadDialogComponent,
+    AddManagerComponent,
+    ViewManagerComponent,
     ProfileComponent,
     ManageContactUsComponent,
     ViewContactUsComponent,

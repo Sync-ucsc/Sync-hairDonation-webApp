@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DriverLayoutComponent } from './driver-layout.component';
+import { ViewManagerComponent } from './view-manager.component';
 
-describe('DriverLayoutComponent', () => {
-  let component: DriverLayoutComponent;
-  let fixture: ComponentFixture<DriverLayoutComponent>;
+describe('ViewManagerComponent', () => {
+  let component: ViewManagerComponent;
+  let fixture: ComponentFixture<ViewManagerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DriverLayoutComponent ]
+      declarations: [ ViewManagerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DriverLayoutComponent);
+    fixture = TestBed.createComponent(ViewManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -6,6 +6,8 @@ import { UserBanComponent } from './user-ban/user-ban.component';
 import { UserActionBanComponent } from './user-action-ban/user-action-ban.component';
 import { SalonsComponent } from './salons/salons.component';
 import { ManageSalonsComponent } from './manage-salons/manage-salons.component';
+import { AddManagerComponent } from './add-manager/add-manager.component';
+import { ViewManagerComponent } from './view-manager/view-manager.component';
 
 import { DriversComponent } from './drivers/drivers.component';
 import { ManageDriversComponent } from './manage-drivers/manage-drivers.component';
@@ -64,6 +66,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user-action-ban', component: UserActionBanComponent },
     { path: 'salons', component: SalonsComponent },
     { path: 'manage-salons', component: ManageSalonsComponent },
+    { path: 'add-manager', component: AddManagerComponent },
+    { path: 'view-manager', component: ViewManagerComponent },
     { path: 'manage-contact-us', component: ManageContactUsComponent },
     { path: 'view-contact-us', component: ViewContactUsComponent },
     { path: 'drivers', component: DriversComponent },

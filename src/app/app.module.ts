@@ -27,7 +27,6 @@ import {HttpClientModule} from '@angular/common/http';
 import { SalonApiService } from './service/salon-api.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { DriverLayoutComponent } from './driver-layout/driver-layout.component';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -43,7 +42,7 @@ import { ToastrModule } from 'ngx-toastr';
     DashboardComponent,
     LoginComponent,
     SignupComponent,
-    DriverLayoutComponent,
+    
   ],
   imports: [
     BrowserModule,

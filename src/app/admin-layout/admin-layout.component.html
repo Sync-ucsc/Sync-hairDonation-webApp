@@ -1105,14 +1105,37 @@
                                 <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                                     <ul class="menu-subnav">
                                         <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
-                                            <a routerLink="salons" class="menu-link">
-                                                <span class="menu-text">Add a Salon</span>
+                                            <a routerLink="manage-salons" class="menu-link">
+                                                <span class="menu-text">Manage Salons</span>
                                                 <span class="menu-desc"></span>
                                             </a>
                                         </li>
                                         <li class="menu-item " [routerLinkActive]="['menu-item-here']"  aria-haspopup="true">
-                                            <a routerLink="manage-salons" class="menu-link ">
-                                                <span class="menu-text">Manage Salons</span>
+                                            <a routerLink="salons" class="menu-link ">
+                                                <span class="menu-text">Add a Salon</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']"
+                                data-menu-toggle="click" aria-haspopup="true">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <span class="menu-text">Managers</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                                    <ul class="menu-subnav">
+                                        <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="view-manager" class="menu-link">
+                                                <span class="menu-text">View Managers</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-item " [routerLinkActive]="['menu-item-here']"  aria-haspopup="true">
+                                            <a routerLink="add-manager" class="menu-link ">
+                                                <span class="menu-text">Add a manager</span>
                                                 <span class="menu-desc"></span>
                                             </a>
                                         </li>
