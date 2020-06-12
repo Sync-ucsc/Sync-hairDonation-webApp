@@ -12,11 +12,20 @@ import { SalonsComponent } from './salons/salons.component';
 import { AgmCoreModule } from '@agm/core';
 import { ManageSalonsComponent, uploadDialogComponent } from './manage-salons/manage-salons.component';
 import { HttpClientModule } from '@angular/common/http';
-import {MatDialogModule} from '@angular/material/dialog'; 
-import {MatIconModule} from '@angular/material/icon'; 
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
 
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
+import { ProfileComponent } from './profile/profile.component';
+import { ManageContactUsComponent } from './manage-contact-us/manage-contact-us.component';
+import { ViewContactUsComponent } from './view-contact-us/view-contact-us.component';
+import { DriversComponent } from './drivers/drivers.component';
+import { ManageDriversComponent } from './manage-drivers/manage-drivers.component';
+
+
+
 import { AddManagerComponent } from './add-manager/add-manager.component';
 import { ViewManagerComponent } from './view-manager/view-manager.component'; 
 
@@ -36,8 +45,8 @@ import { ViewManagerComponent } from './view-manager/view-manager.component';
     HttpClientModule,
     MatDialogModule,
     MatIconModule,
-    MatAutocompleteModule
-    
+    MatAutocompleteModule,
+    NgxSpinnerModule
 
   ],
   declarations: [
@@ -49,9 +58,15 @@ import { ViewManagerComponent } from './view-manager/view-manager.component';
     ManageSalonsComponent,
     uploadDialogComponent,
     AddManagerComponent,
-    ViewManagerComponent
+    ViewManagerComponent,
+    ProfileComponent,
+    ManageContactUsComponent,
+    ViewContactUsComponent,
+    DriversComponent,
+    ManageDriversComponent,
+    ProfileComponent
   ],
-  
+
 })
 
 export class AdminLayoutModule {}
