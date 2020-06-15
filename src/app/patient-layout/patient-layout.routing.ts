@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { WigRequestComponent } from './wig-request/wig-request.component';
+
 
 export const PatientLayoutRoutes: Routes = [
     // {
@@ -46,4 +48,5 @@ export const PatientLayoutRoutes: Routes = [
     //     }]
     // }
     { path: 'dashboard',      component: DashboardComponent },
+	{ path: 'wig_request',      component: WigRequestComponent},
 ];
