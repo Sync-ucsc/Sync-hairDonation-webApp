@@ -27,7 +27,9 @@ import { ManageDriversComponent, uploadDialog1Component } from './manage-drivers
 
 
 import { AddManagerComponent } from './add-manager/add-manager.component';
-import { ViewManagerComponent } from './view-manager/view-manager.component'; 
+import { ViewManagerComponent } from './view-manager/view-manager.component';
+import { ManageNotificationComponent } from './manage-notification/manage-notification.component';
+import { PushNotificationComponent } from './push-notification/push-notification.component'; 
 
 
 
@@ -65,7 +67,9 @@ import { ViewManagerComponent } from './view-manager/view-manager.component';
     ViewContactUsComponent,
     DriversComponent,
     ManageDriversComponent,
-    ProfileComponent
+    ProfileComponent,
+    ManageNotificationComponent,
+    PushNotificationComponent
   ],
 
 })

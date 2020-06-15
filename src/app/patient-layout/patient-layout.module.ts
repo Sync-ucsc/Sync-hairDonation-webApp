@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PatientLayoutRoutes } from './patient-layout.routing';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { WigRequestComponent} from './wig-request/wig-request.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { WigRequestComponent} from './wig-request/wig-request.component';
   declarations: [
     DashboardComponent,
 	  WigRequestComponent,
+	  ProfileComponent,
   ]
 })
 

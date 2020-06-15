@@ -6,6 +6,7 @@ import { DonorLayoutRoutes } from './donor-layout.routing';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DonorRequestComponent } from './donor-request/donor-request.component';
 import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { BookAppointmentComponent } from './book-appointment/book-appointment.co
     DashboardComponent,
     DonorRequestComponent,
 	BookAppointmentComponent,
+	ProfileComponent,
   ]
 })
 

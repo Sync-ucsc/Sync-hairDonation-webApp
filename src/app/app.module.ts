@@ -42,7 +42,6 @@ import { ToastrModule } from 'ngx-toastr';
     DashboardComponent,
     LoginComponent,
     SignupComponent,
-    
   ],
   imports: [
     BrowserModule,

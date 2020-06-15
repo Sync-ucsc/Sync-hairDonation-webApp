@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AttendantLayoutRoutes } from './attendant-layout.routing';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   ],
   declarations: [
     DashboardComponent,
+    ProfileComponent,
   ]
 })
 
