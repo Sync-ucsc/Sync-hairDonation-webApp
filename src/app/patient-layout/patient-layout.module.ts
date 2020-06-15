@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PatientLayoutRoutes } from './patient-layout.routing';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { WigRequestComponent} from './wig-request/wig-request.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   ],
   declarations: [
     DashboardComponent,
+	  WigRequestComponent,
   ]
 })
 
