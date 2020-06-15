@@ -1110,16 +1110,10 @@
                                     <span class="menu-desc"></span>
                                 </a>
                             </li>
-                            <li class="menu-item" aria-haspopup="true">
-                                <a href="javascript:;" class="menu-link">
-                                    <span class="menu-text">Features</span>
-                                    <span class="menu-desc"></span>
-                                </a>
-                            </li>
-                            <li class="menu-item" aria-haspopup="true">
-                                <a href="javascript:;" class="menu-link">
-                                    <span class="menu-text">Features</span>
-                                    <span class="menu-desc"></span>
+                            <li class="menu-item  " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                <a routerLink="profile" class="menu-link">
+                                    <span class="menu-text">Profile</span>
+                                    <i class="menu-desc"></i>
                                 </a>
                             </li>
                         </ul>
