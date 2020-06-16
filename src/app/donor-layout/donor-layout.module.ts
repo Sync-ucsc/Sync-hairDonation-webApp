@@ -21,7 +21,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     DashboardComponent,
     DonorRequestComponent,
 	BookAppointmentComponent,
-  AppointmentDetailsComponent,
+	AppointmentDetailsComponent,
   
   
   ]

@@ -52,6 +52,6 @@ export const DonorLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'donate_hair',      component: DonorRequestComponent },
     { path: 'book_appointment',      component: BookAppointmentComponent },
-	{ path: 'appointment_details',      component: AppointmentDetailsComponent },
+	{ path: 'appointment_details',  component: AppointmentDetailsComponent },
     
 ];
