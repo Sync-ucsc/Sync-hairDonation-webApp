@@ -6,6 +6,8 @@ import { DonorLayoutRoutes } from './donor-layout.routing';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DonorRequestComponent } from './donor-request/donor-request.component';
 import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
+import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 @NgModule({
@@ -13,11 +15,15 @@ import { BookAppointmentComponent } from './book-appointment/book-appointment.co
     CommonModule,
     RouterModule.forChild(DonorLayoutRoutes),
     FormsModule,
+	FullCalendarModule,
   ],
   declarations: [
     DashboardComponent,
     DonorRequestComponent,
 	BookAppointmentComponent,
+  AppointmentDetailsComponent,
+  
+  
   ]
 })
 
