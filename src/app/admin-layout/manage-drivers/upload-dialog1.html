@@ -1,0 +1,81 @@
+<style>
+    #dialog{
+    align-self: flex-start;
+    /* width: 300px; */
+}
+
+
+agm-map {
+    height: 300px;
+}
+</style>
+    <h2 mat-dialog-title>Update a Driver</h2>
+    <hr>
+    <mat-dialog-content class="mat-typography" style="width: 80vw;" id="dialog">
+        <div class="modal-body">
+            <form [formGroup]="updateForm" >
+                <div class="card-body">
+
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">First Name</label>
+                        <div class="col-10">
+                            <input class="form-control"  type="text" formControlName="fname" [(ngModel)]="selectedDriver.fname"  />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Last Name</label>
+                        <div class="col-10">
+                            <input class="form-control"  type="text" formControlName="lname" [(ngModel)]="selectedDriver.lname"  />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">E-mail</label>
+                        <div class="col-10">
+                            <input class="form-control" type="email" [(ngModel)]="selectedDriver.email"
+                                formControlName="email" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Telephone</label>
+                        <div class="col-10">
+                            <input class="form-control" type="tel" [(ngModel)]="selectedDriver.telephone"
+                                formControlName="telephone" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Communication:</label>
+                        <div class="checkbox-list">
+                            <label class="checkbox">
+                                <input type="checkbox" formControlName="checkSystem" [(ngModel)]="selectedDriver.checkSystem"> System
+                                <span></span>
+                            </label>
+
+                            <label class="checkbox">
+                                <input type="checkbox" formControlName="checkSms" [(ngModel)]="selectedDriver.checkSms" > SMS
+                                <span></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" formControlName="checkEmail" [(ngModel)]="selectedDriver.checkEmail"> E-mail
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+
+
+                    
+                </div>
+
+
+                
+            </form>
+
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="modal-footer">
+            <button mat-button mat-dialog-close class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button mat-button [mat-dialog-close]="true" cdkFocusInitial type="submit" class="btn btn-primary"
+                [disabled]="!updateForm.valid" (click)="updateDriver()">Save changes</button>
+        </div>
+    </mat-dialog-actions>

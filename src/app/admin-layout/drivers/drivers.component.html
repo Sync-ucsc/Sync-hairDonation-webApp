@@ -1,0 +1,72 @@
+<div class="card card-custom">
+            <div class="card-header">
+                <h3 class="card-title">
+                    Enter the details of the driver you want to add
+                </h3>
+            </div>
+            <!--begin::Form-->
+            <form [formGroup]="driverForm" (ngSubmit)="onSubmit()">
+                <div class="card-body">
+
+                    <div class="form-group row">
+                        <label  class="col-2 col-form-label">First Name</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" placeholder="First Name of the Driver" formControlName="fname"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label  class="col-2 col-form-label">Last Name</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" placeholder="Last Name of the Driver" formControlName="lname"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label  class="col-2 col-form-label">E-mail</label>
+                        <div class="col-10">
+                            <input class="form-control" type="email" placeholder="Working E-mail of the salon" formControlName="email"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label  class="col-2 col-form-label">Telephone</label>
+                        <div class="col-10">
+                            <input class="form-control" type="tel" placeholder="Ex : 077 1234567" formControlName="telephone"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Communication:</label>
+                        <div class="checkbox-list">
+                            <label class="checkbox">
+                                <input type="checkbox" formControlName="checkSystem" [(ngModel)]="checkSystem"> System
+                                <span></span>
+                            </label>
+
+                            <label class="checkbox">
+                                <input type="checkbox" formControlName="checkSms" [(ngModel)]="checkSms"> SMS
+                                <span></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" formControlName="checkEmail" [(ngModel)]="checkEmail"> E-mail
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+
+
+                    
+                </div>
+
+
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-10">
+                            <button type="submit" class="btn btn-primary mr-2" [disabled]="!driverForm.valid">Add Driver</button>
+                            <button type="reset" class="btn btn-secondary" (click)="driverForm.reset()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>

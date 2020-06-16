@@ -4,6 +4,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DonorRequestComponent } from './donor-request/donor-request.component';
 import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
 import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
+import { ProfileComponent } from './profile/profile.component';
+
 
 
 export const DonorLayoutRoutes: Routes = [
@@ -52,6 +54,8 @@ export const DonorLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'donate_hair',      component: DonorRequestComponent },
     { path: 'book_appointment',      component: BookAppointmentComponent },
-	{ path: 'appointment_details',  component: AppointmentDetailsComponent },
+	  { path: 'appointment_details',  component: AppointmentDetailsComponent },
+    { path: 'profile', component: ProfileComponent },
+
     
 ];
