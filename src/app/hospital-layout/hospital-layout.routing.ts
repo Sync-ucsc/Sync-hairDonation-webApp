@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export const HospitalLayoutRoutes: Routes = [
     // {
@@ -46,4 +47,5 @@ export const HospitalLayoutRoutes: Routes = [
     //     }]
     // }
     { path: 'dashboard',      component: DashboardComponent },
+    { path: 'profile', component: ProfileComponent },
 ];
