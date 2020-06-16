@@ -13,6 +13,7 @@ import {MatIconModule} from '@angular/material/icon';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -36,6 +37,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     DashboardComponent,
     DonorRequestComponent,
 	  BookAppointmentComponent,
+	  ProfileComponent,
   ]
 })
 

@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
 import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     DashboardComponent,
 	BookAppointmentComponent,
 	AppointmentDetailsComponent,
+	ProfileComponent,
   ]
 })
 

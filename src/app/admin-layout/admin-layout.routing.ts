@@ -14,6 +14,8 @@ import { ManageDriversComponent } from './manage-drivers/manage-drivers.componen
 import { ProfileComponent } from './profile/profile.component';
 import { ManageContactUsComponent } from './manage-contact-us/manage-contact-us.component';
 import { ViewContactUsComponent } from './view-contact-us/view-contact-us.component';
+import { ManageNotificationComponent } from './manage-notification/manage-notification.component';
+import { PushNotificationComponent } from './push-notification/push-notification.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -71,6 +73,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'manage-contact-us', component: ManageContactUsComponent },
     { path: 'view-contact-us', component: ViewContactUsComponent },
     { path: 'drivers', component: DriversComponent },
-    { path: 'manage-drivers', component: ManageDriversComponent }
+    { path: 'manage-drivers', component: ManageDriversComponent },
+    { path: 'manage-notification', component: ManageNotificationComponent },
+    { path: 'push-notification', component: PushNotificationComponent },
 
 ];
