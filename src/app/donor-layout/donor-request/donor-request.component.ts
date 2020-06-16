@@ -25,14 +25,10 @@ export class DonorRequestComponent implements OnInit {
   checkSystem=false;
   checkSms=false;
   checkEmail=false;
+  yes=false;
+  no=false;
 
   salonForm= new FormGroup({
-    name: new FormControl('',Validators.required),
-    email: new FormControl('',[Validators.required,Validators.email]),
-    telephone: new FormControl('',[Validators.required,Validators.minLength(10)]),
-    checkSystem: new FormControl(''),
-    checkSms: new FormControl(''),
-    checkEmail: new FormControl(''),
     address:new FormControl(''),
     latitude:new FormControl(''),
     longitude:new FormControl('')
