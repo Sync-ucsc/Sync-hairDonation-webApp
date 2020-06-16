@@ -1,60 +1,91 @@
-<div class="col-lg-12">
-    <!--begin::Card-->
-    <div class="card card-custom gutter-b example example-compact">
-        <div class="card-header">
-            <h3 class="card-title">
-                Donate your hair
-            </h3>
-            <!-- <div class="card-toolbar">
-                <div class="example-tools justify-content-center">
-                    <span class="example-toggle" data-toggle="tooltip" title="View code"></span>
-                    <span class="example-copy" data-toggle="tooltip" title="Copy code"></span>
-                </div>
-            </div> -->
-        </div>
-        <!--begin::Form-->
-        <form class="form">
-            <div class="card-body">
-                <div class="form-group">
-                    <label>Full Name:</label>
-                    <input type="email" class="form-control form-control-solid" placeholder="Enter full name">
-                    <span class="form-text text-muted">Please enter your full name</span>
-                </div>
-                <div class="form-group">
-                    <label>Email address:</label>
-                    <input type="email" class="form-control form-control-solid" placeholder="Enter email">
-                    <span class="form-text text-muted">We'll never share your email with anyone else</span>
-                </div>
-                <div class="form-group">
-                    <label>Subscription</label>
-                    <div class="input-group input-group-solid">
-                        <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                        <input type="text" class="form-control  form-control-solid" placeholder="99.9">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Communication:</label>
-                    <div class="checkbox-list">
-                        <label class="checkbox">
-                            <input type="checkbox"> Email
-                            <span></span>
-                        </label>
-                        <label class="checkbox">
-                            <input type="checkbox"> SMS
-                            <span></span>
-                        </label>
-                        <label class="checkbox">
-                            <input type="checkbox"> Phone
-                            <span></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <button type="reset" class="btn btn-primary mr-2">Submit</button>
-                <button type="reset" class="btn btn-secondary">Cancel</button>
-            </div>
-        </form>
-        <!--end::Form-->
+<div class="card card-custom">
+    <div class="card-header">
+        <h3 class="card-title">
+            Enter the details of the salon you want to add
+        </h3>
     </div>
-    <!--end::Card-->
+    <!--begin::Form-->
+    <form [formGroup]="salonForm" (ngSubmit)="onSubmit()">
+        <div class="card-body">
+            
+            <div class="form-group row">
+                <label  class="col-2 col-form-label">Name</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" placeholder="Name of the salon" formControlName="name"/>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label  class="col-2 col-form-label">E-mail</label>
+                <div class="col-10">
+                    <input class="form-control" type="email" placeholder="Working E-mail of the salon" formControlName="email"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label  class="col-2 col-form-label">Telephone</label>
+                <div class="col-10">
+                    <input class="form-control" type="tel" placeholder="Ex : 077 1234567" formControlName="telephone"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Communication:</label>
+                <div class="checkbox-list">
+                    <label class="checkbox">
+                        <input type="checkbox" formControlName="checkSystem" [(ngModel)]="checkSystem"> System
+                        <span></span>
+                    </label>
+                    
+                    <label class="checkbox">
+                        <input type="checkbox" formControlName="checkSms" [(ngModel)]="checkSms"> SMS
+                        <span></span>
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" formControlName="checkEmail" [(ngModel)]="checkEmail"> E-mail
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+            
+            
+            <div class="form-group">
+                  <label>Address</label>
+                  <input type="text" class="form-control"  (keydown.enter)="$event.preventDefault()" placeholder="Type the address of the salon" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+                </div>
+              <!-- <div *ngIf="expression" -->
+                <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                  <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                    (dragEnd)="markerDragEnd($event)"></agm-marker>
+                </agm-map>
+              
+                
+                <div>Latitude: {{latitude}}</div>
+                <div>Longitude: {{longitude}}</div>
+              </div>
+            
+        
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-2">
+                </div>
+                <div class="col-10">
+                    <button type="submit" class="btn btn-primary mr-2" [disabled]="!salonForm.valid">Add a Salon</button>
+                    <button type="reset" class="btn btn-secondary" (click)="salonForm.reset()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
