@@ -80,7 +80,7 @@ import { ManagePatientComponent } from './manage-patient/manage-patient.componen
     ProfileComponent,
     ManageNotificationComponent,
     PushNotificationComponent,
-    CdkDetailRowDirective
+    CdkDetailRowDirective,
     ManageDonorComponent,
     ManagePatientComponent
   ],
