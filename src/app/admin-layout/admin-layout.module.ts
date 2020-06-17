@@ -14,9 +14,12 @@ import { ManageSalonsComponent, uploadDialogComponent } from './manage-salons/ma
 import { HttpClientModule } from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
+import {MatSortModule} from '@angular/material/sort';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 
 import { ProfileComponent } from './profile/profile.component';
 import { ManageContactUsComponent } from './manage-contact-us/manage-contact-us.component';
@@ -29,9 +32,11 @@ import { ManageDriversComponent, uploadDialog1Component } from './manage-drivers
 import { AddManagerComponent } from './add-manager/add-manager.component';
 import { ViewManagerComponent } from './view-manager/view-manager.component';
 import { ManageNotificationComponent } from './manage-notification/manage-notification.component';
-import { PushNotificationComponent } from './push-notification/push-notification.component';
+import { PushNotificationComponent } from './push-notification/push-notification.component'; 
+import { CdkDetailRowDirective } from './manage-notification/cdk-detail-row.directive';
 import { ManageDonorComponent } from './manage-donor/manage-donor.component';
 import { ManagePatientComponent } from './manage-patient/manage-patient.component'; 
+
 
 
 
@@ -48,6 +53,9 @@ import { ManagePatientComponent } from './manage-patient/manage-patient.componen
     ReactiveFormsModule,
     HttpClientModule,
     MatDialogModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatTableModule,
     MatIconModule,
     MatAutocompleteModule,
     NgxSpinnerModule
@@ -72,6 +80,7 @@ import { ManagePatientComponent } from './manage-patient/manage-patient.componen
     ProfileComponent,
     ManageNotificationComponent,
     PushNotificationComponent,
+    CdkDetailRowDirective
     ManageDonorComponent,
     ManagePatientComponent
   ],
