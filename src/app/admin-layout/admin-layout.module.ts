@@ -29,7 +29,8 @@ import { ManageDriversComponent, uploadDialog1Component } from './manage-drivers
 import { AddManagerComponent } from './add-manager/add-manager.component';
 import { ViewManagerComponent } from './view-manager/view-manager.component';
 import { ManageNotificationComponent } from './manage-notification/manage-notification.component';
-import { PushNotificationComponent } from './push-notification/push-notification.component'; 
+import { PushNotificationComponent } from './push-notification/push-notification.component';
+import { ManageDonorComponent } from './manage-donor/manage-donor.component'; 
 
 
 
@@ -69,7 +70,8 @@ import { PushNotificationComponent } from './push-notification/push-notification
     ManageDriversComponent,
     ProfileComponent,
     ManageNotificationComponent,
-    PushNotificationComponent
+    PushNotificationComponent,
+    ManageDonorComponent
   ],
 
 })
