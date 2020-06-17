@@ -1,3 +1,20 @@
 th.mat-sort-header-sorted {
   color: black;
 }
+table {
+  width: 100%;
+}
+
+th.mat-header-cell:first-of-type,
+td.mat-cell:first-of-type,
+td.mat-footer-cell:first-of-type {
+   padding-left: unset !important;
+}
+
+th.mat-header-cell,
+td.mat-cell,
+td.mat-footer-cell {
+   padding: 1.5rem !important;
+   border-bottom-width: unset !important;
+   border-bottom-style: initial !important;
+}
