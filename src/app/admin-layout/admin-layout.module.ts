@@ -34,6 +34,9 @@ import { ViewManagerComponent } from './view-manager/view-manager.component';
 import { ManageNotificationComponent } from './manage-notification/manage-notification.component';
 import { PushNotificationComponent } from './push-notification/push-notification.component'; 
 import { CdkDetailRowDirective } from './manage-notification/cdk-detail-row.directive';
+import { ManageDonorComponent } from './manage-donor/manage-donor.component';
+import { ManagePatientComponent } from './manage-patient/manage-patient.component'; 
+
 
 
 
@@ -78,6 +81,8 @@ import { CdkDetailRowDirective } from './manage-notification/cdk-detail-row.dire
     ManageNotificationComponent,
     PushNotificationComponent,
     CdkDetailRowDirective
+    ManageDonorComponent,
+    ManagePatientComponent
   ],
 
 })

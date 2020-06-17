@@ -17,6 +17,9 @@ import { ViewContactUsComponent } from './view-contact-us/view-contact-us.compon
 import { ManageNotificationComponent } from './manage-notification/manage-notification.component';
 import { PushNotificationComponent } from './push-notification/push-notification.component';
 
+import { ManageDonorComponent } from './manage-donor/manage-donor.component'; 
+import { ManagePatientComponent } from './manage-patient/manage-patient.component'; 
+
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -76,5 +79,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'manage-drivers', component: ManageDriversComponent },
     { path: 'manage-notification', component: ManageNotificationComponent },
     { path: 'push-notification', component: PushNotificationComponent },
+    { path: 'manage-donor', component: ManageDonorComponent },
+    { path: 'manage-patient', component: ManagePatientComponent },
 
 ];
