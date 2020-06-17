@@ -18,6 +18,7 @@ import { ManageNotificationComponent } from './manage-notification/manage-notifi
 import { PushNotificationComponent } from './push-notification/push-notification.component';
 
 import { ManageDonorComponent } from './manage-donor/manage-donor.component'; 
+import { ManagePatientComponent } from './manage-patient/manage-patient.component'; 
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -79,5 +80,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'manage-notification', component: ManageNotificationComponent },
     { path: 'push-notification', component: PushNotificationComponent },
     { path: 'manage-donor', component: ManageDonorComponent },
+    { path: 'manage-patient', component: ManagePatientComponent },
 
 ];
