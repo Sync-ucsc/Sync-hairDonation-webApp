@@ -12,6 +12,8 @@ import { HospitalLayoutComponent } from './hospital-layout/hospital-layout.compo
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 
+// use for test chat
+import { ChatComponent } from './shared-layout/chat/chat.component'
 
 const routes: Routes = [
   {
@@ -85,8 +87,13 @@ const routes: Routes = [
       path: '',
       loadChildren: () => import('./hospital-layout/hospital-layout.module').then(m => m.HospitalLayoutModule)
     }]
-  }
+  },
 
+  // use for test chat
+  {
+    path: 'chat',
+    component: ChatComponent,
+  }
 ];
 
 @NgModule({

@@ -29,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DriverLayoutComponent } from './driver-layout/driver-layout.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ChatComponent } from './shared-layout/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { ToastrModule } from 'ngx-toastr';
     LoginComponent,
     SignupComponent,
     DriverLayoutComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
