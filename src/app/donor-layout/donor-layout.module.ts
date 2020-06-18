@@ -21,25 +21,34 @@ import { ProfileComponent } from './profile/profile.component';
 import { DonorChatComponent } from './donor-chat/donor-chat.component';
 import {SharedLayoutModule} from "../shared-layout/shared-layout.module";
 
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule.forChild(DonorLayoutRoutes),
-        FormsModule,
-        FullCalendarModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyAkGlhRjMfmotb0UBMf8EAcmkTB6v3WEVM',
-            libraries: ['places']
-        }),
-        ReactiveFormsModule,
-        HttpClientModule,
-        MatDialogModule,
-        MatIconModule,
-        MatAutocompleteModule,
-        NgxSpinnerModule,
-        SharedLayoutModule
-    ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(DonorLayoutRoutes),
+    FormsModule,
+	  FullCalendarModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAkGlhRjMfmotb0UBMf8EAcmkTB6v3WEVM',
+      libraries: ['places']
+    }),
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatDialogModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    NgxSpinnerModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
+    SharedLayoutModule,
+  ],
   declarations: [
     DashboardComponent,
     DonorRequestComponent,

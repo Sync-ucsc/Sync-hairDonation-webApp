@@ -82,7 +82,8 @@ export class TestComponent implements OnInit {
         title: this.event,
         start: arg.date,
         allDay: arg.allDay
-      })
+      });
+      
     }
   }
 
