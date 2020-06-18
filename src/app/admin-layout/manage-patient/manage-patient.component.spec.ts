@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DriverLayoutComponent } from './driver-layout.component';
+import { ManagePatientComponent } from './manage-patient.component';
 
-describe('DriverLayoutComponent', () => {
-  let component: DriverLayoutComponent;
-  let fixture: ComponentFixture<DriverLayoutComponent>;
+describe('ManagePatientComponent', () => {
+  let component: ManagePatientComponent;
+  let fixture: ComponentFixture<ManagePatientComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DriverLayoutComponent ]
+      declarations: [ ManagePatientComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DriverLayoutComponent);
+    fixture = TestBed.createComponent(ManagePatientComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -20,7 +20,7 @@ export class DriverApiService {
   constructor(private http: HttpClient) { }
 
  // Create
- createSalon(data): Observable<any> {
+ createDriver(data): Observable<any> {
   const url = `${this.baseUri}/create`;
   return this.http.post(url, data)
     .pipe(

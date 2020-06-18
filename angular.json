@@ -36,9 +36,9 @@
               "src/styles.scss"
             ],
             "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/popper.js/dist/umd/popper.js",
-              "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/moment/moment.js",
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.js",
               "src/assets/js/wow.min.js",
@@ -59,7 +59,8 @@
               "node_modules/sweetalert2/dist/sweetalert2.min.js",
               "src/assets/plugins/sweetalert2.init.js",
               "node_modules/sticky-js/dist/sticky.min.js",
-              "src/assets/js/fringerprint.js"
+              "src/assets/js/fringerprint.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js"
             ]
           },
           "configurations": {

@@ -14,16 +14,28 @@ import { ManageSalonsComponent, uploadDialogComponent } from './manage-salons/ma
 import { HttpClientModule } from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
+import {MatSortModule} from '@angular/material/sort';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 
 import { ProfileComponent } from './profile/profile.component';
 import { ManageContactUsComponent } from './manage-contact-us/manage-contact-us.component';
 import { ViewContactUsComponent } from './view-contact-us/view-contact-us.component';
 import { DriversComponent } from './drivers/drivers.component';
-import { ManageDriversComponent } from './manage-drivers/manage-drivers.component';
+import { ManageDriversComponent, uploadDialog1Component } from './manage-drivers/manage-drivers.component';
 
+
+
+import { AddManagerComponent } from './add-manager/add-manager.component';
+import { ViewManagerComponent } from './view-manager/view-manager.component';
+import { ManageNotificationComponent } from './manage-notification/manage-notification.component';
+import { PushNotificationComponent } from './push-notification/push-notification.component'; 
+import { CdkDetailRowDirective } from './manage-notification/cdk-detail-row.directive';
+import { ManageDonorComponent } from './manage-donor/manage-donor.component';
+import { ManagePatientComponent } from './manage-patient/manage-patient.component'; 
 
 
 
@@ -41,6 +53,9 @@ import { ManageDriversComponent } from './manage-drivers/manage-drivers.componen
     ReactiveFormsModule,
     HttpClientModule,
     MatDialogModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatTableModule,
     MatIconModule,
     MatAutocompleteModule,
     NgxSpinnerModule
@@ -54,12 +69,20 @@ import { ManageDriversComponent } from './manage-drivers/manage-drivers.componen
     SalonsComponent,
     ManageSalonsComponent,
     uploadDialogComponent,
+    uploadDialog1Component,
+    AddManagerComponent,
+    ViewManagerComponent,
     ProfileComponent,
     ManageContactUsComponent,
     ViewContactUsComponent,
     DriversComponent,
     ManageDriversComponent,
-    ProfileComponent
+    ProfileComponent,
+    ManageNotificationComponent,
+    PushNotificationComponent,
+    CdkDetailRowDirective,
+    ManageDonorComponent,
+    ManagePatientComponent
   ],
 
 })

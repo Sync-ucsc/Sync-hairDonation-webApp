@@ -49,7 +49,7 @@ export class DriversComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private router: Router,
-  //private apiService: SalonApiService
+    private apiService: DriverApiService
   ) { }
 
   ngOnInit(): void {

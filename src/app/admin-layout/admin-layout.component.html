@@ -1064,7 +1064,7 @@
                                     <i class="menu-desc"></i>
                                 </a>
                             </li>
-                            <li class="menu-item"   [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                            <!-- <li class="menu-item"   [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
                                 <a routerLink=test  class="menu-link">
                                     <span class="svg-icon menu-icon">
                                         <img src="../../assets/media/svg/icon/trash.svg" class="svg-icon svg-icon-md svg-icon-primary ">
@@ -1072,9 +1072,170 @@
                                     <span class="menu-text">Features</span>
                                     <span class="menu-desc"></span>
                                 </a>
+                            </li> -->
+                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']"
+                                data-menu-toggle="click" aria-haspopup="true">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <span class="menu-text">Salon</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                                    <ul class="menu-subnav">
+                                        <li class="menu-item " [routerLinkActive]="['menu-item-here']"  aria-haspopup="true">
+                                            <a routerLink="salons" class="menu-link ">
+                                                <span class="menu-text">Add a Salon</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="manage-salons" class="menu-link">
+                                                <span class="menu-text">Manage Salons</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
                             <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']"
                                 data-menu-toggle="click" aria-haspopup="true">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <span class="menu-text">Manager</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                                    <ul class="menu-subnav">
+                                        <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="view-manager" class="menu-link">
+                                                <span class="menu-text">Add a Manager</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-item " [routerLinkActive]="['menu-item-here']"  aria-haspopup="true">
+                                            <a routerLink="add-manager" class="menu-link ">
+                                                <span class="menu-text">Manage Managers</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']" data-menu-toggle="click"
+                                aria-haspopup="true">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <span class="menu-text">Attendant</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                                    <ul class="menu-subnav">
+                                        <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="view-manager" class="menu-link">
+                                                <span class="menu-text">Add a Attendant</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-item " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="add-manager" class="menu-link ">
+                                                <span class="menu-text">Manage Attendants</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']"
+                                data-menu-toggle="click" aria-haspopup="true">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <span class="menu-text">Driver</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                                    <ul class="menu-subnav">
+                                        <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="user-ban" class="menu-link ">
+                                                <span class="menu-text">Add a Driver</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-item " [routerLinkActive]="['menu-item-here']"  aria-haspopup="true">
+                                            <a routerLink="user-action-ban" class="menu-link ">
+                                                <span class="menu-text">Manage Drivers</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']" data-menu-toggle="click"
+                                aria-haspopup="true">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <span class="menu-text">Donor</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                                    <ul class="menu-subnav">
+                                        <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="manage-donor" class="menu-link ">
+                                                <span class="menu-text">Manage Donors</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-item " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="user-action-ban" class="menu-link ">
+                                                <span class="menu-text">Donors Request Manage</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']" data-menu-toggle="click"
+                                aria-haspopup="true">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <span class="menu-text">Patient</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                                    <ul class="menu-subnav">
+                                        <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="manage-patient" class="menu-link ">
+                                                <span class="menu-text">Manage Patients</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-item " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="user-action-ban" class="menu-link ">
+                                                <span class="menu-text">Patients Request Manage</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <!-- <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']" data-menu-toggle="click"
+                                aria-haspopup="true">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <span class="menu-text">Contact us</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                                    <ul class="menu-subnav">
+                                        <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="view-contact-us" class="menu-link">
+                                                <span class="menu-text">view contact us messages</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-item " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="manage-contact-us" class="menu-link ">
+                                                <span class="menu-text">Manage contact us messages</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li> -->
+                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']" data-menu-toggle="click"
+                                aria-haspopup="true">
                                 <a href="javascript:;" class="menu-link menu-toggle">
                                     <span class="menu-text">Action</span>
                                     <i class="menu-arrow"></i>
@@ -1087,92 +1248,55 @@
                                                 <span class="menu-desc"></span>
                                             </a>
                                         </li>
-                                        <li class="menu-item " [routerLinkActive]="['menu-item-here']"  aria-haspopup="true">
+                                        <li class="menu-item " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
                                             <a routerLink="user-action-ban" class="menu-link ">
                                                 <span class="menu-text">User Action Ban</span>
                                                 <span class="menu-desc"></span>
                                             </a>
                                         </li>
+                                        <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="view-contact-us" class="menu-link">
+                                                <span class="menu-text">view contact us messages</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-item " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="manage-contact-us" class="menu-link ">
+                                                <span class="menu-text">Manage contact us messages</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
-                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']"
-                                data-menu-toggle="click" aria-haspopup="true">
+                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']" data-menu-toggle="click"
+                                aria-haspopup="true">
                                 <a href="javascript:;" class="menu-link menu-toggle">
-                                    <span class="menu-text">Salons</span>
+                                    <span class="menu-text">Notification</span>
                                     <i class="menu-arrow"></i>
                                 </a>
                                 <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                                     <ul class="menu-subnav">
                                         <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
-                                            <a routerLink="salons" class="menu-link">
-                                                <span class="menu-text">Add a Salon</span>
+                                            <a routerLink="push-notification" class="menu-link ">
+                                                <span class="menu-text">Push Notification</span>
                                                 <span class="menu-desc"></span>
                                             </a>
                                         </li>
-                                        <li class="menu-item " [routerLinkActive]="['menu-item-here']"  aria-haspopup="true">
-                                            <a routerLink="manage-salons" class="menu-link ">
-                                                <span class="menu-text">Manage Salons</span>
+                                        <li class="menu-item " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="manage-notification" class="menu-link ">
+                                                <span class="menu-text">Manage notifications</span>
                                                 <span class="menu-desc"></span>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-
-                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']"
-                                                       data-menu-toggle="click" aria-haspopup="true">
-                                                       <a href="javascript:;" class="menu-link menu-toggle">
-                                                           <span class="menu-text">Drivers</span>
-                                                           <i class="menu-arrow"></i>
-                                                       </a>
-                                                       <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-                                                           <ul class="menu-subnav">
-                                                               <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
-                                                                   <a routerLink="user-ban" class="menu-link ">
-                                                                       <span class="menu-text">Add a Driver</span>
-                                                                       <span class="menu-desc"></span>
-                                                                   </a>
-                                                               </li>
-                                                               <li class="menu-item " [routerLinkActive]="['menu-item-here']"  aria-haspopup="true">
-                                                                   <a routerLink="user-action-ban" class="menu-link ">
-                                                                       <span class="menu-text">Manage Drivers</span>
-                                                                       <span class="menu-desc"></span>
-                                                                   </a>
-                                                               </li>
-                                                           </ul>
-                                                       </div>
-                                                   </li>
-
-
                             <li class="menu-item  " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
                                 <a routerLink="profile" class="menu-link">
                                     <span class="menu-text">Profile</span>
                                     <i class="menu-desc"></i>
                                 </a>
-                            </li>
-                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']"
-                                data-menu-toggle="click" aria-haspopup="true">
-                              <a href="javascript:;" class="menu-link menu-toggle">
-                                <span class="menu-text">Contact us</span>
-                                <i class="menu-arrow"></i>
-                              </a>
-                              <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-                                <ul class="menu-subnav">
-                                  <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
-                                    <a routerLink="view-contact-us" class="menu-link">
-                                      <span class="menu-text">view contact us messages</span>
-                                      <span class="menu-desc"></span>
-                                    </a>
-                                  </li>
-                                  <li class="menu-item " [routerLinkActive]="['menu-item-here']"  aria-haspopup="true">
-                                    <a routerLink="manage-contact-us" class="menu-link ">
-                                      <span class="menu-text">Manage contact us messages</span>
-                                      <span class="menu-desc"></span>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
                             </li>
                         </ul>
                         <!--end::Header Nav-->
