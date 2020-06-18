@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -36,25 +36,30 @@ const ELEMENT_DATA: PeriodicElement[] = [
     ]),
   ],
 })
-export class ManageNotificationComponent implements OnInit {
+export class ManageNotificationComponent implements OnChanges, OnInit{
 
-  all = false;
+  @Input() all:boolean;
   displayedColumns: string[] = ['massage', 'role', 'weight', 'validDate','action'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  
+
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     console.log(this.dataSource);
     // this.dataFilter();
-  
+
   }
 
   constructor() { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes)
+    this.dataFilter();
+  }
 
   sExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 
@@ -73,16 +78,16 @@ export class ManageNotificationComponent implements OnInit {
   dataFilter(){
     let data =[];
     console.log(this.all)
-    if(this.all =true){
+    if(this.all ===true){
       ELEMENT_DATA.forEach(e => {
-        if (e.role == 'all' && this.all == true) {
+        if (e.role === 'all' && this.all === true) {
           data.push(e)
         }
       })
     } else {
       data = ELEMENT_DATA;
     }
-    
+
     this.dataSource = new MatTableDataSource(data);
     console.log(this.dataSource);
     this.dataSource.sort = this.sort;
