@@ -18,31 +18,35 @@ import {MatIconModule} from '@angular/material/icon';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ProfileComponent } from './profile/profile.component';
+import { DonorChatComponent } from './donor-chat/donor-chat.component';
+import {SharedLayoutModule} from "../shared-layout/shared-layout.module";
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(DonorLayoutRoutes),
-    FormsModule,
-	  FullCalendarModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAkGlhRjMfmotb0UBMf8EAcmkTB6v3WEVM',
-      libraries: ['places']
-    }),
-    ReactiveFormsModule,
-    HttpClientModule,
-    MatDialogModule,
-    MatIconModule,
-    MatAutocompleteModule,
-    NgxSpinnerModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(DonorLayoutRoutes),
+        FormsModule,
+        FullCalendarModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyAkGlhRjMfmotb0UBMf8EAcmkTB6v3WEVM',
+            libraries: ['places']
+        }),
+        ReactiveFormsModule,
+        HttpClientModule,
+        MatDialogModule,
+        MatIconModule,
+        MatAutocompleteModule,
+        NgxSpinnerModule,
+        SharedLayoutModule
+    ],
   declarations: [
     DashboardComponent,
     DonorRequestComponent,
 	  AppointmentDetailsComponent,
 	  BookAppointmentComponent,
 	  ProfileComponent,
+	  DonorChatComponent,
   ]
 })
 

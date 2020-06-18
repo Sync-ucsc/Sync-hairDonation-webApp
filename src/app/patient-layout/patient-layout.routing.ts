@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { WigRequestComponent } from './wig-request/wig-request.component';
 import { ProfileComponent } from './profile/profile.component';
-
+import { PatientChatComponent} from './patient-chat/patient-chat.component';
 
 export const PatientLayoutRoutes: Routes = [
     // {
@@ -51,4 +51,5 @@ export const PatientLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'wig_request',      component: WigRequestComponent},
     { path: 'profile', component: ProfileComponent },
+    { path: 'chat', component: PatientChatComponent },
 ];

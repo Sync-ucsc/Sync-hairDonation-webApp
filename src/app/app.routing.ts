@@ -12,7 +12,7 @@ import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 
 // use for test chat
-import { ChatComponent } from './shared-layout/chat/chat.component'
+import {SharedChatComponent} from './shared-layout/shared-chat/shared-chat.component';
 
 const routes: Routes = [
   {
@@ -55,7 +55,7 @@ const routes: Routes = [
       loadChildren: () => import('./salon-layout/salon-layout.module').then(m => m.SalonLayoutModule)
     }]
   },
-  
+
   {
     path: 'donor',
     component: DonorLayoutComponent,
@@ -84,7 +84,7 @@ const routes: Routes = [
   // use for test chat
   {
     path: 'chat',
-    component: ChatComponent,
+    component: SharedChatComponent,
   }
 ];
 
