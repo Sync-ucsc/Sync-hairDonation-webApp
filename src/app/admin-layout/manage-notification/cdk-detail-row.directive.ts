@@ -1,6 +1,7 @@
 import { Directive, HostBinding, HostListener, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
+    // tslint:disable-next-line: directive-selector
     selector: '[cdkDetailRow]'
 })
 export class CdkDetailRowDirective {

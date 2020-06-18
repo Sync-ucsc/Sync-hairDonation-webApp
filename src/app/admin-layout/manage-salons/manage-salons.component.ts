@@ -29,7 +29,7 @@ socket;
 @ViewChild('dialog') templateRef: TemplateRef<any>;
  Salon:any = [];
  SalonNames:any=[];
- 
+
  selectedSalon;
 
 
@@ -41,12 +41,12 @@ constructor(
     private apiService:SalonApiService,
     public dialog: MatDialog,
   ) {
-    
+
      this.socket = io.connect('http://localhost:3000');
 
    }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.getSalons();
     this.socket.on('new-salon', () => {
       this.getSalons();
@@ -128,7 +128,7 @@ constructor(
        )
      }
    });
-  
+
   // if(window.confirm('Are you sure?')) {
   //   this.apiService.deleteSalon(salon._id).subscribe((data) => {
   //       this.Salon.splice(index, 1);
@@ -155,7 +155,7 @@ openUpdateRef(salon){
 
 }
 
-//opening the view dialog 
+// opening the view dialog
 
 openViewRef(salon){
   this.selectedSalon=salon;
@@ -290,8 +290,8 @@ updateSalon(){
             }, (error) => {
               console.log(error)
             })
-  
-   
+
+
         },
         // tslint:disable-next-line: only-arrow-functions
       }).then(function (result) {
@@ -310,7 +310,7 @@ updateSalon(){
         }
       });
 
-        
+
     }
 
 

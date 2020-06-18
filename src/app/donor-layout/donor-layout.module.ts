@@ -18,6 +18,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ProfileComponent } from './profile/profile.component';
+import { DonorChatComponent } from './donor-chat/donor-chat.component';
+import {SharedLayoutModule} from "../shared-layout/shared-layout.module";
 
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -44,7 +46,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    SharedLayoutModule,
   ],
   declarations: [
     DashboardComponent,
@@ -52,6 +55,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 	  AppointmentDetailsComponent,
 	  BookAppointmentComponent,
 	  ProfileComponent,
+	  DonorChatComponent,
   ]
 })
 
