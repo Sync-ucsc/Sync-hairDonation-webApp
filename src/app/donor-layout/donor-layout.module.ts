@@ -19,6 +19,13 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ProfileComponent } from './profile/profile.component';
 
+import { MatCardModule } from "@angular/material/card";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatButtonModule } from "@angular/material/button";
+
+
+
+
 
 @NgModule({
   imports: [
@@ -35,7 +42,12 @@ import { ProfileComponent } from './profile/profile.component';
     MatDialogModule,
     MatIconModule,
     MatAutocompleteModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatButtonModule,
+  
+    
   ],
   declarations: [
     DashboardComponent,

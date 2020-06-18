@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManageNotificationComponent } from './manage-notification.component';
+import { ViewCalendarComponent } from './view-calendar.component';
 
-describe('ManageNotificationComponent', () => {
-  let component: ManageNotificationComponent;
-  let fixture: ComponentFixture<ManageNotificationComponent>;
+describe(' ViewCalendarComponent', () => {
+  let component:  ViewCalendarComponent;
+  let fixture: ComponentFixture< ViewCalendarComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManageNotificationComponent ]
+      declarations: [  ViewCalendarComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManageNotificationComponent);
+    fixture = TestBed.createComponent( ViewCalendarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
