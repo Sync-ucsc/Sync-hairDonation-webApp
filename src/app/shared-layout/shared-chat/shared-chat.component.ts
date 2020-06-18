@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {PreviousChatList} from '../../model/chat/PreviousChatList';
-import {Message} from '../../model/chat/Message';
+import {PreviousChatList} from '@model/chat/PreviousChatList';
+import {Message} from '@model/chat/Message';
+import {ChatService} from "@services/chat.service";
 
 @Component({
   selector: 'app-shared-chat',
@@ -10,8 +11,7 @@ import {Message} from '../../model/chat/Message';
 })
 export class SharedChatComponent implements OnInit {
 
-  senderAvatar = '../../../assets/chat/maleAvatar.svg';
-  receiverAvatar = '../../../assets/chat/femaleAvatar.svg';
+
 
   sendMessage: FormGroup;
   searchBarValue: string;
@@ -20,15 +20,16 @@ export class SharedChatComponent implements OnInit {
   sendMessageList: Message[];
   receiveMessageList: Message[];
 
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb: FormBuilder,
+              private _chat: ChatService) {
 
   }
 
   ngOnInit(): void {
     this.buildForms();
-    this.getPreviousChatList();
-    this.getSendMessage();
-    this.getReceiveMessage();
+    this.previousChatList = this._chat.getPreviousChatList();
+    this.sendMessageList = this._chat.getSendMessage();
+    this.receiveMessageList = this._chat.getReceiveMessage();
   }
 
   buildForms() {
@@ -37,60 +38,7 @@ export class SharedChatComponent implements OnInit {
     })
   }
 
-  getPreviousChatList(){
-    this.previousChatList = [
-      {
-        name: 'Matt Pears',
-        avatar: this.receiverAvatar,
-        status: 'Head of Development',
-        lastChatTime: '35 mins',
-      },
-      {
-        name: 'Nick Nilson',
-        avatar: this.senderAvatar,
-        status: 'Software Architect',
-        lastChatTime: '3 days',
-      }
-    ]
-  }
 
-  getSendMessage(){
-    this.sendMessageList = [
-      {
-        name: 'You',
-        avatar: this.senderAvatar,
-        lastSeen: 'none',
-        createdAt: new Date().toISOString(),
-        message: 'sender1'
-      },
-      {
-        name: 'You',
-        avatar: this.senderAvatar,
-        lastSeen: 'none',
-        createdAt: new Date().toISOString(),
-        message: 'sender2'
-      }
-    ]
-  }
-
-  getReceiveMessage(){
-    this.receiveMessageList = [
-      {
-        name: 'Matt Pears',
-        avatar: this.receiverAvatar,
-        lastSeen: 'none',
-        createdAt: new Date().toISOString(),
-        message: 'receiver1'
-      },
-      {
-        name: 'Matt Pears',
-        avatar: this.receiverAvatar,
-        lastSeen: 'none',
-        createdAt: new Date().toISOString(),
-        message: 'receiver2'
-      }
-    ]
-  }
 
   sendMessageToReceiver() {
     console.log(this.sendMessage.value)
