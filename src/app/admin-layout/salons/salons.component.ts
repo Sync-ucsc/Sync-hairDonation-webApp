@@ -125,17 +125,25 @@ getAddress(latitude, longitude) {
   } else {
 
     this.apiService.createSalon(this.salonForm.value).subscribe(
-      (res) => {
-        console.log('Salon successfully created!')
+      data => {
+          console.log('Salon successfully created!'+data)
+          Swal.fire(
+            'Done!',
+            'You added a new salon!',
+            'success'
+          )
+          this.router.navigateByUrl('/admin/manage-salons');
+      },
+      error => {
+        // Do something with error
+        console.error(error);
         Swal.fire(
-          'Done!',
-          'You added a new salon!',
-          'success'
+          'error!',
+          'add salon failed!',
+          'error'
         )
-        this.ngZone.run(() => this.router.navigateByUrl('/admin/manage-salons'))
-      }, (error) => {
-        console.log(error);
-      });
+      }
+    );
   }
  }
 

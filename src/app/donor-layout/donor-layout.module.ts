@@ -26,6 +26,13 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 
+import { MatCardModule } from "@angular/material/card";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatButtonModule } from "@angular/material/button";
+
+
+
+
 
 @NgModule({
   imports: [
@@ -43,6 +50,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatIconModule,
     MatAutocompleteModule,
     NgxSpinnerModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatButtonModule,
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,

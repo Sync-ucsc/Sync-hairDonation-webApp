@@ -8,6 +8,7 @@ import { BookAppointmentComponent } from './book-appointment/book-appointment.co
 import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { ProfileComponent } from './profile/profile.component';
+import { ViewCalendarComponent } from './view-calendar/view-calendar.component';
 import { SaloonChatComponent } from './saloon-chat/saloon-chat.component';
 import {SharedLayoutModule} from "../shared-layout/shared-layout.module";
 
@@ -22,10 +23,11 @@ import {SharedLayoutModule} from "../shared-layout/shared-layout.module";
   ],
   declarations: [
     DashboardComponent,
-	BookAppointmentComponent,
-	AppointmentDetailsComponent,
-	ProfileComponent,
-	SaloonChatComponent,
+    BookAppointmentComponent,
+    AppointmentDetailsComponent,
+    ProfileComponent,
+    SaloonChatComponent,
+     ViewCalendarComponent,
   ]
 })
 

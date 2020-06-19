@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookAppointmentComponent implements OnInit {
 
+  
   constructor() { }
 
   ngOnInit(): void {
   }
 
+ 
+
+
 }
+
+
