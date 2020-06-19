@@ -5,6 +5,11 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import interactionPlugin, { Draggable } from '@fullcalendar/interaction'; // for dateClick
 import * as moment from 'moment';
+
+// ES6 Modules or TypeScript
+import Swal from 'sweetalert2';
+
+
 @Component({
   selector: 'app-test',
   templateUrl: './view-calendar.component.html',
@@ -75,15 +80,60 @@ export class ViewCalendarComponent implements OnInit {
   }
 
   handleDateClick(arg) {
-    if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
-      this.event = prompt('Enter Event', '')
-      console.log(this.event)
-      this.calendarEvents = this.calendarEvents.concat({
-        title: this.event,
-        start: arg.date,
-        allDay: arg.allDay
-      })
-    }
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: 'Add Appointment',
+      text: "Are you want to add appointment?",
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+
+    //   this.event = prompt('Enter Event', '')
+    //    console.log(this.event)
+    // this.calendarEvents = this.calendarEvents.concat({
+    //   title: this.event,
+    //  start: arg.date,
+    //  allDay: arg.allDay
+      showCancelButton: true,
+      confirmButtonText: 'Yes, add it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        swalWithBootstrapButtons.fire(
+          'Add!',
+          'Your appointment is  added.',
+          'success'  
+        )
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your appointment is not added.',
+          'error'
+        )
+      }
+    })
+   
+    // if (confirm('Would you like to add appointment' + arg.dateStr + ' ?')) {
+    //   this.event = prompt('Enter Event', '')
+    //   console.log(this.event)
+    //   this.calendarEvents = this.calendarEvents.concat({
+    //     title: this.event,
+    //     start: arg.date,
+    //     allDay: arg.allDay
+    //   })
+    // }
   }
 
   eventClick(model) {

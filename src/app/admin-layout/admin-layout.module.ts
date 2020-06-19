@@ -29,7 +29,7 @@ import { ManageDriversComponent, uploadDialog1Component } from './manage-drivers
 import { AddManagerComponent } from './add-manager/add-manager.component';
 import { ViewManagerComponent } from './view-manager/view-manager.component';
 import { PushNotificationComponent } from './push-notification/push-notification.component'; 
-
+import {ManageNotificationComponent} from './mangage-notification/manage-notification.component'; 
 
 
 @NgModule({
@@ -67,7 +67,7 @@ import { PushNotificationComponent } from './push-notification/push-notification
     DriversComponent,
     ManageDriversComponent,
     ProfileComponent,
-  
+	ManageNotificationComponent,
     PushNotificationComponent
   ],
 
