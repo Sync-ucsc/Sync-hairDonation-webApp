@@ -1,0 +1,212 @@
+<div class="input-group mb-3" >
+    <div class="input-group-prepend" >
+    
+    <span class="input-group-text " style=" height: 39px;" id="basic-addon1" >
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <rect x="0" y="0" width="22" height="22"/>
+                <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill=" #9c33ff " fill-rule="nonzero" opacity="0.3"/>
+                <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#9c33ff" fill-rule="nonzero"/>
+            </g>
+        </svg><!--end::Svg Icon-->
+    </span>
+    
+    </div>
+    <input class="form-control"
+    type="text"
+    placeholder="Search for a driver"
+    aria-label="Number"
+    matInput
+    [formControl]="myControl"
+    [matAutocomplete]="auto"/>
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option   *ngFor="let option of filteredOptions | async" [value]="option['name']">
+            {{option['name']}}
+        </mat-option>
+    </mat-autocomplete>
+    
+    
+    </div>
+    
+    
+    
+    
+    
+    {{myControl.valid}}
+    <div class="card card-custom">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First Name </th>
+                <th scope="col">Last Name </th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Telephone</th>
+                <th scope="col">Address</th>
+
+            </tr>
+        </thead>
+        <tbody *ngIf="!myControl.valid" >
+            <tr *ngFor="let Attendant of Attendant; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{Attendant['fname']}}</td>
+                <td>{{Attendant['lname']}}</td>
+                <td>{{Attendant['email']}}</td>
+                <td>{{Attendant['telephone']}}</td>
+                <td>{{Attendant['address']}}</td>
+
+               
+                
+                <td class="text-center edit-block">
+                    <div class="btn btn-light-success  font-weight-bold mr-2" (click)="openViewRef(Attendant)">
+                        <span class="svg-icon svg-icon-lg">
+                       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24"/>
+                                <path d="M8,3 L8,3.5 C8,4.32842712 8.67157288,5 9.5,5 L14.5,5 C15.3284271,5 16,4.32842712 16,3.5 L16,3 L18,3 C19.1045695,3 20,3.8954305 20,5 L20,21 C20,22.1045695 19.1045695,23 18,23 L6,23 C4.8954305,23 4,22.1045695 4,21 L4,5 C4,3.8954305 4.8954305,3 6,3 L8,3 Z" fill="#000000" opacity="0.3"/>
+                                <path d="M11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L14.5,2 C14.7761424,2 15,2.22385763 15,2.5 L15,3.5 C15,3.77614237 14.7761424,4 14.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 L9,2.5 C9,2.22385763 9.22385763,2 9.5,2 L11,2 Z" fill="#000000"/>
+                                <rect fill="#000000" opacity="0.3" x="7" y="10" width="5" height="2" rx="1"/>
+                                <rect fill="#000000" opacity="0.3" x="7" y="14" width="9" height="2" rx="1"/>
+                            </g>
+                        </svg><!--end::Svg Icon-->
+                    </span>
+                    View
+                  </div>
+                    <div class="btn btn-light-primary font-weight-bold mr-2"  (click)="openUpdateRef(Attendant)">
+                        <span class="svg-icon svg-icon-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <path
+                                        d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z"
+                                        fill="#000000" fill-rule="nonzero"
+                                        transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) " />
+                                    <path
+                                        d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z"
+                                        fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                </g>
+                            </svg>
+                        </span>
+                        Update
+                    </div>
+                    <div class="btn btn-light-danger btn-outline-danger font-weight-bold mr-2" (click)="removeAttendant(Attendant, i)">
+                        <span class="svg-icon svg-icon-lg">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <path
+                                        d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z"
+                                        fill="#000000" fill-rule="nonzero" />
+                                    <path
+                                        d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z"
+                                        fill="#000000" opacity="0.3" />
+                                </g>
+                            </svg>
+                    
+                            <!--end::Svg Icon-->
+                        </span>
+                        Delete
+                    </div>
+                    
+                </td>
+            
+                
+            </tr>
+            
+        </tbody>
+        <tbody *ngIf="myControl.valid">
+            <tr *ngFor="let Attendant of filteredOptions | async; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{Attendant['fname']}}</td>
+                <td>{{Attendant['fname']}}</td>
+                <td>{{Attendant['email']}}</td>
+                <td>{{Attendant['telephone']}}</td>
+        
+        
+        
+                <td class="text-center edit-block">
+                    <div class="btn btn-light-success  font-weight-bold mr-2" (click)="openViewRef(Attendant)">
+                        <span class="svg-icon svg-icon-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <path
+                                        d="M8,3 L8,3.5 C8,4.32842712 8.67157288,5 9.5,5 L14.5,5 C15.3284271,5 16,4.32842712 16,3.5 L16,3 L18,3 C19.1045695,3 20,3.8954305 20,5 L20,21 C20,22.1045695 19.1045695,23 18,23 L6,23 C4.8954305,23 4,22.1045695 4,21 L4,5 C4,3.8954305 4.8954305,3 6,3 L8,3 Z"
+                                        fill="#000000" opacity="0.3" />
+                                    <path
+                                        d="M11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L14.5,2 C14.7761424,2 15,2.22385763 15,2.5 L15,3.5 C15,3.77614237 14.7761424,4 14.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 L9,2.5 C9,2.22385763 9.22385763,2 9.5,2 L11,2 Z"
+                                        fill="#000000" />
+                                    <rect fill="#000000" opacity="0.3" x="7" y="10" width="5" height="2" rx="1" />
+                                    <rect fill="#000000" opacity="0.3" x="7" y="14" width="9" height="2" rx="1" />
+                                </g>
+                            </svg>
+                            <!--end::Svg Icon-->
+                        </span>
+                        View
+                    </div>
+                    <div class="btn btn-light-primary font-weight-bold mr-2" (click)="openUpdateRef(Attendant)">
+                        <span class="svg-icon svg-icon-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <path
+                                        d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z"
+                                        fill="#000000" fill-rule="nonzero"
+                                        transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) " />
+                                    <path
+                                        d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z"
+                                        fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                </g>
+                            </svg>
+                        </span>
+                        Update
+                    </div>
+                    <div class="btn btn-light-danger btn-outline-danger font-weight-bold mr-2" (click)="removeAttendant(Attendant, i)">
+                        <span class="svg-icon svg-icon-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <path
+                                        d="M6,8 L18,8 L17.106535,19.6150447 C17.04642,20.3965405 16.3947578,21 15.6109533,21 L8.38904671,21 C7.60524225,21 6.95358004,20.3965405 6.89346498,19.6150447 L6,8 Z M8,10 L8.45438229,14.0894406 L15.5517885,14.0339036 L16,10 L8,10 Z"
+                                        fill="#000000" fill-rule="nonzero" />
+                                    <path
+                                        d="M14,4.5 L14,3.5 C14,3.22385763 13.7761424,3 13.5,3 L10.5,3 C10.2238576,3 10,3.22385763 10,3.5 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z"
+                                        fill="#000000" opacity="0.3" />
+                                </g>
+                            </svg>
+        
+                            <!--end::Svg Icon-->
+                        </span>
+                        Delete
+                    </div>
+        
+                </td>
+        
+        
+            </tr>
+        
+        </tbody>
+    </table>
+    </div>
+       
+    <ng-template #dialog>
+        <div class="modal position-relative d-block" tabindex="-1" role="dialog" style="height: 80vh;width: 70vw;overflow-x: hidden;">
+            <div class="modal-dialog" role="document" style="height: 100%;width: 100%;overflow-y: scroll;">
+    
+              
+                 
+                 
+    
+    
+            </div>
+        </div>
+    
+    </ng-template>
+    
+      

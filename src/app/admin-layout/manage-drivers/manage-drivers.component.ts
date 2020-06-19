@@ -1,6 +1,6 @@
 import * as io from 'socket.io-client';
 import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject } from '@angular/core';
-import { MatDialog ,MatDialogConfig,MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog,MatDialogConfig,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { DriverApiService } from './../../service/driver-api.service';
