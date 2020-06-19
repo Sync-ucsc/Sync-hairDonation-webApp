@@ -9,7 +9,8 @@ import { AppointmentDetailsComponent } from './appointment-details/appointment-d
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { ProfileComponent } from './profile/profile.component';
 import { ViewCalendarComponent } from './view-calendar/view-calendar.component';
-
+import { SaloonChatComponent } from './saloon-chat/saloon-chat.component';
+import {SharedLayoutModule} from "../shared-layout/shared-layout.module";
 
 
 @NgModule({
@@ -17,14 +18,16 @@ import { ViewCalendarComponent } from './view-calendar/view-calendar.component';
     CommonModule,
     RouterModule.forChild(SalonLayoutRoutes),
     FormsModule,
-	  FullCalendarModule,
+    FullCalendarModule,
+    SharedLayoutModule,
   ],
   declarations: [
     DashboardComponent,
-	  BookAppointmentComponent,
-	  AppointmentDetailsComponent,
+    BookAppointmentComponent,
+    AppointmentDetailsComponent,
     ProfileComponent,
-    ViewCalendarComponent,
+    SaloonChatComponent,
+     ViewCalendarComponent,
   ]
 })
 

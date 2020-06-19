@@ -1,44 +1,97 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 export interface PeriodicElement {
-  name: string;
-  position: number;
+  massage: string;
+  role: string;
   weight: number;
-  symbol: string;
+  validDate: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
+  { role: 'all', massage: 'collect wigs', weight: 1.0079, validDate: '2020.06.16' },
+  { role: 'donor', massage: 'collect wigs', weight: 4.0026, validDate: '2020.06.16' },
+  { role: 'patient', massage: 'collect wigs', weight: 6.941, validDate: '2020.06.16' },
+  { role: 'salon', massage: 'collect wigs', weight: 9.0122, validDate: '2020.06.16' },
+  { role: 'manager', massage: 'collect wigs', weight: 10.811, validDate: '2020.06.16' },
+  { role: 'attendat', massage: 'collect wigs', weight: 12.0107, validDate: '2020.06.16' },
+  { role: 'driver', massage: 'collect wigs', weight: 14.0067, validDate: '2020.06.16' },
+  { role: 'all', massage: 'collect wigs', weight: 15.9994, validDate: '2020.06.16' },
+  { role: 'manager', massage: 'collect wigs', weight: 18.9984, validDate: '2020.06.16' },
+  { role: 'donor', massage: 'collect wigs', weight: 20.1797, validDate: '2020.06.16' },
+  { role: 'all', massage: 'collect wigs', weight: 20.1797, validDate: '2020.06.16' },
 ];
 @Component({
   selector: 'app-manage-notification',
-  templateUrl: ['./manage-notification.component.html'],
-  styleUrls: ['./manage-notification.component.scss']
+  templateUrl: './manage-notification.component.html',
+  styleUrls: ['./manage-notification.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('void', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
+      state('*', style({ height: '*', visibility: 'visible' })),
+      transition('void <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
-export class ManageNotificationComponent implements OnInit {
+export class ManageNotificationComponent implements OnChanges, OnInit{
 
-  
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  @Input() all:boolean;
+  displayedColumns: string[] = ['massage', 'role', 'weight', 'validDate','action'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
-    console.log(this.dataSource)
+    this.dataSource.paginator = this.paginator;
+    console.log(this.dataSource);
+    // this.dataFilter();
+
   }
 
   constructor() { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes)
+    this.dataFilter();
+  }
+
+  sExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  ismobile() {
+    if ($(window).width() > 577) {
+      return false;
+    }
+    return true;
+  }
+
+  dataFilter(){
+    let data =[];
+    console.log(this.all)
+    if(this.all ===true){
+      ELEMENT_DATA.forEach(e => {
+        if (e.role === 'all' && this.all === true) {
+          data.push(e)
+        }
+      })
+    } else {
+      data = ELEMENT_DATA;
+    }
+
+    this.dataSource = new MatTableDataSource(data);
+    console.log(this.dataSource);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
 
 }

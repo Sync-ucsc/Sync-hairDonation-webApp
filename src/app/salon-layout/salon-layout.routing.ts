@@ -5,6 +5,7 @@ import { BookAppointmentComponent } from './book-appointment/book-appointment.co
 import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
 import { ProfileComponent } from './profile/profile.component';
 import {ViewCalendarComponent} from './view-calendar/view-calendar.component';
+import { SaloonChatComponent } from './saloon-chat/saloon-chat.component';
 
 
 export const SalonLayoutRoutes: Routes = [
@@ -55,4 +56,5 @@ export const SalonLayoutRoutes: Routes = [
     { path: 'appointment_details',      component: AppointmentDetailsComponent },
     { path: 'profile', component: ProfileComponent },
     {path: 'view_calendar',component:ViewCalendarComponent},
+    { path: 'chat', component: SaloonChatComponent },
 ];
