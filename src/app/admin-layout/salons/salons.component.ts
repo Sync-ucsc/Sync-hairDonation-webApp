@@ -126,7 +126,6 @@ getAddress(latitude, longitude) {
 
     this.apiService.createSalon(this.salonForm.value).subscribe(
       (res) => {
-        this.socket.emit('updatedata', res);
         console.log('Salon successfully created!')
         Swal.fire(
           'Done!',
