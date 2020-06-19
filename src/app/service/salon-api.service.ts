@@ -21,11 +21,8 @@ export class SalonApiService {
  // Create
  createSalon(data): Observable<any> {
   const url = `${this.baseUri}/create`;
-  return this.http.post(url, data)
-    .pipe(
-      catchError(this.errorMgmt)
-    )
-}
+   return this.http.post(url, data);
+  }
 
 
 
