@@ -36,6 +36,7 @@ import { PushNotificationComponent } from './push-notification/push-notification
 import { CdkDetailRowDirective } from './manage-notification/cdk-detail-row.directive';
 import { ManageDonorComponent } from './manage-donor/manage-donor.component';
 import { ManagePatientComponent } from './manage-patient/manage-patient.component'; 
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -58,7 +59,8 @@ import { ManagePatientComponent } from './manage-patient/manage-patient.componen
     MatTableModule,
     MatIconModule,
     MatAutocompleteModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatSelectModule,
 
   ],
   declarations: [
