@@ -28,13 +28,7 @@ export class DonorRequestComponent implements OnInit {
   yes=false;
   no=false;
 
-  salonForm= new FormGroup({
-    address:new FormControl(''),
-    latitude:new FormControl(''),
-    longitude:new FormControl('')
-
-
-  })
+  salonForm 
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -47,6 +41,17 @@ export class DonorRequestComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    this.salonForm = new FormGroup({
+      address:new FormControl(''),
+      latitude:new FormControl(''),
+      longitude:new FormControl(''),
+      yes:new FormControl(false),
+      no:new  FormControl(false),
+  
+    })
+
+
     this.mapsAPILoader.load().then(() => {
 
       // tslint:disable-next-line: new-parens
@@ -99,6 +104,14 @@ getAddress(latitude, longitude) {
   });
 }
 
+onChange1(eve: any) {
+  this.yes = !this.yes;
+}
+
+onChange2(eve: any) {
+  this.no = !this.no;
+  console.log(this.no)
+}
 
  onSubmit(){
 
@@ -106,7 +119,9 @@ getAddress(latitude, longitude) {
    this.salonForm.patchValue({
      address:this.placeaddress.formatted_address,
      latitude:this.latitude,
-     longitude:this.longitude
+     longitude:this.longitude,
+    //  yes:this.yes,
+    //  no:this.no
    })
    console.log(this.salonForm.value);
    this.submitted=true;
@@ -129,6 +144,20 @@ getAddress(latitude, longitude) {
         console.log(error);
       });
   }
+  }
+
+  clickYes(){
+    console.log('click yes')
+    this.yes = true;
+    this.no = false;
+    this.salonForm.value.no = !this.salonForm.value.yes;
+  }
+
+  clickNo(){
+    this.yes = false;
+    this.no = true;
+    console.log('click yes')
+    this.salonForm.value.yes = !this.salonForm.value.no;
   }
 
 }
