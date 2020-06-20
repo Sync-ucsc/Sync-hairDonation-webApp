@@ -1,159 +1,211 @@
 <mat-toolbar color="primary">Appointment Book </mat-toolbar>
 <div class="content">
-  
-<div class="col-xl-7">
-  <div class="row">
-      <div class="col-xl-4">
-        <mat-card class="mat-elevation-z4">
-          <mat-card-header>
-            <mat-card-title >Salon Name</mat-card-title>
-          </mat-card-header>
-        
-          <mat-card-actions>
-            <div class="col-10">
-              
-            
-              <button routerLink="appointment_details" type="book" class="btn btn-primary mr-2">Book</button>
-          
-         
-            </div>
-            <!-- <button mat-button>LIKE</button> <button mat-button>SHARE</button> -->
-          </mat-card-actions>
-        </mat-card>
+  <div class="col-xl-15">
+    <div class="row">
+        <div class="col-xl-4">
+             <mat-card class="example-card">
+                  <mat-card-header>
+                       <!-- <div mat-card-avatar ></div> -->
+                       <mat-card-title>Ramani Fernado </mat-card-title>
+                       <mat-card-subtitle>Salon</mat-card-subtitle>
+                  </mat-card-header>
+                  <img mat-card-image src=" ../../assets/images/salon/salon.jpg" alt="Photo of a Salon">
+                  <mat-card-content>
+                       <p>
+                          COLOMBO 05
+                      </p>
+                      <p>32,Elibank Road,Colombo 5</p>
+                      <p>011 258 2176</p>
+                      <p> 011 259 9421</p>
+                  </mat-card-content>
+                  <mat-card-actions>
+
+                              <button   type="book" class="btn btn-primary mr-2" (click)="book()" >BOOK</button>
+
+                        <!-- <button mat-button>SHARE</button> -->
+                  </mat-card-actions>
+              </mat-card>
         </div>
         <div class="col-xl-4">
-          <mat-card class="mat-elevation-z4">
-            <mat-card-header>
-              <mat-card-title >Salon Name</mat-card-title>
-            </mat-card-header>
-          
-            <mat-card-actions>
-              <div class="col-10">
-                <button type="book" class="btn btn-primary mr-2">Book</button>
-              </div>
-              <!-- <button mat-button>LIKE</button> <button mat-button>SHARE</button> -->
-            </mat-card-actions>
+              <mat-card class="example-card">
+                  <mat-card-header>
+                       <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                       <mat-card-title>Ramani Fernando </mat-card-title>
+                       <mat-card-subtitle>Salons</mat-card-subtitle>
+                  </mat-card-header>
+                  <img mat-card-image src="../../assets/images/salon/salon1.jpg" alt="Photo of a Salon">
+                  <mat-card-content>
+                         <p>HOTEL TAJ SAMUDRA</p>
+                         <p>Hotel Taj Samudra, Colombo 3</p>
+                         <p>011 244 6622 EXT: 3633</p>
+                         <p>011 233 6884</p>
+                          <!-- <p>011 472 1153</p> -->
+                  </mat-card-content>
+                 <mat-card-actions>
+
+                        <button type="book" class="btn btn-primary mr-2">BOOK</button>
+                        <!-- <button mat-button>SHARE</button> -->
+                 </mat-card-actions>
+             </mat-card>
+        </div>
+        <div class="col-xl-4">
+          <mat-card class="example-card">
+              <mat-card-header>
+                   <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                   <mat-card-title>Ramani Fernado</mat-card-title>
+                   <mat-card-subtitle>Salon</mat-card-subtitle>
+              </mat-card-header>
+              <img mat-card-image src="../../assets/images/salon/salon.jpg" alt="Photo of a Salon">
+              <mat-card-content>
+                     <p>CINNAMON GRAND</p>
+                     <p>Cinnamon Grand, Colombo 3</p>
+                    <p>011 243 7437 EXT: 2260</p>
+                    <p>011 243 7437</p>
+
+              </mat-card-content>
+             <mat-card-actions>
+                  <button type="book" class="btn btn-primary mr-2">BOOK</button>
+             </mat-card-actions>
+         </mat-card>
+        </div>
+
+        <div class="col-xl-4">
+          <mat-card class="example-card">
+               <mat-card-header>
+                    <!-- <div mat-card-avatar ></div> -->
+                    <mat-card-title>Ramani Fernado </mat-card-title>
+                    <mat-card-subtitle>Salon</mat-card-subtitle>
+               </mat-card-header>
+               <img mat-card-image src=" ../../assets/images/salon/salon.jpg" alt="Photo of a Salon" >
+               <mat-card-content>
+                    <p>
+                      WORLD TRADE CENTER
+                   </p>
+                   <p>World Trade Center, Level 1, Colombo 1</p>
+                   <p>011 233 9216</p>
+                   <p>011 233 9220</p>
+               </mat-card-content>
+               <mat-card-actions>
+
+                       <button type="book" class="btn btn-primary mr-2">BOOK</button>
+
+                     <!-- <button mat-button>SHARE</button> -->
+               </mat-card-actions>
+           </mat-card>
+     </div>
+     <div class="col-xl-4">
+           <mat-card class="example-card">
+               <mat-card-header>
+                    <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                    <mat-card-title>Ramani Fernando </mat-card-title>
+                    <mat-card-subtitle>Salons</mat-card-subtitle>
+               </mat-card-header>
+               <img mat-card-image src="../../assets/images/salon/salon1.jpg" alt="Photo of a Salon">
+               <mat-card-content>
+                      <p>COLOMBO 03</p>
+                      <p>Ground Floor, Lucky Plaza, St. Anthony’s Mawatha</p>
+                      <p> 011 257 6217</p>
+                      <p> 011 401 7413</p>
+                       <!-- <p>011 472 1153</p> -->
+               </mat-card-content>
+              <mat-card-actions>
+
+                     <button type="book" class="btn btn-primary mr-2">BOOK</button>
+                     <!-- <button mat-button>SHARE</button> -->
+              </mat-card-actions>
           </mat-card>
-          </div>
-        </div>
-        </div>
-</div>
+     </div>
+     <div class="col-xl-4">
+       <mat-card class="example-card">
+           <mat-card-header>
+                <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                <mat-card-title>Ramani Fernado</mat-card-title>
+                <mat-card-subtitle>Salon</mat-card-subtitle>
+           </mat-card-header>
+           <img mat-card-image src="../../assets/images/salon/salon.jpg" alt="Photo of a Salon">
+           <mat-card-content>
+                  <p>KANDY</p>
+                  <p>Ground Floor, 5, George E. De Silva Mawatha , Kandy</p>
+                 <p> 081 493 3944</p>
+                 <p> 081 495 3944</p>
 
 
+           </mat-card-content>
+          <mat-card-actions>
+               <button type="book" class="btn btn-primary mr-2">BOOK</button>
+          </mat-card-actions>
+      </mat-card>
+     </div>
+     <div class="col-xl-4">
+      <mat-card class="example-card">
+           <mat-card-header>
+                <!-- <div mat-card-avatar ></div> -->
+                <mat-card-title>Ramani Fernado </mat-card-title>
+                <mat-card-subtitle>Salon</mat-card-subtitle>
+           </mat-card-header>
+           <img mat-card-image src=" ../../assets/images/salon/salon.jpg" alt="Photo of a Salon">
+           <mat-card-content>
+                <p>
+                  MOUNT LAVINIA
+               </p>
+               <p>331, Galle Road, Mount Lavinia</p>
+               <p >011 271 8830</p>
 
-<!-- <div class="card card-custom bgi-no-repeat bgi-size-cover gutter-b bg-primary" style="height: 250px; background-image: url(/themes/metronic/theme/html/demo8/dist/assets/media/svg/patterns/taieri.svg)">
-  <div class="card-body d-flex">
-      <div class="d-flex py-5 flex-column align-items-start flex-grow-1">
-          <div class="flex-grow-1">
-              <a href="#" class="text-white font-weight-bolder font-size-h3">Salon Name</a>
-              <p class="text-white opacity-75 font-weight-bold mt-3">
-                  Submit a request to donate
-              </p>
-          </div>
-          <a href="#" class="btn btn-link btn-link-white font-weight-bold">
-              Book
-              <span class="svg-icon svg-icon-lg svg-icon-white"><!--begin::Svg Icon | path:/themes/metronic/theme/html/demo8/dist/assets/media/svg/icons/Navigation/Arrow-right.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-  <!-- <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-      <polygon points="0 0 24 0 24 24 0 24"/>
-      <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000) " x="11" y="5" width="2" height="14" rx="1"/>
-      <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997) "/>
-  </g>
-</svg>end::Svg Icon</span>            </a> -->
-      <!-- </div>
-  </div>
-</div>
+               <p>011 271 8128</p>
+           </mat-card-content>
+           <mat-card-actions>
 
-<div class="card card-custom bgi-no-repeat bgi-size-cover gutter-b bg-primary" style="height: 250px; background-image: url(/themes/metronic/theme/html/demo8/dist/assets/media/svg/patterns/taieri.svg)">
-  <div class="card-body d-flex">
-      <div class="d-flex py-5 flex-column align-items-start flex-grow-1">
-          <div class="flex-grow-1">
-              <a href="#" class="text-white font-weight-bolder font-size-h3">How to donate</a>
-              <p class="text-white opacity-75 font-weight-bold mt-3">
-                  Submit a request to donate
-              </p>
-          </div>
-          <a href="#" class="btn btn-link btn-link-white font-weight-bold">
-              Read More
-              <div class="col-10">
-              <button type="book" class="btn btn-primary mr-2">Book</button>
-            </div>
-              <span class="svg-icon svg-icon-lg svg-icon-white">begin::Svg Icon | path:/themes/metronic/theme/html/demo8/dist/assets/media/svg/icons/Navigation/Arrow-right.svg<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"> -->
-  <!-- <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-      <polygon points="0 0 24 0 24 24 0 24"/>
-      <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000) " x="11" y="5" width="2" height="14" rx="1"/>
-      <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997) "/>
-  </g>
-</svg>end::Svg Icon</span>            </a> -->
-      <!-- </div>
-  </div>
-</div> -->
- -->
+                   <button  type="book" class="btn btn-primary mr-2">BOOK</button>
 
+                 <!-- <button mat-button>SHARE</button> -->
+           </mat-card-actions>
+       </mat-card>
+ </div>
+ <div class="col-xl-4">
+       <mat-card class="example-card">
+           <mat-card-header>
+                <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                <mat-card-title>Ramani Fernando </mat-card-title>
+                <mat-card-subtitle>Salons</mat-card-subtitle>
+           </mat-card-header>
+           <img mat-card-image src="../../assets/images/salon/salon1.jpg" alt="Photo of a Salon">
+           <mat-card-content>
+                  <p>KOHUWALA</p>
+                  <p>106, Bernard’s Business Park, Dutugemunu Street</p>
+                  <p>011 281 5373</p>
+                  <p>011 563 8050</p>
+                   <!-- <p>011 472 1153</p> -->
+           </mat-card-content>
+          <mat-card-actions>
 
+                 <button type="book" class="btn btn-primary mr-2">BOOK</button>
+                 <!-- <button mat-button>SHARE</button> -->
+          </mat-card-actions>
+      </mat-card>
+ </div>
+ <div class="col-xl-4">
+   <mat-card class="example-card">
+       <mat-card-header>
+            <!-- <div mat-card-avatar class="example-header-image"></div> -->
+            <mat-card-title>Ramani Fernado</mat-card-title>
+            <mat-card-subtitle>Salon</mat-card-subtitle>
+       </mat-card-header>
+       <img mat-card-image src="../../assets/images/salon/salon.jpg" alt="Photo of a Salon">
+       <mat-card-content>
+              <p>KIRIBATHGODA</p>
+              <p>93, Kandy Road, Kiribathgoda </p>
+             <p>  0112 913 026</p>
+             <p>011 243 7437</p>
 
-
-
-
-
-<!-- <div class="card card-custom">
-    <div class="card-header">
-        <h3 class="card-title">
-            Enter the booking appointment details of the saloon
-        </h3>
+       </mat-card-content>
+      <mat-card-actions>
+           <button type="book" class="btn btn-primary mr-2">BOOK</button>
+      </mat-card-actions>
+  </mat-card>
+ </div>
+      </div>
     </div>
-    begin::Form-->
-    
-    
-    <!-- <form > --> 
-
-    <!-- </form>[formGroup]="bookForm" (ngSubmit)="onSubmit()"> -->
-        <!-- <div class="card-body">
-            
-           
-        
-            <div class="form-group">
-                  <label>Address</label>
-                  <input type="text" class="form-control"  (keydown.enter)="$event.preventDefault()" placeholder="Type the address of the salon" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-                
-                </div> -->
-              <!-- <div *ngIf="expression" -->
-                <!-- <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-                  <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
-                    (dragEnd)="markerDragEnd($event)"></agm-marker>
-                </agm-map> -->
-              
-                
-                <!-- <div>Latitude: {{latitude}}</div>
-                <div>Longitude: {{longitude}}</div>
-              </div> -->
-              
-            <!-- </div>
-         -->
-        <!-- <div class="card-footer">
-            <div class="row">
-                <div class="col-2">
-                </div>
-                  <div class="col-10">  -->
-                    <!-- <button type="book" class="btn btn-primary mr-2">Book</button> -->
-                    <!-- <button type="submit" class="btn btn-primary mr-2" [disabled]="!bookForm.valid">Book </button>
-                   -->
-                    <!-- <button type="reset" class="btn btn-secondary" (click)="salonForm.reset()">Cancel</button> -->
-                <!-- </div> 
-            </div>
-        </div>
-    </form>
-</div> -->
-
-
-
-
-
-
-
-
-
-
-
+</div>
 
 
 
