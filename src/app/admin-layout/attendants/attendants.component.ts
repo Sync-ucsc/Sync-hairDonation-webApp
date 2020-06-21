@@ -7,6 +7,8 @@ import { AttendantApiService } from '../../service/attendant-api.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
 
+
+
 @Component({
   selector: 'app-attendants',
   templateUrl: './attendants.component.html',

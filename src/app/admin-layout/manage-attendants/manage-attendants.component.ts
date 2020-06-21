@@ -1,17 +1,20 @@
-/// <reference types="@types/googlemaps" />
-import { Component, OnInit, ViewChild, TemplateRef,NgModule, NgZone, ElementRef, Input, Inject } from '@angular/core';
-import { AttendantApiService } from './../../service/attendant-api.service';
-import { MatDialog , MatDialogConfig,MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { FormGroup, FormControl, Validators,FormsModule,ReactiveFormsModule} from '@angular/forms';
-import { Router } from '@angular/router';
 
+import { AttendantApiService } from './../../service/attendant-api.service';
+import { Attendant } from 'src/app/model/attendant';
+/// <reference types="@types/googlemaps" />
+import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject } from '@angular/core';
+import { SalonApiService } from './../../service/salon-api.service';
+import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { Router } from '@angular/router';
 // declare const Swal: any;
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
 // socket = require('socket.io-client')('http://localhost:3000');
 import { Observable } from 'rxjs';
 import { startWith, map, endWith } from 'rxjs/operators';
-import { Attendant } from 'src/app/model/attendant';
+import { Salon } from 'src/app/model/salon';
 
 export interface DialogData {
   animal:any;
@@ -26,11 +29,10 @@ export interface DialogData {
 
 export class ManageAttendantsComponent implements OnInit {
   socket;
-@ViewChild('dialog') templateRef: TemplateRef<any>;
- Attendant:any = [];
- AttendantNames:any=[];
- 
- selectedAttendant;
+  @ViewChild('dialog') templateRef: TemplateRef<any>;
+  Attendant:any = [];
+  AttendantNames:any=[];
+  selectedAttendant;
 
 
   myControl = new FormControl('',Validators.required);
@@ -41,13 +43,12 @@ constructor(
     private apiService:AttendantApiService,
     public dialog: MatDialog,
   ) {
-    
     this.socket = io.connect('http://localhost:3000');
 
 
    }
 
-   ngOnInit(): void { 
+   ngOnInit(): void {
     this.getAttendants();
     this.socket.on('new-Attendant', () => {
       this.getAttendants();
@@ -129,15 +130,13 @@ constructor(
        )
      }
    });
-  
- 
 }
 
 // opening the update dialog
 
 openUpdateRef(attendant){
   this.selectedAttendant=attendant;
-  const dialogRef = this.dialog.open(uploadDialogComponent,{
+  const dialogRef = this.dialog.open(uploadDialog2Component,{
     data: {
       animal:this.selectedAttendant
     }
@@ -151,7 +150,7 @@ openUpdateRef(attendant){
 
 }
 
-//opening the view dialog 
+// opening the view dialog
 
 openViewRef(attendant){
   this.selectedAttendant=attendant;
@@ -174,7 +173,7 @@ openViewRef(attendant){
   templateUrl: 'upload-dialog2.html',
 })
 // tslint:disable-next-line: class-name
-export class uploadDialogComponent {
+export class uploadDialog2Component {
 
  socket = io('http://localhost:3000/attendant');
 
@@ -205,7 +204,8 @@ export class uploadDialogComponent {
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
-  constructor(private apiService:AttendantApiService,
+  constructor(
+    private apiService:AttendantApiService,
     public dialog: MatDialog,
     private ngZone: NgZone,
     private router: Router,
@@ -214,6 +214,8 @@ export class uploadDialogComponent {
       console.log(data.animal);
     ;
    }
+
+
 
  // tslint:disable-next-line: use-lifecycle-interface
  ngOnInit(): void {
@@ -247,8 +249,6 @@ updateAttendant(){
             }, (error) => {
               console.log(error)
             })
-  
-   
         },
         // tslint:disable-next-line: only-arrow-functions
       }).then(function (result) {
@@ -266,8 +266,6 @@ updateAttendant(){
           )
         }
       });
-
-        
     }
 
 
