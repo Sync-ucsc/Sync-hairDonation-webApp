@@ -149,7 +149,7 @@ export class ManageDriversComponent implements OnInit {
 
   }
 
-  //opening the view dialog
+  // opening the view dialog
 
   openViewRef(driver){
     this.selectedDriver=driver;
@@ -217,10 +217,6 @@ export class ManageDriversComponent implements OnInit {
 
    // update drivers
   updateDriver(){
-
-
-    
-
       if (!this.updateForm.valid) {
         return false;
       } else {

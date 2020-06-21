@@ -37,6 +37,7 @@ import { CdkDetailRowDirective } from './manage-notification/cdk-detail-row.dire
 import { ManageDonorComponent } from './manage-donor/manage-donor.component';
 import { ManagePatientComponent } from './manage-patient/manage-patient.component'; 
 import { MatSelectModule } from '@angular/material/select';
+import { uploadDialog2Component } from './manage-attendants/manage-attendants.component';
 
 
 
@@ -71,6 +72,7 @@ import { MatSelectModule } from '@angular/material/select';
     ManageSalonsComponent,
     uploadDialogComponent,
     uploadDialog1Component,
+    uploadDialog2Component,
     AddManagerComponent,
     ViewManagerComponent,
     ProfileComponent,
