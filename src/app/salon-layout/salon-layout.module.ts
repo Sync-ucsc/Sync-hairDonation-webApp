@@ -12,6 +12,9 @@ import { ViewCalendarComponent } from './view-calendar/view-calendar.component';
 import { SaloonChatComponent } from './saloon-chat/saloon-chat.component';
 import {SharedLayoutModule} from "../shared-layout/shared-layout.module";
 
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -20,6 +23,9 @@ import {SharedLayoutModule} from "../shared-layout/shared-layout.module";
     FormsModule,
     FullCalendarModule,
     SharedLayoutModule,
+    MatDialogModule,
+    MatIconModule,
+    MatAutocompleteModule,
   ],
   declarations: [
     DashboardComponent,

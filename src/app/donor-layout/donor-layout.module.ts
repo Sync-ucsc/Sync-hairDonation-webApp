@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DonorRequestComponent } from './donor-request/donor-request.component';
 import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
 
+
 import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 
@@ -31,7 +32,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 
 
-
+import {ManageAppointmentComponent} from './manage-appointment/manage-appointment.component';
 
 
 @NgModule({
@@ -65,7 +66,9 @@ import { MatButtonModule } from "@angular/material/button";
 	  AppointmentDetailsComponent,
 	  BookAppointmentComponent,
 	  ProfileComponent,
-	  DonorChatComponent,
+    DonorChatComponent,
+    ManageAppointmentComponent,
+
   ]
 })
 

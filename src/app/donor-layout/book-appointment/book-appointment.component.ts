@@ -24,7 +24,7 @@ export class BookAppointmentComponent implements OnInit {
   constructor(private route: Router) {}
   public book()
   {
-   this.route.navigate(['/appointment_details']);
+   this.route.navigate(['/donor/appointment_details']);
   }
 }
 
