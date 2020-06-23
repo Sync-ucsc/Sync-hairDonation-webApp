@@ -16,6 +16,7 @@ import {FullCalendarModule} from '@fullcalendar/angular';
 import {LoginComponent} from './login/login.component';
 import {SignupComponent} from './signup/signup.component';
 
+
 //google maps
 import {AgmCoreModule} from '@agm/core';
 
@@ -28,6 +29,7 @@ import { SalonApiService } from './service/salon-api.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { AttendantApiService } from '@services/attendant-api.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot()
   ],
   providers: [
-    SalonApiService
+    SalonApiService,
+    AttendantApiService
   ],
   bootstrap: [AppComponent],
 

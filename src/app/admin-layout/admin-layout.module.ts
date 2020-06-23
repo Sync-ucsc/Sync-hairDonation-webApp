@@ -35,7 +35,10 @@ import { ManageNotificationComponent } from './manage-notification/manage-notifi
 import { PushNotificationComponent } from './push-notification/push-notification.component';
 import { CdkDetailRowDirective } from './manage-notification/cdk-detail-row.directive';
 import { ManageDonorComponent } from './manage-donor/manage-donor.component';
-import { ManagePatientComponent } from './manage-patient/manage-patient.component';
+import { ManagePatientComponent } from './manage-patient/manage-patient.component'; 
+import { MatSelectModule } from '@angular/material/select';
+import { ManageAttendantsComponent,uploadDialog2Component } from './manage-attendants/manage-attendants.component';
+
 
 
 
@@ -58,7 +61,7 @@ import { ManagePatientComponent } from './manage-patient/manage-patient.componen
     MatIconModule,
     MatAutocompleteModule,
     NgxSpinnerModule,
-
+    MatSelectModule,
   ],
   declarations: [
     DashboardComponent,
@@ -67,8 +70,10 @@ import { ManagePatientComponent } from './manage-patient/manage-patient.componen
     UserActionBanComponent,
     SalonsComponent,
     ManageSalonsComponent,
+    ManageAttendantsComponent,
     uploadDialogComponent,
     uploadDialog1Component,
+    uploadDialog2Component,
     AddManagerComponent,
     ViewManagerComponent,
     ProfileComponent,

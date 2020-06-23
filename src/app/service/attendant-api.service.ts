@@ -6,23 +6,26 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const baseUri = 'http://localhost:3000/salon';
+const baseUri = 'http://localhost:3000/attendant';
 @Injectable({
   providedIn: 'root'
 })
-export class SalonApiService {
+export class AttendantApiService {
 
-  baseUri = 'http://localhost:3000/salon';
+  baseUri = 'http://localhost:3000/attendant';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 
   constructor(private http: HttpClient) { }
 
  // Create
- createSalon(data): Observable<any> {
+ createAttendant(data): Observable<any> {
   const url = `${this.baseUri}/create`;
-   return this.http.post(url, data);
-  }
+  return this.http.post(url, data)
+    .pipe(
+      catchError(this.errorMgmt)
+    )
+}
 
 
 
@@ -41,13 +44,13 @@ export class SalonApiService {
 }
 
 
-// Get all salons
-getSalons() {
+// Get all attendants
+getAttendants() {
   return this.http.get(`${this.baseUri}`);
 }
 
-// Get a salon
-getSalon(id): Observable<any> {
+// Get a attendant
+getAttendant(id): Observable<any> {
   const url = `${this.baseUri}/read/${id}`;
   return this.http.get(url, {headers: this.headers}).pipe(
     map((res: Response) => {
@@ -57,16 +60,16 @@ getSalon(id): Observable<any> {
   )
 }
 
-// Update salons
-updateSalon(id, data): Observable<any> {
+// Update attendants
+updateAttendant(id, data): Observable<any> {
   const url = `${this.baseUri}/update/${id}`;
   return this.http.put(url, data, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)
   )
 }
 
-// Delete salon
-deleteSalon(id): Observable<any> {
+// Delete attendant
+deleteAttendant(id): Observable<any> {
   const url = `${this.baseUri}/delete/${id}`;
   return this.http.delete(url, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)

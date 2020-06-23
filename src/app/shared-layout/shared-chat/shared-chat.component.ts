@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PreviousChatList} from '@model/chat/PreviousChatList';
 import {Message} from '@model/chat/Message';
-import {ChatService} from "@services/chat.service";
+import {ChatService} from '@services/chat.service';
 
 @Component({
   selector: 'app-shared-chat',
