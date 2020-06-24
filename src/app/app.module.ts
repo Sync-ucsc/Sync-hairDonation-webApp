@@ -35,6 +35,7 @@ import { TokenService } from '@services/token.service';
 import { AuthService } from '@services/auth.service';
 import { BeforLoginService } from '@services/befor-login.service';
 import { AfterLoginService } from '@services/after-login.service';
+import { DonorApiService } from './service/donor-api.service';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,7 @@ import { AfterLoginService } from '@services/after-login.service';
     BeforLoginService,
     AfterLoginService,
     SalonApiService,
-    AttendantApiService,
+    DonorApiService
   ],
   bootstrap: [AppComponent],
 
