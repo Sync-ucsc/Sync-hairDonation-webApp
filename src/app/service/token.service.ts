@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TokenService {
   private iss = {
-    login: 'http://127.0.0.1:8000/api/login'
+    login: 'http://localhost:3000/login'
   };
   constructor(private http: HttpClient) { }
 
@@ -16,21 +16,14 @@ export class TokenService {
 
   set(token) {
     localStorage.setItem('token', token);
-    localStorage.setItem('lock', 'unlock');
   }
+
   gettoken() {
     return localStorage.getItem('token');
-  }
-  getlock() {
-    return localStorage.getItem('lock');
-  }
-  geturl() {
-    return localStorage.getItem('flink');
   }
 
   remove() {
     localStorage.removeItem('token');
-    localStorage.removeItem('lock');
   }
 
   isValid() {
@@ -57,22 +50,23 @@ export class TokenService {
     return this.isValid();
   }
 
-  screenunlock(value) {
-    return this.payload(value).sub === this.payload(this.gettoken()).sub ? true : false;
-  }
-
-  isscreenlock() {
-    return ('unlock' !== this.getlock()) ? true : false;
-  }
-
   public isUserAdmin(): boolean {
     return 'admin' === this.payload(this.gettoken()).ud.usertype ? true : false;
   }
-  public isUserdemo(): boolean {
-    return 'demo' === this.payload(this.gettoken()).ud.usertype ? true : false;
+  public isUserAttendant(): boolean {
+    return 'attendant' === this.payload(this.gettoken()).ud.usertype ? true : false;
   }
-  public isUserLecture(): boolean {
-    return 'lecturer' === this.payload(this.gettoken()).ud.usertype ? true : false;
+  public isUserDonor(): boolean {
+    return 'sonor' === this.payload(this.gettoken()).ud.usertype ? true : false;
+  }
+  public isUserHospital(): boolean {
+    return 'hospital' === this.payload(this.gettoken()).ud.usertype ? true : false;
+  }
+  public isUserPatient(): boolean {
+    return 'patient' === this.payload(this.gettoken()).ud.usertype ? true : false;
+  }
+  public isUserSalon(): boolean {
+    return 'salon' === this.payload(this.gettoken()).ud.usertype ? true : false;
   }
 
 }

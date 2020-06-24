@@ -30,6 +30,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { AttendantApiService } from '@services/attendant-api.service';
+import { UserService } from '@services/user.service';
+import { TokenService } from '@services/token.service';
+import { AuthService } from '@services/auth.service';
+import { BeforLoginService } from '@services/befor-login.service';
+import { AfterLoginService } from '@services/after-login.service';
 
 @NgModule({
   declarations: [
@@ -60,8 +65,13 @@ import { AttendantApiService } from '@services/attendant-api.service';
     ToastrModule.forRoot()
   ],
   providers: [
+    UserService,
+    TokenService,
+    AuthService,
+    BeforLoginService,
+    AfterLoginService,
     SalonApiService,
-    AttendantApiService
+    AttendantApiService,
   ],
   bootstrap: [AppComponent],
 

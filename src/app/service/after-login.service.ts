@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
 })
 export class AfterLoginService {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-    const afterlogin: boolean = (this.Token.loggedIn() && !this.Token.isscreenlock());
+    const afterlogin: boolean = (this.Token.loggedIn());
     // if not, redirect to /pagenotfound
     if (!afterlogin) {
       this.router.navigate(['/pagenotfound']);
