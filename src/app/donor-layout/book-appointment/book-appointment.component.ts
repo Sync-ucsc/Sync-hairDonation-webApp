@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-book-appointment',
@@ -7,15 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookAppointmentComponent implements OnInit {
 
-  
-  constructor() { }
+
 
   ngOnInit(): void {
   }
 
- 
+  // book(){
 
+  // }
+  // book= function () {
+  //    this.router.navigateByUrl('/book_appointment/appointment_details')
+  // }
 
+  constructor(private route: Router) {}
+  public book()
+  {
+   this.route.navigate(['/donor/appointment_details']);
+  }
 }
 
 

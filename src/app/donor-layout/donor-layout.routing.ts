@@ -6,6 +6,9 @@ import { BookAppointmentComponent } from './book-appointment/book-appointment.co
 import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DonorChatComponent } from './donor-chat/donor-chat.component';
+import { ManageAppointmentComponent }  from  './manage-appointment/manage-appointment.component';
+
+
 
 
 export const DonorLayoutRoutes: Routes = [
@@ -57,5 +60,7 @@ export const DonorLayoutRoutes: Routes = [
 	  { path: 'appointment_details',  component: AppointmentDetailsComponent },
     { path: 'profile', component: ProfileComponent },
     { path: 'chat', component: DonorChatComponent },
+    {path:'manage_appointment',component : ManageAppointmentComponent},
+
 
 ];

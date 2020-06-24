@@ -1,22 +1,23 @@
+
+import { AttendantApiService } from '../../service/attendant-api.service';
 /// <reference types="@types/googlemaps" />
 import * as io from 'socket.io-client';
-import { Component, OnInit, ViewChild, ElementRef, NgZone  } from '@angular/core';
-import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
-import { SalonApiService } from './../../service/salon-api.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
 
 @Component({
-  selector: 'app-salons',
-  templateUrl: './salons.component.html',
-  styleUrls: ['./salons.component.scss']
+  selector: 'app-attendants',
+  templateUrl: './attendants.component.html',
+  styleUrls: ['./attendants.component.scss']
 })
 
 
-export class SalonsComponent implements OnInit {
+export class AttendantsComponent implements OnInit {
 
-  socket = io('http://localhost:3000/salon');
+  socket = io('http://localhost:3000/attendants');
 
   submitted=false;
   latitude: number;
@@ -29,32 +30,21 @@ export class SalonsComponent implements OnInit {
   checkSms=false;
   checkEmail=false;
 
-  salonForm= new FormGroup({
-    name: new FormControl('',Validators.required),
+  attendantForm= new FormGroup({
+    fname: new FormControl('',Validators.required),
+    lname: new FormControl('',Validators.required),
     email: new FormControl('',[Validators.required,Validators.email]),
     telephone: new FormControl('',[Validators.required,Validators.minLength(10)]),
-    checkSystem: new FormControl(''),
-    checkSms: new FormControl(''),
-    checkEmail: new FormControl(''),
-    address:new FormControl(''),
-    latitude:new FormControl(''),
-    longitude:new FormControl('')
-
-
   })
-
-
   @ViewChild('search')
   public searchElementRef: ElementRef;
-
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private router: Router,
-    private apiService: SalonApiService
+    private apiService: AttendantApiService
   ) { }
-
   ngOnInit(): void {
     this.mapsAPILoader.load().then(() => {
 
@@ -109,41 +99,34 @@ getAddress(latitude, longitude) {
 }
 
 
- onSubmit(){
 
-   console.log(this.placeaddress.formatted_address);
-   this.salonForm.patchValue({
-     address:this.placeaddress.formatted_address,
-     latitude:this.latitude,
-     longitude:this.longitude
-   })
-   console.log(this.salonForm.value);
+ onSubmit(){
+  console.log(this.placeaddress.formatted_address);
+  this.attendantForm.patchValue({
+    address:this.placeaddress.formatted_address,
+    latitude:this.latitude,
+    longitude:this.longitude
+  })
+   console.log(this.attendantForm.value);
    this.submitted=true;
 
-   if (!this.salonForm.valid) {
+   if (!this.attendantForm.valid) {
     return false;
   } else {
 
-    this.apiService.createSalon(this.salonForm.value).subscribe(
-      data => {
-          console.log('Salon successfully created!'+data)
-          Swal.fire(
-            'Done!',
-            'You added a new salon!',
-            'success'
-          )
-          this.router.navigateByUrl('/admin/manage-salons');
-      },
-      error => {
-        // Do something with error
-        console.error(error);
+    this.apiService.createAttendant(this.attendantForm.value).subscribe(
+      (res) => {
+        this.socket.emit('updatedata', res);
+        console.log(' successfully added!')
         Swal.fire(
-          'error!',
-          'add salon failed!',
-          'error'
+          'Done!',
+          'You added a new attendant!',
+          'success'
         )
-      }
-    );
+        this.ngZone.run(() => this.router.navigateByUrl('/admin/manage-attendants'))
+      }, (error) => {
+        console.log(error);
+      });
   }
  }
 
