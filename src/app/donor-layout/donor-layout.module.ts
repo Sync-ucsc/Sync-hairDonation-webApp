@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DonorRequestComponent } from './donor-request/donor-request.component';
 import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
 
+
 import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 
@@ -18,7 +19,19 @@ import {MatIconModule} from '@angular/material/icon';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ProfileComponent } from './profile/profile.component';
+import { DonorChatComponent } from './donor-chat/donor-chat.component';
+import {SharedLayoutModule} from "../shared-layout/shared-layout.module";
 
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import {ManageAppointmentComponent} from './manage-appointment/manage-appointment.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
+import { NgApexchartsModule } from "ng-apexcharts";
 
 @NgModule({
   imports: [
@@ -35,7 +48,16 @@ import { ProfileComponent } from './profile/profile.component';
     MatDialogModule,
     MatIconModule,
     MatAutocompleteModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
+    SharedLayoutModule,
+    NgApexchartsModule
   ],
   declarations: [
     DashboardComponent,
@@ -43,6 +65,9 @@ import { ProfileComponent } from './profile/profile.component';
 	  AppointmentDetailsComponent,
 	  BookAppointmentComponent,
 	  ProfileComponent,
+    DonorChatComponent,
+    ManageAppointmentComponent,
+
   ]
 })
 

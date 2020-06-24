@@ -1,62 +1,207 @@
-<div class="card card-custom">
-    <div class="card-header">
-        <h3 class="card-title">
-            Enter the booking appointment details of the saloon
-        </h3>
-    </div>
-    <!--begin::Form-->
-    
-    
-    <form >
+<mat-toolbar color="primary">Appointment Book </mat-toolbar>
+<div class="content">
+  <div class="col-xl-15">
+    <div class="row">
+        <div class="col-xl-4">
+             <mat-card class="example-card">
+                  <mat-card-header>
+                       <!-- <div mat-card-avatar ></div> -->
+                       <mat-card-title>Ramani Fernado </mat-card-title>
+                       <mat-card-subtitle>Salon</mat-card-subtitle>
+                  </mat-card-header>
+                  <img mat-card-image src=" ../../assets/images/salon/salon.jpg" alt="Photo of a Salon">
+                  <mat-card-content>
+                       <p>
+                          COLOMBO 05
+                      </p>
+                      <p>32,Elibank Road,Colombo 5</p>
+                      <p>011 258 2176</p>
+                      <p> 011 259 9421</p>
+                  </mat-card-content>
+                  <mat-card-actions>
 
-    <!-- </form>[formGroup]="bookForm" (ngSubmit)="onSubmit()"> -->
-        <div class="card-body">
-            
-           
-        
-            <div class="form-group">
-                  <label>Address</label>
-                  <input type="text" class="form-control"  (keydown.enter)="$event.preventDefault()" placeholder="Type the address of the salon" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-                
-                </div>
-              <!-- <div *ngIf="expression" -->
-                <!-- <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-                  <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
-                    (dragEnd)="markerDragEnd($event)"></agm-marker>
-                </agm-map> -->
-              
-                
-                <!-- <div>Latitude: {{latitude}}</div>
-                <div>Longitude: {{longitude}}</div>
-              </div> -->
-              
-            </div>
-        
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-2">
-                </div>
-                  <div class="col-10"> 
-                    <button type="book" class="btn btn-primary mr-2">Book</button>
-                    <!-- <button type="submit" class="btn btn-primary mr-2" [disabled]="!bookForm.valid">Book </button>
-                   -->
-                    <!-- <button type="reset" class="btn btn-secondary" (click)="salonForm.reset()">Cancel</button> -->
-                </div> 
-            </div>
+                              <button   type="button" class="btn btn-primary mr-2" (click)="book()" >BOOK</button>
+
+
+                  </mat-card-actions>
+              </mat-card>
         </div>
-    </form>
+        <div class="col-xl-4">
+              <mat-card class="example-card">
+                  <mat-card-header>
+                       <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                       <mat-card-title>Ramani Fernando </mat-card-title>
+                       <mat-card-subtitle>Salons</mat-card-subtitle>
+                  </mat-card-header>
+                  <img mat-card-image src="../../assets/images/salon/salon1.jpg" alt="Photo of a Salon">
+                  <mat-card-content>
+                         <p>HOTEL TAJ SAMUDRA</p>
+                         <p>Hotel Taj Samudra, Colombo 3</p>
+                         <p>011 244 6622 EXT: 3633</p>
+                         <p>011 233 6884</p>
+                          <!-- <p>011 472 1153</p> -->
+                  </mat-card-content>
+                 <mat-card-actions>
+                         <button   type="button" class="btn btn-primary mr-2" (click)="book()" >BOOK</button>
+
+                 </mat-card-actions>
+             </mat-card>
+        </div>
+        <div class="col-xl-4">
+          <mat-card class="example-card">
+              <mat-card-header>
+                   <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                   <mat-card-title>Ramani Fernado</mat-card-title>
+                   <mat-card-subtitle>Salon</mat-card-subtitle>
+              </mat-card-header>
+              <img mat-card-image src="../../assets/images/salon/salon.jpg" alt="Photo of a Salon">
+              <mat-card-content>
+                     <p>CINNAMON GRAND</p>
+                     <p>Cinnamon Grand, Colombo 3</p>
+                    <p>011 243 7437 EXT: 2260</p>
+                    <p>011 243 7437</p>
+
+              </mat-card-content>
+             <mat-card-actions>
+               <button   type="button" class="btn btn-primary mr-2" (click)="book()" >BOOK</button>
+
+             </mat-card-actions>
+         </mat-card>
+        </div>
+
+        <div class="col-xl-4">
+          <mat-card class="example-card">
+               <mat-card-header>
+                    <!-- <div mat-card-avatar ></div> -->
+                    <mat-card-title>Ramani Fernado </mat-card-title>
+                    <mat-card-subtitle>Salon</mat-card-subtitle>
+               </mat-card-header>
+               <img mat-card-image src=" ../../assets/images/salon/salon.jpg" alt="Photo of a Salon" >
+               <mat-card-content>
+                    <p>
+                      WORLD TRADE CENTER
+                   </p>
+                   <p>World Trade Center, Level 1, Colombo 1</p>
+                   <p>011 233 9216</p>
+                   <p>011 233 9220</p>
+               </mat-card-content>
+               <mat-card-actions>
+                    <button   type="button" class="btn btn-primary mr-2" (click)="book()" >BOOK</button>
+
+               </mat-card-actions>
+           </mat-card>
+     </div>
+     <div class="col-xl-4">
+           <mat-card class="example-card">
+               <mat-card-header>
+                    <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                    <mat-card-title>Ramani Fernando </mat-card-title>
+                    <mat-card-subtitle>Salons</mat-card-subtitle>
+               </mat-card-header>
+               <img mat-card-image src="../../assets/images/salon/salon1.jpg" alt="Photo of a Salon">
+               <mat-card-content>
+                      <p>COLOMBO 03</p>
+                      <p>Ground Floor, Lucky Plaza, St. Anthony’s Mawatha</p>
+                      <p> 011 257 6217</p>
+                      <p> 011 401 7413</p>
+                       <!-- <p>011 472 1153</p> -->
+               </mat-card-content>
+              <mat-card-actions>
+                     <button   type="button" class="btn btn-primary mr-2" (click)="book()" >BOOK</button>
+
+              </mat-card-actions>
+          </mat-card>
+     </div>
+     <div class="col-xl-4">
+       <mat-card class="example-card">
+           <mat-card-header>
+                <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                <mat-card-title>Ramani Fernado</mat-card-title>
+                <mat-card-subtitle>Salon</mat-card-subtitle>
+           </mat-card-header>
+           <img mat-card-image src="../../assets/images/salon/salon.jpg" alt="Photo of a Salon">
+           <mat-card-content>
+                  <p>KANDY</p>
+                  <p>Ground Floor, 5, George E. De Silva Mawatha </p>
+                 <p> 081 493 3944</p>
+                 <p> 081 495 3944</p>
+
+
+           </mat-card-content>
+          <mat-card-actions>
+               <button   type="button" class="btn btn-primary mr-2" (click)="book()" >BOOK</button>
+
+          </mat-card-actions>
+      </mat-card>
+     </div>
+     <div class="col-xl-4">
+      <mat-card class="example-card">
+           <mat-card-header>
+                <!-- <div mat-card-avatar ></div> -->
+                <mat-card-title>Ramani Fernado </mat-card-title>
+                <mat-card-subtitle>Salon</mat-card-subtitle>
+           </mat-card-header>
+           <img mat-card-image src=" ../../assets/images/salon/salon.jpg" alt="Photo of a Salon">
+           <mat-card-content>
+                <p>
+                  MOUNT LAVINIA
+               </p>
+               <p>331, Galle Road, Mount Lavinia</p>
+               <p >011 271 8830</p>
+
+               <p>011 271 8128</p>
+           </mat-card-content>
+           <mat-card-actions>
+               <button   type="button" class="btn btn-primary mr-2" (click)="book()" >BOOK</button>
+
+           </mat-card-actions>
+       </mat-card>
+ </div>
+ <div class="col-xl-4">
+       <mat-card class="example-card">
+           <mat-card-header>
+                <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                <mat-card-title>Ramani Fernando </mat-card-title>
+                <mat-card-subtitle>Salons</mat-card-subtitle>
+           </mat-card-header>
+           <img mat-card-image src="../../assets/images/salon/salon1.jpg" alt="Photo of a Salon">
+           <mat-card-content>
+                  <p>KOHUWALA</p>
+                  <p>106, Bernard’s Business Park, Dutugemunu Street</p>
+                  <p>011 281 5373</p>
+                  <p>011 563 8050</p>
+                   <!-- <p>011 472 1153</p> -->
+           </mat-card-content>
+          <mat-card-actions>
+               <button   type="button" class="btn btn-primary mr-2" (click)="book()" >BOOK</button>
+
+          </mat-card-actions>
+      </mat-card>
+ </div>
+ <div class="col-xl-4">
+   <mat-card class="example-card">
+       <mat-card-header>
+            <!-- <div mat-card-avatar class="example-header-image"></div> -->
+            <mat-card-title>Ramani Fernado</mat-card-title>
+            <mat-card-subtitle>Salon</mat-card-subtitle>
+       </mat-card-header>
+       <img mat-card-image src="../../assets/images/salon/salon.jpg" alt="Photo of a Salon">
+       <mat-card-content>
+              <p>KIRIBATHGODA</p>
+              <p>93, Kandy Road, Kiribathgoda </p>
+             <p>  0112 913 026</p>
+             <p>011 243 7437</p>
+
+       </mat-card-content>
+      <mat-card-actions>
+          <button   type="button" class="btn btn-primary mr-2" (click)="book()" >BOOK</button>
+
+      </mat-card-actions>
+  </mat-card>
+ </div>
+      </div>
+    </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
 

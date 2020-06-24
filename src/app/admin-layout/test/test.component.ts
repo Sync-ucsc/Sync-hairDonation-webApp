@@ -28,7 +28,7 @@ export class TestComponent implements OnInit {
   TODAY = this.todayDate.format('YYYY-MM-DD');
 
   constructor(private renderer: Renderer2){
-    
+
   }
 
 
@@ -82,7 +82,7 @@ export class TestComponent implements OnInit {
         title: this.event,
         start: arg.date,
         allDay: arg.allDay
-      })
+      });
     }
   }
 
@@ -100,7 +100,7 @@ export class TestComponent implements OnInit {
     console.log('hi')
     // console.dir(this.calendar.element.nativeElement.querySelector(".fc-event"))
     let date = event.event.start;
-    date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     let string = event.event.title;
 
     // this.tasksService.create(string, date).subscribe(
@@ -117,7 +117,7 @@ export class TestComponent implements OnInit {
     console.log(event)
     let id = (event.event.id) ? event.event.id : event.event._def.id;
     let date = event.event.start;
-    date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 
     // this.tasksService.update(id, date).subscribe(
     //   data => { }
@@ -125,15 +125,15 @@ export class TestComponent implements OnInit {
   }
 
   eventDo(event) {
-    const icon = this.renderer.createElement("mat-icon");
-    const close = this.renderer.createText("close");
+    const icon = this.renderer.createElement('mat-icon');
+    const close = this.renderer.createText('close');
     this.renderer.addClass(icon, 'delete-icon');
     this.renderer.appendChild(icon, close);
     this.renderer.appendChild(event.el, icon)
     this.renderer.addClass(event.el, 'text-light')
   }
   deleteEvent(event) {
-    if (event.jsEvent.srcElement.className == 'delete-icon') {
+    if (event.jsEvent.srcElement.className === 'delete-icon') {
       console.log(event.event)
       let id = (event.event.id) ? event.event.id : event.event._def.id;
       console.log(id)

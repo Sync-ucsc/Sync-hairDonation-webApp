@@ -32,10 +32,12 @@ import { ManageDriversComponent, uploadDialog1Component } from './manage-drivers
 import { AddManagerComponent } from './add-manager/add-manager.component';
 import { ViewManagerComponent } from './view-manager/view-manager.component';
 import { ManageNotificationComponent } from './manage-notification/manage-notification.component';
-import { PushNotificationComponent } from './push-notification/push-notification.component'; 
+import { PushNotificationComponent } from './push-notification/push-notification.component';
 import { CdkDetailRowDirective } from './manage-notification/cdk-detail-row.directive';
 import { ManageDonorComponent } from './manage-donor/manage-donor.component';
 import { ManagePatientComponent } from './manage-patient/manage-patient.component'; 
+import { MatSelectModule } from '@angular/material/select';
+import { ManageAttendantsComponent,uploadDialog2Component } from './manage-attendants/manage-attendants.component';
 
 
 
@@ -58,8 +60,8 @@ import { ManagePatientComponent } from './manage-patient/manage-patient.componen
     MatTableModule,
     MatIconModule,
     MatAutocompleteModule,
-    NgxSpinnerModule
-
+    NgxSpinnerModule,
+    MatSelectModule,
   ],
   declarations: [
     DashboardComponent,
@@ -68,8 +70,10 @@ import { ManagePatientComponent } from './manage-patient/manage-patient.componen
     UserActionBanComponent,
     SalonsComponent,
     ManageSalonsComponent,
+    ManageAttendantsComponent,
     uploadDialogComponent,
     uploadDialog1Component,
+    uploadDialog2Component,
     AddManagerComponent,
     ViewManagerComponent,
     ProfileComponent,
@@ -82,7 +86,7 @@ import { ManagePatientComponent } from './manage-patient/manage-patient.componen
     PushNotificationComponent,
     CdkDetailRowDirective,
     ManageDonorComponent,
-    ManagePatientComponent
+    ManagePatientComponent,
   ],
 
 })

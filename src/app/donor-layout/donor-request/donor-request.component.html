@@ -1,4 +1,6 @@
+
 <div class="card card-custom">
+    <div class="col-lg-8" style="float:none;margin:auto;">
     <div class="card-header">
         <h3 class="card-title">
             Donation Request
@@ -8,23 +10,26 @@
     <form [formGroup]="salonForm" (ngSubmit)="onSubmit()">
         <div class="card-body">
 
-            <div class="form-group">
-                  <label>Address</label>
-                  <input type="text" class="form-control"  (keydown.enter)="$event.preventDefault()" placeholder="Type the address of the salon" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-                </div>
-
-                <span class="form-text">Is this the current address of you?</span>
+                <h6 class="form-text">168/B, Flower Rd., Gampaha. Is this the current address?</h6>
                 <div class="checkbox-inline">
                     <label class="checkbox checkbox-circle checkbox-success">
-                        <input type="checkbox" formControlName="yes" [(ngModel)]="yes"/> Yes
+                        <input type="checkbox" (change)="clickYes()" [value]='yes' formControlName="yes" [(ngModel)]="yes"/> Yes
                         <span></span>
                     </label>
                     <label class="checkbox checkbox-circle checkbox-success">
-                        <input type="checkbox" formControlName="no" [(ngModel)]="no"/> No
+                        <input type="checkbox" (change)="clickNo()" [value]='no' formControlName="no" [(ngModel)]="no"/> No
                         <span></span>
                     </label>
                 </div>
-             <div *ngIf="yes">
+             <div *ngIf="no">
+                <div class="mb-15">
+                    <div class="form-group row">
+                        <label class="col-lg-3 col-form-label">New Address:</label>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control"  (keydown.enter)="$event.preventDefault()" placeholder="Type the new address" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+                        </div>
+                    </div>
+                </div>
                 <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
                   <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
                     (dragEnd)="markerDragEnd($event)"></agm-marker>
@@ -35,7 +40,15 @@
                 <div>Longitude: {{longitude}}</div>
             </div>
 
-              </div>
+            <div class="form-group row">
+                <label class="col-form-label col-3 text-lg-right text-left">After which date you can donate :</label>
+                <div class="col-6">
+                    <input type="date" class="form-control form-control-solid" placeholder="Enter appointment date">
+                    <span class="form-text text-muted">Please enter customer appointment date</span>
+                </div>
+            </div>
+
+            </div>
             
         
         <div class="card-footer">
@@ -49,6 +62,7 @@
             </div>
         </div>
     </form>
+</div>
 </div>
 
 

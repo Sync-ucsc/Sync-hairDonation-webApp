@@ -8,20 +8,32 @@ import { BookAppointmentComponent } from './book-appointment/book-appointment.co
 import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { ProfileComponent } from './profile/profile.component';
+import { ViewCalendarComponent } from './view-calendar/view-calendar.component';
+import { SaloonChatComponent } from './saloon-chat/saloon-chat.component';
+import {SharedLayoutModule} from "../shared-layout/shared-layout.module";
 
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(SalonLayoutRoutes),
     FormsModule,
-	FullCalendarModule,
+    FullCalendarModule,
+    SharedLayoutModule,
+    MatDialogModule,
+    MatIconModule,
+    MatAutocompleteModule,
   ],
   declarations: [
     DashboardComponent,
-	BookAppointmentComponent,
-	AppointmentDetailsComponent,
-	ProfileComponent,
+    BookAppointmentComponent,
+    AppointmentDetailsComponent,
+    ProfileComponent,
+    SaloonChatComponent,
+     ViewCalendarComponent,
   ]
 })
 

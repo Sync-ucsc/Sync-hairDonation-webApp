@@ -1,9 +1,10 @@
 
-import * as io from 'socket.io-client';
-import { Component, OnInit, ViewChild, ElementRef, NgZone  } from '@angular/core';
-import { FormGroup, FormControl, Validators,FormsModule,ReactiveFormsModule } from '@angular/forms';
-import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { AttendantApiService } from '../../service/attendant-api.service';
+/// <reference types="@types/googlemaps" />
+import * as io from 'socket.io-client';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
 
@@ -34,18 +35,10 @@ export class AttendantsComponent implements OnInit {
     lname: new FormControl('',Validators.required),
     email: new FormControl('',[Validators.required,Validators.email]),
     telephone: new FormControl('',[Validators.required,Validators.minLength(10)]),
-    checkSystem: new FormControl(''),
-    checkSms: new FormControl(''),
-    checkEmail: new FormControl(''),
-    address:new FormControl(''),
-    latitude:new FormControl(''),
-    longitude:new FormControl('')
-
-
   })
   @ViewChild('search')
   public searchElementRef: ElementRef;
-  
+
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
