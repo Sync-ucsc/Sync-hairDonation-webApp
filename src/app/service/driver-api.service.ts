@@ -7,13 +7,13 @@ import { callbackify } from 'util';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const baseUri = 'http://localhost:3000/driver';
+const baseUrl = 'http://localhost:3000/driver';
 @Injectable({
   providedIn: 'root'
 })
 export class DriverApiService {
 
-  baseUri = 'http://localhost:3000/driver';
+  baseUrl = 'http://localhost:3000/driver';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 
@@ -21,7 +21,7 @@ export class DriverApiService {
 
  // Create
  createDriver(data): Observable<any> {
-  const url = `${this.baseUri}/create`;
+  const url = `${this.baseUrl}/create`;
   return this.http.post(url, data)
     .pipe(
       catchError(this.errorMgmt)
@@ -47,12 +47,12 @@ export class DriverApiService {
 
 // Get all salons
 getDrivers() {
-  return this.http.get(`${this.baseUri}`);
+  return this.http.get(`${this.baseUrl}`);
 }
 
 // Get a salon
 getDriver(id): Observable<any> {
-  const url = `${this.baseUri}/read/${id}`;
+  const url = `${this.baseUrl}/read/${id}`;
   return this.http.get(url, {headers: this.headers}).pipe(
     map((res: Response) => {
       return res || {}
@@ -63,7 +63,7 @@ getDriver(id): Observable<any> {
 
 // Update salons
 updateDriver(id, data): Observable<any> {
-  const url = `${this.baseUri}/update/${id}`;
+  const url = `${this.baseUrl}/update/${id}`;
   return this.http.put(url, data, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)
   )
@@ -71,7 +71,7 @@ updateDriver(id, data): Observable<any> {
 
 // Delete salon
 deleteDriver(id): Observable<any> {
-  const url = `${this.baseUri}/delete/${id}`;
+  const url = `${this.baseUrl}/delete/${id}`;
   return this.http.delete(url, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)
   )
