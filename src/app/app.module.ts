@@ -30,6 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { AttendantApiService } from '@services/attendant-api.service';
+import { DonorApiService } from './service/donor-api.service';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { AttendantApiService } from '@services/attendant-api.service';
   ],
   providers: [
     SalonApiService,
-    AttendantApiService
+    AttendantApiService,
+    DonorApiService
   ],
   bootstrap: [AppComponent],
 
