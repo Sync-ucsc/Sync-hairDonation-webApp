@@ -1,42 +1,45 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'http://127.0.0.1:8000/api';
-  headers: Headers = new Headers();
+  private baseUrl = 'http://localhost:3000/user';
+  headers = new HttpHeaders().set('Content-Type', 'application/json');
   options: any;
 
   constructor(private http: HttpClient) {
 
-    this.headers.append('enctype', 'multi-part/form-data');
-    this.headers.append('Content-Type', 'application/json');
-    this.headers.append('X-Requested-With', 'XMLHttpRequest');
+    // this.headers.append('enctype', 'multi-part/form-data');
+    // this.headers.append('Content-Type', 'application/json');
+    // this.headers.append('X-Requested-With', 'XMLHttpRequest');
 
-    this.options = new RequestOptions({ headers: this.headers });
+   
 
   }
 
   adduser(data) {
     return this.http.post(`${this.baseUrl}/adduser`, data);
   }
-  updateuser(data) {
-    return this.http.post(`${this.baseUrl}/updateuser`, data);
-  }
-  deleteuser(data) {
-    return this.http.post(`${this.baseUrl}/deleteuser`, data);
-  }
 
-  login(data) {
-    return this.http.post(`${this.baseUrl}/login`, data);
+  login() {
+    let data = {
+
+      email: 'test1@gmail.com',
+      password: 'user@1234'
+
+    }
+    const url = `${this.baseUrl}/authenticate`;
+    return this.http.post(url,data ,{ headers: this.headers });
   }
 
   getalluser() {
-    return this.http.get<USER[]>(`${this.baseUrl}/getalluser`);
+    // return this.http.get<USER[]>(`${this.baseUrl}/getalluser`);
   }
   getuser(data) {
-    return this.http.post<USER>(`${this.baseUrl}/getuser`, data);
+    // return this.http.post<USER>(`${this.baseUrl}/getuser`, data);
   }
   temporarydisable(data) {
     return this.http.post(`${this.baseUrl}/temporarydisable`, data);

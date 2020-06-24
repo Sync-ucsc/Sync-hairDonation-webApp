@@ -80,9 +80,9 @@ constructor(
  getSalons(){
 
     this.apiService.getSalons().subscribe((data) => {
-     this.Salon = data;
-    this.options = data;
-     console.log(this.Salon);
+    this.Salon = data['data'];
+    this.options = data['data'];
+    console.log(this.Salon);
     })
 
  }
