@@ -6,6 +6,7 @@ import { AppointmentDetailsComponent } from './appointment-details/appointment-d
 import { ProfileComponent } from './profile/profile.component';
 import {ViewCalendarComponent} from './view-calendar/view-calendar.component';
 import { SaloonChatComponent } from './saloon-chat/saloon-chat.component';
+import { AfterLoginService } from '@services/after-login.service';
 
 
 export const SalonLayoutRoutes: Routes = [
@@ -20,41 +21,41 @@ export const SalonLayoutRoutes: Routes = [
     //   path: 'userprofile',
     //   component: UserProfileComponent
     // }]
-    // }, {
+    //, canActivate: [AfterLoginService],}, {
     //   path: '',
     //   children: [ {
     //     path: 'icons',
     //     component: IconsComponent
     //     }]
-    // }, {
+    //, canActivate: [AfterLoginService],}, {
     //     path: '',
     //     children: [ {
     //         path: 'notifications',
     //         component: NotificationsComponent
     //     }]
-    // }, {
+    //, canActivate: [AfterLoginService],}, {
     //     path: '',
     //     children: [ {
     //         path: 'maps',
     //         component: MapsComponent
     //     }]
-    // }, {
+    //, canActivate: [AfterLoginService],}, {
     //     path: '',
     //     children: [ {
     //         path: 'typography',
     //         component: TypographyComponent
     //     }]
-    // }, {
+    //, canActivate: [AfterLoginService],}, {
     //     path: '',
     //     children: [ {
     //         path: 'upgrade',
     //         component: UpgradeComponent
     //     }]
     // }
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'book_appointment',      component: BookAppointmentComponent },
-    { path: 'appointment_details',      component: AppointmentDetailsComponent },
-    { path: 'profile', component: ProfileComponent },
+    { path: 'dashboard',      component: DashboardComponent, canActivate: [AfterLoginService],},
+    { path: 'book_appointment',      component: BookAppointmentComponent, canActivate: [AfterLoginService],},
+    { path: 'appointment_details',      component: AppointmentDetailsComponent, canActivate: [AfterLoginService],},
+    { path: 'profile', component: ProfileComponent, canActivate: [AfterLoginService],},
     {path: 'view_calendar',component:ViewCalendarComponent},
-    { path: 'chat', component: SaloonChatComponent },
+    { path: 'chat', component: SaloonChatComponent, canActivate: [AfterLoginService],},
 ];
