@@ -60,7 +60,7 @@ getSalon(id): Observable<any> {
 // Update salons
 updateSalon(id, data): Observable<any> {
   const url = `${this.baseUrl}/update/${id}`;
-  return this.http.put(url, data, { headers: this.headers }).pipe(
+  return this.http.post(url, data, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)
   )
 }
