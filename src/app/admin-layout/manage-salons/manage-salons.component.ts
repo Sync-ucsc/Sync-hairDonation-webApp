@@ -129,12 +129,7 @@ constructor(
      }
    });
 
-  // if(window.confirm('Are you sure?')) {
-  //   this.apiService.deleteSalon(salon._id).subscribe((data) => {
-  //       this.Salon.splice(index, 1);
-  //     }
-  //   )
-  // }
+  
 }
 
 // opening the update dialog
