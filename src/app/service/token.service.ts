@@ -63,22 +63,22 @@ export class TokenService {
   }
 
   public isUserAdmin(): boolean {
-    return 'admin' === this.payload(this.gettoken()).ud.usertype ? true : false;
+    return 'admin' === this.payload(this.gettoken()).role ? true : false;
   }
   public isUserAttendant(): boolean {
-    return 'attendant' === this.payload(this.gettoken()).ud.usertype ? true : false;
+    return 'attendant' === this.payload(this.gettoken()).role ? true : false;
   }
   public isUserDonor(): boolean {
-    return 'sonor' === this.payload(this.gettoken()).ud.usertype ? true : false;
+    return 'donor' === this.payload(this.gettoken()).role ? true : false;
   }
   public isUserHospital(): boolean {
-    return 'hospital' === this.payload(this.gettoken()).ud.usertype ? true : false;
+    return 'hospital' === this.payload(this.gettoken()).role ? true : false;
   }
   public isUserPatient(): boolean {
-    return 'patient' === this.payload(this.gettoken()).ud.usertype ? true : false;
+    return 'patient' === this.payload(this.gettoken()).role ? true : false;
   }
   public isUserSalon(): boolean {
-    return 'salon' === this.payload(this.gettoken()).ud.usertype ? true : false;
+    return 'salon' === this.payload(this.gettoken()).role ? true : false;
   }
 
 }
