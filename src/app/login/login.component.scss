@@ -1,3 +1,7 @@
+::ng-deep body {
+    background-color: unset !important;
+    background-image: unset !important;
+}
 @media (max-width:1900) {
   .login-form {
     width: 80%;

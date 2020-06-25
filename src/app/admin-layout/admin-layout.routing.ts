@@ -23,6 +23,7 @@ import { ManagePatientComponent } from './manage-patient/manage-patient.componen
 
 import { AttendantsComponent } from './attendants/attendants.component';
 import { ManageAttendantsComponent} from './manage-attendants/manage-attendants.component';
+import { AfterLoginService } from '@services/after-login.service';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -36,55 +37,55 @@ export const AdminLayoutRoutes: Routes = [
     //   path: 'userprofile',
     //   component: UserProfileComponent
     // }]
-    // }, {
+    //, canActivate: [AfterLoginService],}, {
     //   path: '',
     //   children: [ {
     //     path: 'icons',
     //     component: IconsComponent
     //     }]
-    // }, {
+    //, canActivate: [AfterLoginService],}, {
     //     path: '',
     //     children: [ {
     //         path: 'notifications',
     //         component: NotificationsComponent
     //     }]
-    // }, {
+    //, canActivate: [AfterLoginService],}, {
     //     path: '',
     //     children: [ {
     //         path: 'maps',
     //         component: MapsComponent
     //     }]
-    // }, {
+    //, canActivate: [AfterLoginService],}, {
     //     path: '',
     //     children: [ {
     //         path: 'typography',
     //         component: TypographyComponent
     //     }]
-    // }, {
+    //, canActivate: [AfterLoginService],}, {
     //     path: '',
     //     children: [ {
     //         path: 'upgrade',
     //         component: UpgradeComponent
     //     }]
     // }
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'test', component: TestComponent },
-    { path: 'profile', component: ProfileComponent },
-    { path: 'user-ban', component: UserBanComponent },
-    { path: 'user-action-ban', component: UserActionBanComponent },
-    { path: 'salons', component: SalonsComponent },
-    { path: 'manage-salons', component: ManageSalonsComponent },
-    { path: 'add-manager', component: AddManagerComponent },
-    { path: 'view-manager', component: ViewManagerComponent },
-    { path: 'manage-contact-us', component: ManageContactUsComponent },
-    { path: 'view-contact-us', component: ViewContactUsComponent },
-    { path: 'drivers', component: DriversComponent },
-    { path: 'manage-drivers', component: ManageDriversComponent },
-	{ path: 'manage-notification', component: ManageNotificationComponent },
-    { path: 'push-notification', component: PushNotificationComponent },
-    { path: 'manage-donor', component: ManageDonorComponent },
-    { path: 'manage-patient', component: ManagePatientComponent },
-    { path: 'attendants', component: AttendantsComponent},
-    { path: 'manage-attendants', component: ManageAttendantsComponent},
+    { path: 'dashboard', component: DashboardComponent, canActivate: [AfterLoginService],},
+    { path: 'test', component: TestComponent, canActivate: [AfterLoginService],},
+    { path: 'profile', component: ProfileComponent, canActivate: [AfterLoginService],},
+    { path: 'user-ban', component: UserBanComponent, canActivate: [AfterLoginService],},
+    { path: 'user-action-ban', component: UserActionBanComponent, canActivate: [AfterLoginService],},
+    { path: 'salons', component: SalonsComponent, canActivate: [AfterLoginService],},
+    { path: 'manage-salons', component: ManageSalonsComponent, canActivate: [AfterLoginService],},
+    { path: 'add-manager', component: AddManagerComponent, canActivate: [AfterLoginService],},
+    { path: 'view-manager', component: ViewManagerComponent, canActivate: [AfterLoginService],},
+    { path: 'manage-contact-us', component: ManageContactUsComponent, canActivate: [AfterLoginService],},
+    { path: 'view-contact-us', component: ViewContactUsComponent, canActivate: [AfterLoginService],},
+    { path: 'drivers', component: DriversComponent, canActivate: [AfterLoginService],},
+    { path: 'manage-drivers', component: ManageDriversComponent, canActivate: [AfterLoginService],},
+	{ path: 'manage-notification', component: ManageNotificationComponent, canActivate: [AfterLoginService],},
+    { path: 'push-notification', component: PushNotificationComponent, canActivate: [AfterLoginService],},
+    { path: 'manage-donor', component: ManageDonorComponent, canActivate: [AfterLoginService],},
+    { path: 'manage-patient', component: ManagePatientComponent, canActivate: [AfterLoginService],},
+    { path: 'attendants', component: AttendantsComponent, canActivate: [AfterLoginService],},
+    { path: 'manage-attendants', component: ManageAttendantsComponent, canActivate: [AfterLoginService],},
 
 ];

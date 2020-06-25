@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { TokenService } from './token.service';
 
 
 @Injectable({
@@ -10,7 +11,7 @@ export class UserService {
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   options: any;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private token: TokenService) {
 
     // this.headers.append('enctype', 'multi-part/form-data');
     // this.headers.append('Content-Type', 'application/json');
@@ -24,15 +25,14 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/adduser`, data);
   }
 
-  login() {
-    let data = {
-
-      email: 'test1@gmail.com',
-      password: 'user@1234'
-
-    }
+  login(data) {
+    console.log(data)
     const url = `${this.baseUrl}/authenticate`;
     return this.http.post(url,data ,{ headers: this.headers });
+  }
+  getprofile() {
+    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
+    return this.http.get(`${this.baseUrl}/profile`, { headers: header });
   }
 
   getalluser() {

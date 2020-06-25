@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2'
+import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
   private iss = {
-    login: 'http://localhost:3000/login'
+    login: 'http://127.0.0.1:3000/user'
   };
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router,) { }
 
   handle(token) {
     this.set(token);
@@ -31,7 +34,16 @@ export class TokenService {
     if (token) {
       const payload = this.payload(token);
       if (payload) {
-        return Object.values(this.iss).indexOf(payload.iss) > -1 ? true : false;
+        if (Date.now() >= payload.exp * 1000 || Object.values(this.iss).indexOf(payload.iss) === -1 ) {
+          Swal.fire(
+            'Time Out!',
+            'Please login again!',
+            'error'
+          );
+          this.remove()
+          return false;
+        }
+        return (Date.now() <= payload.exp * 1000 && Object.values(this.iss).indexOf(payload.iss) > -1) ? true : false;
       }
     }
     return false;
@@ -43,7 +55,7 @@ export class TokenService {
   }
 
   decode(payload) {
-    return JSON.parse(atob(payload));
+    return JSON.parse(window.atob(payload));
   }
 
   loggedIn() {
@@ -51,22 +63,22 @@ export class TokenService {
   }
 
   public isUserAdmin(): boolean {
-    return 'admin' === this.payload(this.gettoken()).ud.usertype ? true : false;
+    return 'admin' === this.payload(this.gettoken()).role ? true : false;
   }
   public isUserAttendant(): boolean {
-    return 'attendant' === this.payload(this.gettoken()).ud.usertype ? true : false;
+    return 'attendant' === this.payload(this.gettoken()).role ? true : false;
   }
   public isUserDonor(): boolean {
-    return 'sonor' === this.payload(this.gettoken()).ud.usertype ? true : false;
+    return 'donor' === this.payload(this.gettoken()).role ? true : false;
   }
   public isUserHospital(): boolean {
-    return 'hospital' === this.payload(this.gettoken()).ud.usertype ? true : false;
+    return 'hospital' === this.payload(this.gettoken()).role ? true : false;
   }
   public isUserPatient(): boolean {
-    return 'patient' === this.payload(this.gettoken()).ud.usertype ? true : false;
+    return 'patient' === this.payload(this.gettoken()).role ? true : false;
   }
   public isUserSalon(): boolean {
-    return 'salon' === this.payload(this.gettoken()).ud.usertype ? true : false;
+    return 'salon' === this.payload(this.gettoken()).role ? true : false;
   }
 
 }
