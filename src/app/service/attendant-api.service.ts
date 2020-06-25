@@ -12,7 +12,7 @@ const baseUrl = 'http://localhost:3000/attendant';
 })
 export class AttendantApiService {
 
-  baseUrl = 'http://localhost:3000/attendant';
+  baseUrl = 'http://127.0.0.1:3000/attendant';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 

@@ -39,7 +39,7 @@
                 <div class="loginform">
                     <!--begin::Form-->
     
-                    <form class="form"  #login>
+                    <form class="form">
                         <!--begin::Title-->
                         <div class="pt-lg-14 mt-lg-7 pb-5">
                             
@@ -55,8 +55,8 @@
                         <!--begin::Form group-->
                         <div class="form-group">
                             <label class="font-size-h6 font-weight-bolder text-dark">Email</label>
-                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="text" [(ngModel)] ="user.email"
-                               required name="username" autocomplete="off">
+                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="text" 
+                               required name="username" autocomplete="off" [(ngModel)] = user.email>
                         </div>
                         <!--end::Form group-->
     
@@ -72,14 +72,14 @@
                                 </a>
                             </div>
     
-                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="password" [(ngModel)] = "user.password"
-                                required name="password" autocomplete="off">
+                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="password" 
+                                required name="password" autocomplete="off" [(ngModel)] = user.password>
                         </div>
                         <!--end::Form group-->
     
                         <!--begin::Action-->
                         <div class="pb-lg-0 pb-10">
-                            <button type="button" (click)="login()" [disabled] = !login.valid
+                            <button type="button" (click)="onSubmit()"
                                 class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign In</button>
 
                         </div>

@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 
 // use for test chat
 import {SharedChatComponent} from './shared-layout/shared-chat/shared-chat.component';
+import { AfterLoginService } from '@services/after-login.service';
 
 const routes: Routes = [
   {
@@ -32,6 +33,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    canActivate: [AfterLoginService],
     path: 'admin',
     component: AdminLayoutComponent,
     children: [{
@@ -40,6 +42,7 @@ const routes: Routes = [
     }]
   },
   {
+    canActivate: [AfterLoginService],
     path: 'attendant',
     component: AttendantLayoutComponent,
     children: [{
@@ -48,6 +51,7 @@ const routes: Routes = [
     }]
   },
   {
+    canActivate: [AfterLoginService],
     path: 'salon',
     component: SalonLayoutComponent,
     children: [{
@@ -57,6 +61,7 @@ const routes: Routes = [
   },
 
   {
+    canActivate: [AfterLoginService],
     path: 'donor',
     component: DonorLayoutComponent,
     children: [{
@@ -65,6 +70,7 @@ const routes: Routes = [
     }]
   },
   {
+    canActivate: [AfterLoginService],
     path: 'patient',
     component: PatientLayoutComponent,
     children: [{
@@ -73,6 +79,7 @@ const routes: Routes = [
     }]
   },
   {
+    canActivate: [AfterLoginService],
     path: 'hospital',
     component: HospitalLayoutComponent,
     children: [{
