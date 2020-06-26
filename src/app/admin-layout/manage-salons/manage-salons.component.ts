@@ -5,6 +5,7 @@ import { MatDialog ,MatDialogConfig,MAT_DIALOG_DATA} from '@angular/material/dia
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card'; 
 // declare const Swal: any;
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
