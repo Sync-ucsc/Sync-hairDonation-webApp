@@ -24,7 +24,6 @@ export class DonorApiService {
    return this.http.post(url, data);
   }
 
-  
  // Error handling
  errorMgmt(error: HttpErrorResponse) {
   let errorMessage = '';
@@ -71,5 +70,6 @@ deleteDonor(id): Observable<any> {
     catchError(this.errorMgmt)
   )
 }
+
 
 }

@@ -61,8 +61,8 @@ import { Signup2Component } from './signup2/signup2.component';
       apiKey: 'AIzaSyAkGlhRjMfmotb0UBMf8EAcmkTB6v3WEVM',
       libraries: ['places']
     }),
-    FormsModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot()

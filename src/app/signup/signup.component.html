@@ -239,7 +239,7 @@
                                 <div class="form-group fv-plugins-icon-container has-success">
                                     <label class="font-size-h6 font-weight-bolder text-dark">First Name</label>
                                     <input type="text" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="fname"
-                                        placeholder="First Name" required value="" [(ngModel)]=user.fname formControlName="fname"
+                                         placeholder="First Name" required value="" [(ngModel)]=user.fname formControlName="fname"
                                         style="background-color: aliceblue;border: 1px solid #9f0784 !important;" >
                                     <div class="fv-plugins-message-container"></div>
                                 </div>
@@ -302,8 +302,8 @@
                             </form>
                             
                         </div>
-                        <div id=form1 *ngIf=form2>
-                            <form [formGroup]="signForm1">
+                        <div id=form2 *ngIf=form2>
+                            <form [formGroup]="signForm2">
                                 <!--begin::Title-->
                                 <div class="pb-5 pb-lg-10">
                                     <h3 class="font-weight-bolder text-dark display5">Create Account</h3>
@@ -314,43 +314,32 @@
                                 </div>
                                 <!--begin::Title-->
                         
-                                <!--begin::Form Group-->
-                                <div class="form-group fv-plugins-icon-container has-success">
-                                    <label class="font-size-h6 font-weight-bolder text-dark">First Name</label>
-                                    <input type="text" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="fname"
-                                        placeholder="First Name" required value="" [(ngModel)]=user.fname formControlName="fname"
-                                        style="background-color: aliceblue;border-color: #9f0784;" >
-                                    <div class="fv-plugins-message-container"></div>
+                                <div class="container">
+                                
+                                    <h1>Angular Google Maps with Places Search Example</h1>
+                                
+                                    <div class="form-group">
+                                        
+                                        <label class="font-size-h6 font-weight-bolder text-dark">Enter address</label>
+                                        <input type="tel" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="address"
+                                            (keydown.enter)="$event.preventDefault()"
+                                            placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+                                            #search
+                                            required value="" [(ngModel)]=user.address formControlName="address">
+                                        <div class="fv-plugins-message-container"></div>
+                                    </div>
+                                
+                                    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                                        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                                            (dragEnd)="markerDragEnd($event)"></agm-marker>
+                                    </agm-map>
+                                
+                                    <h5>Address: {{address}}</h5>
+                                    <div>Latitude: {{latitude}}</div>
+                                    <div>Longitude: {{longitude}}</div>
                                 </div>
-                                <!--end::Form Group-->
                         
-                                <!--begin::Form Group-->
-                                <div class="form-group fv-plugins-icon-container has-success">
-                                    <label class="font-size-h6 font-weight-bolder text-dark">Last Name</label>
-                                    <input type="text" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="lname"
-                                        placeholder="Last Name" required value="" [(ngModel)]=user.lname formControlName="lname"
-                                        style="background-color: aliceblue;border-color: #9f0784;" >
-                                    <div class="fv-plugins-message-container"></div>
-                                </div>
-                                <!--end::Form Group-->
-                        
-                                <!--begin::Form Group-->
-                                <div class="form-group fv-plugins-icon-container has-success">
-                                    <label class="font-size-h6 font-weight-bolder text-dark">Email</label>
-                                    <input type="text" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="lname"
-                                        placeholder="Email" required value="" [(ngModel)]=user.email formControlName="email">
-                                    <div class="fv-plugins-message-container"></div>
-                                </div>
-                                <!--end::Form Group-->
-                        
-                                <!--begin::Form Group-->
-                                <div class="form-group fv-plugins-icon-container has-success">
-                                    <label class="font-size-h6 font-weight-bolder text-dark">Phone</label>
-                                    <input type="tel" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="phone"
-                                        placeholder="phone" required value="" type="number" [(ngModel)]=user.phone formControlName="phone">
-                                    <div class="fv-plugins-message-container"></div>
-                                </div>
-                                <!--end::Form Group-->
+                               
                                 <div class="d-flex justify-content-between pt-3">
                         
                                     <div class="mr-2">
