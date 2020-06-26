@@ -12,7 +12,7 @@
         <tbody >
             <tr *ngFor="let manager of Manager; let i = index">
                 <th scope="row">{{i+1}}</th>
-                <td>{{manager['name']}}</td>
+                <td>{{manager['firstName']}} {{manager['lastName']}}</td>
                 <td>{{manager['email']}}</td>
                 <td>{{manager['telephone']}}</td>
                 <td>{{manager['address']}}</td>
@@ -115,10 +115,16 @@
                     <div class="card-body">
         
                         <div class="form-group row">
-                            <label class="col-2 col-form-label">Name</label>
+                            <label class="col-2 col-form-label">First Name</label>
                             <div class="col-10">
-                                <input class="form-control" type="text" formControlName="name"
-                                    [(ngModel)]="selectedManager.name" />
+                                <input class="form-control" type="text" formControlName="firstName"
+                                    [(ngModel)]="selectedManager.firstName" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-2 col-form-label">Last Name</label>
+                            <div class="col-10">
+                                <input class="form-control" type="text" formControlName="lastName" [(ngModel)]="selectedManager.lastName" />
                             </div>
                         </div>
         
