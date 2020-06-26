@@ -41,11 +41,11 @@ export class DashboardComponent implements OnInit {
       series: [
         {
           name: "Donations",
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+          data: [55, 44, 55, 57, 56, 61, 58, 63, 60]
         },
         {
           name: "Needs",
-          data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+          data: [44, 76, 85, 45, 98, 87, 80, 91, 32]
         }
       ],
       chart: {
@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: "55%",
+          columnWidth: "75%",
           endingShape: "rounded"
         }
       },
@@ -69,6 +69,7 @@ export class DashboardComponent implements OnInit {
       },
       xaxis: {
         categories: [
+          "Jan",
           "Feb",
           "Mar",
           "Apr",
@@ -76,8 +77,7 @@ export class DashboardComponent implements OnInit {
           "Jun",
           "Jul",
           "Aug",
-          "Sep",
-          "Oct"
+          "Sep"
         ]
       },
       yaxis: {
