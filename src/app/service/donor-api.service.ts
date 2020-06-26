@@ -24,5 +24,52 @@ export class DonorApiService {
    return this.http.post(url, data);
   }
 
+ // Error handling
+ errorMgmt(error: HttpErrorResponse) {
+  let errorMessage = '';
+  if (error.error instanceof ErrorEvent) {
+    // Get client-side error
+    errorMessage = error.error.message;
+  } else {
+    // Get server-side error
+    errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  }
+  console.log(errorMessage);
+  return throwError(errorMessage);
+}
+
+
+  // Get all Donors
+getDonors() {
+  return this.http.get(`${this.baseUrl}`);
+}
+
+// Get a donor
+getDonor(id): Observable<any> {
+  const url = `${this.baseUrl}/read/${id}`;
+  return this.http.get(url, {headers: this.headers}).pipe(
+    map((res: Response) => {
+      return res || {}
+    }),
+    catchError(this.errorMgmt)
+  )
+}
+
+// Update donors
+updateDonor(id, data): Observable<any> {
+  const url = `${this.baseUrl}/update/${id}`;
+  return this.http.post(url, data, { headers: this.headers }).pipe(
+    catchError(this.errorMgmt)
+  )
+}
+
+// Delete salon
+deleteDonor(id): Observable<any> {
+  const url = `${this.baseUrl}/delete/${id}`;
+  return this.http.delete(url, { headers: this.headers }).pipe(
+    catchError(this.errorMgmt)
+  )
+}
+
 
 }
