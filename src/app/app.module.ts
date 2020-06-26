@@ -36,6 +36,7 @@ import { AuthService } from '@services/auth.service';
 import { BeforLoginService } from '@services/befor-login.service';
 import { AfterLoginService } from '@services/after-login.service';
 import { DonorApiService } from './service/donor-api.service';
+import { Signup2Component } from './signup2/signup2.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { DonorApiService } from './service/donor-api.service';
     DashboardComponent,
     LoginComponent,
     SignupComponent,
+    Signup2Component,
   ],
   imports: [
     BrowserModule,
