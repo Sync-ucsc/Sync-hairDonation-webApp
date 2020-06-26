@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+/// <reference types="@types/googlemaps" />
+import * as io from 'socket.io-client';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { Router } from '@angular/router';
 declare function getFingerprint(): any;
 
 @Component({
@@ -14,8 +18,16 @@ export class SignupComponent implements OnInit {
     lname:'',
     phone:'',
     email:'',
-    lat: ''
+    lat: '',
+    address:'',
   }
+
+  latitude =5;
+  longitude = 5;
+  zoom: number;
+  address: string;
+  placeaddress;
+  private geoCoder;
 
   btn1 =false;
   btn2 = false;
@@ -31,22 +43,93 @@ export class SignupComponent implements OnInit {
   form2 = false;
   form3 = false;
   form4 = false;
+  @ViewChild('search',{static:false}) public searchElementRef: ElementRef;
 
-  
 
   signForm1 = new FormGroup({
     fname: new FormControl('', [Validators.required]),
     lname: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl('', [Validators.required,Validators.maxLength(10), Validators.minLength(8)])
+    phone: new FormControl('', [Validators.required,Validators.maxLength(10), Validators.minLength(8)]),
   });
 
-  constructor() {
-    // console.log(getFingerprint());
+  signForm2 = new FormGroup({
+    address: new FormControl('', [Validators.required]),
+  });
+
+
+
+
+
+  constructor(
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone
+  ) { }
+
+
+
+  ngOnInit() {
+    // load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+
+      autocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          // verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          // set latitude, longitude and zoom
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.zoom = 15;
+        });
+      });
+    });
   }
 
-  ngOnInit(): void {
-    console.log()
+  // Get Current Location Coordinates
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 15;
+        this.getAddress(this.latitude, this.longitude);
+      });
+    }
+  }
+
+
+  markerDragEnd($event: MouseEvent) {
+    console.log($event);
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lng;
+    this.getAddress(this.latitude, this.longitude);
+  }
+
+  getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log(results);
+      console.log(status);
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 15;
+          this.address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+
+    });
   }
 
   ismobile() {
@@ -58,7 +141,7 @@ export class SignupComponent implements OnInit {
   }
 
   changeForm(x){
-    let elm1 = document.getElementsByClassName('btn1')
+    const elm1 = document.getElementsByClassName('btn1')
     if(x === 'form1'){
       this.form1 = true;
       this.form2 = false;
@@ -100,7 +183,7 @@ export class SignupComponent implements OnInit {
     } else if ( x === 'form4'){
       this.form3 = false;
       this.form4 = true;
-      
+
       this.btn1 = true;
       this.btn2 = true;
       this.btn3 = true;
