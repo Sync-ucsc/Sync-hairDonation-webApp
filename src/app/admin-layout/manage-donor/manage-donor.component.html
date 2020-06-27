@@ -211,16 +211,36 @@
     
     
     <ng-template #dialog>
-        <div class="modal position-relative d-block" tabindex="-1" role="dialog" style="height: 80vh;width: 70vw;overflow-x: hidden;">
-            <div class="modal-dialog" role="document" style="height: 100%;width: 100%;overflow-y: scroll;">
-    
+        <mat-card>
+           <mat-card-content [style.overflow]="'auto'" [style.height.px]="'300'">
+                Name of the donor: {{selectedDonor.firstName}} {{selectedDonor.lastName}}<br>
+                E-mail:{{selectedDonor.email}}<br>
+                Telephone:{{selectedDonor.telePhone}}<br>
+                <!-- Address:{{selectedSalon.address}}<br>
+                Location:<br>
+                <agm-map [latitude]="selectedSalon.latitude" [longitude]="selectedSalon.longitude" [zoom]=14>
+                   <agm-marker [latitude]="selectedSalon.latitude" [longitude]="selectedSalon.longitude"></agm-marker>
+                   </agm-map>
+                Communication:<br>
+               
+                       <input type="checkbox" formControlName="checkSystem" [(ngModel)]="selectedSalon.checkSystem"> System
+                      
               
-                 
-                 
-    
-    
-            </div>
-        </div>
+               
+                   <label class="checkbox">
+                       <input type="checkbox" formControlName="checkSms" [(ngModel)]="selectedSalon.checkSms"> SMS
+                       <span></span>
+                   </label>
+                   <label class="checkbox">
+                       <input type="checkbox" formControlName="checkEmail" [(ngModel)]="selectedSalon.checkEmail"> E-mail
+                       <span></span>
+                   </label> -->
+             
+            
+
+            </mat-card-content>
+        </mat-card>
+         
     
     </ng-template>
     
