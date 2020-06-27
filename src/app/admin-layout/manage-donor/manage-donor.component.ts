@@ -63,7 +63,7 @@ export class ManageDonorComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+    return this.options.filter(option => option.firstName.toLowerCase().indexOf(filterValue) === 0);
 
   }
 
@@ -180,6 +180,7 @@ export class uploadDialog3Component {
 
   updateForm= new FormGroup({
     firstName: new FormControl('',Validators.required),
+    lastName: new FormControl('', Validators.required),
     email: new FormControl('',[Validators.required,Validators.email]),
     telePhone: new FormControl('',[Validators.required,Validators.minLength(10)])
     // checkSystem: new FormControl(''),
