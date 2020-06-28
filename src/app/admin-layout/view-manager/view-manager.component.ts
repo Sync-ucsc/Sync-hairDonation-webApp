@@ -21,7 +21,8 @@ export class ViewManagerComponent implements OnInit {
 
 
   updateForm = new FormGroup({
-    name: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     telephone: new FormControl('', [Validators.required, Validators.minLength(10)]),
     address: new FormControl('', Validators.required),
@@ -115,13 +116,13 @@ export class ViewManagerComponent implements OnInit {
         if (result.value) {
           Swal.fire(
             'Updated',
-            'Salon has been updated.',
+            'Manager has been updated.',
             'success'
           )
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire(
             'Cancelled',
-            'Salon was not updated',
+            'Manager was not updated',
             'error'
           )
         }
@@ -160,13 +161,13 @@ export class ViewManagerComponent implements OnInit {
       if (result.value) {
         Swal.fire(
           'Deleted!',
-          'Salon has been deleted.',
+          'Manager has been deleted.',
           'success'
         )
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelled',
-          'Salon was not deleted',
+          'Manager was not deleted',
           'error'
         )
       }

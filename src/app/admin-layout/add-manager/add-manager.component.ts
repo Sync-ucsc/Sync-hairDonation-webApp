@@ -15,7 +15,8 @@ export class AddManagerComponent implements OnInit {
  submitted=false;
 
   managerForm = new FormGroup({
-    name: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     telephone: new FormControl('', [Validators.required, Validators.minLength(10)]),
     address: new FormControl('', Validators.required),

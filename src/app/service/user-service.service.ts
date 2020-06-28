@@ -23,7 +23,7 @@ export class UserServiceService {
 
     } else if('manager'){
 
-    } else if('attendan'){
+    } else if('attendant'){
 
     } else {
       

@@ -38,6 +38,7 @@ import { ManageDonorComponent,uploadDialog3Component } from './manage-donor/mana
 import { ManagePatientComponent } from './manage-patient/manage-patient.component'; 
 import { MatSelectModule } from '@angular/material/select';
 import { ManageAttendantsComponent,uploadDialog2Component } from './manage-attendants/manage-attendants.component';
+import { MatCardModule } from '@angular/material/card'; 
 
 
 
@@ -62,6 +63,7 @@ import { ManageAttendantsComponent,uploadDialog2Component } from './manage-atten
     MatAutocompleteModule,
     NgxSpinnerModule,
     MatSelectModule,
+    MatCardModule
   ],
   declarations: [
     DashboardComponent,
