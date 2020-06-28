@@ -287,3 +287,30 @@
  agm-map {
    height: 300px;
  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .container {
+    max-width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em;
+  }
+
+  .mail-contnet h5 {
+    display: block;
+  }
+
+  ::ng-deep .mat-progress-bar {
+    width: 94% !important;
+  }
+
+  ::ng-deep .ng-trigger-list {
+    width: 94%;
+  }
+
+  ::ng-deep .mat-ripple:not(:empty) {
+      border: unset !important;
+  }

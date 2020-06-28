@@ -94,7 +94,6 @@ Special thanks to Valentin Vasilyev for the original fingerprintjs slightly modi
       if (this.hasher) {
         return this.hasher(keys.join('###'), 31);
       } else {
-        console.log(keys);
         return this.murmurhash3_32_gc(keys.join('###'), 31);
       }
     },
@@ -1294,7 +1293,7 @@ var uid = fp.get();
 
 
 function getFingerprint() {
-    return fp.getCanvasFingerprint();
+    return fp.get();
 }
 
 $(function () {

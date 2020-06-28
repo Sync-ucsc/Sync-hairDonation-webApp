@@ -58,10 +58,10 @@
                                     </div>
                                     <div class="wizard-label">
                                         <h3 class="wizard-title">
-                                            Address Details
+                                            Contact Details
                                         </h3>
                                         <div class="wizard-desc">
-                                            Setup Residence Address
+                                            Setup 
                                         </div>
                                     </div>
                                 </div>
@@ -74,10 +74,10 @@
                                     </div>
                                     <div class="wizard-label">
                                         <h3 class="wizard-title">
-                                            Address Details
+                                            Contact Details
                                         </h3>
                                         <div class="wizard-desc">
-                                            Setup Residence Address
+                                            Setup Contact Details
                                         </div>
                                     </div>
                                 </div>
@@ -90,10 +90,10 @@
                                     </div>
                                     <div class="wizard-label">
                                         <h3 class="wizard-title">
-                                            Address Details
+                                            Contact Details
                                         </h3>
                                         <div class="wizard-desc">
-                                            Setup Residence Address
+                                            Setup Contact Details
                                         </div>
                                     </div>
                                 </div>
@@ -109,10 +109,10 @@
                                     </div>
                                     <div class="wizard-label">
                                         <h3 class="wizard-title">
-                                            Make Payment
+                                            Location Details
                                         </h3>
                                         <div class="wizard-desc">
-                                            Use Credit or Debit Cards
+                                            Setup Residence Location
                                         </div>
                                     </div>
                                 </div>
@@ -125,10 +125,10 @@
                                     </div>
                                     <div class="wizard-label">
                                         <h3 class="wizard-title">
-                                            Make Payment
+                                            Location Details
                                         </h3>
                                         <div class="wizard-desc">
-                                            Use Credit or Debit Cards
+                                            Setup Residence Location
                                         </div>
                                     </div>
                                 </div>
@@ -141,10 +141,10 @@
                                     </div>
                                     <div class="wizard-label">
                                         <h3 class="wizard-title">
-                                            Make Payment
+                                            Location Details
                                         </h3>
                                         <div class="wizard-desc">
-                                            Use Credit or Debit Cards
+                                            Setup Residence Location
                                         </div>
                                     </div>
                                 </div>
@@ -160,10 +160,10 @@
                                     </div>
                                     <div class="wizard-label">
                                         <h3 class="wizard-title">
-                                            Completed!
+                                            Credential
                                         </h3>
                                         <div class="wizard-desc">
-                                            Review and Submit
+                                            Set Credential and Submit
                                         </div>
                                     </div>
                                 </div>
@@ -176,10 +176,10 @@
                                     </div>
                                     <div class="wizard-label">
                                         <h3 class="wizard-title">
-                                            Completed!
+                                            Credential
                                         </h3>
                                         <div class="wizard-desc">
-                                            Review and Submit
+                                            Set Credential and Submit
                                         </div>
                                     </div>
                                 </div>
@@ -192,10 +192,10 @@
                                     </div>
                                     <div class="wizard-label">
                                         <h3 class="wizard-title">
-                                            Completed!
+                                            Credential
                                         </h3>
                                         <div class="wizard-desc">
-                                            Review and Submit
+                                            Set Credential and Submit
                                         </div>
                                     </div>
                                 </div>
@@ -263,17 +263,8 @@
                                         style="background-color: aliceblue;border: 1px solid #9f0784 !important;" >
                                     <div class="fv-plugins-message-container"></div>
                                 </div>
-                                <!--end::Form Group-->
                                 
-                                <!--begin::Form Group-->
-                                <div class="form-group fv-plugins-icon-container has-success">
-                                    <label class="font-size-h6 font-weight-bolder text-dark">Phone</label>
-                                    <input type="tel" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="phone"
-                                        placeholder="phone" required  value="" type="number" [(ngModel)]=user.phone formControlName="phone"
-                                        style="background-color: aliceblue;border: 1px solid #9f0784 !important;" >
-                                    <div class="fv-plugins-message-container"></div>
-                                </div>
-                                <!--end::Form Group-->
+
                                 <div class="d-flex justify-content-between pt-8">
                                 
                                     <div>
@@ -304,46 +295,42 @@
                         </div>
                         <div id=form2 *ngIf=form2>
                             <form [formGroup]="signForm2">
-                                <!--begin::Title-->
-                                <div class="pb-5 pb-lg-10">
-                                    <h3 class="font-weight-bolder text-dark display5">Create Account</h3>
-                                    <div class="text-muted font-weight-bold font-size-h4">
-                                        Already have an Account ?
-                                        <a routerLink="/login" class="text-primary font-weight-bolder">Sign In</a>
-                                    </div>
-                                </div>
-                                <!--begin::Title-->
-                        
-                                <div class="container">
-                                
-                                    <h1>Angular Google Maps with Places Search Example</h1>
-                                
-                                    <div class="form-group">
-                                        
-                                        <label class="font-size-h6 font-weight-bolder text-dark">Enter address</label>
-                                        <input type="tel" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="address"
-                                            (keydown.enter)="$event.preventDefault()"
-                                            placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
-                                            #search
-                                            required value="" [(ngModel)]=user.address formControlName="address">
-                                        <div class="fv-plugins-message-container"></div>
-                                    </div>
-                                
-                                    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-                                        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
-                                            (dragEnd)="markerDragEnd($event)"></agm-marker>
-                                    </agm-map>
-                                
-                                    <h5>Address: {{address}}</h5>
-                                    <div>Latitude: {{latitude}}</div>
-                                    <div>Longitude: {{longitude}}</div>
-                                </div>
+                            <!--begin::Form Group-->
+                            <div class="pb-5 pb-lg-10">
+                                <h3 class="font-weight-bolder text-dark display5">Set Contact Details</h3>
+                            
+                            </div>
+                            <div class="form-group fv-plugins-icon-container has-success">
+                                <label class="font-size-h6 font-weight-bolder text-dark">Address</label>
+                                <input type="tel" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="address"
+                                    style="background-color: aliceblue;border: 1px solid #9f0784 !important;" placeholder="Search Nearest Location"
+                                    spellcheck="off" type="text" required value="" [(ngModel)]=user.address formControlName="address">
+                                <div class="fv-plugins-message-container"></div>
+                            </div>
+                            <!--end::Form Group-->
+                            <!--end::Form Group-->
+                            <div class="form-group fv-plugins-icon-container has-success">
+                                <label class="font-size-h6 font-weight-bolder text-dark">Phone</label>
+                                <input type="tel" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="phone"
+                                    placeholder="phone" required value="" type="number" [(ngModel)]=user.phone formControlName="phone"
+                                    style="background-color: aliceblue;border: 1px solid #9f0784 !important;">
+                                <div class="fv-plugins-message-container"></div>
+                            </div>
+                            <!--begin::Form Group-->
+                            <div class="form-group fv-plugins-icon-container has-success">
+                                <label class="font-size-h6 font-weight-bolder text-dark">Nic</label>
+                                <input type="tel" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="nic"
+                                    placeholder="Nic" required value="" [(ngModel)]=user.nic formControlName="nic"
+                                    style="background-color: aliceblue;border: 1px solid #9f0784 !important;">
+                                <div class="fv-plugins-message-container"></div>
+                            </div>
+                            <!--end::Form Group-->
                         
                                
                                 <div class="d-flex justify-content-between pt-3">
-                        
+                                    
                                     <div class="mr-2">
-                                        <button type="button" class="btn btn-light-primary font-weight-bolder font-size-h6 pl-6 pr-8 py-4 my-3 mr-3"
+                                        <button type="button"  class="btn btn-light-primary font-weight-bolder font-size-h6 pl-6 pr-8 py-4 my-3 mr-3"
                                             data-wizard-type="action-prev" (click)="changeForm('form1')">
                                             <span class="svg-icon svg-icon-md mr-1">
                                                 <!--begin::Svg Icon | path:/metronic/themes/metronic/theme/html/demo8/dist/assets/media/svg/icons/Navigation/Left-2.svg--><svg
@@ -365,7 +352,7 @@
                                         </button>
                                     </div>
                                     <div>
-                                        <button type="button" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-4 py-4 my-3"
+                                        <button type="button" [disabled] ="!signForm2.valid" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-4 py-4 my-3"
                                             data-wizard-type="action-next" (click)="changeForm('form3')">
                                             Next Step
                                             <span class="svg-icon svg-icon-md ml-1">
@@ -390,51 +377,35 @@
                             </form>
                         
                         </div>
-                        <div id=form1 *ngIf=form3>
-                            <form [formGroup]="signForm1">
-                                <!--begin::Title-->
-                                <div class="pb-5 pb-lg-10">
-                                    <h3 class="font-weight-bolder text-dark display5">Create Account</h3>
-                                    <div class="text-muted font-weight-bold font-size-h4">
-                                        Already have an Account ?
-                                        <a routerLink="/login" class="text-primary font-weight-bolder">Sign In</a>
+                        <div id=form3 *ngIf=form3>
+                            <form [formGroup]="signForm3">
+                                <div class="container">
+                                    <!--begin::Title-->
+                                    <div class="pb-5 pb-lg-10">
+                                        <h3 class="font-weight-bolder text-dark display5">Grab your Location</h3>
+                                        
                                     </div>
-                                </div>
-                                <!--begin::Title-->
-                        
-                                <!--begin::Form Group-->
-                                <div class="form-group fv-plugins-icon-container has-success">
-                                    <label class="font-size-h6 font-weight-bolder text-dark">First Name</label>
-                                    <input type="text" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="fname"
-                                        placeholder="First Name" required value="" [(ngModel)]=user.fname formControlName="fname">
-                                    <div class="fv-plugins-message-container"></div>
-                                </div>
-                                <!--end::Form Group-->
-                        
-                                <!--begin::Form Group-->
-                                <div class="form-group fv-plugins-icon-container has-success">
-                                    <label class="font-size-h6 font-weight-bolder text-dark">Last Name</label>
-                                    <input type="text" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="lname"
-                                        placeholder="Last Name" required value="" [(ngModel)]=user.lname formControlName="lname">
-                                    <div class="fv-plugins-message-container"></div>
-                                </div>
-                                <!--end::Form Group-->
-                        
-                                <!--begin::Form Group-->
-                                <div class="form-group fv-plugins-icon-container has-success">
-                                    <label class="font-size-h6 font-weight-bolder text-dark">Email</label>
-                                    <input type="text" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="lname"
-                                        placeholder="Email" required value="" [(ngModel)]=user.email formControlName="email">
-                                    <div class="fv-plugins-message-container"></div>
-                                </div>
-                                <!--end::Form Group-->
-                        
-                                <!--begin::Form Group-->
-                                <div class="form-group fv-plugins-icon-container has-success">
-                                    <label class="font-size-h6 font-weight-bolder text-dark">Phone</label>
-                                    <input type="tel" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="phone"
-                                        placeholder="phone" required value="" type="number" [(ngModel)]=user.phone formControlName="phone">
-                                    <div class="fv-plugins-message-container"></div>
+                                    <!--begin::Title-->
+                                
+                                    <div class="form-group">
+                                
+                                        <label class="font-size-h6 font-weight-bolder text-dark">from Address</label>
+                                        <input type="tel" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="address"
+                                            (keydown.enter)="$event.preventDefault()"
+                                            style="background-color: aliceblue;border: 1px solid #9f0784 !important;"
+                                            placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+                                            autocomplete="on" [(ngModel)]=user.address1 #search  #search required formControlName="address1">
+                                        <div class="fv-plugins-message-container"></div>
+                                
+                                    </div>
+                                    <h1>or</h1>
+                                    <label class="font-size-h6 font-weight-bolder text-dark">from Map</label>
+                                    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                                        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                                            (dragEnd)="markerDragEnd($event)"></agm-marker>
+                                    </agm-map>
+                                    <div>Latitude: {{latitude}}</div>
+                                    <div>Longitude: {{longitude}}</div>
                                 </div>
                                 <!--end::Form Group-->
                                 <div class="d-flex justify-content-between pt-3">
@@ -461,7 +432,7 @@
                                         </button>
                                     </div>
                                     <div>
-                                        <button type="button" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-4 py-4 my-3"
+                                        <button type="button" [disabled] ="!test" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-4 py-4 my-3"
                                             data-wizard-type="action-next" (click)="changeForm('form4')">
                                             Next Step
                                             <span class="svg-icon svg-icon-md ml-1">
@@ -487,52 +458,46 @@
                             </form>
                         
                         </div>
-                        <div id=form1 *ngIf=form4>
-                            <form [formGroup]="signForm1">
+                        <div id=form4 *ngIf=form4>
+                            <form [formGroup]="myform">
                                 <!--begin::Title-->
                                 <div class="pb-5 pb-lg-10">
-                                    <h3 class="font-weight-bolder text-dark display5">Create Account</h3>
-                                    <div class="text-muted font-weight-bold font-size-h4">
-                                        Already have an Account ?
-                                        <a routerLink="/login" class="text-primary font-weight-bolder">Sign In</a>
-                                    </div>
+                                    <h3 class="font-weight-bolder text-dark display5">Set Credential</h3>
+                                   
                                 </div>
-                                <!--begin::Title-->
-                        
-                                <!--begin::Form Group-->
                                 <div class="form-group fv-plugins-icon-container has-success">
-                                    <label class="font-size-h6 font-weight-bolder text-dark">First Name</label>
-                                    <input type="text" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="fname"
-                                        placeholder="First Name" required value="" [(ngModel)]=user.fname formControlName="fname">
-                                    <div class="fv-plugins-message-container"></div>
+                                    <label class="font-size-h6 font-weight-bolder text-dark">Password</label>
+                                    <mat-pass-toggle-visibility #toggle matSuffix></mat-pass-toggle-visibility>
+                                    <input formControlName="password" [(ngModel)]="user.password"  style="background-color: aliceblue;border: 1px solid #9f0784 !important;" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" #password [type]="toggle.type" required placeholder="Password">
+                                    <mat-hint align="end" aria-live="polite">
+                                        {{password.value.length}} / {{passwordComponent.max}}
+                                    </mat-hint>
                                 </div>
-                                <!--end::Form Group-->
-                        
-                                <!--begin::Form Group-->
+                                
+                                
+                                <!--@angular-material-extensions/password-strength's main component-->
+                                <mat-password-strength #passwordComponent [password]="password.value">
+                                </mat-password-strength>
+                                <!--Password's strength info-->
+                                <mat-password-strength-info *ngIf="showDetails" [passwordComponent]="passwordComponent">
+                                </mat-password-strength-info>
+                                <br>
                                 <div class="form-group fv-plugins-icon-container has-success">
-                                    <label class="font-size-h6 font-weight-bolder text-dark">Last Name</label>
-                                    <input type="text" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="lname"
-                                        placeholder="Last Name" required value="" [(ngModel)]=user.lname formControlName="lname">
-                                    <div class="fv-plugins-message-container"></div>
+                                    <label class="font-size-h6 font-weight-bolder text-dark">Confirm Password</label>
+                                    <mat-pass-toggle-visibility #toggle1 matSuffix></mat-pass-toggle-visibility>
+                                    <input class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" 
+                                     style="background-color: aliceblue;border: 1px solid #9f0784 !important;"
+                                    formControlName="cpassword"  matInput #cpassword [type]="toggle1.type" required placeholder="Confirm Password"
+                                        [errorStateMatcher]="matcher">
+                                    <mat-hint align="end" aria-live="polite">
+                                        {{cpassword.value.length}} / {{password.value.length}}
+                                    </mat-hint>
+                                    
+                                    <mat-error *ngIf="myform.hasError('notSame')">
+                                        Passwords do not match
+                                    </mat-error>
                                 </div>
-                                <!--end::Form Group-->
-                        
-                                <!--begin::Form Group-->
-                                <div class="form-group fv-plugins-icon-container has-success">
-                                    <label class="font-size-h6 font-weight-bolder text-dark">Email</label>
-                                    <input type="text" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="lname"
-                                        placeholder="Email" required value="" [(ngModel)]=user.email formControlName="email">
-                                    <div class="fv-plugins-message-container"></div>
-                                </div>
-                                <!--end::Form Group-->
-                        
-                                <!--begin::Form Group-->
-                                <div class="form-group fv-plugins-icon-container has-success">
-                                    <label class="font-size-h6 font-weight-bolder text-dark">Phone</label>
-                                    <input type="tel" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="phone"
-                                        placeholder="phone" required value="" type="number" [(ngModel)]=user.phone formControlName="phone">
-                                    <div class="fv-plugins-message-container"></div>
-                                </div>
+                               
                                 <!--end::Form Group-->
                                 <div class="d-flex justify-content-between pt-3">
                         
@@ -559,8 +524,8 @@
                                         </button>
                                     </div>
                                     <div>
-                                        <button type="button" class="btn btn-primary font-weight-bolder font-size-h6 pl-5 pr-8 py-4 my-3"
-                                            data-wizard-type="action-submit" id="kt_login_signup_form_submit_button" >
+                                        <button type="button" [disabled]="myform.invalid" class="btn btn-primary font-weight-bolder font-size-h6 pl-5 pr-8 py-4 my-3"
+                                            data-wizard-type="action-submit" id="kt_login_signup_form_submit_button" (click) = onSubmit() >
                                             Submit
                                             <span class="svg-icon svg-icon-md ml-2">
                                                 <!--begin::Svg Icon | path:/metronic/themes/metronic/theme/html/demo8/dist/assets/media/svg/icons/Navigation/Right-2.svg--><svg

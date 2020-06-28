@@ -22,11 +22,11 @@ export class UserService {
   }
 
   adduser(data) {
-    return this.http.post(`${this.baseUrl}/adduser`, data);
+    const url = `${this.baseUrl}/authenticate`;
+    return this.http.post(url, data, { headers: this.headers });
   }
 
   login(data) {
-    console.log(data)
     const url = `${this.baseUrl}/authenticate`;
     return this.http.post(url,data ,{ headers: this.headers });
   }

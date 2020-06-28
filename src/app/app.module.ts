@@ -1,6 +1,8 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+
 import {AppRoutingModule} from './app.routing';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
@@ -17,13 +19,13 @@ import {LoginComponent} from './login/login.component';
 import {SignupComponent} from './signup/signup.component';
 
 
-//google maps
+// google maps
 import {AgmCoreModule} from '@agm/core';
 
-//http client
+// http client
 import {HttpClientModule} from '@angular/common/http';
 
-//salon api service
+// salon api service
 
 import { SalonApiService } from './service/salon-api.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,6 +39,8 @@ import { BeforLoginService } from '@services/befor-login.service';
 import { AfterLoginService } from '@services/after-login.service';
 import { DonorApiService } from './service/donor-api.service';
 import { Signup2Component } from './signup2/signup2.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -65,7 +69,10 @@ import { Signup2Component } from './signup2/signup2.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MatPasswordStrengthModule.forRoot(),
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     UserService,
