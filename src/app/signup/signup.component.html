@@ -525,7 +525,7 @@
                                     </div>
                                     <div>
                                         <button type="button" [disabled]="myform.invalid" class="btn btn-primary font-weight-bolder font-size-h6 pl-5 pr-8 py-4 my-3"
-                                            data-wizard-type="action-submit" id="kt_login_signup_form_submit_button" >
+                                            data-wizard-type="action-submit" id="kt_login_signup_form_submit_button" (click) = onSubmit() >
                                             Submit
                                             <span class="svg-icon svg-icon-md ml-2">
                                                 <!--begin::Svg Icon | path:/metronic/themes/metronic/theme/html/demo8/dist/assets/media/svg/icons/Navigation/Right-2.svg--><svg

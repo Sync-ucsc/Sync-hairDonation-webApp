@@ -6,6 +6,11 @@ import { Router } from '@angular/router';
 declare function getFingerprint(): any;
 import PlaceResult = google.maps.places.PlaceResult;
 import { ErrorStateMatcher } from '@angular/material/core';
+import Swal from 'sweetalert2';
+import { Md5 } from 'ts-md5/dist/md5';
+import { UserService } from '@services/user.service';
+import { FingerprintService } from '@services/fingerprint.service';
+
 
 @Component({
   selector: 'app-signup',
@@ -24,7 +29,9 @@ export class SignupComponent implements OnInit {
     lat: 0,
     lon: 0,
     address1: '',
-    password:''
+    password:'',
+    role:'donor',
+    fingerprint:0
   }
 
   myform: FormGroup;
@@ -89,7 +96,47 @@ export class SignupComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private fb: FormBuilder,
-  ) { }
+    private router:Router,
+    private userService: UserService,
+    private fingerprint: FingerprintService
+  ) { 
+    console.log(getFingerprint());
+    this.user.fingerprint = getFingerprint()
+    this.fingerprint.checkfp(getFingerprint()).subscribe(()=>
+      data => {
+        console.log(data)
+        if(data.success === true){
+          console.log('a')
+          if(data.data === ''){
+            console.log('b')
+            Swal.fire(
+              'warning!',
+              'you have alrady one account!',
+              'warning'
+            )
+          } 
+        } else {
+          this.router.navigate(['/']);
+          Swal.fire(
+            'error!',
+            'connection error!',
+            'error'
+          )
+        }
+
+        
+      },
+      error => {
+        // Do something with error
+        this.router.navigate(['/'])
+        console.error(error);
+        Swal.fire(
+          'error!',
+          'connection error!',
+          'error'
+        )
+      })
+  }
 
 
 
@@ -245,6 +292,40 @@ export class SignupComponent implements OnInit {
       this.btncu3 = false;
       this.btncu4 = true;
     }
+  }
+
+  onSubmit(){
+    this.user.password = Md5.hashStr(this.user.password).toString();
+    this.userService.adduser(this.user).subscribe(()=>
+      data => {
+        Swal.fire(
+          'Done!',
+          'Your Signup Successfuly!',
+          'success'
+        )
+        Swal.fire(
+          'Done!',
+          'Your Signup Successfuly!',
+          'success'
+        )
+        Swal.fire(
+          'Done!',
+          'Your Signup Successfuly!',
+          'success'
+        )
+
+        this.router.navigate(['/admin/manage-salons']);
+      },
+      error => {
+        // Do something with error
+        this.router.navigate(['/'])
+        console.error(error);
+        Swal.fire(
+          'error!',
+          'connection error!',
+          'error'
+        )
+      });
   }
 
 }
