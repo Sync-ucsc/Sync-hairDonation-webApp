@@ -22,7 +22,7 @@ export class UserService {
   }
 
   adduser(data) {
-    const url = `${this.baseUrl}/authenticate`;
+    const url = `${this.baseUrl}/signup`;
     return this.http.post(url, data, { headers: this.headers });
   }
 

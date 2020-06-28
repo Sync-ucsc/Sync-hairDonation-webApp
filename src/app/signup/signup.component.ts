@@ -1,5 +1,5 @@
 /// <reference types="@types/googlemaps" />
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, ɵConsole } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router } from '@angular/router';
@@ -31,7 +31,23 @@ export class SignupComponent implements OnInit {
     address1: '',
     password:'',
     role:'donor',
-    fingerprint:0
+    fingerprint:0,
+    fpcount:0
+  }
+
+  user1 = {
+    fname:'',
+    lname:'',
+    email:'',
+    nic:'',
+    phone: '',
+    address: '',
+    lat: 0,
+    lon: 0,
+    password:'',
+    role:'donor',
+    fingerprint:0,
+    fpcount:0
   }
 
   myform: FormGroup;
@@ -100,21 +116,37 @@ export class SignupComponent implements OnInit {
     private userService: UserService,
     private fingerprint: FingerprintService
   ) { 
-    console.log(getFingerprint());
     this.user.fingerprint = getFingerprint()
-    this.fingerprint.checkfp(getFingerprint()).subscribe(()=>
+    this.fingerprint.checkfp(getFingerprint()).subscribe(
       data => {
         console.log(data)
         if(data.success === true){
-          console.log('a')
-          if(data.data === ''){
-            console.log('b')
-            Swal.fire(
-              'warning!',
-              'you have alrady one account!',
-              'warning'
-            )
-          } 
+          if(data.data !== ''){
+            console.log(data.data);
+            if(data.data.block === true && data.data.check === false){
+              this.router.navigate(['/']);
+              Swal.fire(
+                'Error!',
+                'you can creat only limited account!',
+                'error'
+              )
+
+            } else if (data.data.block === true && data.data.check === true) {
+              this.user.fpcount = 1
+              Swal.fire(
+                'warning!',
+                'you have alrady account!',
+                'warning'
+              )
+            } else {
+              this.user.fpcount = 1
+              Swal.fire(
+                'warning!',
+                'you have alrady one account!',
+                'warning'
+              )
+            }
+          }
         } else {
           this.router.navigate(['/']);
           Swal.fire(
@@ -123,8 +155,6 @@ export class SignupComponent implements OnInit {
             'error'
           )
         }
-
-        
       },
       error => {
         // Do something with error
@@ -135,7 +165,8 @@ export class SignupComponent implements OnInit {
           'connection error!',
           'error'
         )
-      })
+      }
+      )
   }
 
 
@@ -295,9 +326,20 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(){
-    this.user.password = Md5.hashStr(this.user.password).toString();
-    this.userService.adduser(this.user).subscribe(()=>
+    this.user1.password = Md5.hashStr(this.user.password).toString();
+    this.user1.fname = this.user.fname;
+    this.user1.lname =this.user.lname;
+    this.user1.email =this.user.email;
+    this.user1.nic =this.user.nic;
+    this.user1.phone = this.user.phone;
+    this.user1.address = this.user.address;
+    this.user1.lat= this.user.lat;
+    this.user1.lon = this.user.lon;
+    this.user1.fingerprint = this.user.fingerprint;
+    this.user1.fpcount = this.user.fpcount;
+    this.userService.adduser(this.user1).subscribe(
       data => {
+        console.log(data)
         Swal.fire(
           'Done!',
           'Your Signup Successfuly!',

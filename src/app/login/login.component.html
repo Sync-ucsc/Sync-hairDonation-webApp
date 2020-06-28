@@ -34,14 +34,14 @@
             <img src="../../assets/images/aboutus/about3-img.png" alt="" style="width: 120%;height: 100%;">
         </div>
         <div class="col-md-8" style="padding: 0%;background-color:rgb(228, 228, 228);" >
-            <div class="d-flex flex-column-fluid flex-center">
+            <div class="d-flex flex-column-fluid flex-center" style="height: 98vh;">
                 <!--begin::Signin-->
                 <div class="loginform">
                     <!--begin::Form-->
     
                     <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                         <!--begin::Title-->
-                        <div class="pt-lg-14 mt-lg-7 pb-5">
+                        <div class="pt-lg-5 mt-lg-7 pb-5">
                             
                             <h3 class="font-weight-bolder text-dark display5">Welcome to 
                                 <a href="#">
@@ -87,14 +87,14 @@
                     </form>
                     <!--end::Form-->
                     <span class="text-muted font-weight-bold font-size-h4">New Here? <br><br>
-                        <a href="javascript:;" id="kt_login_signup" class="text-primary font-weight-bolder">Create an Account as Donor
+                        <a routerLink="/signup-donor" id="kt_login_signup" class="text-primary font-weight-bolder">Create an Account as Donor
 
                         </a>
                     </span>
                     <br>
                     <br>
                     <span class="text-muted font-weight-bold font-size-h4 pt-10">
-                        <a href="javascript:;" id="kt_login_signup" class="text-primary font-weight-bolder">Create an Account as paitent
+                        <a routerLink="/signup-patient" id="kt_login_signup" class="text-primary font-weight-bolder">Create an Account as paitent
                     
                         </a>
                     </span>

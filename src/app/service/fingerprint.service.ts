@@ -16,6 +16,6 @@ export class FingerprintService {
   checkfp(fingerprint): Observable<any>{
 
     const url = `${this.baseUrl}/get/${fingerprint}`;
-    return this.http.get(url, { headers: this.headers });
+    return this.http.get(url);
   }
 }
