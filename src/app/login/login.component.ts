@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '@services/auth.service';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import Swal from 'sweetalert2'
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,10 @@ export class LoginComponent implements OnInit {
 
   user = {
     email:'',
+    password: ''
+  }
+  user1 = {
+    email: '',
     password: ''
   }
   loginForm = new FormGroup({
@@ -31,8 +36,11 @@ export class LoginComponent implements OnInit {
    }
 
   onSubmit() {
-    this.Users.login(this.user).subscribe(
+    this.user1.email = this.user.email;
+    this.user1.password = Md5.hashStr(this.user.password).toString();
+    this.Users.login(this.user1).subscribe(
       data => {
+        console.log(data)
         if (data['success'] === true && data['msg'] === 'sign in'){
 
           this.handleResponse(data['data']);

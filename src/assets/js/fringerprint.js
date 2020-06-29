@@ -1292,7 +1292,7 @@ var fp = new Fingerprint({
 var uid = fp.get();
 
 
-function getFingerprint() {
+function getFingerprint() { 
     return fp.get();
 }
 

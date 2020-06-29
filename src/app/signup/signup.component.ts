@@ -10,7 +10,6 @@ import Swal from 'sweetalert2';
 import { Md5 } from 'ts-md5/dist/md5';
 import { UserService } from '@services/user.service';
 import { FingerprintService } from '@services/fingerprint.service';
-import { IpService } from '@services/ip.service';
 
 
 @Component({
@@ -49,9 +48,6 @@ export class SignupComponent implements OnInit {
     role:'donor',
     fingerprint:0,
     fpcount:0,
-    city: 'pannipitiya',
-    region: 'Western Province',
-    country: 'Lk',
   }
 
   myform: FormGroup;
@@ -115,7 +111,6 @@ export class SignupComponent implements OnInit {
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-    private ipservice: IpService,
     private fb: FormBuilder,
     private router:Router,
     private userService: UserService,
@@ -172,9 +167,6 @@ export class SignupComponent implements OnInit {
         )
       }
       )
-    this.ipservice.getIPAddress().subscribe((data) => {
-      console.log(data);
-    });
   }
 
 

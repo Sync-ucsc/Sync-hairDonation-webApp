@@ -15,12 +15,7 @@ export class AuthService {
   changeAuthStatus(value: boolean) {
     this.loggedIn.next(value);
   }
-  changescreenlockStatus(value: boolean) {
-    this.screenlock.next(value);
-  }
-  getstatus() {
-    return this.screenlock.value;
-  }
+
   getlog() {
     return this.loggedIn.value;
   }
