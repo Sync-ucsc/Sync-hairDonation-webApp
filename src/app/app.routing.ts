@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 // use for test chat
 import {SharedChatComponent} from './shared-layout/shared-chat/shared-chat.component';
 import { AfterLoginService } from '@services/after-login.service';
+import { Signup2Component } from './signup2/signup2.component';
 
 const routes: Routes = [
   {
@@ -25,8 +26,12 @@ const routes: Routes = [
     component: DashboardComponent
   },
   {
-    path: 'signup',
+    path: 'signup-donor',
     component: SignupComponent
+  },
+  {
+    path: 'signup-patient',
+    component: Signup2Component
   },
   {
     path: 'login',

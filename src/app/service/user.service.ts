@@ -17,12 +17,12 @@ export class UserService {
     // this.headers.append('Content-Type', 'application/json');
     // this.headers.append('X-Requested-With', 'XMLHttpRequest');
 
-   
+
 
   }
 
   adduser(data) {
-    const url = `${this.baseUrl}/authenticate`;
+    const url = `${this.baseUrl}/signup`;
     return this.http.post(url, data, { headers: this.headers });
   }
 

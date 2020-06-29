@@ -6,7 +6,8 @@
         <div class="login login-3 wizard d-flex flex-column flex-lg-row flex-column-fluid wizard" id="kt_login" style="height: 100vh;"
             data-wizard-state="between">
             <!--begin::Aside-->
-            <div class="login-aside d-flex flex-column flex-row-auto" style="background-color: #9f0784;" *ngIf="!ismobile()">
+            <div class="login-aside d-flex flex-column flex-row-auto" style="background-color: #9f0784;background-image: url('../../assets/images/main-banner-03.png');background-repeat: no-repeat;
+  background-size: 80% 40%;background-position: 10vw 65vh;" *ngIf="!ismobile()">
                 <!--begin::Aside Top-->
                 <div class="d-flex flex-column-auto flex-column pt-15 px-30">
                     
@@ -220,14 +221,14 @@
             <div class="login-content flex-column-fluid flex-column p-3"  style="background-color:rgb(228, 228, 228);">
                 
                 <!--begin::Wrapper-->
-                <div class="d-flex flex-row-fluid flex-center pt-3">
+                <div class="d-flex flex-row-fluid flex-center pt-6"  style="height: 98vh;">
                     <!--begin::Signin-->
                     <div class="login-form login-form-signup">
-                        <div id=form1 *ngIf=form1>
+                        <div id=form1 class="pt-12" *ngIf=form1>
                             <form [formGroup]="signForm1">
                                 <!--begin::Title-->
                                 <div class="pb-5 pb-lg-10">
-                                    <h3 class="font-weight-bolder text-dark display5">Create Account</h3>
+                                    <h3 class="font-weight-bolder text-dark display5">Create Account For Donor</h3>
                                     <div class="text-muted font-weight-bold font-size-h4">
                                         Already have an Account ?
                                         <a routerLink="/login" class="text-primary font-weight-bolder">Sign In</a>
@@ -293,7 +294,7 @@
                             </form>
                             
                         </div>
-                        <div id=form2 *ngIf=form2>
+                        <div id=form2 class="pt-12" *ngIf=form2>
                             <form [formGroup]="signForm2">
                             <!--begin::Form Group-->
                             <div class="pb-5 pb-lg-10">
