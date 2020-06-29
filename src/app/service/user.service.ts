@@ -17,7 +17,7 @@ export class UserService {
     // this.headers.append('Content-Type', 'application/json');
     // this.headers.append('X-Requested-With', 'XMLHttpRequest');
 
-   
+
 
   }
 

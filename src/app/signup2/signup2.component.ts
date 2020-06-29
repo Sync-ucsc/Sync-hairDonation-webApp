@@ -78,7 +78,6 @@ export class Signup2Component implements OnInit {
     phone: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(8)]),
   });
   signForm3 = new FormGroup({
-    
   });
 
   signForm4 = new FormGroup({
