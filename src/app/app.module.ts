@@ -41,7 +41,6 @@ import { DonorApiService } from './service/donor-api.service';
 import { Signup2Component } from './signup2/signup2.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { IpService } from '@services/ip.service';
 
 @NgModule({
   declarations: [
@@ -83,7 +82,6 @@ import { IpService } from '@services/ip.service';
     AfterLoginService,
     SalonApiService,
     DonorApiService,
-    IpService
   ],
   bootstrap: [AppComponent],
 
