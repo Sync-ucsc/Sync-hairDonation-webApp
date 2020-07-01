@@ -9,7 +9,7 @@
     <!--begin::Form-->
     <form [formGroup]="donationRequestForm" (ngSubmit)="onSubmit()">
         <div class="card-body">
-<!-- 
+
                 <h6 class="form-text">168/B, Flower Rd., Gampaha. Is this the current address?</h6>
                 <div class="checkbox-inline">
                     <label class="checkbox checkbox-circle checkbox-success">
@@ -20,8 +20,8 @@
                         <input type="checkbox" (change)="clickNo()" [value]='no' formControlName="no" [(ngModel)]="no"/> No
                         <span></span>
                     </label>
-                </div> -->
-             <!-- <ng-container *ngIf="no"> -->
+                </div>
+             <ng-container *ngIf="no">
                 <div class="mb-15">
                     <div class="form-group row">
                         <label class="col-lg-3 col-form-label">Your Address:</label>
@@ -38,10 +38,10 @@
                 
                 <div>Latitude: {{latitude}}</div>
                 <div>Longitude: {{longitude}}</div>
-            <!-- </ng-container> -->
+            </ng-container>
 
             <div class="form-group row">
-                <label class="col-form-label col-5 text-lg-right text-left">After which date you can donate :</label>
+                <label class="col-form-label col-5 ">After which date you can donate :</label>
                 <div class="col-6">
                     <input type="date" class="form-control form-control-solid" placeholder="Enter appointment date" formControlName="validDate">
                     <span class="form-text text-muted">Please enter customer appointment date</span>
