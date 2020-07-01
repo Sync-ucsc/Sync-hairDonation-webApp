@@ -30,10 +30,11 @@
 </style>
 <div style="overflow: hidden;">
     <div class="row">
-        <div class="col-md-4 d-md-block d-none"  style="padding: 0%;height: 100vh;background-color: #9f0784;">
+        <div class="col-md-4 d-md-block d-none"  style="padding: 0%;height: 100vh;background: rgb(170,0,139);
+                background: linear-gradient(0deg, rgba(170,0,139,1) 0%, rgba(186,48,162,1) 44%, rgb(223, 89, 200) 83%);">
             <img src="../../assets/images/aboutus/about3-img.png" alt="" style="width: 120%;height: 100%;">
         </div>
-        <div class="col-md-8" style="padding: 0%;background-color:rgb(228, 228, 228);" >
+        <div class="col-md-8" style="padding: 0%;background-color:rgb(255, 255, 255);" >
             <div class="d-flex flex-column-fluid flex-center" style="height: 98vh;">
                 <!--begin::Signin-->
                 <div class="loginform">
@@ -62,16 +63,7 @@
     
                         <!--begin::Form group-->
                         <div class="form-group">
-                            <div class="d-flex justify-content-between mt-n5">
-                                <label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
-    
-                                <a href="javascript:;"
-                                    class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5"
-                                    id="kt_login_forgot">
-                                    Forgot Password ?
-                                </a>
-                            </div>
-    
+                            <label class="font-size-h6 font-weight-bolder text-dark">Password</label>
                             <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="password" style="background-color: aliceblue;border-color: #9f0784;"
                                 required name="password" autocomplete="off" [(ngModel)] = user.password formControlName="password">
                         </div>
@@ -86,16 +78,19 @@
                         <!--end::Action-->
                     </form>
                     <!--end::Form-->
-                    <span class="text-muted font-weight-bold font-size-h4">New Here? <br><br>
-                        <a routerLink="/signup-donor" id="kt_login_signup" class="text-primary font-weight-bolder">Create an Account as Donor
-
+                    <span class="text-muted font-weight-bold font-size-h4 pt-10">
+                        <a routerLink="/froet-password" id="kt_login_signup" class="text-primary font-weight-bolder">Forgot Password ?
                         </a>
                     </span>
                     <br>
                     <br>
+                    <span class="text-muted font-weight-bold font-size-h4">New Here? <br>
+                        <a routerLink="/signup-donor" id="kt_login_signup" class="text-primary font-weight-bolder">Create an Account as Donor
+                        </a>
+                    </span>
+                    <br>
                     <span class="text-muted font-weight-bold font-size-h4 pt-10">
-                        <a routerLink="/signup-patient" id="kt_login_signup" class="text-primary font-weight-bolder">Create an Account as paitent
-                    
+                        <a routerLink="/signup-patient" id="kt_login_signup" class="text-primary font-weight-bolder">Create an Account as Paitent
                         </a>
                     </span>
                 </div>

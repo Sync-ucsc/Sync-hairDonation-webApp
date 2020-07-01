@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 declare function getFingerprint(): any;
@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 import { Md5 } from 'ts-md5/dist/md5';
 import { UserService } from '@services/user.service';
 import { FingerprintService } from '@services/fingerprint.service';
+import { finalize } from 'rxjs/operators';
+import { AngularFireStorage } from '@angular/fire/storage';
 @Component({
   selector: 'app-signup2',
   templateUrl: './signup2.component.html',
@@ -24,7 +26,9 @@ export class Signup2Component implements OnInit {
     password: '',
     role: 'patient',
     fingerprint: 0,
-    fpcount: 0
+    fpcount: 0,
+    patientNumber: '',
+    patientReport: ''
   }
 
   user1 = {
@@ -37,12 +41,19 @@ export class Signup2Component implements OnInit {
     password: '',
     role: 'patient',
     fingerprint: 0,
-    fpcount: 0
+    fpcount: 0,
+    patientNumber: '',
+    patientReport: ''
   }
 
   myform: FormGroup;
   showDetails = true;
   matcher = new MyErrorStateMatcher();
+
+  selectedImage: any = null;
+  url: string =  null;
+  id: string;
+  file: string;
 
   btn1 = false;
   btn2 = false;
@@ -78,6 +89,8 @@ export class Signup2Component implements OnInit {
     phone: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(8)]),
   });
   signForm3 = new FormGroup({
+    patientNumber: new FormControl('', [Validators.required]),
+    patientReport: new FormControl('', [Validators.required]),
   });
 
   signForm4 = new FormGroup({
@@ -88,8 +101,11 @@ export class Signup2Component implements OnInit {
 
 
 
-
+  valid(){
+    return !this.signForm3.valid || this.url === null
+  }
   constructor(
+    @Inject(AngularFireStorage) private storage: AngularFireStorage,
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
@@ -242,6 +258,8 @@ export class Signup2Component implements OnInit {
     this.user1.address = this.user.address;
     this.user1.fingerprint = this.user.fingerprint;
     this.user1.fpcount = this.user.fpcount;
+    this.user1.patientNumber = this.user.patientNumber;
+    this.user1.patientReport = this.user.patientReport;
     this.userService.adduser(this.user1).subscribe(
       data => {
         console.log(data)
@@ -275,7 +293,33 @@ export class Signup2Component implements OnInit {
       });
   }
 
+  showPreview(event: any) {
+    this.selectedImage = event.target.files[0];
+  }
+  sub(){
+    return this.url === null? false:true;
+  }
+  save() {
+    var name = this.selectedImage.name;
+    const fileRef = this.storage.ref(name);
+    this.storage.upload(name, this.selectedImage).snapshotChanges().pipe(
+      finalize(() => {
+        fileRef.getDownloadURL().subscribe((url) => {
+          this.url = url;
+          this.user.patientReport =url;
+          console.log(this.id, this.url);
+          Swal.fire(
+            'Success',
+            'Upload Successful',
+            'success'
+          )
+        })
+      })
+    ).subscribe();
+  }
 }
+
+
 
 
 

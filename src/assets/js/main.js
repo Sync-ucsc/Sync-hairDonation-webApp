@@ -150,12 +150,12 @@ $(document).ready(function () {
         });
     })(jQuery);
     /*----CONTACT CLICK JS-----*/
-    $(".contact_btn a").on("click", function (o) {
-        var t = $(this);
-        $("html, body").stop().animate({
-            scrollTop: $(t.attr("href")).offset().top - 50
-        }, 1500), o.preventDefault()
-    })
+    // $(".contact_btn a").on("click", function (o) {
+    //     var t = $(this);
+    //     $("html, body").stop().animate({
+    //         scrollTop: $(t.attr("href")).offset().top - 50
+    //     }, 1500), o.preventDefault()
+    // })
 
  });
 
