@@ -12,7 +12,7 @@ export class AfterLoginService {
     const afterlogin: boolean = (this.Token.loggedIn());
     // if not, redirect to /pagenotfound
     if (!afterlogin) {
-      this.router.navigateByUrl('/login'); 
+      this.router.navigate(['/login']);
     }
     return afterlogin;
   }

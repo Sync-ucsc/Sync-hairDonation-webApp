@@ -41,6 +41,9 @@ import { DonorApiService } from './service/donor-api.service';
 import { Signup2Component } from './signup2/signup2.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,9 @@ import { MatInputModule } from '@angular/material/input';
     ToastrModule.forRoot(),
     MatPasswordStrengthModule.forRoot(),
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
   ],
   providers: [
     UserService,

@@ -68,8 +68,6 @@ export class LoginComponent implements OnInit {
             'error'
           );
         }
-
-          
         },
       error => {
         this.handleError(error)
