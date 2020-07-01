@@ -164,12 +164,12 @@ export class uploadDialog3Component {
 
  socket = io('http://localhost:3000/donor');
 
-//  latitude: number;
-//  longitude: number;
-//  zoom: number;
-//  address: string;
-//  placeaddress;
-//  private geoCoder;
+ lat: number;
+ lon: number;
+ zoom: number;
+ address: string;
+ placeaddress;
+ private geoCoder;
 //  checkSystem=false;
 //  checkSms=false;
 //  checkEmail=false;
@@ -182,13 +182,16 @@ export class uploadDialog3Component {
     firstName: new FormControl('',Validators.required),
     lastName: new FormControl('', Validators.required),
     email: new FormControl('',[Validators.required,Validators.email]),
-    telePhone: new FormControl('',[Validators.required,Validators.minLength(10)])
+    telePhone: new FormControl('',[Validators.required,Validators.minLength(10)]),
+    nic: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(8)]),
+    address: new FormControl(''),
+    lat:new FormControl(''),
+    lon:new FormControl('')
     // checkSystem: new FormControl(''),
     // checkSms: new FormControl(''),
     // checkEmail: new FormControl(''),
     // address:new FormControl(''),
-    // latitude:new FormControl(''),
-    // longitude:new FormControl('')
+   
 
 
   })
@@ -203,10 +206,10 @@ export class uploadDialog3Component {
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
       this.selectedDonor=data.animal;
-      // this.latitude=data.animal.latitude;
-      // this.longitude=data.animal.longitude;
-      // this.zoom=12;
-      // this.address=data.animal.address;
+      this.lat=data.animal.lat;
+      this.lon=data.animal.lon;
+      this.zoom=12;
+      this.address=data.animal.address;
       console.log(data.animal);
     ;
    }
@@ -214,42 +217,42 @@ export class uploadDialog3Component {
   // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit(): void {
 
-    // this.mapsAPILoader.load().then(() => {
+    this.mapsAPILoader.load().then(() => {
 
-    //   // tslint:disable-next-line: new-parens
-    //   this.geoCoder = new google.maps.Geocoder;
+      // tslint:disable-next-line: new-parens
+      this.geoCoder = new google.maps.Geocoder;
 
-    //   const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-    //   autocomplete.addListener('place_changed', () => {
-    //     this.ngZone.run(() => {
-    //       // get the place result
-    //       const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-    //       // verify result
-    //       if (place.geometry === undefined || place.geometry === null) {
-    //         return;
-    //       }
+          // verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
 
-    //       // set latitude, longitude and zoom
-    //       this.latitude = place.geometry.location.lat();
-    //       this.longitude = place.geometry.location.lng();
-    //       this.placeaddress=place;
-    //       this.zoom = 12;
+          // set latitude, longitude and zoom
+          this.lat = place.geometry.location.lat();
+          this.lon = place.geometry.location.lng();
+          this.placeaddress=place;
+          this.zoom = 12;
 
-    //     });
-    //   });
-    // });
+        });
+      });
+    });
   }
 
  // update Donors
 updateDonor(){
 
 
-  // this.updateForm.patchValue({
-  //   address:this.placeaddress === undefined? this.selectedDonor.address: this.placeaddress.formatted_address ,
-  //   latitude:this.latitude,
-  //   longitude:this.longitude
-  // })
+  this.updateForm.patchValue({
+    address:this.placeaddress === undefined? this.selectedDonor.address: this.placeaddress.formatted_address ,
+    lat:this.lat,
+    lon:this.lon
+  })
 
     if (!this.updateForm.valid) {
       return false;
@@ -300,33 +303,29 @@ updateDonor(){
 }
 
 
+markerDragEnd($event: MouseEvent) {
+  console.log($event);
+  this.lat = $event.coords.lat;
+  this.lon = $event.coords.lng;
+  this.getAddress(this.lat, this.lon);
+}
 
+getAddress(latitude, longitude) {
+  this.geoCoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
+    console.log(results);
+    console.log(status);
+    if (status === 'OK') {
+      if (results[0]) {
+        this.zoom = 12;
+        this.address = results[0].formatted_address;
+      } else {
+        window.alert('No results found');
+      }
+    } else {
+      window.alert('Geocoder failed due to: ' + status);
+    }
 
-
-
-// markerDragEnd($event: MouseEvent) {
-//   console.log($event);
-//   this.latitude = $event.coords.lat;
-//   this.longitude = $event.coords.lng;
-//   this.getAddress(this.latitude, this.longitude);
-// }
-
-// getAddress(latitude, longitude) {
-//   this.geoCoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
-//     console.log(results);
-//     console.log(status);
-//     if (status === 'OK') {
-//       if (results[0]) {
-//         this.zoom = 12;
-//         this.address = results[0].formatted_address;
-//       } else {
-//         window.alert('No results found');
-//       }
-//     } else {
-//       window.alert('Geocoder failed due to: ' + status);
-//     }
-
-//   });
-// }
+  });
+}
 
 }
