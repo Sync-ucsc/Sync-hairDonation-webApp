@@ -44,6 +44,8 @@ import { MatInputModule } from '@angular/material/input';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { PasswordRequestComponent } from './password-request/password-request.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     LoginComponent,
     SignupComponent,
     Signup2Component,
+    PasswordRequestComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,
