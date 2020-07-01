@@ -63,60 +63,60 @@ export class DonorRequestComponent implements OnInit {
       email: new FormControl('th5@gmail.com')
     })
 
-    this.mapsAPILoader.load().then(() => {
+    // this.mapsAPILoader.load().then(() => {
 
-      // tslint:disable-next-line: new-parens
-      this.geoCoder = new google.maps.Geocoder;
+    //   // tslint:disable-next-line: new-parens
+    //   this.geoCoder = new google.maps.Geocoder;
   
-      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-      autocomplete.addListener('place_changed', () => {
-        this.ngZone.run(() => {
-          // get the place result
-          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+    //   const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+    //   autocomplete.addListener('place_changed', () => {
+    //     this.ngZone.run(() => {
+    //       // get the place result
+    //       const place: google.maps.places.PlaceResult = autocomplete.getPlace();
   
-          // verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
+    //       // verify result
+    //       if (place.geometry === undefined || place.geometry === null) {
+    //         return;
+    //       }
   
-          // set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.placeaddress=place;
-          this.zoom = 12;
-        });
-      });
-    });
+    //       // set latitude, longitude and zoom
+    //       this.latitude = place.geometry.location.lat();
+    //       this.longitude = place.geometry.location.lng();
+    //       this.placeaddress=place;
+    //       this.zoom = 12;
+    //     });
+    //   });
+    // });
   }
 
 
 
-// loadMap(){
-//   this.mapsAPILoader.load().then(() => {
+loadMap(){
+  this.mapsAPILoader.load().then(() => {
 
-//     // tslint:disable-next-line: new-parens
-//     this.geoCoder = new google.maps.Geocoder;
+    // tslint:disable-next-line: new-parens
+    this.geoCoder = new google.maps.Geocoder;
 
-//     const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-//     autocomplete.addListener('place_changed', () => {
-//       this.ngZone.run(() => {
-//         // get the place result
-//         const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+    const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+    autocomplete.addListener('place_changed', () => {
+      this.ngZone.run(() => {
+        // get the place result
+        const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-//         // verify result
-//         if (place.geometry === undefined || place.geometry === null) {
-//           return;
-//         }
+        // verify result
+        if (place.geometry === undefined || place.geometry === null) {
+          return;
+        }
 
-//         // set latitude, longitude and zoom
-//         this.latitude = place.geometry.location.lat();
-//         this.longitude = place.geometry.location.lng();
-//         this.placeaddress=place;
-//         this.zoom = 12;
-//       });
-//     });
-//   });
-// }
+        // set latitude, longitude and zoom
+        this.latitude = place.geometry.location.lat();
+        this.longitude = place.geometry.location.lng();
+        this.placeaddress=place;
+        this.zoom = 12;
+      });
+    });
+  });
+}
 
 markerDragEnd($event: MouseEvent) {
   console.log($event);
@@ -198,7 +198,7 @@ onChange2(eve: any) {
     this.no = true;
     console.log('click yes')
     this.donationRequestForm.value.yes = !this.donationRequestForm.value.no;
-    // setTimeout(() => this.loadMap(), 1000);
+    setTimeout(() => this.loadMap(), 1000);
   }
 
 }
