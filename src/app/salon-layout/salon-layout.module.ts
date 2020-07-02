@@ -15,6 +15,7 @@ import {SharedLayoutModule} from "../shared-layout/shared-layout.module";
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
+import { SalonLocationComponent } from './salon-location/salon-location.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import {MatIconModule} from '@angular/material/icon';
     ProfileComponent,
     SaloonChatComponent,
      ViewCalendarComponent,
+     SalonLocationComponent,
   ]
 })
 
