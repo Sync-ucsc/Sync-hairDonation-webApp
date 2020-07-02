@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import {SharedChatComponent} from './shared-layout/shared-chat/shared-chat.component';
 import { AfterLoginService } from '@services/after-login.service';
 import { Signup2Component } from './signup2/signup2.component';
+import { PasswordRequestComponent } from './password-request/password-request.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'froget-password',
+    component: PasswordRequestComponent
   },
   {
     canActivate: [AfterLoginService],

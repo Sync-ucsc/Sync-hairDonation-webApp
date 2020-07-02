@@ -62,6 +62,10 @@ export class TokenService {
     return this.isValid();
   }
 
+  public getEmail() {
+    return this.payload(this.gettoken()).email;
+  }
+
   public isUserAdmin(): boolean {
     return 'admin' === this.payload(this.gettoken()).role ? true : false;
   }

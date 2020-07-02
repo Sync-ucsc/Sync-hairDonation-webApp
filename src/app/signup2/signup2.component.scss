@@ -92,7 +92,7 @@
 }
 
 .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step .wizard-label .wizard-desc {
-  color: #b5b5c3;
+  color: #000000;
   font-size: 1.08rem;
   font-weight: 500
 }
@@ -115,11 +115,12 @@
 }
 
 .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state=done] .wizard-label .wizard-title {
-  color: #b5b5c3
+  color: #000000;
+  font-weight: 800;
 }
 
 .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state=done] .wizard-label .wizard-desc {
-  color: #d1d3e0
+  color: #000000
 }
 
 .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state=current] {
@@ -153,7 +154,7 @@
 }
 
 .login.login-3 .login-aside .wizard-nav .wizard-steps .wizard-step[data-wizard-state=current] .wizard-label .wizard-desc {
-  color: #b5b5c3
+  color: #000000
 }
 
 .login.login-3 .login-aside .aside-img-wizard {
@@ -313,4 +314,33 @@ agm-map {
 
 ::ng-deep .mat-ripple:not(:empty) {
   border: unset !important;
+}
+
+.xform {
+  position: relative;
+  height: 200px;
+  border: 4px dashed #000;
+}
+
+.xform p {
+  text-align: center;
+  line-height: 40px;
+  color: #000;
+  font-family: Arial;
+}
+
+.xform input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+}
+
+
+
+.xform button:active {
+  border: 0;
 }
