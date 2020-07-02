@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import { v4 as uuidV4 } from 'uuid';
@@ -8,6 +8,9 @@ import {environment} from '@environments/environment';
 // model
 import {DbWigRequest} from '@model/database/dbWigRequest';
 
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +18,16 @@ import {DbWigRequest} from '@model/database/dbWigRequest';
 export class PatientApiService {
 
   baseUrl = `${environment.BASE_URL}/wigRequest/`;
+  baseUrl2 = 'http://localhost:3000/patient';
+  headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private _http: HttpClient) {
   }
 
+  // Get all Donors
+getPatients() {
+  return this._http.get(`${this.baseUrl2}`);
+}
   getRandomId = () => uuidV4();
 
   getPatientId = (): string => '5efc7cd57fc53449307d0135';
