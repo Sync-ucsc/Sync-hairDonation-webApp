@@ -54,6 +54,17 @@ getDonor(id): Observable<any> {
     catchError(this.errorMgmt)
   )
 }
+// Get a donor by email
+getDonorByEmail(email): Observable<any> {
+  const url = `${this.baseUrl}/getDonor/${email}`;
+  return this.http.get(url, {headers: this.headers}).pipe(
+    map((res: Response) => {
+      return res || {}
+    }),
+    catchError(this.errorMgmt)
+  )
+}
+
 
 // Update donors
 updateDonor(id, data): Observable<any> {

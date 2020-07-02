@@ -3,6 +3,7 @@ import * as io from 'socket.io-client';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { DonorApiService } from './../../service/donor-api.service';
+import { TokenService } from './../../service/token.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import {formatDate} from '@angular/common';
@@ -17,6 +18,7 @@ export class DonorRequestComponent implements OnInit {
   socket = io('http://localhost:3000/donor');
 
   submitted=false;
+  email:string;
   latitude: number;
   longitude: number;
   zoom: number;
@@ -32,7 +34,7 @@ export class DonorRequestComponent implements OnInit {
   canceled = false;
   validDate: Date;
   requestDay: string;
-
+  selectedDonor
   donationRequestForm
 
   @ViewChild('search')
@@ -42,13 +44,21 @@ export class DonorRequestComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private router: Router,
-    private apiService: DonorApiService
+    private apiService: DonorApiService,
+    private tokenService: TokenService
   ) { 
     
       this.requestDay = formatDate(new Date(), 'yyyy/MM/dd', 'en');
   }
 
   ngOnInit(): void {
+
+    this.email=this.tokenService.getEmail();
+    console.log(this.email);
+    this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
+      this.selectedDonor=data["data"];
+    })
+    console.log(this.selectedDonor)
 
     this.donationRequestForm = new FormGroup({
       address:new FormControl(''),
