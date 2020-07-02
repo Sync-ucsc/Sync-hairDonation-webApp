@@ -6,7 +6,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import Swal from 'sweetalert2'
 
 import {environment} from '../../../environments/environment';
-import {Response} from '../../interfaces/response';
+import {BackendResponse} from '@model/backendResponse';
 
 @Component({
   selector: 'app-view-contact-us',
@@ -40,7 +40,7 @@ export class ViewContactUsComponent implements OnInit {
     const url = `${this.BASE_URL}/all`;
 
     this._http.get(url).subscribe(
-      (response: Response) => {
+      (response: BackendResponse) => {
         this.loading = false;
         if (response.success) {
           this.spinner.hide();
@@ -82,7 +82,7 @@ export class ViewContactUsComponent implements OnInit {
         )
       } else {
         this._http.post(url, {id: message._id}).subscribe(
-          (response: Response) => {
+          (response: BackendResponse) => {
             if (!response.success) {
               Swal.fire(
                 'Error',

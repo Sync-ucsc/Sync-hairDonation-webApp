@@ -1,77 +1,65 @@
+<mat-card *ngIf="!lastRequestData?.finished && !lastRequestData?.canceled"
+          class="last-request">
+  Your last request is still processing
+</mat-card>
+
 <div class="card card-custom">
   <div class="card-header">
-      <h3 class="card-title">
-          Request a Wig?
-      </h3>
+    <h3 class="card-title">
+      Request a Wig?
+    </h3>
   </div>
-  <!--begin::Form-->
-  <form class="form">
-    <div class="card-body">
-      
-    
-        <div class="form-group row">
-           <label class="col-form-label col-3 text-lg-right text-left">Emergency Contact Person Name :</label>
-            <div class="col-6">
-                <input type="text" class="form-control form-control-solid" placeholder="Enter contact person name">
-                <span class="form-text text-muted">Please enter contact person name</span>
-            </div>
-      </div>
-      <div class="form-group row">
-          <label class="col-form-label col-3 text-lg-right text-left">Emergency Contact Number</label>
-           <div class="col-6">
-              <input type="telephone" class="form-control form-control-solid" placeholder="Enter contact number ">
-              <span class="form-text text-muted">Please enter contact number</span>
-           </div>
-      </div>
-        <div class="form-group row">
-                        <label  class="col-form-label col-3 text-lg-right text-left">Communication:</label>
-                        <div class="checkbox-list">
-                            <label class="checkbox">
-                                <input type="checkbox"  > System
-                                <span></span>
-                            </label>
-                            
-                            <label class="checkbox">
-                                <input type="checkbox"  > SMS
-                                <span></span>
-                            </label>
-                            <label class="checkbox">
-                                <input type="checkbox"  > E-mail
-                                <span></span>
-                            </label>
-                        </div>
-                    </div>
-     
-       
-    </div>
-    
-    <div class="card-footer">
-      <div class="row">
-        <div class="col-xl-2"></div>
-        <div class="col-xl-7">
-            <div class="row">
-                <div class="col-3"></div>
-                <div class="col-9">
-                  <button type="reset" class="btn btn-primary mr-2">Submit</button>
-                  <button type="cancel" class="btn btn-secondary">Cancel</button>
-                </div>
-            </div>
+  <div class="card-body">
+
+    <!--      <div class="form-group row">-->
+    <!--        <label class="col-form-label col-3 text-lg-right text-left">Emergency Contact Person Name :</label>-->
+    <!--        <div class="col-6">-->
+    <!--          <input class="form-control form-control-solid" placeholder="Enter contact person name" type="text">-->
+    <!--          <span class="form-text text-muted">Please enter contact person name</span>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--      <div class="form-group row">-->
+    <!--        <label class="col-form-label col-3 text-lg-right text-left">Emergency Contact Number</label>-->
+    <!--        <div class="col-6">-->
+    <!--          <input class="form-control form-control-solid" placeholder="Enter contact number " type="telephone">-->
+    <!--          <span class="form-text text-muted">Please enter contact number</span>-->
+    <!--        </div>-->
+    <!--      </div>-->
+
+    <div class="form-group row">
+      <label class="col-form-label col-3 text-lg-right text-left">Wig Type:</label>
+      <mat-radio-group [(ngModel)]="Type">
+        <div class="checkbox-list">
+          <label class="checkbox">
+            <mat-radio-button class="example-margin" value="Type 01">Type 01</mat-radio-button>
+          </label>
+
+          <label class="checkbox">
+            <mat-radio-button class="example-margin" value="Type 02">Type 02</mat-radio-button>
+          </label>
+          <label class="checkbox">
+            <mat-radio-button class="example-margin" value="Type 03">Type 03</mat-radio-button>
+          </label>
         </div>
+      </mat-radio-group>
     </div>
-    </div> 
-</form>
+
+
+  </div>
+
+  <div class="card-footer">
+    <div class="row">
+      <div class="col-xl-2"></div>
+      <div class="col-xl-7">
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-9">
+            <button (click)="submit()" class="btn btn-primary mr-2">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
