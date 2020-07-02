@@ -5,6 +5,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ManagePatientComponent } from './manage-patient/manage-patient.component';
 import { AttendantChatComponent } from './attendant-chat/attendant-chat.component';
 import { AfterLoginService } from '@services/after-login.service';
+import { ManageWigrequestComponent } from './manage-wigrequest/manage-wigrequest.component';
 
 export const AttendantLayoutRoutes: Routes = [
     // {
@@ -53,4 +54,5 @@ export const AttendantLayoutRoutes: Routes = [
     { path: 'profile', component: ProfileComponent, canActivate: [AfterLoginService],},
     { path: 'manage-patient', component: ManagePatientComponent, canActivate: [AfterLoginService],},
     { path: 'chat', component: AttendantChatComponent, canActivate: [AfterLoginService],},
+    { path: 'manage-wigrequest', component: ManageWigrequestComponent, canActivate: [AfterLoginService],},
 ];
