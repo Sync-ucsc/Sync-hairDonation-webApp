@@ -10,8 +10,9 @@
     <form [formGroup]="donationRequestForm" (ngSubmit)="onSubmit()">
         <div class="card-body">
 
-                <h6 class="form-text">168/B, Flower Rd., Gampaha. Is this the current address?</h6>
+                
                 <div class="checkbox-inline">
+                    <h6 class="form-text">{{selectedDonor.address}}. Is this the current address?</h6>
                     <label class="checkbox checkbox-circle checkbox-success">
                         <input type="checkbox" (change)="clickYes()" [value]='yes' formControlName="yes" [(ngModel)]="yes"/> Yes
                         <span></span>

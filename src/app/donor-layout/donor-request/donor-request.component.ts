@@ -58,7 +58,6 @@ export class DonorRequestComponent implements OnInit {
     this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
       this.selectedDonor=data["data"];
     })
-    console.log(this.selectedDonor)
 
     this.donationRequestForm = new FormGroup({
       address:new FormControl(''),
@@ -70,7 +69,7 @@ export class DonorRequestComponent implements OnInit {
       requestDay: new FormControl(this.requestDay),
       finished:new FormControl(false),
       canceled:new FormControl(false),
-      email: new FormControl('th5@gmail.com')
+      email: new FormControl(this.email)
     })
 
     // this.mapsAPILoader.load().then(() => {
@@ -165,9 +164,9 @@ onChange2(eve: any) {
  onSubmit(){
 
    this.donationRequestForm.patchValue({
-     address:this.placeaddress.formatted_address,
-     latitude:this.latitude,
-     longitude:this.longitude
+     address:this.placeaddress === undefined? this.selectedDonor.address: this.placeaddress.formatted_address,
+     latitude:this.latitude === undefined? this.selectedDonor.lat: this.latitude,
+     longitude:this.longitude === undefined? this.selectedDonor.lon: this.longitude,
    })
    console.log(this.donationRequestForm.value);
    this.submitted=true;
