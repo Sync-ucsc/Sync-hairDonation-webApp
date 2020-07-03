@@ -52,6 +52,12 @@ export class ManageWigrequestComponent implements OnInit {
     this.socket.on('delete-patient', () => {
       this.getPatients();
     });
+    this.socket.on('accept-wig-request', () => {
+      this.getPatients();
+    });
+    this.socket.on('decline-wig-request', () => {
+      this.getPatients();
+    });
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
@@ -72,7 +78,84 @@ export class ManageWigrequestComponent implements OnInit {
     this.options = data["data"];
      console.log(this.Patient);
     })
-
  }
+
+acceptWigrequest(id){
+  Swal.fire({
+    title: 'Are you sure?',
+    text: `This wig Request will be accepted`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, accpet it!',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true,
+    preConfirm: (login) => {
+      this.apiService.acceptWigrequest(id).subscribe((data) => {
+        console.log(data);
+        this.socket.emit('accept-wig-request', data);
+        if(!data)
+          Swal.showValidationMessage(
+            `Request failed`
+          )
+       }
+      )
+
+    },
+    // tslint:disable-next-line: only-arrow-functions
+  }).then(function (result) {
+    if (result.value) {
+      Swal.fire(
+        'Accepted!',
+        'Patient wig request has been accepted',
+        'success'
+      )
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire(
+        'Cancelled',
+        'Patient wig request was not accepttd',
+        'error'
+      )
+    }
+  });
+}
+
+declineWigrequest(id){
+  Swal.fire({
+    title: 'Are you sure?',
+    text: `This wig Request will be declined`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, Decline it!',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true,
+    preConfirm: (login) => {
+      this.apiService.declineWigrequest(id).subscribe((data) => {
+        console.log(data);
+        this.socket.emit('decline-wig-request', data);
+        if(!data)
+          Swal.showValidationMessage(
+            `Request failed`
+          )
+       }
+      )
+
+    },
+    // tslint:disable-next-line: only-arrow-functions
+  }).then(function (result) {
+    if (result.value) {
+      Swal.fire(
+        'Declined!',
+        'Patient wig request has been declined',
+        'success'
+      )
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire(
+        'Cancelled',
+        'Patient wig request was not declined',
+        'error'
+      )
+    }
+  });
+}
 
 }
