@@ -46,6 +46,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { PasswordRequestComponent } from './password-request/password-request.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     MatInputModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     UserService,
