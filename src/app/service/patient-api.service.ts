@@ -42,6 +42,16 @@ getPatients() {
       .pipe(catchError(this.errorManagement));
   }
 
+  acceptWigrequest(patientId: string) : Observable<any>{
+    return this._http.get(`${this.baseUrl}/acceptWigrequest/${patientId}`)
+      .pipe(catchError(this.errorManagement));
+  }
+
+  declineWigrequest(patientId: string) : Observable<any>{
+    return this._http.get(`${this.baseUrl}/declineWigrequest/${patientId}`)
+      .pipe(catchError(this.errorManagement));
+  }
+
   errorManagement(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {
       return throwError(error.error.message);

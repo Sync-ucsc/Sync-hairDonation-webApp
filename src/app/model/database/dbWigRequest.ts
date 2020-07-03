@@ -4,4 +4,5 @@ export interface DbWigRequest {
   wigType: string,
   finished: boolean,
   canceled: boolean,
+  attendantStatus?: number,
 }
