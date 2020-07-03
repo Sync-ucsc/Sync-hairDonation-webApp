@@ -8,8 +8,6 @@ import * as moment from 'moment';
 
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
-
-
 @Component({
   selector: 'app-test',
   templateUrl: './view-calendar.component.html',
@@ -33,7 +31,7 @@ export class ViewCalendarComponent implements OnInit {
   TODAY = this.todayDate.format('YYYY-MM-DD');
 
   constructor(private renderer: Renderer2){
-    
+
   }
 
 
@@ -61,8 +59,7 @@ export class ViewCalendarComponent implements OnInit {
       header: {
         left: 'prev,next today ',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-
+        right: 'dayGridMonth,timeGridWeek'
       },
       plugins: [dayGridPlugin, interactionPlugin, timeGrigPlugin]
 
@@ -80,60 +77,73 @@ export class ViewCalendarComponent implements OnInit {
   }
 
   handleDateClick(arg) {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
-      },
-      buttonsStyling: false
-    })
-    
-    swalWithBootstrapButtons.fire({
-      title: 'Add Appointment',
-      text: "Are you want to add appointment?",
-      input: 'text',
-      inputAttributes: {
-        autocapitalize: 'off'
-      },
 
-    //   this.event = prompt('Enter Event', '')
-    //    console.log(this.event)
-    // this.calendarEvents = this.calendarEvents.concat({
-    //   title: this.event,
-    //  start: arg.date,
-    //  allDay: arg.allDay
-      showCancelButton: true,
-      confirmButtonText: 'Yes, add it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.value) {
-        swalWithBootstrapButtons.fire(
-          'Add!',
-          'Your appointment is  added.',
-          'success'  
-        )
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your appointment is not added.',
-          'error'
-        )
-      }
-    })
-   
-    // if (confirm('Would you like to add appointment' + arg.dateStr + ' ?')) {
-    //   this.event = prompt('Enter Event', '')
-    //   console.log(this.event)
-    //   this.calendarEvents = this.calendarEvents.concat({
-    //     title: this.event,
-    //     start: arg.date,
-    //     allDay: arg.allDay
-    //   })
-    // }
+    if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
+      this.event = prompt('Enter Event', '')
+      console.log(this.event)
+     this.calendarEvents = this.calendarEvents.concat({
+        title: this.event,
+        start: arg.date,
+     allDay: arg.allDay
+       });
+     }
+    // const swalWithBootstrapButtons = Swal.mixin({
+    //   customClass: {
+    //     confirmButton: 'btn btn-success',
+    //     cancelButton: 'btn btn-danger'
+    //   },
+    //   buttonsStyling: false
+    // })
+
+    // Swal.mixin({
+    //   input: 'text',
+    //   confirmButtonText: 'Next &rarr;',
+    //   //showCancelButton: true,
+    //  progressSteps: ['1', '2']
+    // }).queue([
+    //   {
+
+    //     title: 'Add Customer name '
+    //   },
+    //    'Add Customer Phone Number'
+    //   // 'Question 3'
+    // ]).then((result) => {
+    //   if (result.value) {
+    //     const answers = JSON.stringify(result.value)
+    //     Swal.fire({
+    //       title: 'Add Details',
+    //        html: `
+    //          Details of the customer:
+    //         <pre><code>${answers}</code></pre>
+    //        `,
+         // confirmButtonText: 'ADD'
+    //     showCancelButton: true,
+    //   confirmButtonText: 'Yes, add it!',
+    //   cancelButtonText: 'No, cancel!',
+    //   reverseButtons: true
+    // }).then((result) => {
+    //   if (result.value) {
+
+    //     swalWithBootstrapButtons.fire(
+    //       'Add!',
+    //       'Your appointment is  added.',
+    //      'success'
+
+    //     )
+
+      // } else if (
+      //   /* Read more about handling dismissals below */
+      //   result.dismiss === Swal.DismissReason.cancel
+      // ) {
+      //   swalWithBootstrapButtons.fire(
+      //     'Cancelled',
+      //     'Your appointment is not added.',
+      //     'error'
+      //   )
+      // }
+      //   })
+      // }
+    // })
   }
 
   eventClick(model) {
@@ -150,7 +160,7 @@ export class ViewCalendarComponent implements OnInit {
     console.log('hi')
     // console.dir(this.calendar.element.nativeElement.querySelector(".fc-event"))
     let date = event.event.start;
-    date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     let string = event.event.title;
 
     // this.tasksService.create(string, date).subscribe(
@@ -167,7 +177,7 @@ export class ViewCalendarComponent implements OnInit {
     console.log(event)
     let id = (event.event.id) ? event.event.id : event.event._def.id;
     let date = event.event.start;
-    date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 
     // this.tasksService.update(id, date).subscribe(
     //   data => { }
@@ -175,15 +185,15 @@ export class ViewCalendarComponent implements OnInit {
   }
 
   eventDo(event) {
-    const icon = this.renderer.createElement("mat-icon");
-    const close = this.renderer.createText("close");
+    const icon = this.renderer.createElement('mat-icon');
+    const close = this.renderer.createText('close');
     this.renderer.addClass(icon, 'delete-icon');
     this.renderer.appendChild(icon, close);
     this.renderer.appendChild(event.el, icon)
     this.renderer.addClass(event.el, 'text-light')
   }
   deleteEvent(event) {
-    if (event.jsEvent.srcElement.className == 'delete-icon') {
+    if (event.jsEvent.srcElement.className === 'delete-icon') {
       console.log(event.event)
       let id = (event.event.id) ? event.event.id : event.event._def.id;
       console.log(id)
