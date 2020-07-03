@@ -27,7 +27,13 @@ export class ViewCalendarComponent implements OnInit {
   // calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
   calendarWeekends = true;
   calendarEvents: EventInput[] = [
-    { title: 'Event Now', start: new Date() }
+    { title: 'Event Now', start: '2020-07-03T16:00:00' },
+    {
+      start: '2020-07-03T10:00:00',
+      end: '2020-07-03T13:00:00',
+      display: 'background',
+      rendering: 'background'
+    }
   ];
   todayDate = moment().startOf('day');
   TODAY = this.todayDate.format('YYYY-MM-DD');
@@ -61,7 +67,7 @@ export class ViewCalendarComponent implements OnInit {
       header: {
         left: 'prev,next today ',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        right: 'dayGridMonth,timeGridWeek'
 
       },
       plugins: [dayGridPlugin, interactionPlugin, timeGrigPlugin]
@@ -79,52 +85,57 @@ export class ViewCalendarComponent implements OnInit {
     this.calendarWeekends = !this.calendarWeekends;
   }
 
-  handleDateClick(arg) {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
-      },
-      buttonsStyling: false
-    })
-    
-    swalWithBootstrapButtons.fire({
-      title: 'Add Appointment',
-      text: "Are you want to add appointment?",
-      input: 'text',
-      inputAttributes: {
-        autocapitalize: 'off'
-      },
+  drop() {
+     alert('dropped!');
+  }
 
-    //   this.event = prompt('Enter Event', '')
-    //    console.log(this.event)
-    // this.calendarEvents = this.calendarEvents.concat({
-    //   title: this.event,
-    //  start: arg.date,
-    //  allDay: arg.allDay
-      showCancelButton: true,
-      confirmButtonText: 'Yes, add it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.value) {
-        swalWithBootstrapButtons.fire(
-          'Add!',
-          'Your appointment is  added.',
-          'success'  
-        )
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your appointment is not added.',
-          'error'
-        )
-      }
-    })
-   
+  handleDateClick(arg) {
+    if(!arg.allDay){
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+        title: 'Add Appointment',
+        text: "Are you want to add appointment?",
+        input: 'text',
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+
+        //   this.event = prompt('Enter Event', '')
+        //    console.log(this.event)
+        // this.calendarEvents = this.calendarEvents.concat({
+        //   title: this.event,
+        //  start: arg.date,
+        //  allDay: arg.allDay
+        showCancelButton: true,
+        confirmButtonText: 'Yes, add it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.value) {
+          swalWithBootstrapButtons.fire(
+            'Add!',
+            'Your appointment is  added.',
+            'success'
+          )
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'Your appointment is not added.',
+            'error'
+          )
+        }
+      })
+
     // if (confirm('Would you like to add appointment' + arg.dateStr + ' ?')) {
     //   this.event = prompt('Enter Event', '')
     //   console.log(this.event)
@@ -134,6 +145,8 @@ export class ViewCalendarComponent implements OnInit {
     //     allDay: arg.allDay
     //   })
     // }
+    }
+   
   }
 
   eventClick(model) {
@@ -183,7 +196,9 @@ export class ViewCalendarComponent implements OnInit {
     this.renderer.addClass(event.el, 'text-light')
   }
   deleteEvent(event) {
+    
     if (event.jsEvent.srcElement.className == 'delete-icon') {
+      console.log("delete-icon")
       console.log(event.event)
       let id = (event.event.id) ? event.event.id : event.event._def.id;
       console.log(id)

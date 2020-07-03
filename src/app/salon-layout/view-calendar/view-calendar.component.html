@@ -36,18 +36,33 @@
 
                 [height] = 500
                 [contentHeight] = 480
-                [aspectRatio] =3 
+                [aspectRatio] =5 
 
+                [visibleRange]= "{
+                    start: '2020-01-01',
+                    end: '2020-12-31'
+                }"
+               
                 [nowIndicator] = true
-
-                defaultView = "dayGridMonth"
+                slotDuration= "00:30"
+                defaultView = "timeGridWeek"
+                calendarWeekends = true;
+                [businessHours] = "{
+                    startTime: '8:00',
+                    endTime: '17:00',
+                    daysOfWeek: [0, 1, 2,3,4,5,6 ]
+                }"
                 
-                [businessHours] = true
-                
-                    [customButtons]="options.customButtons" [weekends]="calendarWeekends"
-                    (eventDragStop)="eventDragStop($event)" [plugins]="options.plugins" (dayRender)="dayRender($event)"
-                    (eventReceive)="createTask($event)" (eventDrop)="updateTask($event)" (eventRender)="eventDo($event)"
-                    (eventClick)="deleteEvent($event)" (dateClick)="handleDateClick($event)"
+                    [customButtons]="options.customButtons" 
+                    [weekends]="calendarWeekends"
+                    (eventDragStop)="eventDragStop($event)"
+                    [plugins]="options.plugins" 
+                    (dayRender)="dayRender($event)"
+                    (eventReceive)="createTask($event)"
+                    (eventDrop)="updateTask($event)"
+                    (eventRender)="eventDo($event)"
+                    (eventClick)="deleteEvent($event)" 
+                    (dateClick) = "handleDateClick($event)"
                     [columnHeaderHtml]="options.columnHeaderHtml"></full-calendar>
         
         
