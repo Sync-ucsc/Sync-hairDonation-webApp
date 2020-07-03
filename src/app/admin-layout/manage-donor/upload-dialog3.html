@@ -1,0 +1,106 @@
+<style>
+    #dialog{
+    align-self: flex-start;
+    /* width: 300px; */
+}
+
+
+agm-map {
+    height: 300px;
+}
+</style>
+    <h2 mat-dialog-title>Update a Donor</h2>
+    <hr>
+    <mat-dialog-content class="mat-typography" style="width: 80vw;" id="dialog">
+        <div class="modal-body">
+            <form [formGroup]="updateForm" >
+                <div class="card-body">
+    
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">First name</label>
+                        <div class="col-10">
+                            <input class="form-control"  type="text" formControlName="firstName" [(ngModel)]="selectedDonor.firstName"  />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Last name</label>
+                        <div class="col-10">
+                            <input class="form-control"  type="text" formControlName="lastName" [(ngModel)]="selectedDonor.lastName"  />
+                        </div>
+                    </div>
+    
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">E-mail</label>
+                        <div class="col-10">
+                            <input class="form-control" type="email" [(ngModel)]="selectedDonor.email"
+                                formControlName="email" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">Telephone</label>
+                        <div class="col-10">
+                            <input class="form-control" type="tel" [(ngModel)]="selectedDonor.telePhone"
+                                formControlName="telePhone" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-2 col-form-label">NIC</label>
+                        <div class="col-10">
+                            <input class="form-control" type="text" [(ngModel)]="selectedDonor.nic"
+                                formControlName="nic" />
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label>Communication:</label>
+                        <div class="checkbox-list">
+                            <label class="checkbox">
+                                <input type="checkbox" formControlName="checkSystem" [(ngModel)]="selectedDonor.checkSystem"> System
+                                <span></span>
+                            </label>
+    
+                            <label class="checkbox">
+                                <input type="checkbox" formControlName="checkSms" [(ngModel)]="selectedDonor.checkSms" > SMS
+                                <span></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" formControlName="checkEmail" [(ngModel)]="selectedDonor.checkEmail"> E-mail
+                                <span></span>
+                            </label>
+                        </div>
+                    </div> -->
+    
+    
+                    <div class="form-group"  [formGroup]="updateForm" >
+                        <label>Address</label>
+                        <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
+                            placeholder="Type the address of the Donor" autocorrect="off" autocapitalize="off"
+                            spellcheck="off" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedDonor.address" #search>
+                    </div>
+    
+                    <agm-map [latitude]="lat" [longitude]="lon" [zoom]="zoom">
+                        <agm-marker [latitude]="lat" [longitude]="lon" [markerDraggable]="true"
+                            (dragEnd)="markerDragEnd($event)"></agm-marker>
+                    </agm-map>
+    
+    
+                    <div>Latitude: {{lat}}</div>
+                    <div>Longitude: {{lon}}</div>
+                </div>
+    
+    
+                <!-- <div class="modal-footer">
+                    <button mat-button mat-dialog-close  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button mat-button [mat-dialog-close]="true" cdkFocusInitial type="submit" class="btn btn-primary" [disabled]="!updateForm.valid" (click)="updateSalon()">Save changes</button>
+                </div> -->
+            </form>
+    
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="modal-footer">
+            <button mat-button mat-dialog-close class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button mat-button [mat-dialog-close]="true" cdkFocusInitial type="submit" class="btn btn-primary"
+                [disabled]="!updateForm.valid" (click)="updateDonor()">Save changes</button>
+        </div>
+    </mat-dialog-actions>

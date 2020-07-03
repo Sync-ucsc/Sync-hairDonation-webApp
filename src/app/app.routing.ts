@@ -13,6 +13,9 @@ import { LoginComponent } from './login/login.component';
 
 // use for test chat
 import {SharedChatComponent} from './shared-layout/shared-chat/shared-chat.component';
+import { AfterLoginService } from '@services/after-login.service';
+import { Signup2Component } from './signup2/signup2.component';
+import { PasswordRequestComponent } from './password-request/password-request.component';
 
 const routes: Routes = [
   {
@@ -24,14 +27,23 @@ const routes: Routes = [
     component: DashboardComponent
   },
   {
-    path: 'signup',
+    path: 'signup-donor',
     component: SignupComponent
+  },
+  {
+    path: 'signup-patient',
+    component: Signup2Component
   },
   {
     path: 'login',
     component: LoginComponent
   },
   {
+    path: 'froget-password',
+    component: PasswordRequestComponent
+  },
+  {
+    canActivate: [AfterLoginService],
     path: 'admin',
     component: AdminLayoutComponent,
     children: [{
@@ -40,6 +52,7 @@ const routes: Routes = [
     }]
   },
   {
+    canActivate: [AfterLoginService],
     path: 'attendant',
     component: AttendantLayoutComponent,
     children: [{
@@ -48,6 +61,7 @@ const routes: Routes = [
     }]
   },
   {
+    canActivate: [AfterLoginService],
     path: 'salon',
     component: SalonLayoutComponent,
     children: [{
@@ -57,6 +71,7 @@ const routes: Routes = [
   },
 
   {
+    canActivate: [AfterLoginService],
     path: 'donor',
     component: DonorLayoutComponent,
     children: [{
@@ -65,6 +80,7 @@ const routes: Routes = [
     }]
   },
   {
+    canActivate: [AfterLoginService],
     path: 'patient',
     component: PatientLayoutComponent,
     children: [{
@@ -73,6 +89,7 @@ const routes: Routes = [
     }]
   },
   {
+    canActivate: [AfterLoginService],
     path: 'hospital',
     component: HospitalLayoutComponent,
     children: [{

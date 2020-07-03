@@ -6,13 +6,13 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const baseUri = 'http://localhost:3000/attendant';
+const baseUrl = 'http://localhost:3000/attendant';
 @Injectable({
   providedIn: 'root'
 })
 export class AttendantApiService {
 
-  baseUri = 'http://localhost:3000/attendant';
+  baseUrl = 'http://127.0.0.1:3000/attendant';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 
@@ -20,7 +20,7 @@ export class AttendantApiService {
 
  // Create
  createAttendant(data): Observable<any> {
-  const url = `${this.baseUri}/create`;
+  const url = `${this.baseUrl}/create`;
   return this.http.post(url, data)
     .pipe(
       catchError(this.errorMgmt)
@@ -46,12 +46,12 @@ export class AttendantApiService {
 
 // Get all attendants
 getAttendants() {
-  return this.http.get(`${this.baseUri}`);
+  return this.http.get(`${this.baseUrl}`);
 }
 
 // Get a attendant
 getAttendant(id): Observable<any> {
-  const url = `${this.baseUri}/read/${id}`;
+  const url = `${this.baseUrl}/read/${id}`;
   return this.http.get(url, {headers: this.headers}).pipe(
     map((res: Response) => {
       return res || {}
@@ -62,7 +62,7 @@ getAttendant(id): Observable<any> {
 
 // Update attendants
 updateAttendant(id, data): Observable<any> {
-  const url = `${this.baseUri}/update/${id}`;
+  const url = `${this.baseUrl}/update/${id}`;
   return this.http.put(url, data, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)
   )
@@ -70,7 +70,7 @@ updateAttendant(id, data): Observable<any> {
 
 // Delete attendant
 deleteAttendant(id): Observable<any> {
-  const url = `${this.baseUri}/delete/${id}`;
+  const url = `${this.baseUrl}/delete/${id}`;
   return this.http.delete(url, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)
   )

@@ -6,3 +6,13 @@
     margin: 0 auto;
     max-width: 900px;
   }
+
+::ng-deep .fc-bgevent {
+  background: #444444 !important;
+  opacity: .6 !important;
+}
+
+::ng-deep .fc-time-grid .fc-bgevent {
+  margin-top: -7.2px;
+  margin-bottom: 6px;
+}

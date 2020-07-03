@@ -5,6 +5,7 @@ import { MatDialog ,MatDialogConfig,MAT_DIALOG_DATA} from '@angular/material/dia
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card'; 
 // declare const Swal: any;
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
@@ -80,8 +81,8 @@ constructor(
  getSalons(){
 
     this.apiService.getSalons().subscribe((data) => {
-     this.Salon = data;
-    this.options = data;
+     this.Salon = data["data"];
+    this.options = data["data"];
      console.log(this.Salon);
     })
 
@@ -129,12 +130,7 @@ constructor(
      }
    });
 
-  // if(window.confirm('Are you sure?')) {
-  //   this.apiService.deleteSalon(salon._id).subscribe((data) => {
-  //       this.Salon.splice(index, 1);
-  //     }
-  //   )
-  // }
+  
 }
 
 // opening the update dialog

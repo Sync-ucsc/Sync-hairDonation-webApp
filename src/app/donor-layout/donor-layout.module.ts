@@ -31,7 +31,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-
+import { NgApexchartsModule } from "ng-apexcharts";
 
 @NgModule({
   imports: [
@@ -57,6 +57,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatInputModule,
     MatNativeDateModule,
     SharedLayoutModule,
+    NgApexchartsModule
   ],
   declarations: [
     DashboardComponent,

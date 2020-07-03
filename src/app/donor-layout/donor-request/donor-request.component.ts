@@ -2,9 +2,11 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone  } from '@angular/core
 import * as io from 'socket.io-client';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
-import { SalonApiService } from './../../service/salon-api.service';
+import { DonorApiService } from './../../service/donor-api.service';
+import { TokenService } from './../../service/token.service';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-donor-request',
@@ -13,9 +15,10 @@ import Swal from 'sweetalert2'
 })
 export class DonorRequestComponent implements OnInit {
    
-  socket = io('http://localhost:3000/salon');
+  socket = io('http://localhost:3000/donor');
 
   submitted=false;
+  email:string;
   latitude: number;
   longitude: number;
   zoom: number;
@@ -27,8 +30,12 @@ export class DonorRequestComponent implements OnInit {
   checkEmail=false;
   yes=false;
   no=false;
-
-  salonForm 
+  finished=false;
+  canceled = false;
+  validDate: Date;
+  requestDay: string;
+  selectedDonor
+  donationRequestForm
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -37,47 +44,88 @@ export class DonorRequestComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private router: Router,
-    private apiService: SalonApiService
-  ) { }
+    private apiService: DonorApiService,
+    private tokenService: TokenService
+  ) { 
+    
+      this.requestDay = formatDate(new Date(), 'yyyy/MM/dd', 'en');
+  }
 
   ngOnInit(): void {
 
-    this.salonForm = new FormGroup({
+    this.email=this.tokenService.getEmail();
+    console.log(this.email);
+    this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
+      this.selectedDonor=data["data"];
+    })
+
+    this.donationRequestForm = new FormGroup({
       address:new FormControl(''),
       latitude:new FormControl(''),
       longitude:new FormControl(''),
       yes:new FormControl(false),
       no:new  FormControl(false),
-  
+      validDate: new FormControl(Date),
+      requestDay: new FormControl(this.requestDay),
+      finished:new FormControl(false),
+      canceled:new FormControl(false),
+      email: new FormControl(this.email)
     })
 
+    // this.mapsAPILoader.load().then(() => {
 
-    this.mapsAPILoader.load().then(() => {
-
-      // tslint:disable-next-line: new-parens
-      this.geoCoder = new google.maps.Geocoder;
-
-      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-      autocomplete.addListener('place_changed', () => {
-        this.ngZone.run(() => {
-          // get the place result
-          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          // verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-
-          // set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.placeaddress=place;
-          this.zoom = 12;
-        });
-      });
-    });
+    //   // tslint:disable-next-line: new-parens
+    //   this.geoCoder = new google.maps.Geocoder;
+  
+    //   const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+    //   autocomplete.addListener('place_changed', () => {
+    //     this.ngZone.run(() => {
+    //       // get the place result
+    //       const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+  
+    //       // verify result
+    //       if (place.geometry === undefined || place.geometry === null) {
+    //         return;
+    //       }
+  
+    //       // set latitude, longitude and zoom
+    //       this.latitude = place.geometry.location.lat();
+    //       this.longitude = place.geometry.location.lng();
+    //       this.placeaddress=place;
+    //       this.zoom = 12;
+    //     });
+    //   });
+    // });
   }
 
+
+
+loadMap(){
+  this.mapsAPILoader.load().then(() => {
+
+    // tslint:disable-next-line: new-parens
+    this.geoCoder = new google.maps.Geocoder;
+
+    const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+    autocomplete.addListener('place_changed', () => {
+      this.ngZone.run(() => {
+        // get the place result
+        const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+        // verify result
+        if (place.geometry === undefined || place.geometry === null) {
+          return;
+        }
+
+        // set latitude, longitude and zoom
+        this.latitude = place.geometry.location.lat();
+        this.longitude = place.geometry.location.lng();
+        this.placeaddress=place;
+        this.zoom = 12;
+      });
+    });
+  });
+}
 
 markerDragEnd($event: MouseEvent) {
   console.log($event);
@@ -115,33 +163,34 @@ onChange2(eve: any) {
 
  onSubmit(){
 
-   console.log(this.placeaddress.formatted_address);
-   this.salonForm.patchValue({
-     address:this.placeaddress.formatted_address,
-     latitude:this.latitude,
-     longitude:this.longitude,
-    //  yes:this.yes,
-    //  no:this.no
+   this.donationRequestForm.patchValue({
+     address:this.placeaddress === undefined? this.selectedDonor.address: this.placeaddress.formatted_address,
+     latitude:this.latitude === undefined? this.selectedDonor.lat: this.latitude,
+     longitude:this.longitude === undefined? this.selectedDonor.lon: this.longitude,
    })
-   console.log(this.salonForm.value);
+   console.log(this.donationRequestForm.value);
    this.submitted=true;
 
-   if (!this.salonForm.valid) {
+   if (!this.donationRequestForm.valid) {
     return false;
   } else {
 
-    this.apiService.createSalon(this.salonForm.value).subscribe(
-      (res) => {
-        this.socket.emit('updatedata', res);
-        console.log('Salon successfully created!')
+    this.apiService.donorRequset(this.donationRequestForm.value).subscribe(
+      data => {
+        console.log('Your requset has been recorded!'+data)
         Swal.fire(
           'Done!',
-          'You added a new salon!',
+          'Your requset has been recorded!',
           'success'
         )
-        this.ngZone.run(() => this.router.navigateByUrl('/admin/manage-salons'))
+        this.router.navigateByUrl('/donor/dashboard');
       }, (error) => {
         console.log(error);
+        Swal.fire(
+          'error!',
+          'Request failed!',
+          'error'
+        )
       });
   }
   }
@@ -150,14 +199,15 @@ onChange2(eve: any) {
     console.log('click yes')
     this.yes = true;
     this.no = false;
-    this.salonForm.value.no = !this.salonForm.value.yes;
+    this.donationRequestForm.value.no = !this.donationRequestForm.value.yes;
   }
 
   clickNo(){
     this.yes = false;
     this.no = true;
     console.log('click yes')
-    this.salonForm.value.yes = !this.salonForm.value.no;
+    this.donationRequestForm.value.yes = !this.donationRequestForm.value.no;
+    setTimeout(() => this.loadMap(), 1000);
   }
 
 }

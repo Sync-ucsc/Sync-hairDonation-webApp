@@ -1,1 +1,53 @@
-<p>add-manager works!</p>
+<div class="card card-custom">
+    <div class="card-header">
+        <h3 class="card-title">
+            Enter the details of the manager you want to add
+        </h3>
+    </div>
+    <form [formGroup]="managerForm" (ngSubmit)="onSubmit()">
+        <div class="card-body">
+    
+            <div class="form-group row">
+                <label class="col-2 col-form-label">First Name</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" placeholder="First Name of the manager" formControlName="firstName" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-2 col-form-label">Last Name</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" placeholder="Last Name of the manager" formControlName="lastName" />
+                </div>
+            </div>
+    
+            <div class="form-group row">
+                <label class="col-2 col-form-label">E-mail</label>
+                <div class="col-10">
+                    <input class="form-control" type="email" placeholder="Working E-mail of the manager"
+                        formControlName="email" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-2 col-form-label">Telephone</label>
+                <div class="col-10">
+                    <input class="form-control" type="tel" placeholder="Ex : 077 1234567" formControlName="telephone" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-2 col-form-label">Address</label>
+                <div class="col-10">
+                    <input class="form-control" type="text" placeholder="Address of the manager" formControlName="address" />
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-10">
+                        <button type="submit" class="btn btn-primary mr-2" [disabled]="!managerForm.valid">Add a Manager</button>
+                        <button type="reset" class="btn btn-secondary" (click)="managerForm.reset()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+</div>

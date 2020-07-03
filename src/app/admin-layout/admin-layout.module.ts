@@ -34,10 +34,11 @@ import { ViewManagerComponent } from './view-manager/view-manager.component';
 import { ManageNotificationComponent } from './manage-notification/manage-notification.component';
 import { PushNotificationComponent } from './push-notification/push-notification.component';
 import { CdkDetailRowDirective } from './manage-notification/cdk-detail-row.directive';
-import { ManageDonorComponent } from './manage-donor/manage-donor.component';
+import { ManageDonorComponent,uploadDialog3Component } from './manage-donor/manage-donor.component';
 import { ManagePatientComponent } from './manage-patient/manage-patient.component'; 
 import { MatSelectModule } from '@angular/material/select';
 import { ManageAttendantsComponent,uploadDialog2Component } from './manage-attendants/manage-attendants.component';
+import { MatCardModule } from '@angular/material/card'; 
 
 
 
@@ -62,6 +63,7 @@ import { ManageAttendantsComponent,uploadDialog2Component } from './manage-atten
     MatAutocompleteModule,
     NgxSpinnerModule,
     MatSelectModule,
+    MatCardModule
   ],
   declarations: [
     DashboardComponent,
@@ -74,6 +76,7 @@ import { ManageAttendantsComponent,uploadDialog2Component } from './manage-atten
     uploadDialogComponent,
     uploadDialog1Component,
     uploadDialog2Component,
+    uploadDialog3Component,
     AddManagerComponent,
     ViewManagerComponent,
     ProfileComponent,

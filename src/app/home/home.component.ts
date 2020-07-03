@@ -5,8 +5,8 @@ import {HttpClient} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
 
 import {environment} from '../../environments/environment';
-import {GetInTouch} from '../interfaces/getInTouch';
-import {Response} from '../interfaces/response';
+import {GetInTouch} from '@model/getInTouch';
+import {BackendResponse} from '@model/backendResponse';
 
 @Component({
   selector: 'app-home',
@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
 
     this._http.post(`${this.BASE_URL}/getInTouch/add`, data)
       .subscribe(
-        (response: Response) => {
+        (response: BackendResponse) => {
           response.success ? this._toastr.success('successfully send message') : this._toastr.error('fail to send message');
         },
         error => {
