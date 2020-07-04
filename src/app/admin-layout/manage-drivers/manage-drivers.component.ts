@@ -1,22 +1,11 @@
-import * as io from 'socket.io-client';
-import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef,ElementRef, Inject } from '@angular/core';
 import { MatDialog,MatDialogConfig,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
-import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { DriverApiService } from './../../service/driver-api.service';
 import { Router } from '@angular/router';
 
-// declare const Swal: any;
+import io from 'socket.io-client';
 import Swal from 'sweetalert2'
-// import swal from 'sweetalert';
-
-import { Observable } from 'rxjs';
-import { startWith, map, endWith } from 'rxjs/operators';
-import { Driver } from 'src/app/model/driver';
-
-export interface DialogData {
-  animal:any;
-}
 
 // view and delete component
 
@@ -27,55 +16,52 @@ export interface DialogData {
 })
 export class ManageDriversComponent implements OnInit {
 
-  socket = io('http://localhost:3000/driver');
+  socket;
 
   @ViewChild('dialog') templateRef: TemplateRef<any>;
-   Driver:any = [];
-   DriverNames:any=[];
+  @ViewChild('dialog2') templateRef2: TemplateRef<any>;
 
+   Driver:any = [];
    selectedDriver;
 
 
-    myControl = new FormControl('',Validators.required);
-    options:any =[];
-    filteredOptions: Observable<string[]>;
+   updateForm = new FormGroup({
+    fName: new FormControl('', Validators.required),
+    lName: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    telephone: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    address: new FormControl('', Validators.required),
 
+  })
   constructor(
       private apiService:DriverApiService,
       public dialog: MatDialog,
+      private router:Router,
+
     ) {
-      this.getDriver();
-      this.socket.on('update-data', function(data: any) {
-        this.getDriver();
-      }.bind(this));
+      this.socket = io.connect('http://localhost:3000');
      }
 
-    ngOnInit(): void {
-
-      this.filteredOptions = this.myControl.valueChanges.pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-      // this.myControl.valueChanges.subscribe((data) => {
-      //   if (!this.myControl.valid) {
-      //     this.filteredOptions = new Observable<string[]>();
-      //   }
-      // });
-    }
-
-    private _filter(value: string): string[] {
-      const filterValue = value.toLowerCase();
-      return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
-
+     ngOnInit(): void {
+      this.getDrivers();
+      this.socket.on('new-driver', () => {
+        this.getDrivers();
+      });
+      this.socket.on('update-driver', () => {
+        this.getDrivers();
+      });
+      this.socket.on('delete-driver', () => {
+        this.getDrivers();
+      });
     }
 
   // view drivers
 
-   getDriver(){
+   getDrivers(){
 
       this.apiService.getDrivers().subscribe((data) => {
-       this.Driver = data;
-      this.options = data;
+       this.Driver = data['data'];
+
        console.log(this.Driver);
       })
 
@@ -123,29 +109,18 @@ export class ManageDriversComponent implements OnInit {
        }
      });
 
-    // if(window.confirm('Are you sure?')) {
-    //   this.apiService.deleteDriver(driver._id).subscribe((data) => {
-    //       this.Driver.splice(index, 1);
-    //     }
-    //   )
-    // }
   }
 
   // opening the update dialog
 
   openUpdateRef(driver){
     this.selectedDriver=driver;
-    const dialogRef = this.dialog.open(uploadDialog1Component,{
-      data: {
-        animal:this.selectedDriver
-      }
-    });
+    const dialogRef = this.dialog.open(this.templateRef2);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
 
-    console.log(this.selectedDriver);
 
   }
 
@@ -160,60 +135,6 @@ export class ManageDriversComponent implements OnInit {
     });
 
   }
-
-
-  }
-
-
-  // update component
-  @Component({
-    // tslint:disable-next-line: component-selector
-    selector: 'upload-dialog1',
-    templateUrl: 'upload-dialog1.html',
-  })
-  // tslint:disable-next-line: class-name
-  export class uploadDialog1Component {
-
-   socket = io('http://localhost:3000/driver');
-
-   latitude: number;
-   longitude: number;
-   zoom: number;
-   address: string;
-   checkSystem=false;
-   checkSms=false;
-   checkEmail=false;
-   selectedDriver;
-
-
-
-
-    updateForm= new FormGroup({
-      fname: new FormControl('',Validators.required),
-      lname: new FormControl('',Validators.required),
-      email: new FormControl('',[Validators.required,Validators.email]),
-      telephone: new FormControl('',[Validators.required,Validators.minLength(10)]),
-      checkSystem: new FormControl(''),
-      checkSms: new FormControl(''),
-      checkEmail: new FormControl('')
-    })
-
-    @ViewChild('search')
-    public searchElementRef: ElementRef;
-
-    constructor(private apiService:DriverApiService,
-      public dialog: MatDialog,
-      private router: Router,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-        this.selectedDriver=data.animal;
-        console.log(data.animal);
-      ;
-     }
-
-    // tslint:disable-next-line: use-lifecycle-interface
-    ngOnInit(): void {
-
-    }
 
    // update drivers
   updateDriver(){
