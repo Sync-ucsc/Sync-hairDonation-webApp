@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import { v4 as uuidV4 } from 'uuid';
 // environment
 import {environment} from '@environments/environment';
@@ -26,13 +26,29 @@ export class PatientApiService {
   getPatients() {
     return this._http.get(`${this.baseUrl2}`);
   }
-  
+
   // Delete patient
   deletePatient(id): Observable<any> {
     const url = `${this.baseUrl}/delete/${id}`;
-    return this._http
-      .delete(url, { headers: this.headers })
-      .pipe();
+    return this._http.delete(url, { headers: this.headers }).pipe();
+  }
+  // Get a patient
+  getPatient(id): Observable<any> {
+    const url = `${this.baseUrl}/read/${id}`;
+    return this._http.get(url, { headers: this.headers }).pipe(
+      map((res: Response) => {
+        return res || {};
+      })
+    );
+  }
+  // Get a by E-mail
+  getPatientByEmail(email): Observable<any> {
+    const url = `${this.baseUrl}/readByEmail/${email}`;
+    return this._http.get(url, { headers: this.headers }).pipe(
+      map((res: Response) => {
+        return res || {};
+      })
+    );
   }
 
   getRandomId = () => uuidV4();
