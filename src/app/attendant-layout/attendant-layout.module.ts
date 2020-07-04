@@ -2,12 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-// component
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {ProfileComponent} from './profile/profile.component';
-import {ManagePatientComponent} from './manage-patient/manage-patient.component';
-import {AttendantChatComponent} from './attendant-chat/attendant-chat.component';
-import {ManageWigRequestComponent} from './manage-wig-request/manage-wig-request.component';
+
 // layout
 import {SharedLayoutModule} from '../shared-layout/shared-layout.module';
 // routing
@@ -18,6 +13,20 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
+import {NgxSpinnerModule} from 'ngx-spinner';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSelectModule} from '@angular/material/select';
+import {MatCardModule} from '@angular/material/card';
+// component
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {ProfileComponent} from './profile/profile.component';
+import {ManagePatientComponent} from './manage-patient/manage-patient.component';
+import {AttendantChatComponent} from './attendant-chat/attendant-chat.component';
+import {PatientVerificationComponent} from './patient-verification/patient-verification.component';
+import {ManageWigrequestComponent} from './manage-wigrequest/manage-wigrequest.component';
+import { ManageSalonRequestComponent } from './manage-salon-request/manage-salon-request.component';
 
 
 @NgModule({
@@ -31,13 +40,24 @@ import {MatInputModule} from '@angular/material/input';
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDialogModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    NgxSpinnerModule,
+    MatSelectModule,
+    MatCardModule
   ],
   declarations: [
     DashboardComponent,
     ProfileComponent,
     ManagePatientComponent,
     AttendantChatComponent,
-    ManageWigRequestComponent,
+    ManageWigrequestComponent,
+    PatientVerificationComponent,
+    ManageSalonRequestComponent,
   ]
 })
 

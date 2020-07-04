@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+
 
 export interface UserData {
   id: string;
@@ -20,12 +21,13 @@ const NAMES: string[] = [
 ];
 
 
+
 @Component({
-  selector: 'app-manage-wig-request',
-  templateUrl: './manage-wig-request.component.html',
-  styleUrls: ['./manage-wig-request.component.scss']
+  selector: 'app-manage-salon-request',
+  templateUrl: './manage-salon-request.component.html',
+  styleUrls: ['./manage-salon-request.component.scss']
 })
-export class ManageWigRequestComponent implements OnInit {
+export class ManageSalonRequestComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
   dataSource: MatTableDataSource<UserData>;

@@ -4,3 +4,7 @@
 [0620/163038.170:WARNING:minidump_to_upload_parameters.cc(36)] duplicate key guid, discarding value 10ed61b0-c02b-4751-b096-ed4fe75c6a92
 [0623/033657.054:WARNING:minidump_to_upload_parameters.cc(36)] duplicate key guid, discarding value 10ed61b0-c02b-4751-b096-ed4fe75c6a92
 [0623/043335.381:ERROR:settings.cc(401)] Settings magic is not 1129342067
+[0703/001131.264:WARNING:minidump_to_upload_parameters.cc(36)] duplicate key guid, discarding value a3596c51-4788-48e0-9504-d04531fb025b
+[0703/011237.767:WARNING:minidump_to_upload_parameters.cc(36)] duplicate key guid, discarding value a3596c51-4788-48e0-9504-d04531fb025b
+[0703/011721.251:WARNING:minidump_to_upload_parameters.cc(36)] duplicate key guid, discarding value a3596c51-4788-48e0-9504-d04531fb025b
+[0703/234654.045:WARNING:minidump_to_upload_parameters.cc(36)] duplicate key guid, discarding value a3596c51-4788-48e0-9504-d04531fb025b

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManageWigRequestComponent } from './manage-wig-request.component';
+import { ManageSalonRequestComponent } from './manage-salon-request.component';
 
-describe('ManageWigRequestComponent', () => {
-  let component: ManageWigRequestComponent;
-  let fixture: ComponentFixture<ManageWigRequestComponent>;
+describe('ManageSalonRequestComponent', () => {
+  let component: ManageSalonRequestComponent;
+  let fixture: ComponentFixture<ManageSalonRequestComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManageWigRequestComponent ]
+      declarations: [ ManageSalonRequestComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManageWigRequestComponent);
+    fixture = TestBed.createComponent(ManageSalonRequestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

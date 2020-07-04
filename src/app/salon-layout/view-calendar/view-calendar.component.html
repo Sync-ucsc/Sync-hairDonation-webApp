@@ -1,10 +1,10 @@
 <div class="card card-custom">
     <div class="card-header">
-        <div class="card-title">
-            <h3 class="card-label">
+        <!-- <div class="card-title"> -->
+            <!-- <h3 class="card-label">
                 Appointment Calendar
-            </h3>
-        </div>
+            </h3> -->
+        <!-- </div> -->
     </div>
     <div class="card-body">
         <div >
@@ -27,32 +27,49 @@
           [events]="calendarEvents"
           (dateClick)="handleDateClick($event)"
         ></full-calendar> -->
-           
-                <full-calendar #calendar 
-                [editable]="true" 
+
+                <full-calendar #calendar
+                [editable]="true"
                 [events]="calendarEvents"
                 [header]="options.header"
                 [eventLimit] = true
 
                 [height] = 500
                 [contentHeight] = 480
-                [aspectRatio] =3 
+                [aspectRatio] =3
 
+
+                [visibleRange]= "{
+                    start: '2020-01-01',
+                    end: '2020-12-31'
+                }"
+               
                 [nowIndicator] = true
 
-                defaultView = "dayGridMonth"
+                slotDuration= "00:30"
+                defaultView = "timeGridWeek"
+                calendarWeekends = true;
+                [businessHours] = "{
+                    startTime: '8:00',
+                    endTime: '17:00',
+                    daysOfWeek: [0, 1, 2,3,4,5,6 ]
+                }"
                 
-                [businessHours] = true
-                
-                    [customButtons]="options.customButtons" [weekends]="calendarWeekends"
-                    (eventDragStop)="eventDragStop($event)" [plugins]="options.plugins" (dayRender)="dayRender($event)"
-                    (eventReceive)="createTask($event)" (eventDrop)="updateTask($event)" (eventRender)="eventDo($event)"
-                    (eventClick)="deleteEvent($event)" (dateClick)="handleDateClick($event)"
+                    [customButtons]="options.customButtons" 
+                    [weekends]="calendarWeekends"
+                    (eventDragStop)="eventDragStop($event)"
+                    [plugins]="options.plugins" 
+                    (dayRender)="dayRender($event)"
+                    (eventReceive)="createTask($event)"
+                    (eventDrop)="updateTask($event)"
+                    (eventRender)="eventDo($event)"
+                    (eventClick)="deleteEvent($event)" 
+                    (dateClick) = "handleDateClick($event)"
                     [columnHeaderHtml]="options.columnHeaderHtml"></full-calendar>
-        
-        
-        
-          
+
+
+
+
         </div>
     </div>
 </div>

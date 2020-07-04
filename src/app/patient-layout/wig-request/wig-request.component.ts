@@ -50,7 +50,7 @@ export class WigRequestComponent implements OnInit {
         this._toastr.warning(`plz select type`);
         return;
       }
-
+      
       const patientId = this._patientService.getPatientId();
 
       const wigRequestObject = {
@@ -58,10 +58,10 @@ export class WigRequestComponent implements OnInit {
         wigType: this.Type,
         finished: false,
         canceled: false,
+        attendantStatus: 0,
       } as DbWigRequest;
 
       const response = await this._patientService.createWigRequest(wigRequestObject, patientId).toPromise() as BackendResponse;
-
       if (!response.success) throw new Error(response.debugMessage)
 
       this._toastr.success(`wig request add successfully`)
