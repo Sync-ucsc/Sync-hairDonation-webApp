@@ -13,12 +13,12 @@ const httpOptions = {
 };
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class PatientApiService {
   baseUrl = `${environment.BASE_URL}/wigRequest/`;
-  baseUrl2 = "http://localhost:3000/patient";
-  headers = new HttpHeaders().set("Content-Type", "application/json");
+  baseUrl2 = 'http://localhost:3000/patient';
+  headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private _http: HttpClient) {}
 
@@ -43,17 +43,13 @@ export class PatientApiService {
   }
   // Get a by E-mail
   getPatientByEmail(email): Observable<any> {
-    const url = `${this.baseUrl}/readByEmail/${email}`;
-    return this._http.get(url, { headers: this.headers }).pipe(
-      map((res: Response) => {
-        return res || {};
-      })
-    );
+    const url = `${this.baseUrl2}/readByEmail/${email}`;
+    return this._http.get(url, { headers: this.headers });
   }
 
   getRandomId = () => uuidV4();
 
-  getPatientId = (): string => "5efc7cd57fc53449307d0135";
+  getPatientId = (): string => '5efc7cd57fc53449307d0135';
 
   createWigRequest(
     wigRequestData: DbWigRequest,
