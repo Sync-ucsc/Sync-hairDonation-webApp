@@ -18,7 +18,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
-import { MatCardModule } from '@angular/material/card'; 
+import { MatCardModule } from '@angular/material/card';
+import { PatientVerificationComponent } from './patient-verification/patient-verification.component'; 
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { MatCardModule } from '@angular/material/card';
     ManagePatientComponent,
     AttendantChatComponent,
     ManageWigrequestComponent,
+    PatientVerificationComponent,
   ]
 })
 

@@ -13,42 +13,56 @@ const httpOptions = {
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class PatientApiService {
-
   baseUrl = `${environment.BASE_URL}/wigRequest/`;
-  baseUrl2 = 'http://localhost:3000/patient';
-  headers = new HttpHeaders().set('Content-Type', 'application/json');
+  baseUrl2 = "http://localhost:3000/patient";
+  headers = new HttpHeaders().set("Content-Type", "application/json");
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient) {}
+
+  // Get all Patients
+  getPatients() {
+    return this._http.get(`${this.baseUrl2}`);
+  }
+  
+  // Delete patient
+  deletePatient(id): Observable<any> {
+    const url = `${this.baseUrl}/delete/${id}`;
+    return this._http
+      .delete(url, { headers: this.headers })
+      .pipe();
   }
 
-  // Get all Donors
-getPatients() {
-  return this._http.get(`${this.baseUrl2}`);
-}
   getRandomId = () => uuidV4();
 
-  getPatientId = (): string => '5efc7cd57fc53449307d0135';
+  getPatientId = (): string => "5efc7cd57fc53449307d0135";
 
-  createWigRequest(wigRequestData: DbWigRequest, patientId: string) : Observable<any>{
-    return this._http.put(`${this.baseUrl}/add/${patientId}`, wigRequestData)
+  createWigRequest(
+    wigRequestData: DbWigRequest,
+    patientId: string
+  ): Observable<any> {
+    return this._http
+      .put(`${this.baseUrl}/add/${patientId}`, wigRequestData)
       .pipe(catchError(this.errorManagement));
   }
 
-  getLastRequest(patientId: string) : Observable<any>{
-    return this._http.get(`${this.baseUrl}/lastRequestStatus/${patientId}`)
+  getLastRequest(patientId: string): Observable<any> {
+    return this._http
+      .get(`${this.baseUrl}/lastRequestStatus/${patientId}`)
       .pipe(catchError(this.errorManagement));
   }
 
-  acceptWigrequest(patientId: string) : Observable<any>{
-    return this._http.get(`${this.baseUrl}/acceptWigrequest/${patientId}`)
+  acceptWigrequest(patientId: string): Observable<any> {
+    return this._http
+      .get(`${this.baseUrl}/acceptWigrequest/${patientId}`)
       .pipe(catchError(this.errorManagement));
   }
 
-  declineWigrequest(patientId: string) : Observable<any>{
-    return this._http.get(`${this.baseUrl}/declineWigrequest/${patientId}`)
+  declineWigrequest(patientId: string): Observable<any> {
+    return this._http
+      .get(`${this.baseUrl}/declineWigrequest/${patientId}`)
       .pipe(catchError(this.errorManagement));
   }
 
@@ -56,8 +70,9 @@ getPatients() {
     if (error.error instanceof ErrorEvent) {
       return throwError(error.error.message);
     } else {
-      return throwError(`Error Code: ${error.status} Message: ${error.message}`);
+      return throwError(
+        `Error Code: ${error.status} Message: ${error.message}`
+      );
     }
   }
-
 }
