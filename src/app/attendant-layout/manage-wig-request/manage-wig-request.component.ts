@@ -3,7 +3,6 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 
-
 export interface UserData {
   id: string;
   name: string;
@@ -21,13 +20,12 @@ const NAMES: string[] = [
 ];
 
 
-
 @Component({
-  selector: 'app-salon-location',
-  templateUrl: './salon-location.component.html',
-  styleUrls: ['./salon-location.component.scss']
+  selector: 'app-manage-wig-request',
+  templateUrl: './manage-wig-request.component.html',
+  styleUrls: ['./manage-wig-request.component.scss']
 })
-export class SalonLocationComponent implements OnInit {
+export class ManageWigRequestComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
   dataSource: MatTableDataSource<UserData>;
