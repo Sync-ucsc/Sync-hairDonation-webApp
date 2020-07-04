@@ -1,4 +1,5 @@
 export interface DbTargets {
+  _id?: string,
   driverId: string,
   driverEmail: string,
   targets: Targets[],
@@ -7,6 +8,7 @@ export interface DbTargets {
 }
 
 export interface Targets {
+  _id?: string,
   salonId:string,
   salonName: string,
   requestId: string,

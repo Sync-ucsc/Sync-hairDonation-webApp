@@ -1,14 +1,23 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '@environments/environment';
+import {catchError} from 'rxjs/operators';
+import {SharedService} from '@services/shared.service';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TargetService {
 
-  constructor(private _http: HttpClient) { }
+  baseUrl = `${environment.BASE_URL}/targets`
 
-  getSalonAllTargetById(){
-    this._http.get()
+  constructor(private _http: HttpClient,
+              private _sharedService: SharedService) {
+  }
+
+  getAllSalonNeedToDelivers(): Observable<any> {
+    return this._http.get(`${this.baseUrl}/allSalonNeedToDelivers`)
+      .pipe(catchError(this._sharedService.httpErrorManagement))
   }
 }
