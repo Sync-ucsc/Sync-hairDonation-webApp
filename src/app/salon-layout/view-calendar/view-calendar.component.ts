@@ -5,11 +5,14 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import interactionPlugin, { Draggable } from '@fullcalendar/interaction'; // for dateClick
 import * as moment from 'moment';
+import {MatDialogModule} from '@angular/material/dialog';
+import {ViewCalendarService} from './../../service/viewcalendar.service';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
 @Component({
-  selector: 'app-test',
+  selector: 'app-view-calendar',
   templateUrl: './view-calendar.component.html',
   styleUrls: ['./view-calendar.component.scss']
 })
@@ -36,15 +39,40 @@ export class ViewCalendarComponent implements OnInit {
   todayDate = moment().startOf('day');
   TODAY = this.todayDate.format('YYYY-MM-DD');
 
-  constructor(private renderer: Renderer2){
+  // constructor(private renderer: Renderer2){
 
+  // }
+  taskForm: FormGroup;
+  constructor(private fb: FormBuilder,private renderer:Renderer2,private _ViewCalendarService:ViewCalendarService) {
+    this.taskForm = fb.group({
+      taskName: [""]
+    });
   }
-
-
+  get taskName() {
+    return this.taskForm.get("taskName") as FormControl;
+  }
   ngOnInit() {
 
+
+    this._ViewCalendarService.my().subscribe(
+      data=>{
+        data.forEach(element => {
+
+          let event = {
+            id : element.id,
+            title : element.name,
+            date : element.date
+          }
+          this.calendar.getApi().addEvent(event);
+
+        });
+
+      }
+    )
     this.options = {
       editable: true,
+
+
       // customButtons: {
 
       //   prev: {
@@ -89,61 +117,69 @@ export class ViewCalendarComponent implements OnInit {
   handleDateClick(arg) {
 
     if(!arg.allDay){
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-      })
+      // const swalWithBootstrapButtons = Swal.mixin({
+      //   customClass: {
+      //     confirmButton: 'btn btn-success',
+      //     cancelButton: 'btn btn-danger'
+      //   },
+      //   buttonsStyling: false
+      // })
 
-      swalWithBootstrapButtons.fire({
-        title: 'Add Appointment',
-        text: "Are you want to add appointment?",
-        input: 'text',
-        inputAttributes: {
-          autocapitalize: 'off'
-        },
+      // swalWithBootstrapButtons.fire({
+      //   title: 'Add Appointment',
 
-        //   this.event = prompt('Enter Event', '')
-        //    console.log(this.event)
-        // this.calendarEvents = this.calendarEvents.concat({
-        //   title: this.event,
-        //  start: arg.date,
+      //    text: "Are you want to add appointment?",
+        // input: 'text',
+        // inputAttributes: {
+        //   autocapitalize: 'off'
+        // },
+
+      //     this.event = prompt('Enter Event', '')
+      //       console.log(this.event)
+      // this.calendarEvents = this.calendarEvents.concat({
+      //  title: this.event,
+      //    start: arg.date,
         //  allDay: arg.allDay
-        showCancelButton: true,
-        confirmButtonText: 'Yes, add it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-      }).then((result) => {
-        if (result.value) {
-          swalWithBootstrapButtons.fire(
-            'Add!',
-            'Your appointment is  added.',
-            'success'
-          )
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire(
-            'Cancelled',
-            'Your appointment is not added.',
-            'error'
-          )
-        }
-      })
+      //   showCancelButton: true,
+      //   confirmButtonText: 'Yes, add it!',
+      //   cancelButtonText: 'No, cancel!',
+      //   reverseButtons: true
+      // }).then((result) => {
+      //   if (result.value) {
+      //     swalWithBootstrapButtons.fire(
+      //       'Add!',
+      //       'Your appointment is  added.',
+      //       'success'
+      //     )
+      //   } else if (
 
-    // if (confirm('Would you like to add appointment' + arg.dateStr + ' ?')) {
-    //   this.event = prompt('Enter Event', '')
-    //   console.log(this.event)
-    //   this.calendarEvents = this.calendarEvents.concat({
-    //     title: this.event,
-    //     start: arg.date,
-    //     allDay: arg.allDay
-    //   })
-    // }
-    }
+      //     result.dismiss === Swal.DismissReason.cancel
+      //   ) {
+      //     swalWithBootstrapButtons.fire(
+      //       'Cancelled',
+      //       'Your appointment is not added.',
+      //       'error'
+      //     )
+      //   }
+      // })
+//setitem seen eka
+// var abc = prompt('Enter Title');
+// var allDay = !start.hasTime && !end.hasTime;
+// var newEvent = new Object();
+// newEvent.title = abc;
+// newEvent.start = moment(start).format();
+// newEvent.allDay = false;
+// $('#calendar').fullCalendar('renderEvent', newEvent);
+//  if (confirm('Would you like to add appointment' + arg.dateStr + ' ?')) {
+
+//       this.event = prompt('Enter Event', '');
+//        console.log(this.event)
+//       this.calendarEvents = this.calendarEvents.concat({
+//  title: this.event,
+//        start: arg.date,
+//          allDay: arg.allDay  })
+//      }
+     }
   }
 
   eventClick(model) {
@@ -157,31 +193,31 @@ export class ViewCalendarComponent implements OnInit {
 
   createTask(event) {
     console.log(event.event)
-    console.log('hi')
+    //console.log('hi')
     // console.dir(this.calendar.element.nativeElement.querySelector(".fc-event"))
-    let date = event.event.start;
-    date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-    let string = event.event.title;
+     let date = event.event.start;
+     date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+     let string = event.event.title;
 
-    // this.tasksService.create(string, date).subscribe(
-    //   data => {
-    //     if (data.success) {
-    //       event.event.setProp("id", data.task.id);
-    //     }
-    //   }
-    // )
+     this._ViewCalendarService.create(string, date).subscribe(
+      data => {
+       if (data.success) {
+         event.event.setProp("id", data.task.id);
+       }
+       }
+     )
 
   }
   updateTask(event) {
 
-    console.log(event)
-    let id = (event.event.id) ? event.event.id : event.event._def.id;
-    let date = event.event.start;
-    date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+     console.log(event)
+     let id = (event.event.id) ? event.event.id : event.event._def.id;
+     let date = event.event.start;
+     date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 
-    // this.tasksService.update(id, date).subscribe(
-    //   data => { }
-    // )
+     this._ViewCalendarService.update(id, date).subscribe(
+    data => { }
+     )
   }
 
   eventDo(event) {
@@ -199,15 +235,16 @@ export class ViewCalendarComponent implements OnInit {
       console.log(event.event)
       let id = (event.event.id) ? event.event.id : event.event._def.id;
       console.log(id)
-      // this.tasksService.delete(id).subscribe(
-      //   data => {
-      //     if (data) {
-      //       event.event.remove();
-      //     }
-      //   }
-      // )
+       this._ViewCalendarService.delete(id).subscribe(
+         data => {
+         if (data) {
+           event.event.remove();
+          }
+         }
+       )
     }
   }
+
   // get yearMonth(): number {
   //   const dateObj = new Date();
   //   console.log(dateObj.getUTCMonth() + 1);
