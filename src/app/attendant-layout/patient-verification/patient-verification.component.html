@@ -52,7 +52,7 @@
                     
 
                     <td>
-                        <div class="btn btn-light-success  font-weight-bold mr-2"
+                        <div class="btn btn-light-primary font-weight-bold mr-2"
                             (click)="viewPatientReport(patient)">
                             View
                         </div>
@@ -71,9 +71,9 @@
                 
 
                 <td>
-                    <div class="btn btn-light-success  font-weight-bold mr-2"
+                    <div class="btn btn-light-primary  font-weight-bold mr-2"
                         (click)="viewPatientReport(patient)">
-                        Accept
+                        View
                     </div>
                     
 
@@ -85,3 +85,6 @@
         </tbody>
     </table>
 </div>
+<ng-template #dialog>
+    <img src={{imageUrl}}>
+</ng-template>
