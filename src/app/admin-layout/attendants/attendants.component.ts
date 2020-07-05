@@ -1,9 +1,7 @@
 
 import { AttendantApiService } from '../../service/attendant-api.service';
-import * as io from 'socket.io-client';
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
 
