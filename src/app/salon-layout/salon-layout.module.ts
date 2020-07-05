@@ -17,6 +17,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import { SalonLocationComponent } from './salon-location/salon-location.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -27,6 +28,7 @@ import { SalonLocationComponent } from './salon-location/salon-location.componen
     MatDialogModule,
     MatIconModule,
     MatAutocompleteModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     DashboardComponent,
