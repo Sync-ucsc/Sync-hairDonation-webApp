@@ -25,31 +25,33 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSortModule} from '@angular/material/sort';
 import {MatButtonModule} from '@angular/material/button';
 
+
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule.forChild(SalonLayoutRoutes),
-        FormsModule,
-        FullCalendarModule,
-        SharedLayoutModule,
-        MatDialogModule,
-        MatIconModule,
-        MatAutocompleteModule,
-        MatPaginatorModule,
-        MatTableModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSortModule,
-        MatButtonModule,
-    ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(SalonLayoutRoutes),
+    FormsModule,
+    FullCalendarModule,
+    SharedLayoutModule,
+    MatDialogModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSortModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+  ],
   declarations: [
     DashboardComponent,
     BookAppointmentComponent,
     AppointmentDetailsComponent,
     ProfileComponent,
     SaloonChatComponent,
-     ViewCalendarComponent,
-     SalonLocationComponent,
+    ViewCalendarComponent,
+    SalonLocationComponent,
   ]
 })
 
