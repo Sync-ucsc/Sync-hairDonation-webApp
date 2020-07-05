@@ -9,9 +9,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
 
- // import { Observable } from 'rxjs';
-
-
+// view and delete component
 @Component({
   selector: 'app-manage-attendants',
   templateUrl: './manage-attendants.component.html',

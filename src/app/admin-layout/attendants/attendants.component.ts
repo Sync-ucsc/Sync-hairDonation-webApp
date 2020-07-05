@@ -1,4 +1,3 @@
-
 import { AttendantApiService } from '../../service/attendant-api.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';

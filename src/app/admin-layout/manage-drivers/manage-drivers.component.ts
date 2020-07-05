@@ -21,6 +21,7 @@ export class ManageDriversComponent implements OnInit {
   @ViewChild('dialog2') templateRef2: TemplateRef<any>;
 
    Driver:any = [];
+   AttendantNames:any=[];
    selectedDriver;
 
 

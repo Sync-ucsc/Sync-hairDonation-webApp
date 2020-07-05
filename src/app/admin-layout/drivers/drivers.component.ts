@@ -18,7 +18,7 @@ export class DriversComponent implements OnInit {
     lastname: new FormControl('',Validators.required),
     email: new FormControl('',[Validators.required,Validators.email]),
     telephone: new FormControl('',[Validators.required,Validators.minLength(10)]),
-    address:new FormControl(''),
+    address: new FormControl('', Validators.required),
 
   })
   @ViewChild('search')
