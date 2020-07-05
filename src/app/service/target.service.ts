@@ -41,4 +41,9 @@ export class TargetService {
     return this._http.put(`${this.baseUrl}/addNewDeliver/${salonId}`, undefined)
       .pipe(catchError(this._sharedService.httpErrorManagement))
   }
+
+  /**
+   * add new location to the salon
+   */
+
 }
