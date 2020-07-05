@@ -10,12 +10,19 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { ProfileComponent } from './profile/profile.component';
 import { ViewCalendarComponent } from './view-calendar/view-calendar.component';
 import { SaloonChatComponent } from './saloon-chat/saloon-chat.component';
-import {SharedLayoutModule} from "../shared-layout/shared-layout.module";
+import {SharedLayoutModule} from '../shared-layout/shared-layout.module';
+
+
+import { SalonLocationComponent } from './salon-location/salon-location.component';
 
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
-import { SalonLocationComponent } from './salon-location/salon-location.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   imports: [
@@ -27,6 +34,11 @@ import { SalonLocationComponent } from './salon-location/salon-location.componen
     MatDialogModule,
     MatIconModule,
     MatAutocompleteModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSortModule,
   ],
   declarations: [
     DashboardComponent,

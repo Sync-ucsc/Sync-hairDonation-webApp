@@ -65,6 +65,7 @@ export class WigRequestComponent implements OnInit {
       if (!response.success) throw new Error(response.debugMessage)
 
       this._toastr.success(`wig request add successfully`)
+
     } catch (error) {
       this._toastr.warning(`fail to add wig request`)
     }
