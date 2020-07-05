@@ -5,10 +5,8 @@
         </h3>
     </div>
     <!--begin::Form-->
-    <!-- [formGroup]="attendantForm" -->
-    <form
-
-     (ngSubmit)="onSubmit()">
+    
+    <form [formGroup] = "attendantForm" (ngSubmit)="onSubmit()">
         <div class="card-body">
 
             <div class="form-group row">

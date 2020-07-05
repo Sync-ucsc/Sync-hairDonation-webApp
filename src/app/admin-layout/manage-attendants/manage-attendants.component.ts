@@ -61,7 +61,7 @@ constructor(
 
   }
 
-// view attendants
+ // view attendants
 
  getAttendants(){
 
@@ -71,6 +71,30 @@ constructor(
     })
 
  }
+
+ // opening the view dialog
+
+ openViewRef(attendant){
+  this.selectedAttendant=attendant;
+  const dialogRef = this.dialog.open(this.templateRef);
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log(`Dialog result: ${result}`);
+  });
+
+ }
+
+ // opening the update dialog
+
+openUpdateRef(attendant){
+  this.selectedAttendant=attendant;
+  const dialogRef = this.dialog.open(this.templateRef2);
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log(`Dialog result: ${result}`);
+  });
+
+}
 
  // updating the attendant
 
@@ -118,9 +142,9 @@ constructor(
     });
 
 
-}
+  }
 
-}
+ }
 
  // deleting the attendant
 
@@ -145,7 +169,7 @@ constructor(
         }
        )
 
-     },
+    },
      // tslint:disable-next-line: only-arrow-functions
    }).then(function (result) {
      if (result.value) {
@@ -162,31 +186,7 @@ constructor(
        )
      }
    });
-}
-
-// opening the update dialog
-
-openUpdateRef(attendant){
-  this.selectedAttendant=attendant;
-  const dialogRef = this.dialog.open(this.templateRef2);
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log(`Dialog result: ${result}`);
-  });
-
-}
-
-// opening the view dialog
-
-openViewRef(attendant){
-  this.selectedAttendant=attendant;
-  const dialogRef = this.dialog.open(this.templateRef);
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log(`Dialog result: ${result}`);
-  });
-
-}
+  }
 
 
 }

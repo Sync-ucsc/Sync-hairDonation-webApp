@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { DriverApiService } from './../../service/driver-api.service';
 import { Router } from '@angular/router';
@@ -13,7 +13,6 @@ export class DriversComponent implements OnInit {
 
   submitted=false;
 
-
   driverForm= new FormGroup({
     firstName: new FormControl('',Validators.required),
     lastname: new FormControl('',Validators.required),
@@ -22,6 +21,8 @@ export class DriversComponent implements OnInit {
     address:new FormControl(''),
 
   })
+  @ViewChild('search')
+  public searchElementRef : ElementRef;
 
   constructor(
     private router: Router,

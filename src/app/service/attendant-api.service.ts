@@ -49,7 +49,7 @@ getAttendants() {
   return this.http.get(`${this.baseUrl}`);
 }
 
-// Get a attendant
+// Get an attendant
 getAttendant(id): Observable<any> {
   const url = `${this.baseUrl}/read/${id}`;
   return this.http.get(url, {headers: this.headers}).pipe(
