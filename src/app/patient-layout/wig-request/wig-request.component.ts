@@ -14,7 +14,7 @@ import {BackendResponse} from '@model/backendResponse';
 })
 export class WigRequestComponent implements OnInit {
 
-  Type: 'Type 01' | 'Type 02' | 'Type 03' = null;
+  Type: 'Short Hair Wigs' | 'Long Hair Wigs' | 'Curly Hair Wigs' | 'Straight Hair Wigs' = null;
 
   lastRequestData: DbWigRequest;
 
@@ -58,13 +58,14 @@ export class WigRequestComponent implements OnInit {
         wigType: this.Type,
         finished: false,
         canceled: false,
+        attendantStatus: 0,
       } as DbWigRequest;
 
       const response = await this._patientService.createWigRequest(wigRequestObject, patientId).toPromise() as BackendResponse;
-
       if (!response.success) throw new Error(response.debugMessage)
 
       this._toastr.success(`wig request add successfully`)
+
     } catch (error) {
       this._toastr.warning(`fail to add wig request`)
     }

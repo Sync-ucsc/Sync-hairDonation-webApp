@@ -93,6 +93,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AfterLoginService,
     SalonApiService,
     DonorApiService,
+    AttendantApiService,
   ],
   bootstrap: [AppComponent],
 

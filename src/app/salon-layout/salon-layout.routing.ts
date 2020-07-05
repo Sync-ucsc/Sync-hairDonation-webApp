@@ -57,7 +57,7 @@ export const SalonLayoutRoutes: Routes = [
     { path: 'book_appointment',      component: BookAppointmentComponent, canActivate: [AfterLoginService],},
     { path: 'appointment_details',      component: AppointmentDetailsComponent, canActivate: [AfterLoginService],},
     { path: 'profile', component: ProfileComponent, canActivate: [AfterLoginService],},
-    {path: 'view_calendar',component:ViewCalendarComponent},
+    {path:  'view_calendar',component:ViewCalendarComponent},
     { path: 'chat', component: SaloonChatComponent, canActivate: [AfterLoginService],},
     { path: 'wigCollect', component: SalonLocationComponent, canActivate: [AfterLoginService],},
 ];

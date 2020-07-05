@@ -1,1 +1,55 @@
-<h1>Need to deliver</h1>
+<div fxLayout="row wrap">
+  <!--  <div fxFlex="75" fxFlex.gt-lg="75" fxFlex.gt-md="60" fxFlex.gt-xs="100">-->
+  <!--    <h5>Previous delivery status</h5>-->
+  <!--  </div>-->
+  <div fxFlex="25" fxFlex.gt-lg="25" fxFlex.gt-md="40" fxFlex.gt-xs="100">
+    <button (click)="addNewNeedToDeliver()"
+            color="primary"
+            mat-stroked-button
+            style="width: 100%"
+    >Add new delivery request
+    </button>
+  </div>
+</div>
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <label>
+    <input #input (keyup)="applyFilter($event)" matInput placeholder="Ex. Mia">
+  </label>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table [dataSource]="dataSource" mat-table matSort>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="createdAt">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Date</th>
+      <td *matCellDef="let row" mat-cell> {{row.createdAt | date:"dd/MM/yyyy"}} </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Status</th>
+      <td *matCellDef="let row" mat-cell>
+        <ng-container *ngIf="row.status === 'NeedToDeliver'">Need To deliver</ng-container>
+        <ng-container *ngIf="row.status !== 'NeedToDeliver'">{{row.status }}</ng-container>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr *matNoDataRow class="mat-row">
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+
+
+
+
+
+

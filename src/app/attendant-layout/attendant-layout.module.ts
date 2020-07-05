@@ -1,24 +1,34 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AttendantLayoutRoutes } from './attendant-layout.routing';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProfileComponent } from './profile/profile.component';
-import { ManagePatientComponent } from './manage-patient/manage-patient.component';
-import { AttendantChatComponent } from './attendant-chat/attendant-chat.component';
-import {SharedLayoutModule} from "../shared-layout/shared-layout.module";
-import { ManageWigrequestComponent } from './manage-wigrequest/manage-wigrequest.component';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
+// layout
+import {SharedLayoutModule} from '../shared-layout/shared-layout.module';
+// routing
+import {AttendantLayoutRoutes} from './attendant-layout.routing';
+// material module
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
-import {MatSortModule} from '@angular/material/sort';
-import { NgxSpinnerModule } from 'ngx-spinner';
+import {NgxSpinnerModule} from 'ngx-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCardModule } from '@angular/material/card'; 
+import {MatSelectModule} from '@angular/material/select';
+import {MatCardModule} from '@angular/material/card';
+import { MatButtonModule } from "@angular/material/button";
+// component
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {ProfileComponent} from './profile/profile.component';
+import {ManagePatientComponent} from './manage-patient/manage-patient.component';
+import {AttendantChatComponent} from './attendant-chat/attendant-chat.component';
+import {PatientVerificationComponent} from './patient-verification/patient-verification.component';
+import {ManageWigrequestComponent} from './manage-wigrequest/manage-wigrequest.component';
+import { ManageSalonRequestComponent } from './manage-salon-request/manage-salon-request.component';
+
 
 @NgModule({
   imports: [
@@ -26,6 +36,11 @@ import { MatCardModule } from '@angular/material/card';
     RouterModule.forChild(AttendantLayoutRoutes),
     FormsModule,
     SharedLayoutModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatDialogModule,
     MatSortModule,
     MatPaginatorModule,
@@ -34,7 +49,8 @@ import { MatCardModule } from '@angular/material/card';
     MatAutocompleteModule,
     NgxSpinnerModule,
     MatSelectModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule,
   ],
   declarations: [
     DashboardComponent,
@@ -42,7 +58,8 @@ import { MatCardModule } from '@angular/material/card';
     ManagePatientComponent,
     AttendantChatComponent,
     ManageWigrequestComponent,
-  ]
+    PatientVerificationComponent,
+    ManageSalonRequestComponent,
+  ],
 })
-
 export class AttendantLayoutModule {}

@@ -1,4 +1,6 @@
 export interface DbSalon {
+  _id?: string,
+
   name: string
   email: string
   address: string
@@ -15,9 +17,9 @@ export interface DbSalon {
 }
 
 export interface NeedToDeliverStatus {
+  _id?: string,
 
   status: NEEDTODELIVERSTATUS,
-
   createdAt: string,
   deliveryDate: string
 
