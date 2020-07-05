@@ -7,6 +7,9 @@ import io from 'socket.io-client';
 // socket = require('socket.io-client')('http://localhost:3000');
 import {UserServiceService} from './../../service/user-service.service';
 import {PatientApiService} from './../../service/patient-api.service'
+
+
+import { MatButtonModule } from "@angular/material/button"; 
 import {
   MatDialog,
   MatDialogConfig,
@@ -76,9 +79,39 @@ export class PatientVerificationComponent implements OnInit {
       console.log(this.Patient);
     });
   }
-
+ acceptPatient(patient){
+     Swal.fire({
+       title: "Are you sure?",
+       text: `This patient will be added to the system`,
+       icon: "warning",
+       showCancelButton: true,
+       confirmButtonText: "Yes,accept it!",
+       cancelButtonText: "No, cancel!",
+       reverseButtons: true,
+       preConfirm: (login) => {
+         //methana update ekak enna one; active=true krnna one
+         this.apiService.deleteUser(patient._id).subscribe((data) => {
+           console.log(data);
+           this.socket.emit("updatedata", data);
+           if (!data.msg) Swal.showValidationMessage(`Request failed`);
+         });
+         //methana aye get users function eka awilla patient array eka update krnna one; active nathi un withrak pennana
+       },
+       // tslint:disable-next-line: only-arrow-functions
+     }).then(function (result) {
+       if (result.value) {
+         Swal.fire("Deleted!", "Patient request has been accepted.", "success");
+       } else if (result.dismiss === Swal.DismissReason.cancel) {
+         Swal.fire(
+           "Cancelled",
+           "You didn't accept the patient request",
+           "error"
+         );
+       }
+     });
+ }
   // Deleting a patient after declining the request
-  deleteUsers(patient) {
+  declinePatient(patient) {
     console.log(patient);
     Swal.fire({
       title: 'Are you sure?',
@@ -89,6 +122,7 @@ export class PatientVerificationComponent implements OnInit {
       cancelButtonText: 'No, cancel!',
       reverseButtons: true,
       preConfirm: (login) => {
+        //me delete eke awulak enwa delete wenne na
         this.apiService.deleteUser(patient._id).subscribe((data) => {
           console.log(data);
           this.socket.emit('updatedata', data);
@@ -107,16 +141,16 @@ export class PatientVerificationComponent implements OnInit {
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelled',
-          'Error, couldn\'t decline the patient request',
+          "You didn't decline the patient request",
           'error'
         );
       }
     });
   }
 
-  viewPatientReport(patient) {
+  async viewPatientReport(patient) {
     console.log(patient);
-    this.apiService2.getPatientByEmail(patient.email).subscribe(
+    await this.apiService2.getPatientByEmail(patient.email).subscribe(
       data => {
         console.log(data);
         this.selectedPatient = data.data;

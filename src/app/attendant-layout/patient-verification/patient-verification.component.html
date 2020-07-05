@@ -86,5 +86,16 @@
     </table>
 </div>
 <ng-template #dialog>
+    <mat-dialog-content>
     <img src={{imageUrl}}>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button class="btn btn-light-success" [mat-dialog-close]="true"
+            (click)="acceptPatient(selectedPatient)">
+            Accept
+        </button>
+        <button mat-raised-button class="btn btn-light-danger"  [mat-dialog-close]="true"  (click)="declinePatient(selectedPatient)">
+            Decline
+        </button>
+    </mat-dialog-actions>
 </ng-template>
