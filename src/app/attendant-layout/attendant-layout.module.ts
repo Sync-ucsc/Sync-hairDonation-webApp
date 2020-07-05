@@ -19,6 +19,7 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
+import { MatButtonModule } from "@angular/material/button";
 // component
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ProfileComponent} from './profile/profile.component';
@@ -48,7 +49,8 @@ import { ManageSalonRequestComponent } from './manage-salon-request/manage-salon
     MatAutocompleteModule,
     NgxSpinnerModule,
     MatSelectModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule,
   ],
   declarations: [
     DashboardComponent,
@@ -58,8 +60,6 @@ import { ManageSalonRequestComponent } from './manage-salon-request/manage-salon
     ManageWigrequestComponent,
     PatientVerificationComponent,
     ManageSalonRequestComponent,
-  ]
+  ],
 })
-
-export class AttendantLayoutModule {
-}
+export class AttendantLayoutModule {}
