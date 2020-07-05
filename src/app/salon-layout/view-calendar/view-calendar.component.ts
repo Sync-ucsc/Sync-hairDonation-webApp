@@ -29,6 +29,7 @@ export class ViewCalendarComponent implements OnInit {
   calendarWeekends = true;
   calendarEvents: EventInput[] = [
     { title: 'Event Now', start: '2020-07-03T16:00:00' },
+    { title: 'Event Now', start: '2020-07-03T16:00:00' },
     {
       start: '2020-07-03T10:00:00',
       end: '2020-07-03T13:00:00',

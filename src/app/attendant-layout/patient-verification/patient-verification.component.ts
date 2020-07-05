@@ -7,16 +7,19 @@ import io from 'socket.io-client';
 // socket = require('socket.io-client')('http://localhost:3000');
 import {UserServiceService} from './../../service/user-service.service';
 import {PatientApiService} from './../../service/patient-api.service'
+
+
+import { MatButtonModule } from "@angular/material/button"; 
 import {
   MatDialog,
   MatDialogConfig,
   MAT_DIALOG_DATA,
-} from "@angular/material/dialog";
+} from '@angular/material/dialog';
 
 @Component({
-  selector: "app-patient-verification",
-  templateUrl: "./patient-verification.component.html",
-  styleUrls: ["./patient-verification.component.scss"],
+  selector: 'app-patient-verification',
+  templateUrl: './patient-verification.component.html',
+  styleUrls: ['./patient-verification.component.scss'],
 })
 export class PatientVerificationComponent implements OnInit {
   Patient: any = [];
@@ -24,9 +27,9 @@ export class PatientVerificationComponent implements OnInit {
   socket;
   selectedPatient;
   options: any = [];
-  myControl = new FormControl("", Validators.required);
+  myControl = new FormControl('', Validators.required);
   filteredOptions: Observable<string[]>;
-  @ViewChild("dialog") templateRef: TemplateRef<any>;
+  @ViewChild('dialog') templateRef: TemplateRef<any>;
   imageUrl;
 
   constructor(
@@ -35,32 +38,32 @@ export class PatientVerificationComponent implements OnInit {
     public dialog:MatDialog
 
   ) {
-    this.socket = io.connect("http://localhost:3000");
+    this.socket = io.connect('http://localhost:3000');
   }
 
   ngOnInit(): void {
     this.getUsers();
-    this.socket.on("new-user", () => {
+    this.socket.on('new-user', () => {
       this.getUsers();
     });
-    this.socket.on("update-user", () => {
+    this.socket.on('update-user', () => {
       this.getUsers();
     });
-    this.socket.on("delete-user", () => {
+    this.socket.on('delete-user', () => {
       this.getUsers();
     });
-    this.socket.on("new-patient", () => {
+    this.socket.on('new-patient', () => {
       this.getUsers();
     });
-    this.socket.on("update-patient", () => {
+    this.socket.on('update-patient', () => {
       this.getUsers();
     });
-    this.socket.on("delete-patient", () => {
+    this.socket.on('delete-patient', () => {
       this.getUsers();
     });
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(""),
+      startWith(''),
       map((value) => this._filter(value))
     );
   }
@@ -76,51 +79,90 @@ export class PatientVerificationComponent implements OnInit {
       console.log(this.Patient);
     });
   }
-
+ acceptPatient(patient){
+     Swal.fire({
+       title: "Are you sure?",
+       text: `This patient will be added to the system`,
+       icon: "warning",
+       showCancelButton: true,
+       confirmButtonText: "Yes,accept it!",
+       cancelButtonText: "No, cancel!",
+       reverseButtons: true,
+       preConfirm: (login) => {
+         //methana update ekak enna one; active=true krnna one
+         this.apiService.deleteUser(patient._id).subscribe((data) => {
+           console.log(data);
+           this.socket.emit("updatedata", data);
+           if (!data.msg) Swal.showValidationMessage(`Request failed`);
+         });
+         //methana aye get users function eka awilla patient array eka update krnna one; active nathi un withrak pennana
+       },
+       // tslint:disable-next-line: only-arrow-functions
+     }).then(function (result) {
+       if (result.value) {
+         Swal.fire("Deleted!", "Patient request has been accepted.", "success");
+       } else if (result.dismiss === Swal.DismissReason.cancel) {
+         Swal.fire(
+           "Cancelled",
+           "You didn't accept the patient request",
+           "error"
+         );
+       }
+     });
+ }
   // Deleting a patient after declining the request
-  deleteUsers(patient) {
+  declinePatient(patient) {
     console.log(patient);
     Swal.fire({
-      title: "Are you sure?",
+      title: 'Are you sure?',
       text: `This patient will be deleted permanently`,
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!",
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
       reverseButtons: true,
       preConfirm: (login) => {
+        //me delete eke awulak enwa delete wenne na
         this.apiService.deleteUser(patient._id).subscribe((data) => {
           console.log(data);
-          this.socket.emit("updatedata", data);
+          this.socket.emit('updatedata', data);
           if (!data.msg) Swal.showValidationMessage(`Request failed`);
         });
         this.apiService2.deletePatient(patient._id).subscribe((data) => {
           console.log(data);
-          this.socket.emit("updatedata", data);
+          this.socket.emit('updatedata', data);
           if (!data.msg) Swal.showValidationMessage(`Request failed`);
         });
       },
       // tslint:disable-next-line: only-arrow-functions
     }).then(function (result) {
       if (result.value) {
-        Swal.fire("Deleted!", "Patient request has been declined.", "success");
+        Swal.fire('Deleted!', 'Patient request has been declined.', 'success');
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
-          "Cancelled",
-          "Error, couldn't decline the patient request",
-          "error"
+          'Cancelled',
+          "You didn't decline the patient request",
+          'error'
         );
       }
     });
   }
 
-  viewPatientReport(patient) {
+  async viewPatientReport(patient) {
     console.log(patient);
-    this.selectedPatient = this.apiService2.getPatient(patient._id); 
+    await this.apiService2.getPatientByEmail(patient.email).subscribe(
+      data => {
+        console.log(data);
+        this.selectedPatient = data.data;
+      },
+      error => {
+        console.log(error)
+      }
+    )
     console.log(this.selectedPatient);
     this.imageUrl=this.selectedPatient.patientReport;
     const dialogRef = this.dialog.open(this.templateRef);
-    
+
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
