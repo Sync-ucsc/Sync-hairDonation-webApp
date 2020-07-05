@@ -29,8 +29,8 @@ export class ManageAttendantsComponent implements OnInit {
 
 
   updateForm = new FormGroup({
-    fstName: new FormControl('', Validators.required),
-    lName: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     telephone: new FormControl('', [Validators.required, Validators.minLength(10)]),
     address: new FormControl('', Validators.required),
