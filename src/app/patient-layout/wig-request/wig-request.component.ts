@@ -14,7 +14,7 @@ import {BackendResponse} from '@model/backendResponse';
 })
 export class WigRequestComponent implements OnInit {
 
-  Type: 'Type 01' | 'Type 02' | 'Type 03' = null;
+  Type: 'Short Hair Wigs' | 'Long Hair Wigs' | 'Curly Hair Wigs' | 'Straight Hair Wigs' = null;
 
   lastRequestData: DbWigRequest;
 
@@ -50,7 +50,7 @@ export class WigRequestComponent implements OnInit {
         this._toastr.warning(`plz select type`);
         return;
       }
-      
+
       const patientId = this._patientService.getPatientId();
 
       const wigRequestObject = {
