@@ -1,53 +1,80 @@
 <div class="card card-custom">
-    <div class="card-header">
-        <h3 class="card-title">
-            Enter the details of the manager you want to add
-        </h3>
-    </div>
-    <form [formGroup]="managerForm" (ngSubmit)="onSubmit()">
-        <div class="card-body">
-    
-            <div class="form-group row">
-                <label class="col-2 col-form-label">First Name</label>
-                <div class="col-10">
-                    <input class="form-control" type="text" placeholder="First Name of the manager" formControlName="firstName" />
-                </div>
-            </div>
+  <div class="card-header">
+    <h3 class="card-title">
+      Enter the details of the manager you want to add
+    </h3>
+  </div>
+  <form (ngSubmit)="onSubmit()" [formGroup]="managerForm">
+    <div class="card-body">
 
-            <div class="form-group row">
-                <label class="col-2 col-form-label">Last Name</label>
-                <div class="col-10">
-                    <input class="form-control" type="text" placeholder="Last Name of the manager" formControlName="lastName" />
-                </div>
-            </div>
-    
-            <div class="form-group row">
-                <label class="col-2 col-form-label">E-mail</label>
-                <div class="col-10">
-                    <input class="form-control" type="email" placeholder="Working E-mail of the manager"
-                        formControlName="email" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-2 col-form-label">Telephone</label>
-                <div class="col-10">
-                    <input class="form-control" type="tel" placeholder="Ex : 077 1234567" formControlName="telephone" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-2 col-form-label">Address</label>
-                <div class="col-10">
-                    <input class="form-control" type="text" placeholder="Address of the manager" formControlName="address" />
-                </div>
-            </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col-2">
-                    </div>
-                    <div class="col-10">
-                        <button type="submit" class="btn btn-primary mr-2" [disabled]="!managerForm.valid">Add a Manager</button>
-                        <button type="reset" class="btn btn-secondary" (click)="managerForm.reset()">Cancel</button>
-                    </div>
-                </div>
-            </div>
-</div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">First Name</label>
+        <div class="col-10">
+          <input class="form-control" formControlName="firstName" placeholder="First Name of the manager" type="text"/>
+          <div
+            *ngIf="managerForm.controls['firstName'].invalid && (managerForm.controls['firstName'].dirty || managerForm.controls['firstName'].touched)"
+            class="alert ">
+            <div *ngIf="managerForm.controls['firstName'].errors.required">first name is required</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label">Last Name</label>
+        <div class="col-10">
+          <input class="form-control" formControlName="lastName" placeholder="Last Name of the manager" type="text"/>
+          <div
+            *ngIf="managerForm.controls['lastName'].invalid && (managerForm.controls['lastName'].dirty || managerForm.controls['lastName'].touched)"
+            class="alert ">
+            <div *ngIf="managerForm.controls['lastName'].errors.required">last name is required</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label">E-mail</label>
+        <div class="col-10">
+          <input class="form-control" formControlName="email" placeholder="Working E-mail of the manager"
+                 type="email"/>
+          <div
+            *ngIf="managerForm.controls['email'].invalid && (managerForm.controls['email'].dirty || managerForm.controls['email'].touched)"
+            class="alert ">
+            <div *ngIf="managerForm.controls['email'].errors.email">Please enter a valid email.</div>
+            <div *ngIf="managerForm.controls['email'].errors.required">email is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">Telephone</label>
+        <div class="col-10">
+          <input class="form-control" formControlName="telephone" placeholder="Ex : 077 1234567" type="tel"/>
+          <div
+            *ngIf="managerForm.controls['telephone'].invalid && (managerForm.controls['telephone'].dirty || managerForm.controls['telephone'].touched)"
+            class="alert ">
+            <div *ngIf="managerForm.controls['telephone'].errors.minlength">Ten numbers required</div>
+            <div *ngIf="managerForm.controls['telephone'].errors.required">telephone number is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">Address</label>
+        <div class="col-10">
+          <input class="form-control" formControlName="address" placeholder="Address of the manager" type="text"/>
+          <div
+            *ngIf="managerForm.controls['address'].invalid && (managerForm.controls['address'].dirty || managerForm.controls['address'].touched)"
+            class="alert ">
+            <div *ngIf="managerForm.controls['address'].errors.required">address is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-10">
+            <button [disabled]="!managerForm.valid" class="btn btn-primary mr-2" type="submit">Add a Manager</button>
+            <button (click)="managerForm.reset()" class="btn btn-secondary" type="reset">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>

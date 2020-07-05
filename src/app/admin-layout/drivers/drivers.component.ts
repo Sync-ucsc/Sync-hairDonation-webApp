@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
-import { DriverApiService } from './../../service/driver-api.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {DriverApiService} from '@services/driver-api.service';
+import {Router} from '@angular/router';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -11,28 +11,29 @@ import Swal from 'sweetalert2'
 })
 export class DriversComponent implements OnInit {
 
-  submitted=false;
+  submitted = false;
 
 
-  driverForm= new FormGroup({
-    fname: new FormControl('',Validators.required),
-    lname: new FormControl('',Validators.required),
-    email: new FormControl('',[Validators.required,Validators.email]),
-    telephone: new FormControl('',[Validators.required,Validators.minLength(10)]),
-    address:new FormControl(''),
+  driverForm = new FormGroup({
+    fname: new FormControl('', Validators.required),
+    lname: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    telephone: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    address: new FormControl('', Validators.required),
 
   })
 
   constructor(
     private router: Router,
     private apiService: DriverApiService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
 
   }
 
-  onSubmit(){
+  onSubmit() {
     console.log(this.driverForm.value);
     this.submitted = true;
 
