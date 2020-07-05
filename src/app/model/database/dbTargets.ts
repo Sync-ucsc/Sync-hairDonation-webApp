@@ -9,12 +9,16 @@ export interface DbTargets {
 
 export interface Targets {
   _id?: string,
+  noOfWigs?: number,
+  deliveryDate: string,
+  createdAt: string,
   salonId:string,
   salonName: string,
+  salonEmail: string,
+  address: string,
   requestId: string,
   lat: number,
   lng: number,
-  noOfWigs: number,
   status: TARGETS_STATUS,
 }
 
