@@ -2,25 +2,13 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  color: string;
-}
-
-const COLORS: string[] = [
-  'maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal',
-  'aqua', 'blue', 'navy', 'black', 'gray'
-];
-const NAMES: string[] = [
-  'Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver',
-  'Isabella', 'Jasper', 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'
-];
-
-
+// services
+import {TargetService} from '@services/target.service';
+// interfaces
+import {BackendResponse} from '@model/backendResponse';
+import {Targets} from '@model/database/dbTargets';
+// Sweet alert
+import sweetAlert from 'sweetalert2'
 
 @Component({
   selector: 'app-salon-location',
@@ -29,25 +17,105 @@ const NAMES: string[] = [
 })
 export class SalonLocationComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
-  dataSource: MatTableDataSource<UserData>;
+  displayedColumns: string[] = ['createdAt', 'status'];
+  dataSource: MatTableDataSource<Targets>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor() {
-    // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
+  needToDelivers: Targets[] | null = []
+  salonId: string;
 
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+  constructor(private _targetService: TargetService) {
+
   }
 
-  ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  async ngOnInit() {
+    this.salonId = this._targetService.salonId;
+    await this.getSalonNeedToDelivers();
+    // assign need to delivers to dataSource
+
+
   }
 
+  /**
+   * get salon all need to delivers by salonId
+   */
+  async getSalonNeedToDelivers(): Promise<any> {
+    try {
+      const salonId = this._targetService.salonId;
+
+      const response = await this._targetService
+        .getSalonNeedToDeliver(salonId).toPromise() as BackendResponse;
+
+      if (!response.success) throw new Error(response.debugMessage);
+
+      this.needToDelivers = response.data as Targets[] || null;
+
+      this.dataSource = new MatTableDataSource(this.needToDelivers);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
+  /**
+   *  add new delivery request for the salon
+   */
+  async addNewNeedToDeliver(): Promise<void> {
+    try {
+
+      const previousRequestNotDelivered = this.needToDelivers[0].status === `NeedToDeliver`
+
+      if (previousRequestNotDelivered) {
+        await sweetAlert.fire({
+          icon: 'error',
+          text: 'Your previous request is still processing!',
+        });
+        return;
+      }
+
+      const confirm = await sweetAlert.fire({
+        title: 'Are you sure?',
+        text: 'You want to add new delivery request',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Add request!'
+      })
+
+      if (confirm.value) {
+
+        const response = await this._targetService
+          .addNewNeedToDeliverToTheSalon(this.salonId).toPromise() as BackendResponse;
+
+        if (!response.success) throw new Error(response.debugMessage)
+
+        await sweetAlert.fire(
+          'Added!',
+          'Your request has been added.',
+          'success'
+        )
+
+        await this.getSalonNeedToDelivers();
+      }
+    } catch (error) {
+      await sweetAlert.fire(
+        'failed!',
+        'failed to add deliver request',
+        'error'
+      )
+    }
+
+  }
+
+  /**
+   * filter out need to delivers
+   */
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -56,18 +124,6 @@ export class SalonLocationComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-}
-
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
-
-  return {
-    id: id.toString(),
-    name,
-    progress: Math.round(Math.random() * 100).toString(),
-    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-  };
 
 }
+
