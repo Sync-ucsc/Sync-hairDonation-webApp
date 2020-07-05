@@ -1,3 +1,4 @@
+import { AttendantsComponent } from './attendants/attendants.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -25,7 +26,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ManageContactUsComponent } from './manage-contact-us/manage-contact-us.component';
 import { ViewContactUsComponent } from './view-contact-us/view-contact-us.component';
 import { DriversComponent } from './drivers/drivers.component';
-import { ManageDriversComponent, uploadDialog1Component } from './manage-drivers/manage-drivers.component';
+import { ManageDriversComponent } from './manage-drivers/manage-drivers.component';
 
 
 
@@ -35,11 +36,10 @@ import { ManageNotificationComponent } from './manage-notification/manage-notifi
 import { PushNotificationComponent } from './push-notification/push-notification.component';
 import { CdkDetailRowDirective } from './manage-notification/cdk-detail-row.directive';
 import { ManageDonorComponent,uploadDialog3Component } from './manage-donor/manage-donor.component';
-import { ManagePatientComponent } from './manage-patient/manage-patient.component'; 
+import { ManagePatientComponent } from './manage-patient/manage-patient.component';
 import { MatSelectModule } from '@angular/material/select';
-import { ManageAttendantsComponent,uploadDialog2Component } from './manage-attendants/manage-attendants.component';
-import { MatCardModule } from '@angular/material/card'; 
-
+import { ManageAttendantsComponent} from './manage-attendants/manage-attendants.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -74,8 +74,6 @@ import { MatCardModule } from '@angular/material/card';
     ManageSalonsComponent,
     ManageAttendantsComponent,
     uploadDialogComponent,
-    uploadDialog1Component,
-    uploadDialog2Component,
     uploadDialog3Component,
     AddManagerComponent,
     ViewManagerComponent,
@@ -90,6 +88,7 @@ import { MatCardModule } from '@angular/material/card';
     CdkDetailRowDirective,
     ManageDonorComponent,
     ManagePatientComponent,
+    AttendantsComponent,
   ],
 
 })
