@@ -4,21 +4,29 @@ import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class UserServiceService {
 
-  baseUrl = "http://localhost:3000/user";
-  headers = new HttpHeaders().set("Content-Type", "application/json");
+  baseUrl = 'http://localhost:3000/user';
+  headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private _http: HttpClient) {}
 
-  //get all users
+  // get all users
   getUsers() {
     return this._http.get(`${this.baseUrl}`);
   }
 
- //delete a single user
+  activeUser(userEmail: string){
+    return this._http.post(`${this.baseUrl}/patientActivate`, { userEmail});
+  }
+
+  removePatient(userEmail: string){
+    return this._http.post(`${this.baseUrl}/removePatient`, { userEmail});
+  }
+
+ // delete a single user
   deleteUser(id): Observable<any> {
     const url = `${this.baseUrl}/delete/${id}`;
     return this._http
@@ -27,10 +35,10 @@ export class UserServiceService {
   }
 
 
-  //error management
+  // error management
 
   errorMgmt(error: HttpErrorResponse) {
-    let errorMessage = "";
+    let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       // Get client-side error
       errorMessage = error.error.message;
@@ -44,14 +52,14 @@ export class UserServiceService {
 
 
 
-  //login
+  // login
   login() {
-    if ("admin") {
-    } else if ("donor") {
-    } else if ("patient") {
-    } else if ("salon") {
-    } else if ("manager") {
-    } else if ("attendant") {
+    if ('admin') {
+    } else if ('donor') {
+    } else if ('patient') {
+    } else if ('salon') {
+    } else if ('manager') {
+    } else if ('attendant') {
     } else {
     }
   }
