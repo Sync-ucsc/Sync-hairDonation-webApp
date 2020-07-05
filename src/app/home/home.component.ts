@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
       head.style.display = 'block';
       const top = document.getElementsByClassName('back_top')[0] as HTMLElement;
       top.click();
-    }, 500);
+    }, 100);
   }
 
   submit() {
@@ -69,4 +69,13 @@ export class HomeComponent implements OnInit {
         }
       )
   }
+
+  ismobile() {
+    if (window.innerWidth < 764) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }
