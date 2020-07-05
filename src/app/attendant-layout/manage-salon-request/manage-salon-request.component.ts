@@ -8,6 +8,7 @@ import {TargetService} from '@services/target.service';
 // models
 import {BackendResponse} from '@model/backendResponse';
 import {AllSalonNeedToDelivers} from '@model/Response/allSalonNeedToDelivers';
+import {MatDialog} from "@angular/material/dialog";
 
 
 
@@ -18,7 +19,7 @@ import {AllSalonNeedToDelivers} from '@model/Response/allSalonNeedToDelivers';
 })
 export class ManageSalonRequestComponent implements OnInit {
 
-  displayedColumns: string[] = ['salonName', 'address' , 'createdAt' , 'status'];
+  displayedColumns: string[] = ['salonName', 'address' , 'createdAt' , 'status', 'assign'];
   dataSource: MatTableDataSource<AllSalonNeedToDelivers>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -26,7 +27,9 @@ export class ManageSalonRequestComponent implements OnInit {
 
   showTable = false;
 
-  constructor(private _targetService: TargetService) {
+
+  constructor(private _targetService: TargetService,
+              public dialog: MatDialog) {
 
   }
 
@@ -63,5 +66,15 @@ export class ManageSalonRequestComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  assignToDriver() {
+    // this.DialogContentExampleDialog
+    const dialogRef = this.dialog.open(null);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+    console.log(`call assign`)
   }
 }
