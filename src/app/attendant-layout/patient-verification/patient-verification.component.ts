@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs';
 import {FormControl, Validators} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
@@ -7,11 +7,7 @@ import io from 'socket.io-client';
 // socket = require('socket.io-client')('http://localhost:3000');
 import {UserService} from './../../service/user.service';
 import {PatientApiService} from './../../service/patient-api.service'
-import {
-  MatDialog,
-  MatDialogConfig,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import {MatDialog,} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-patient-verification',
@@ -32,8 +28,7 @@ export class PatientVerificationComponent implements OnInit {
   constructor(
     private apiService: UserService,
     private apiService2: PatientApiService,
-    public dialog:MatDialog
-
+    public dialog: MatDialog
   ) {
     this.socket = io.connect('http://localhost:3000');
   }
@@ -77,8 +72,44 @@ export class PatientVerificationComponent implements OnInit {
     });
   }
 
+  acceptPatient(patient) {
+
+    console.log(patient)
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `This patient will be added to the system`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes,accept it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true,
+      preConfirm: (login) => {
+        // methana update ekak enna one; active=true krnna one
+        this.apiService.activeUser(patient.email).subscribe((data) => {
+          console.log(data);
+          this.socket.emit('updatedata', data);
+          if (!data.msg) Swal.showValidationMessage(`Request failed`);
+        });
+        // methana aye get users function eka awilla patient array eka update krnna one; active nathi un withrak pennana
+        this.getUsers();
+      },
+      // tslint:disable-next-line: only-arrow-functions
+    }).then(function (result) {
+      if (result.value) {
+        Swal.fire('Deleted!', 'Patient request has been accepted.', 'success');
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'You didn\'t accept the patient request',
+          'error'
+        );
+      }
+    });
+  }
+
   // Deleting a patient after declining the request
-  deleteUsers(patient) {
+  declinePatient(patient) {
     console.log(patient);
     Swal.fire({
       title: 'Are you sure?',
@@ -89,7 +120,8 @@ export class PatientVerificationComponent implements OnInit {
       cancelButtonText: 'No, cancel!',
       reverseButtons: true,
       preConfirm: (login) => {
-        this.apiService.deleteUser(patient._id).subscribe((data) => {
+        // me delete eke awulak enwa delete wenne na
+        this.apiService.removePatient(patient.email).subscribe((data) => {
           console.log(data);
           this.socket.emit('updatedata', data);
           if (!data.msg) Swal.showValidationMessage(`Request failed`);
@@ -107,16 +139,16 @@ export class PatientVerificationComponent implements OnInit {
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelled',
-          'Error, couldn\'t decline the patient request',
+          'You didn\'t decline the patient request',
           'error'
         );
       }
     });
   }
 
-  viewPatientReport(patient) {
+  async viewPatientReport(patient) {
     console.log(patient);
-    this.apiService2.getPatientByEmail(patient.email).subscribe(
+    await this.apiService2.getPatientByEmail(patient.email).subscribe(
       data => {
         console.log(data);
         this.selectedPatient = data.data;
@@ -126,7 +158,7 @@ export class PatientVerificationComponent implements OnInit {
       }
     )
     console.log(this.selectedPatient);
-    this.imageUrl=this.selectedPatient.patientReport;
+    this.imageUrl = this.selectedPatient.patientReport;
     const dialogRef = this.dialog.open(this.templateRef);
 
     dialogRef.afterClosed().subscribe((result) => {

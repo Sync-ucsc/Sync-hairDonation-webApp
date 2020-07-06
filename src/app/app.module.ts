@@ -99,6 +99,7 @@ import { DonoractiveComponent } from './donoractive/donoractive.component';
     AfterLoginService,
     SalonApiService,
     DonorApiService,
+    AttendantApiService,
   ],
   bootstrap: [AppComponent],
 

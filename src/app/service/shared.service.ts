@@ -9,7 +9,7 @@ export class SharedService {
 
   constructor() { }
 
-  errorManagement(error: HttpErrorResponse): Observable<never> {
+  httpErrorManagement(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {
       return throwError(error.error.message);
     } else {

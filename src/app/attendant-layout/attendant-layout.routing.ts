@@ -83,7 +83,7 @@ export const AttendantLayoutRoutes: Routes = [
     canActivate: [AfterLoginService],
   },
   {
-    path: 'manage-wig-request',
+    path: 'manage-salon-request',
     component: ManageSalonRequestComponent,
     canActivate: [AfterLoginService],
   },

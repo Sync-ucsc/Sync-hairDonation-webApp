@@ -23,6 +23,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSortModule} from '@angular/material/sort';
+import {MatButtonModule} from '@angular/material/button';
+
 
 @NgModule({
   imports: [
@@ -39,6 +41,8 @@ import {MatSortModule} from '@angular/material/sort';
     MatFormFieldModule,
     MatInputModule,
     MatSortModule,
+    MatButtonModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     DashboardComponent,
@@ -46,8 +50,8 @@ import {MatSortModule} from '@angular/material/sort';
     AppointmentDetailsComponent,
     ProfileComponent,
     SaloonChatComponent,
-     ViewCalendarComponent,
-     SalonLocationComponent,
+    ViewCalendarComponent,
+    SalonLocationComponent,
   ]
 })
 
