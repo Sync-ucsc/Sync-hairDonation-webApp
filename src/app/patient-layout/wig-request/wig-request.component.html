@@ -1,7 +1,9 @@
-<mat-card *ngIf="!lastRequestData?.finished && !lastRequestData?.canceled"
-          class="last-request">
-  Your last request is still processing
-</mat-card>
+<ng-container *ngIf="lastRequestData">
+  <mat-card *ngIf="!lastRequestData?.finished && !lastRequestData?.canceled"
+            class="last-request">
+    Your last request is still processing
+  </mat-card>
+</ng-container>
 
 <div class="card card-custom">
   <div class="card-header">

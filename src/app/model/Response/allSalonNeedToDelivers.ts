@@ -1,4 +1,5 @@
 export interface AllSalonNeedToDelivers {
+  requestId: string,
   status: string,
   address: string,
   createdAt: string,

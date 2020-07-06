@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // layout
 import {SharedLayoutModule} from '../shared-layout/shared-layout.module';
@@ -28,30 +28,32 @@ import {AttendantChatComponent} from './attendant-chat/attendant-chat.component'
 import {PatientVerificationComponent} from './patient-verification/patient-verification.component';
 import {ManageWigrequestComponent} from './manage-wigrequest/manage-wigrequest.component';
 import { ManageSalonRequestComponent } from './manage-salon-request/manage-salon-request.component';
+import { AssignDriverComponent } from './manage-salon-request/assign-driver/assign-driver.component';
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(AttendantLayoutRoutes),
-    FormsModule,
-    SharedLayoutModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDialogModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatTableModule,
-    MatIconModule,
-    MatAutocompleteModule,
-    NgxSpinnerModule,
-    MatSelectModule,
-    MatCardModule,
-    MatButtonModule,
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(AttendantLayoutRoutes),
+        FormsModule,
+        SharedLayoutModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDialogModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatIconModule,
+        MatAutocompleteModule,
+        NgxSpinnerModule,
+        MatSelectModule,
+        MatCardModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+    ],
   declarations: [
     DashboardComponent,
     ProfileComponent,
@@ -60,6 +62,7 @@ import { ManageSalonRequestComponent } from './manage-salon-request/manage-salon
     ManageWigrequestComponent,
     PatientVerificationComponent,
     ManageSalonRequestComponent,
+    AssignDriverComponent,
   ],
 })
 export class AttendantLayoutModule {}

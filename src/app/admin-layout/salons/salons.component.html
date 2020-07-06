@@ -1,83 +1,97 @@
 <div class="card card-custom">
-            <div class="card-header">
-                <h3 class="card-title">
-                    Enter the details of the salon you want to add
-                </h3>
-            </div>
-            <!--begin::Form-->
-            <form [formGroup]="salonForm" (ngSubmit)="onSubmit()">
-                <div class="card-body">
-                    
-                    <div class="form-group row">
-                        <label  class="col-2 col-form-label">Name</label>
-                        <div class="col-10">
-                            <input class="form-control" type="text" placeholder="Name of the salon" formControlName="name"/>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group row">
-                        <label  class="col-2 col-form-label">E-mail</label>
-                        <div class="col-10">
-                            <input class="form-control" type="email" placeholder="Working E-mail of the salon" formControlName="email"/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label  class="col-2 col-form-label">Telephone</label>
-                        <div class="col-10">
-                            <input class="form-control" type="tel" placeholder="Ex : 077 1234567" formControlName="telephone"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Communication:</label>
-                        <div class="checkbox-list">
-                            <label class="checkbox">
-                                <input type="checkbox" formControlName="checkSystem" [(ngModel)]="checkSystem"> System
-                                <span></span>
-                            </label>
-                            
-                            <label class="checkbox">
-                                <input type="checkbox" formControlName="checkSms" [(ngModel)]="checkSms"> SMS
-                                <span></span>
-                            </label>
-                            <label class="checkbox">
-                                <input type="checkbox" formControlName="checkEmail" [(ngModel)]="checkEmail"> E-mail
-                                <span></span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    
-                    <div class="form-group">
-                          <label>Address</label>
-                          <input type="text" class="form-control"  (keydown.enter)="$event.preventDefault()" placeholder="Type the address of the salon" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-                    </div>
-                      <!-- <div *ngIf="expression" -->
-                        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-                          <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
-                            (dragEnd)="markerDragEnd($event)"></agm-marker>
-                        </agm-map>
-                      
-                        
-                        <div>Latitude: {{latitude}}</div>
-                        <div>Longitude: {{longitude}}</div>
-                </div>
-                    
-                
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col-2">
-                        </div>
-                        <div class="col-10">
-                            <button type="submit" class="btn btn-primary mr-2" [disabled]="!salonForm.valid">Add a Salon</button>
-                            <button type="reset" class="btn btn-secondary" (click)="salonForm.reset()">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+  <div class="card-header">
+    <h3 class="card-title">
+      Enter the details of the salon you want to add
+    </h3>
+  </div>
+  <!--begin::Form-->
+  <form (ngSubmit)="onSubmit()" [formGroup]="salonForm">
+    <div class="card-body">
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label">Name</label>
+        <div class="col-10">
+          <input class="form-control" formControlName="name" placeholder="Name of the salon" type="text"/>
+          <div
+            *ngIf="salonForm.controls['name'].invalid && (salonForm.controls['name'].dirty || salonForm.controls['name'].touched)"
+            class="alert ">
+            <div *ngIf="salonForm.controls['name'].errors.required">name is required</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label">E-mail</label>
+        <div class="col-10">
+          <input class="form-control" formControlName="email" placeholder="Working E-mail of the salon" type="email"/>
+          <div
+            *ngIf="salonForm.controls['email'].invalid && (salonForm.controls['email'].dirty || salonForm.controls['email'].touched)"
+            class="alert ">
+            <div *ngIf="salonForm.controls['email'].errors.email">Please enter a valid email.</div>
+            <div *ngIf="salonForm.controls['email'].errors.required">email is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">Telephone</label>
+        <div class="col-10">
+          <input class="form-control" formControlName="telephone" placeholder="Ex : 077 1234567" type="tel"/>
+          <div
+            *ngIf="salonForm.controls['telephone'].invalid && (salonForm.controls['telephone'].dirty || salonForm.controls['telephone'].touched)"
+            class="alert ">
+            <div *ngIf="salonForm.controls['telephone'].errors.minlength">Ten numbers required</div>
+            <div *ngIf="salonForm.controls['telephone'].errors.required">telephone number is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Communication:</label>
+        <div class="checkbox-list">
+          <label class="checkbox">
+            <input [(ngModel)]="checkSystem" formControlName="checkSystem" type="checkbox"> System
+            <span></span>
+          </label>
+
+          <label class="checkbox">
+            <input [(ngModel)]="checkSms" formControlName="checkSms" type="checkbox"> SMS
+            <span></span>
+          </label>
+          <label class="checkbox">
+            <input [(ngModel)]="checkEmail" formControlName="checkEmail" type="checkbox"> E-mail
+            <span></span>
+          </label>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label>Address</label>
+        <input #search (keydown.enter)="$event.preventDefault()" autocapitalize="off"
+               autocorrect="off" class="form-control" placeholder="Type the address of the salon" spellcheck="off"
+               type="text" type="text">
+      </div>
+      <!-- <div *ngIf="expression" -->
+      <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+        <agm-marker (dragEnd)="markerDragEnd($event)" [latitude]="latitude" [longitude]="longitude"
+                    [markerDraggable]="true"></agm-marker>
+      </agm-map>
+<!--      <div>Latitude: {{latitude}}</div>-->
+<!--      <div>Longitude: {{longitude}}</div>-->
+    </div>
+
+
+    <div class="card-footer">
+      <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-10">
+          <button [disabled]="!salonForm.valid" class="btn btn-primary mr-2" type="submit">Add a Salon</button>
+          <button (click)="salonForm.reset()" class="btn btn-secondary" type="reset">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
-        
-        
- 
 
 
 
@@ -89,4 +103,6 @@
 
 
 
- 
+
+
+
