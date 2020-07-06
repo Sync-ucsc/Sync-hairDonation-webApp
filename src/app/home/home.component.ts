@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import * as $ from 'jquery';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
 
-import {environment} from '../../environments/environment';
+import {environment} from '@environments/environment';
 import {GetInTouch} from '@model/getInTouch';
 import {BackendResponse} from '@model/backendResponse';
 
@@ -14,6 +13,8 @@ import {BackendResponse} from '@model/backendResponse';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
 
   SlideOptions = {items: 1, dots: true, nav: true};
   CarouselOptions = {items: 3, dots: true, nav: true};
@@ -37,7 +38,7 @@ export class HomeComponent implements OnInit {
   buildForm() {
     this.getInTouch = this._fb.group({
       name: new FormControl('', Validators.required),
-      email: new FormControl('', [ Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       subject: new FormControl('', Validators.required),
       message: new FormControl('', Validators.required),
     })
@@ -70,19 +71,32 @@ export class HomeComponent implements OnInit {
     }, 500);
   }
 
-  submit() {
-    console.log(this.getInTouch.value);
+  async submit() {
+    try {
+      const data = this.getInTouch.value as GetInTouch;
+      console.log(data)
 
-    const data = this.getInTouch.value as GetInTouch;
+      const response = await this._http
+        .post(`${this.BASE_URL}/getInTouch/sendEmail`, data)
+        .toPromise() as BackendResponse;
 
-    this._http.post(`${this.BASE_URL}/getInTouch/add`, data)
-      .subscribe(
-        (response: BackendResponse) => {
-          response.success ? this._toastr.success('successfully send message') : this._toastr.error('fail to send message');
-        },
-        error => {
-          this._toastr.error('fail to send message');
-        }
-      )
+      console.log(response)
+
+      if (response.success) {
+        this.getInTouch.reset()
+        this.getInTouch.clearValidators()
+        this.getInTouch.clearAsyncValidators()
+        setTimeout(() => this.formGroupDirective.resetForm(), 0);
+        this._toastr.success('successfully send message');
+      } else {
+        this._toastr.error('fail to send message');
+
+      }
+
+    } catch (error) {
+      this._toastr.error('fail to send message');
+    }
+
+
   }
 }
