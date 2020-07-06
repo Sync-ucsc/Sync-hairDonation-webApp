@@ -25,8 +25,14 @@ export class ViewCalendarService {
    return this.http.get<any>(`dwe`, this.authorizationHeaders())
   }
 
+  // get all
+  getAll(){
+    const url = `${this.baseUrl}/getAll`;
+    return this.http.get<any>(url)
+  }
+
   // Create
-   createAppointment(data,date): Observable<any> {
+   createAppointment(data): Observable<any> {
   const url = `${this.baseUrl}/create`;
    return this.http.post('url', data);
   }

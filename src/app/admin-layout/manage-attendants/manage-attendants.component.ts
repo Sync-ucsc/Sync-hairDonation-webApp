@@ -22,7 +22,6 @@ export class ManageAttendantsComponent implements OnInit {
   @ViewChild('dialog2') templateRef2: TemplateRef<any>;
 
   Attendant:any = [];
-  AttendantNames:any=[];
   selectedAttendant;
 
 

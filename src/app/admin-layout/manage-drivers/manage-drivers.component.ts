@@ -21,7 +21,6 @@ export class ManageDriversComponent implements OnInit {
   @ViewChild('dialog2') templateRef2: TemplateRef<any>;
 
    Driver:any = [];
-   AttendantNames:any=[];
    selectedDriver;
 
 
@@ -114,7 +113,7 @@ export class ManageDriversComponent implements OnInit {
   // opening the update dialog
 
   openUpdateRef(driver){
-    this.selectedDriver=driver;
+    this.selectedDriver = driver;
     const dialogRef = this.dialog.open(this.templateRef2);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -151,7 +150,7 @@ export class ManageDriversComponent implements OnInit {
           reverseButtons: true,
           preConfirm: (login) => {
 
-            const id=this.selectedDriver._id;
+            const id = this.selectedDriver._id;
             this.apiService.updateDriver(id, this.updateForm.value)
               .subscribe(res => {
                 this.router.navigateByUrl('/admin/manage-drivers');

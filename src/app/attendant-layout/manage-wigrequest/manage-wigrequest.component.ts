@@ -49,7 +49,7 @@ export class ManageWigrequestComponent implements OnInit {
     this.socket.on('update-patient', () => {
       this.getPatients();
     });
-    this.socket.on('delete-patient', () => {
+    this.socket.on('new-wig-request', () => {
       this.getPatients();
     });
     this.socket.on('accept-wig-request', () => {

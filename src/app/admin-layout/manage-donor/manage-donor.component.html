@@ -39,8 +39,8 @@
     [formControl]="myControl"
     [matAutocomplete]="auto">
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-        <mat-option   *ngFor="let option of filteredOptions | async" [value]="option['name']">
-            {{option['name']}}
+        <mat-option   *ngFor="let option of filteredOptions | async" [value]="option['firstName']">
+            {{option['firstName']}}
         </mat-option>
     </mat-autocomplete>
     
