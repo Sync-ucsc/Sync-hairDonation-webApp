@@ -1,3 +1,4 @@
+import * as io from 'socket.io-client';
 import {Component, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {FullCalendarComponent} from '@fullcalendar/angular';
 import {EventInput} from '@fullcalendar/core';
@@ -16,6 +17,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./view-calendar.component.scss']
 })
 export class ViewCalendarComponent implements OnInit {
+
+  socket = io('http://localhost:3000/donorAppointment');
+
   showModal: boolean;
   addForm: FormGroup;
   submitted = false;
@@ -28,8 +32,9 @@ export class ViewCalendarComponent implements OnInit {
   eventsModel: any;
   n: number;
   date: number;
-  @ViewChild('calendar', {static: false}) calendar: FullCalendarComponent; // the #calendar in the template
+  @ViewChild('calendar', {static: false}) calendar: FullCalendarComponent;
 
+  // the #calendar in the template
   calendarVisible = true;
   // calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
   calendarWeekends = true;
@@ -51,11 +56,7 @@ export class ViewCalendarComponent implements OnInit {
 
   ];
   todayDate = moment().startOf('day');
-  TODAY = this.todayDate.format('YYYY-MM-DD');
-
-  // constructor(private renderer: Renderer2){
-
-  // }
+  TODAY = this.todayDate.format('YYYY-MM-DD')
   taskForm: FormGroup;
 
   constructor(
@@ -116,7 +117,6 @@ export class ViewCalendarComponent implements OnInit {
     this.options = {
       editable: true,
 
-
       // customButtons: {
 
       //   prev: {
@@ -134,6 +134,7 @@ export class ViewCalendarComponent implements OnInit {
       //     }
       //   },
       // },
+
       header: {
         left: 'prev,next today ',
         center: 'title',
@@ -167,75 +168,6 @@ export class ViewCalendarComponent implements OnInit {
       allDay: arg.allDay
     })
 
-
-    // 'show()';
-    // console.log(this.event);
-    //  swal({
-    //         title: 'Add Appointment',
-    //         html:
-    //             '<input id=" swal-input1" class="wal2-input">'+
-    //             '<input id="swal-input2" class=" swal2-input " >',
-    //         focusConfirm: false,
-    //         preConfirm: ()=>{
-    //           return [
-    //             document.getElementById('swal-input1').value,
-    //             document.getElementById('swal-input2').value
-    //           ]
-    //         }
-    //       })
-
-    // const swalWithBootstrapButtons = Swal.mixin({
-    //   customClass: {
-    //     confirmButton: 'btn btn-success',
-    //     cancelButton: 'btn btn-danger'
-    //   },
-    //   buttonsStyling: false
-    // })
-
-    // swalWithBootstrapButtons.fire({
-    //   title: 'Add Appointment',
-    // text: "Add customer  Name:<input type ='text'> <br> Add  Customer Phone Number :<input type = 'telephone'>",
-
-    //   input: 'text',
-
-    //   inputPlaceholder: "hjchkk",
-
-    //   inputAttributes: {
-    //     autocapitalize: 'off'
-    //   },
-    //   showCancelButton: true,
-    //   confirmButtonText: 'Yes, add it!',
-    //   cancelButtonText: 'No, cancel!',
-    //   reverseButtons: true
-    // }).then((result) => {
-    //   if (result.value) {
-    //     swalWithBootstrapButtons.fire(
-    //       'Add!',
-    //       'Your appointment is  added.',
-    //       'success'
-    //     )
-    //   } else if (
-    /* Read more about handling dismissals below */
-    //     result.dismiss === Swal.DismissReason.cancel
-    //   ) {
-    //     swalWithBootstrapButtons.fire(
-    //       'Cancelled',
-    //       'Your appointment is not added.',
-    //       'error'
-    //     )
-    //   }
-    // })
-
-
-    // if (confirm('Would you like to add appointment' + arg.dateStr + ' ?')) {
-    //   this.event = prompt('Enter Event', '');
-    //   console.log(this.event);
-//     this.calendarEvents = this.calendarEvents.concat({
-//  title: this.event,
-//       start: arg.date,
-//         allDay: arg.allDay
-// })
-
   }
 
   eventClick(model) {
@@ -246,7 +178,7 @@ export class ViewCalendarComponent implements OnInit {
     console.log(model);
   }
 
-  createTask(event) {
+  createAppointment(event) {
     console.log(event.event)
     // console.log('hi')
     // console.dir(this.calendar.element.nativeElement.querySelector(".fc-event"))
@@ -254,24 +186,24 @@ export class ViewCalendarComponent implements OnInit {
     date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     const string = event.event.name;
 
-    //  this._ViewCalendarService.create(string, date).subscribe(
-    //   data => {
-    //    if (data.success) {
-    //      event.event.setProp("id", data.task.id);
-    //    }
-    //    }
-    //  )
+     this._ViewCalendarService.createAppointment(string, date).subscribe(
+      data => {
+       if (data.success) {
+         event.event.setProp("id", data.task.id);
+       }
+       }
+     )
 
   }
 
-  updateTask(event) {
+  updateAppointment(event) {
 
     console.log(event)
     const id = (event.event.id) ? event.event.id : event.event._def.id;
     let date = event.event.start;
     date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 
-    this._ViewCalendarService.update(id, date).subscribe(
+    this._ViewCalendarService.updateAppointment(id, date).subscribe(
       data => {
       }
     )
@@ -295,14 +227,14 @@ export class ViewCalendarComponent implements OnInit {
 
   // }
 
-  deleteEvent(event) {
+  deleteAppointment(event) {
 
     if (event.jsEvent.srcElement.className == 'delete-icon') {
       console.log('delete-icon')
       console.log(event.event)
       const id = (event.event.id) ? event.event.id : event.event._def.id;
       console.log(id)
-      this._ViewCalendarService.delete(id).subscribe(
+      this._ViewCalendarService.deleteAppointment(id).subscribe(
         data => {
           if (data) {
             event.event.remove();
@@ -332,9 +264,9 @@ export class ViewCalendarComponent implements OnInit {
       return false;
     } else {
 
-      // this._ViewCalendarService.createAppointment(this.addForm.value).subscribe(
-      //    data => {
-      //    console.log('Appointment succesfully added!'+data)
+    // this._ViewCalendarService.createAppointment(this.addForm.value).subscribe(
+    // data => {
+    //   console.log('Appointment succesfully added!'+data)
       Swal.fire(
         'Done!',
         'You added a new appointment!',
@@ -345,9 +277,11 @@ export class ViewCalendarComponent implements OnInit {
 
       // );
       return name;
-    }
+    // }
+    // )
 
+   }
 
-  }
+}
 
 }
