@@ -54,8 +54,9 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/sendPasswordResetLink`, data);
   }
 
-  changePassword(data) {
-    return this.http.post(`${this.baseUrl}/changePassword`, data);
+  changePassword(data,token) {
+    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + token)
+    return this.http.post(`${this.baseUrl}/changePassword`, data , { headers: header });
   }
 
   // donor activate

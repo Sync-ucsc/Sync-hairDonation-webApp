@@ -6,13 +6,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Md5 } from 'ts-md5/dist/md5';
 
-
 @Component({
-  selector: 'app-change-password',
-  templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.scss']
+  selector: 'app-register-password',
+  templateUrl: './register-password.component.html',
+  styleUrls: ['./register-password.component.scss']
 })
-export class ChangePasswordComponent implements OnInit {
+export class RegisterPasswordComponent implements OnInit {
 
   passwordForm = new FormGroup({
     password: new FormControl('', [Validators.required]),
@@ -20,20 +19,20 @@ export class ChangePasswordComponent implements OnInit {
   });
 
   user = {
-    password: '',
-    token: '',
-    email: ''
+    password:'',
+    token:'',
+    email:''
   }
   logindata = {
-    email: '',
-    password: ''
+    email:'',
+    password:''
   }
 
   myform: FormGroup;
   showDetails = true;
   matcher = new MyErrorStateMatcher();
 
-  constructor(private userService: UserService, private fb: FormBuilder, private activatedroute: ActivatedRoute, private router: Router) { }
+  constructor(private userService: UserService, private fb: FormBuilder, private activatedroute:ActivatedRoute,private router: Router) { }
 
   ngOnInit(): void {
     this.myform = this.fb.group({
@@ -46,7 +45,7 @@ export class ChangePasswordComponent implements OnInit {
     });
     this.userService.login(this.logindata).subscribe(
       data => {
-        if (data['msg'] === 'password change') {
+        if (data['msg'] === 'password change'){
           console.log(data)
           this.user.token = data['data']['userToken'].split('JWT')[1];
           this.user.email = data['data']['user']['email'];
@@ -61,7 +60,7 @@ export class ChangePasswordComponent implements OnInit {
             'token invalid!',
             'error'
           );
-          this.router.navigate(['/login']);
+           this.router.navigate(['/login']);
         }
       },
       error => {
@@ -75,22 +74,22 @@ export class ChangePasswordComponent implements OnInit {
     )
   }
 
-  onSubmit() {
+  onSubmit(){
     let udata = {
       email: this.user.email,
       password: Md5.hashStr(this.user.password).toString()
     }
-    this.userService.changePassword(udata, this.user.token).subscribe(
+    this.userService.changePassword(udata,this.user.token).subscribe(
       data => {
         console.log(data)
-        if (data['success'] === true) {
+        if (data['success'] === true){
           Swal.fire(
             'Password change!',
             'your password changed!',
             'success'
           );
           this.router.navigate(['/login']);
-        } else {
+        }else {
           Swal.fire(
             'Invalid!',
             'Try again!',
