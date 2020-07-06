@@ -5,7 +5,7 @@
         </h3>
     </div>
     <!--begin::Form-->
-    
+
     <form [formGroup] = "attendantForm" (ngSubmit)="onSubmit()">
         <div class="card-body">
 
@@ -13,6 +13,11 @@
                 <label  class="col-2 col-form-label">First Name</label>
                 <div class="col-10">
                     <input class="form-control" type="text" placeholder="First Name of the Attendant" formControlName="firstName"/>
+                    <div
+                      *ngIf="attendantForm.controls['firstName'].invalid && (attendantForm.controls['firstName'].dirty || attendantForm.controls['firstName'].touched)"
+                      class="alert ">
+                      <div *ngIf="attendantForm.controls['firstName'].errors.required">First name is required</div>
+                    </div>
                 </div>
             </div>
 
@@ -20,6 +25,11 @@
                 <label  class="col-2 col-form-label">Last Name</label>
                 <div class="col-10">
                     <input class="form-control" type="text" placeholder="Last Name of the Attendant" formControlName="lastName"/>
+                    <div
+                      *ngIf="attendantForm.controls['lastName'].invalid && (attendantForm.controls['lastName'].dirty || attendantForm.controls['lastName'].touched)"
+                      class="alert ">
+                      <div *ngIf="attendantForm.controls['lastName'].errors.required">Last name is required</div>
+                    </div>
                 </div>
             </div>
 
@@ -27,18 +37,37 @@
                 <label  class="col-2 col-form-label">E-mail</label>
                 <div class="col-10">
                     <input class="form-control" type="email" placeholder="Working E-mail of the attendant" formControlName="email"/>
+                    <div
+                      *ngIf="attendantForm.controls['email'].invalid && (attendantForm.controls['email'].dirty || attendantForm.controls['email'].touched)"
+                      class="alert ">
+                      <div *ngIf="attendantForm.controls['email'].errors.email">Please enter a valid email.</div>
+                      <div *ngIf="attendantForm.controls['email'].errors.required">Email is required</div>
+                    </div>
                 </div>
             </div>
+
             <div class="form-group row">
                 <label  class="col-2 col-form-label">Telephone</label>
                 <div class="col-10">
                     <input class="form-control" type="tel" placeholder="Ex : 077 1234567" formControlName="telephone"/>
+                    <div
+                      *ngIf="attendantForm.controls['telephone'].invalid && (attendantForm.controls['telephone'].dirty || attendantForm.controls['telephone'].touched)"
+                      class="alert ">
+                      <div *ngIf="attendantForm.controls['telephone'].errors.required">Telephone number is required</div>
+                      <div *ngIf="attendantForm.controls['telephone'].errors.minlength">Ten numbers required</div>
+
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
               <label  class="col-2 col-form-label">Address</label>
               <div class="col-10">
                   <input class="form-control" type="gexg" placeholder="Address of the attendant" formControlName="address"/>
+                  <div
+                      *ngIf="attendantForm.controls['address'].invalid && (attendantForm.controls['address'].dirty || attendantForm.controls['address'].touched)"
+                      class="alert ">
+                      <div *ngIf="attendantForm.controls['address'].errors.required">Address is required</div>
+                    </div>
               </div>
           </div>
 

@@ -15,7 +15,7 @@ export class DriversComponent implements OnInit {
 
 
   driverForm = new FormGroup({
-    fname: new FormControl('', Validators.required),
+    fame: new FormControl('', Validators.required),
     lname: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     telephone: new FormControl('', [Validators.required, Validators.minLength(10)]),
