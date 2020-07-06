@@ -7,6 +7,7 @@ import { v4 as uuidV4 } from 'uuid';
 import {environment} from '@environments/environment';
 // model
 import {DbWigRequest} from '@model/database/dbWigRequest';
+import {TokenService} from "@services/token.service";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -20,7 +21,8 @@ export class PatientApiService {
   baseUrl2 = 'http://localhost:3000/patient';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient,
+              private _token: TokenService) {}
 
   // Get all Patients
   getPatients() {
@@ -49,7 +51,9 @@ export class PatientApiService {
 
   getRandomId = () => uuidV4();
 
-  getPatientId = (): string => '5f00741e4f6ae661a45a46d6';
+  getPatientId(){
+    return this._token.getId()
+  };
 
   createWigRequest(
     wigRequestData: DbWigRequest,
