@@ -32,9 +32,9 @@ export class ViewCalendarService {
   }
 
   // Create
-   createAppointment(data): Observable<any> {
-  const url = `${this.baseUrl}/create`;
-   return this.http.post('url', data);
+  createAppointment(data): Observable<any> {
+    const url = `${this.baseUrl}/create`;
+    return this.http.post(url, data);
   }
 
   // create(name,date){
