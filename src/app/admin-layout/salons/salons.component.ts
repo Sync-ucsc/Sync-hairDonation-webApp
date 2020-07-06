@@ -111,19 +111,21 @@ getAddress(latitude, longitude) {
 
  onSubmit(){
 
-   console.log(this.placeaddress.formatted_address);
-   this.salonForm.patchValue({
-     address:this.placeaddress.formatted_address,
-     latitude:this.latitude,
-     longitude:this.longitude
-   })
-   console.log(this.salonForm.value);
-   this.submitted=true;
+
 
    if (!this.salonForm.valid) {
     return false;
-  } else {
+    } else {
 
+     console.log(`valid`)
+     console.log(this.placeaddress.formatted_address);
+     this.salonForm.patchValue({
+       address:this.placeaddress.formatted_address,
+       latitude:this.latitude,
+       longitude:this.longitude
+     })
+     console.log(this.salonForm.value);
+     this.submitted=true;
     this.apiService.createSalon(this.salonForm.value).subscribe(
       data => {
           console.log('Salon successfully created!'+data)
