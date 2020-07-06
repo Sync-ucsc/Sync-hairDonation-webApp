@@ -155,7 +155,9 @@ export class ViewCalendarComponent implements OnInit {
     this.formGroupDirective.resetForm()
 
     let appoitment = {
-
+//json ekak hadanna ona 
+//variable dare emai saloon ,customer email
+//ng model for, 
     }
 
 
