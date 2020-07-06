@@ -49,7 +49,7 @@ export class PatientApiService {
 
   getRandomId = () => uuidV4();
 
-  getPatientId = (): string => '5efc7cd57fc53449307d0135';
+  getPatientId = (): string => '5f00741e4f6ae661a45a46d6';
 
   createWigRequest(
     wigRequestData: DbWigRequest,
