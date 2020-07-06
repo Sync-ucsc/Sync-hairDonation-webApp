@@ -19,6 +19,7 @@ import { PasswordRequestComponent } from './password-request/password-request.co
 import { DonorWaitComponent } from './donor-wait/donor-wait.component';
 import { PatientWaitComponent } from './patient-wait/patient-wait.component';
 import { DonoractiveComponent } from './donoractive/donoractive.component';
+import { RegisterPasswordComponent } from './register-password/register-password.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,10 @@ const routes: Routes = [
   {
     path: 'froget-password',
     component: PasswordRequestComponent
+  },
+  {
+    path: 'register-password',
+    component: RegisterPasswordComponent
   },
   {
     canActivate: [AfterLoginService],
