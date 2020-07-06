@@ -112,6 +112,7 @@ export class ViewCalendarComponent implements OnInit {
     if (!arg.allday) {
       document.getElementById('imagemodal').style.display = 'block';
       this.arg = arg;
+      console.log(arg)
       // this.calendarEvents = this.calendarEvents.concat({
       //   title: 'fff',
       //   start: arg.dateStr,
@@ -155,7 +156,9 @@ export class ViewCalendarComponent implements OnInit {
     this.formGroupDirective.resetForm()
 
     let appoitment = {
-
+//json ekak hadanna ona 
+//variable dare emai saloon ,customer email
+//ng model for, 
     }
 
 

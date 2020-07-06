@@ -70,11 +70,11 @@ export class UserService {
   }
 
   activeUser(userEmail: string) {
-    return this.http.post(`${this.baseUrl}/patientActivate`, { userEmail });
+    return this.http.post(`${this.baseUrl}/patientActivate`, { email:userEmail });
   }
 
   removePatient(userEmail: string) {
-    return this.http.post(`${this.baseUrl}/removePatient`, { userEmail });
+    return this.http.post(`${this.baseUrl}/removePatient`, { email:userEmail });
   }
 
   // delete a single user
