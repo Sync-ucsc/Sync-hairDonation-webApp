@@ -154,18 +154,16 @@ export class ViewCalendarComponent implements OnInit {
     // clear form values
     this.formGroupDirective.resetForm()
 
-    let appoitment = {
-//json ekak hadanna ona 
-//variable dare emai saloon ,customer email
-//ng model for, 
-    }
+    let appointment = {
+
+   }
 
 
     if (!this.addForm.valid) {
       return false;
     } else {
 
-      this._ViewCalendarService.createAppointment(appoitment).subscribe(
+      this._ViewCalendarService.createAppointment(appointment).subscribe(
         data => {
           Swal.fire(
             'Done!',
@@ -246,10 +244,10 @@ export class ViewCalendarComponent implements OnInit {
   }
 
 
-  
 
 
-  
+
+
   toggleVisible() {
     this.calendarVisible = !this.calendarVisible;
   }
@@ -339,5 +337,5 @@ export class ViewCalendarComponent implements OnInit {
     });
   }
 
-  
+
 }
