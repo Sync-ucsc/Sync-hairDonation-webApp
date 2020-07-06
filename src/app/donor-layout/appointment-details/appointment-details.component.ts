@@ -20,14 +20,32 @@ export class AppointmentDetailsComponent implements OnInit {
   date: number;
   @ViewChild('calendar', { static: false }) calendar: FullCalendarComponent; // the #calendar in the template
 
+
+  // the #calendar in the template
   calendarVisible = true;
   // calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
   calendarWeekends = true;
   calendarEvents: EventInput[] = [
-    { title: 'Event Now', start: new Date() }
+    {title: 'Event Now', start: '2020-07-03T16:00:00'},
+    {title: 'Event Now', start: '2020-07-03T16:00:00'},
+    {
+      start: '2020-07-03T10:00:00',
+      end: '2020-07-03T13:00:00',
+      display: 'background',
+      rendering: 'background'
+    },
+    {
+      title: 'Salon closed ',
+      start: '2020-07-04T08:00:00',
+      end: '2019-07-04T17.00.00',
+      color: '#019efb'
+    },
+
   ];
+
   todayDate = moment().startOf('day');
-  TODAY = this.todayDate.format('YYYY-MM-DD');
+  TODAY = this.todayDate.format('YYYY-MM-DD')
+
 
   constructor(private renderer: Renderer2){
 
@@ -58,10 +76,10 @@ export class AppointmentDetailsComponent implements OnInit {
       header: {
         left: 'prev,next today ',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-
+        right: 'dayGridMonth,timeGridWeek'
       },
       plugins: [dayGridPlugin, interactionPlugin, timeGrigPlugin]
+
 
     }
     console.log(this.options);
@@ -96,8 +114,8 @@ export class AppointmentDetailsComponent implements OnInit {
 
     swalWithBootstrapButtons.fire({
       title: 'Add Appointment',
-      text: "Are you want to add appointment?",
-      input: 'text',
+      // text: "Are you want to add appointment?",
+      // input: 'text',
       inputAttributes: {
         autocapitalize: 'off'
       },
@@ -134,7 +152,7 @@ export class AppointmentDetailsComponent implements OnInit {
   }
 
 
-  createTask(event) {
+  createAppointment(event) {
     console.log(event.event)
     console.log('hi')
     // console.dir(this.calendar.element.nativeElement.querySelector(".fc-event"))
@@ -151,7 +169,7 @@ export class AppointmentDetailsComponent implements OnInit {
     // )
 
   }
-  updateTask(event) {
+  updateAppointment(event) {
 
     console.log(event)
     let id = (event.event.id) ? event.event.id : event.event._def.id;
@@ -171,7 +189,7 @@ export class AppointmentDetailsComponent implements OnInit {
     this.renderer.appendChild(event.el, icon)
     this.renderer.addClass(event.el, 'text-light')
   }
-  deleteEvent(event) {
+  deleteAppointment(event) {
     if (event.jsEvent.srcElement.className == 'delete-icon') {
       console.log(event.event)
       let id = (event.event.id) ? event.event.id : event.event._def.id;
