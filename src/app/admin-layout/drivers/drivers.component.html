@@ -1,57 +1,84 @@
 <div class="card card-custom">
-            <div class="card-header">
-                <h3 class="card-title">
-                    Enter the details of the driver you want to add
-                </h3>
-            </div>
-            <!--begin::Form-->
-            <form [formGroup]="driverForm" (ngSubmit)="onSubmit()">
-                <div class="card-body">
+  <div class="card-header">
+    <h3 class="card-title">
+      Enter the details of the driver you want to add
+    </h3>
+  </div>
+  <!--begin::Form-->
+  <form (ngSubmit)="onSubmit()" [formGroup]="driverForm">
+    <div class="card-body">
 
-                    <div class="form-group row">
-                        <label  class="col-2 col-form-label">First Name</label>
-                        <div class="col-10">
-                            <input class="form-control" type="text" placeholder="First Name of the Driver" formControlName="firstName"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label  class="col-2 col-form-label">Last Name</label>
-                        <div class="col-10">
-                            <input class="form-control" type="text" placeholder="Last Name of the Driver" formControlName="lastNname"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label  class="col-2 col-form-label">E-mail</label>
-                        <div class="col-10">
-                            <input class="form-control" type="email" placeholder="Working E-mail of the Driver" formControlName="email"/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label  class="col-2 col-form-label">Telephone</label>
-                        <div class="col-10">
-                            <input class="form-control" type="tel" placeholder="Ex : 077 1234567" formControlName="telephone"/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                      <label  class="col-2 col-form-label">Address</label>
-                      <div class="col-10">
-                          <input class="form-control" type="text" placeholder="Address of the driver" formControlName="address"/>
-                      </div>
-                  </div>
-                </div>
-
-
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col-2">
-                        </div>
-                        <div class="col-10">
-                            <button type="submit" class="btn btn-primary mr-2" [disabled]="!driverForm.valid">Add Driver</button>
-                            <button type="reset" class="btn btn-secondary" (click)="driverForm.reset()">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">First Name</label>
+        <div class="col-10">
+          <input class="form-control" formControlName="fname" placeholder="First Name of the Driver" type="text"/>
+          <div
+            *ngIf="driverForm.controls['fname'].invalid && (driverForm.controls['fname'].dirty || driverForm.controls['fname'].touched)"
+            class="alert ">
+            <div *ngIf="driverForm.controls['fname'].errors.required">first name is required</div>
+          </div>
         </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label">Last Name</label>
+        <div class="col-10">
+          <input class="form-control" formControlName="lname" placeholder="Last Name of the Driver" type="text"/>
+          <div
+            *ngIf="driverForm.controls['lname'].invalid && (driverForm.controls['lname'].dirty || driverForm.controls['lname'].touched)"
+            class="alert ">
+            <div *ngIf="driverForm.controls['lname'].errors.required">last name is required</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label">E-mail</label>
+        <div class="col-10">
+          <input class="form-control" formControlName="email" placeholder="Working E-mail of the salon" type="email"/>
+          <div
+            *ngIf="driverForm.controls['email'].invalid && (driverForm.controls['email'].dirty || driverForm.controls['email'].touched)"
+            class="alert ">
+            <div *ngIf="driverForm.controls['email'].errors.email">Please enter a valid email.</div>
+            <div *ngIf="driverForm.controls['email'].errors.required">email is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">Telephone</label>
+        <div class="col-10">
+          <input class="form-control" formControlName="telephone" placeholder="Ex : 077 1234567" type="tel"/>
+          <div
+            *ngIf="driverForm.controls['telephone'].invalid && (driverForm.controls['telephone'].dirty || driverForm.controls['telephone'].touched)"
+            class="alert ">
+            <div *ngIf="driverForm.controls['telephone'].errors.minlength">Ten numbers required</div>
+            <div *ngIf="driverForm.controls['telephone'].errors.required">telephone number is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">Address</label>
+        <div class="col-10">
+          <input class="form-control" formControlName="address" placeholder="Address of the driver" type="text"/>
+          <div
+            *ngIf="driverForm.controls['address'].invalid && (driverForm.controls['address'].dirty || driverForm.controls['address'].touched)"
+            class="alert ">
+            <div *ngIf="driverForm.controls['address'].errors.required">address is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card-footer">
+      <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-10">
+          <button [disabled]="!driverForm.valid" class="btn btn-primary mr-2" type="submit">Add Driver</button>
+          <button (click)="driverForm.reset()" class="btn btn-secondary" type="reset">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

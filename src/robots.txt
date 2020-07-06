@@ -1,0 +1,18 @@
+User-agent: Googlebot
+Disallow: /local/
+Disallow: /assets/
+
+User-agent: Slurp
+Disallow: /local/
+Disallow: /assets/
+
+User-agent: Bingbot
+Disallow: /local/
+Disallow: /assets/
+
+
+# Group 2
+User-agent: *
+Disallow: 
+
+#Sitemap: https://mymech.lk/sitemap.xml

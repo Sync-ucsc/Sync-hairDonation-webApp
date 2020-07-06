@@ -11,13 +11,14 @@ import Swal from 'sweetalert2'
 })
 export class DriversComponent implements OnInit {
 
-  submitted=false;
+  submitted = false;
 
-  driverForm= new FormGroup({
-    firstName: new FormControl('',Validators.required),
-    lastname: new FormControl('',Validators.required),
-    email: new FormControl('',[Validators.required,Validators.email]),
-    telephone: new FormControl('',[Validators.required,Validators.minLength(10)]),
+
+  driverForm = new FormGroup({
+    fname: new FormControl('', Validators.required),
+    lname: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    telephone: new FormControl('', [Validators.required, Validators.minLength(10)]),
     address: new FormControl('', Validators.required),
 
   })
@@ -27,13 +28,14 @@ export class DriversComponent implements OnInit {
   constructor(
     private router: Router,
     private apiService: DriverApiService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
 
   }
 
-  onSubmit(){
+  onSubmit() {
     console.log(this.driverForm.value);
     this.submitted = true;
 

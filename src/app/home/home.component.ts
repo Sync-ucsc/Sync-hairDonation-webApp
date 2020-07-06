@@ -45,13 +45,20 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
+      // const node = document.createElement('script');
+      // node.src = '../../assets/js/main.js';
+      // node.type = 'text/javascript';
+      // node.async = false;
+      // document.getElementsByTagName('head')[0].appendChild(node);
+    }, 200)
+    setTimeout(() => {
       const loader = document.getElementsByClassName('loader-class')[0] as HTMLElement;
       const head = document.getElementsByClassName('head')[0] as HTMLElement;
       loader.style.display = 'none';
       head.style.display = 'block';
       const top = document.getElementsByClassName('back_top')[0] as HTMLElement;
       top.click();
-    }, 500);
+    }, 100);
   }
 
   submit() {
@@ -69,4 +76,13 @@ export class HomeComponent implements OnInit {
         }
       )
   }
+
+  ismobile() {
+    if (window.innerWidth < 764) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }

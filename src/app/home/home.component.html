@@ -44,7 +44,7 @@
   }
 </style>
 
-<div class="loader-class" >
+<div class="loader-class">
   <div class="loader"></div>
 </div>
 <div style="overflow: hidden;">
@@ -55,7 +55,7 @@
     <nav class="navbar navbar-expand-lg navbar-inner fixed-top custom-nav sticky w-100 rounded-0 mb-0">
       <div class="container">
         <!-- LOGO -->
-        <a class="navbar-brand brand-logo mr-4" href>
+        <a class="navbar-brand brand-logo mr-4" routerLink="/">
           <img alt class="img-fluid logo-light" src="../../assets/images/logo.png" style="height: 60px;">
           <img alt class="img-fluid logo-dark" src="../../assets/images/logo.png" style="height: 60px;">
         </a>
@@ -96,7 +96,7 @@
     </nav>
   </header>
   <!-- Home Start-->
-  <section class="main-header bg-header" id="home">
+  <section class="main-header bg-header"  *ngIf="!ismobile()" id="home">
     <div class="home-bg-img">
       <div class="container">
         <!-- <owl-carousel [options]="SlideOptions" [items]="divs" [carouselClasses]="['owl-theme', 'main-slider']">
@@ -119,7 +119,7 @@
                     and satisfying way for those who want to give something back to society to show that they care
                   </p>
                   <div class="mt-md-4 mb-4 text-lg-left text-center">
-                    <a class="btn theme-btn text-white" href="#how_it_works">GET STARTED</a>
+                    <a class="btn theme-btn text-white">GET STARTED</a>
                     <!--                    <a class="btn theme-btn text-white" routerLink='admin/dashboard' >GET STARTED</a>-->
                   </div>
                 </div>
@@ -144,7 +144,7 @@
                     positive body image after her hair is shed due to chemotherapy.
                   </p>
                   <div class="mt-md-4 mb-4 text-lg-left text-center">
-                    <a class="btn theme-btn text-white" href="#">GET STARTED</a>
+                    <a class="btn theme-btn text-white" routerLink="/signup-donor">GET STARTED</a>
                   </div>
                 </div>
               </div>
@@ -170,7 +170,78 @@
                     and emotional hardship.
                   </p>
                   <div class="mt-md-4 mb-4 text-lg-left text-center">
-                    <a class="btn theme-btn text-white" href="#">GET STARTED</a>
+                    <a class="btn theme-btn text-white" routerLink="/signup-donor">GET STARTED</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="banner-img-02">
+                  <img alt class="img-fluid" src="../../assets/images/main-banner-03.png">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="main-header bg-header" *ngIf="ismobile()" id="home">
+    <div class="home-bg-img">
+      <div class="container">
+        <!-- <owl-carousel [options]="SlideOptions" [items]="divs" [carouselClasses]="['owl-theme', 'main-slider']">
+              <div class="item" *ngFor="let div of divs">
+                  <div [innerHTML] = div></div>
+              </div>
+          </owl-carousel> -->
+        <div class="owl-carousel owl-theme main-slider">
+          <div class="item">
+            <div class="row align-items-center">
+              <div class="col-lg-7">
+                <div class="content">
+                  <h1 class="banner-title text-lg-left text-center text-white text-uppercase" style="padding-top: 10%;font-size: 2rem;">
+                    SHOW YOU CARE, DONATE YOUR HAIR
+                  </h1>
+                  <div class="mt-md-4 mb-4 text-lg-left text-center">
+                    <a class="btn theme-btn text-white">GET STARTED</a>
+                    <!--                    <a class="btn theme-btn text-white" routerLink='admin/dashboard' >GET STARTED</a>-->
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="banner-img-02">
+                  <img alt class="img-fluid" src="../../assets/images/main-banner-01.png">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="row align-items-center">
+              <div class="col-lg-7">
+                <div class="content">
+                  <h1 class="banner-title text-lg-left text-center text-white text-uppercase" style="padding-top: 10%;font-size: 2rem;">
+                    ANYONE CAN DONATE
+                  </h1>
+                  <div class="mt-md-4 mb-4 text-lg-left text-center">
+                    <a class="btn theme-btn text-white" routerLink="/signup-donor">GET STARTED</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="banner-img-02">
+                  <img alt class="img-fluid" src="../../assets/images/main-banner-02.png">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="row align-items-center">
+              <div class="col-lg-7">
+                <div class="content">
+                  <h2 class="banner-title text-lg-left text-center text-white text-uppercase" style="padding-top: 10%;font-size: 2rem;">
+                    THE NEED IS GREAT
+                  </h2>
+                  <div class="mt-md-4 mb-4 text-lg-left text-center">
+                    <a class="btn theme-btn text-white" routerLink="/signup-donor">GET STARTED</a>
                   </div>
                 </div>
               </div>
@@ -1184,6 +1255,6 @@
     </div>
   </footer>
   <!-- Back To Top -->
-  <a class="back_top rounded-circle text-center transition" href="#"><i
+  <a class="back_top rounded-circle text-center transition"><i
     class="mdi mdi-monitor-dashboard d-block text-white"></i></a>
 </div>

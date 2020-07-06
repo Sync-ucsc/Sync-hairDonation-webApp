@@ -279,7 +279,7 @@ export class Signup2Component implements OnInit {
           'success'
         )
 
-        this.router.navigate(['/admin/manage-salons']);
+        this.router.navigate(['/patient-wait']);
       },
       error => {
         // Do something with error

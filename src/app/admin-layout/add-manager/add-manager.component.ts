@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ManagerApiService } from './../../service/manager-api.service'
+import { ManagerApiService } from '@services/manager-api.service'
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./add-manager.component.scss']
 })
 export class AddManagerComponent implements OnInit {
-  
+
  submitted=false;
 
   managerForm = new FormGroup({
@@ -20,9 +20,8 @@ export class AddManagerComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     telephone: new FormControl('', [Validators.required, Validators.minLength(10)]),
     address: new FormControl('', Validators.required),
-
   })
-  
+
 
   constructor(
     private apiService:ManagerApiService,

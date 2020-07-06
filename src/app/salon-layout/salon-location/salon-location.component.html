@@ -32,7 +32,7 @@
       <th *matHeaderCellDef mat-header-cell mat-sort-header> Status</th>
       <td *matCellDef="let row" mat-cell>
         <ng-container *ngIf="row.status === 'NeedToDeliver'">Need To deliver</ng-container>
-        <ng-container *ngIf="row.status !== 'NeedToDeliver'">{{row.status }}</ng-container>
+        <ng-container *ngIf="row.status !== 'NeedToDeliver'"> {{row.status }}</ng-container>
       </td>
     </ng-container>
 

@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { Observable,throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +12,16 @@ export class ViewCalendarService {
   my(){
    return this.http.get<any>(`dwe`, this.authorizationHeaders())
   }
-  create(name,date){
-   return this.http.post<any>(`url`,{name : name , date : date}, this.authorizationHeaders());
+
+  // Create
+   createAppointment(data): Observable<any> {
+ // const url = `${this.baseUrl}/create`;
+   return this.http.post('url', data);
   }
+
+  // create(name,date){
+  //  return this.http.post<any>(`url`,{name : name , date : date}, this.authorizationHeaders());
+  // }
   update(id,date){
     return this.http.post(`url`,{id : id , date : date}, this.authorizationHeaders());
   }
