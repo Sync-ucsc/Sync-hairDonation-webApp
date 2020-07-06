@@ -1,4 +1,3 @@
-
 import { AttendantApiService } from '../../service/attendant-api.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -16,8 +15,8 @@ export class AttendantsComponent implements OnInit {
   submitted=false;
 
   attendantForm= new FormGroup({
-    fname: new FormControl('',Validators.required),
-    lname: new FormControl('',Validators.required),
+    firstName: new FormControl('',Validators.required),
+    lastName: new FormControl('',Validators.required),
     email: new FormControl('',[Validators.required,Validators.email]),
     telephone: new FormControl('',[Validators.required,Validators.minLength(10)]),
     address: new FormControl('', Validators.required),

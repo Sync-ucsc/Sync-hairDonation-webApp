@@ -155,16 +155,24 @@ export class ViewCalendarComponent implements OnInit {
     // clear form values
     this.formGroupDirective.resetForm()
 
-    let appoitment = {
-
-    }
+    let appointment = {
+      SalonEmail: 'mailtochamodij@gmail..com',
+        DonorRequest: false,
+        Donoremail: '' ,
+        customerEmail: 'chamo@gmail.com' ,
+        customerNumber: '0768774260',
+        customerName: 'Chamodi',
+        systemRequestDate:'2020.07.17',
+        appointmentDate: '2020.07.07',
+        appointmentTimeSlot:this.arg.dateStr
+   }
 
 
     if (!this.addForm.valid) {
       return false;
     } else {
 
-      this._ViewCalendarService.createAppointment(appoitment).subscribe(
+      this._ViewCalendarService.createAppointment(appointment).subscribe(
         data => {
           Swal.fire(
             'Done!',
@@ -245,10 +253,10 @@ export class ViewCalendarComponent implements OnInit {
   }
 
 
-  
 
 
-  
+
+
   toggleVisible() {
     this.calendarVisible = !this.calendarVisible;
   }
@@ -272,7 +280,7 @@ export class ViewCalendarComponent implements OnInit {
     // console.dir(this.calendar.element.nativeElement.querySelector(".fc-event"))
     let date = event.event.start;
     date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-    const string = event.event.name;
+    //const string = event.event.name;
 
      this._ViewCalendarService.createAppointment(date).subscribe(
       data => {
@@ -338,5 +346,5 @@ export class ViewCalendarComponent implements OnInit {
     });
   }
 
-  
+
 }

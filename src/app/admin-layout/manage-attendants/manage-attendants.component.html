@@ -12,7 +12,7 @@
       <tbody >
           <tr *ngFor="let attendant of Attendant; let i = index">
               <th scope="row">{{i+1}}</th>
-              <td>{{attendant['fName']}} {{attendant['lName']}}</td>
+              <td>{{attendant['firstName']}} {{attendant['lastName']}}</td>
               <td>{{attendant['email']}}</td>
               <td>{{attendant['telephone']}}</td>
               <td>{{attendant['address']}}</td>
@@ -89,18 +89,19 @@
 
 <!-- view dialog -->
 
+
 <ng-template #dialog>
-  <div class="modal position-relative d-block" tabindex="-1" role="dialog"
-      style="height: 80vh;width: 70vw;overflow-x: hidden;">
-      <div class="modal-dialog" role="document" style="height: 100%;width: 100%;overflow-y: scroll;">
+  <!-- <div class="modal position-relative d-block" tabindex="-1" role="dialog" style="height:450px;width: 400px;overflow-x: hidden;"> -->
+      <!-- <div class="modal-dialog" role="document" style="height: 100%;width: 100%;overflow-y: scroll;"> -->
+       <mat-card>
+           <mat-card-title>{{selectedAttendant.firstName}}</mat-card-title>
+          <mat-card-content [style.overflow]="'auto'" [style.height.px]="'300'">
+               E-mail:{{selectedAttendant.email}}<br>
+               Telephone:{{selectedAttendant.telephone}}<br>
+               Address:{{selectedAttendant.address}}<br>
 
-
-
-
-
-
-      </div>
-  </div>
+           </mat-card-content>
+       </mat-card>
 
 </ng-template>
 
@@ -117,14 +118,14 @@
                       <div class="form-group row">
                           <label class="col-2 col-form-label">First Name</label>
                           <div class="col-10">
-                              <input class="form-control" type="text" formControlName="fName"
-                                  [(ngModel)]="selectedAttendant.fName" />
+                              <input class="form-control" type="text" formControlName="firstName"
+                                  [(ngModel)]="selectedAttendant.firstName" />
                           </div>
                       </div>
                       <div class="form-group row">
                           <label class="col-2 col-form-label">Last Name</label>
                           <div class="col-10">
-                              <input class="form-control" type="text" formControlName="lName" [(ngModel)]="selectedAttendant.lName" />
+                              <input class="form-control" type="text" formControlName="lastName" [(ngModel)]="selectedAttendant.lastName" />
                           </div>
                       </div>
 

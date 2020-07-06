@@ -11,11 +11,11 @@
       <div class="form-group row">
         <label class="col-2 col-form-label">First Name</label>
         <div class="col-10">
-          <input class="form-control" formControlName="fname" placeholder="First Name of the Driver" type="text"/>
+          <input class="form-control" formControlName="firstName" placeholder="First Name of the Driver" type="text"/>
           <div
-            *ngIf="driverForm.controls['fname'].invalid && (driverForm.controls['fname'].dirty || driverForm.controls['fname'].touched)"
+            *ngIf="driverForm.controls['firstName'].invalid && (driverForm.controls['firstName'].dirty || driverForm.controls['firstName'].touched)"
             class="alert ">
-            <div *ngIf="driverForm.controls['fname'].errors.required">first name is required</div>
+            <div *ngIf="driverForm.controls['firstName'].errors.required">first name is required</div>
           </div>
         </div>
       </div>
@@ -23,11 +23,11 @@
       <div class="form-group row">
         <label class="col-2 col-form-label">Last Name</label>
         <div class="col-10">
-          <input class="form-control" formControlName="lname" placeholder="Last Name of the Driver" type="text"/>
+          <input class="form-control" formControlName="lastName" placeholder="Last Name of the Driver" type="text"/>
           <div
-            *ngIf="driverForm.controls['lname'].invalid && (driverForm.controls['lname'].dirty || driverForm.controls['lname'].touched)"
+            *ngIf="driverForm.controls['lastName'].invalid && (driverForm.controls['lastName'].dirty || driverForm.controls['lastName'].touched)"
             class="alert ">
-            <div *ngIf="driverForm.controls['lname'].errors.required">last name is required</div>
+            <div *ngIf="driverForm.controls['lastName'].errors.required">last name is required</div>
           </div>
         </div>
       </div>
