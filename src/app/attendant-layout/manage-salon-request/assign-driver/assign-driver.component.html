@@ -1,0 +1,20 @@
+<div *ngIf="drivers">
+  <form [formGroup]="form" class="example-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Drivers</mat-label>
+      <mat-select formControlName="driver">
+        <mat-option *ngFor="let driver of drivers" [value]="driver">
+          {{ driver.firstName }} {{driver.lastName}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls['driver'].hasError('required')">
+        You must make a selection
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button  cdkFocusInitial mat-button (click)="AssignToDriver()">Assign To Driver</button>
+</mat-dialog-actions>
