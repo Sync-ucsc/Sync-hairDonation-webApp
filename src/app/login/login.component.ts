@@ -53,7 +53,23 @@ export class LoginComponent implements OnInit {
           );
           this.router.navigate(['/activate']);
 
-        } else if (data['success'] === false ) {
+        } else if (data['success'] === true && data['msg'] === 'wait for attendant') {
+          Swal.fire(
+            'wait!',
+            'wait for attendant!',
+            'info'
+          );
+          this.router.navigate(['/patient-wait']);
+
+        } else if (data['success'] === true && data['msg'] === 'email verification') {
+          Swal.fire(
+            'wait!',
+            'Check your email!',
+            'info'
+          );
+          this.router.navigate(['/donor-wait']);
+
+        }  else if (data['success'] === false ) {
           Swal.fire(
             'Login Error!',
             data['msg']+'!',
@@ -67,8 +83,6 @@ export class LoginComponent implements OnInit {
             'error'
           );
         }
-
-          
         },
       error => {
         this.handleError(error)

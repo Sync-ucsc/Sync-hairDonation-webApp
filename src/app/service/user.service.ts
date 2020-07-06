@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { TokenService } from './token.service';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { Observable } from 'rxjs/internal/Observable';
+import { throwError } from 'rxjs';
 
 
 @Injectable({
@@ -54,6 +57,42 @@ export class UserService {
   changePassword(data) {
     return this.http.post(`${this.baseUrl}/changePassword`, data);
   }
+
+  // donor activate
+  donorActivate(data){
+    return this.http.post(`${this.baseUrl}/donorActive`, data);
+  }
+
+  // get all users
+  getUsers() {
+    return this.http.get(`${this.baseUrl}`);
+  }
+
+  // delete a single user
+  deleteUser(id): Observable<any> {
+    const url = `${this.baseUrl}/delete/${id}`;
+    return this.http
+      .delete(url, { headers: this.headers })
+      .pipe(catchError(this.errorMgmt));
+  }
+
+
+  //error management
+
+  errorMgmt(error: HttpErrorResponse) {
+    let errorMessage = "";
+    if (error.error instanceof ErrorEvent) {
+      // Get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
+  }
+
+
 
 
 }

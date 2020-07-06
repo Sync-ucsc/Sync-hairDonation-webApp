@@ -47,6 +47,9 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { PasswordRequestComponent } from './password-request/password-request.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { DonorWaitComponent } from './donor-wait/donor-wait.component';
+import { PatientWaitComponent } from './patient-wait/patient-wait.component';
+import { DonoractiveComponent } from './donoractive/donoractive.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +67,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     Signup2Component,
     PasswordRequestComponent,
     ChangePasswordComponent,
+    DonorWaitComponent,
+    PatientWaitComponent,
+    DonoractiveComponent,
   ],
   imports: [
     BrowserModule,

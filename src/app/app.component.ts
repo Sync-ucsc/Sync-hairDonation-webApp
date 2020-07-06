@@ -8,8 +8,8 @@ import { NotificationService } from '@services/notification.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  x = { 
-    publicKey: 'BE-J8ek0Xl6Mpgw5R6-B5M5BYISYVkQi6XVGmt8qymgz-u66hyrkEFcgZKJECL8bLHbPyPiVwgTaoH9EpP6VNlc', 
+  x = {
+    publicKey: 'BE-J8ek0Xl6Mpgw5R6-B5M5BYISYVkQi6XVGmt8qymgz-u66hyrkEFcgZKJECL8bLHbPyPiVwgTaoH9EpP6VNlc',
     privateKey: 'K2cXkx8quUdVzwF35KBX9NRXrGBiRNXRoE1WNz_StBM'
   }
   title = 'syncWebApp';
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     // private newsletterService: NewsletterService
     private notificationService: NotificationService
     ) {
-    this.subscribeToNotifications()
+     this.subscribeToNotifications()
      }
   ngOnInit(): void {
     this.reloadCache();
@@ -32,8 +32,13 @@ export class AppComponent implements OnInit {
     this.swPush.requestSubscription({
       serverPublicKey: this.VAPID_PUBLIC_KEY
     })
-      .then(sub => this.notificationService.addPushSubscriber(sub).subscribe())
-      .catch(err => console.error('Could not subscribe to notifications', err));
+      .then(sub1 => {
+        const data = {
+          sub: sub1
+        };
+        console.log(sub1);
+        this.notificationService.addPushSubscriber(data).subscribe((data1)=>{console.log(data1)});})
+      .catch(err => console.log('Could not subscribe to notifications', err));
   }
 
   reloadCache(){

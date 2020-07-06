@@ -16,6 +16,9 @@ import {SharedChatComponent} from './shared-layout/shared-chat/shared-chat.compo
 import { AfterLoginService } from '@services/after-login.service';
 import { Signup2Component } from './signup2/signup2.component';
 import { PasswordRequestComponent } from './password-request/password-request.component';
+import { DonorWaitComponent } from './donor-wait/donor-wait.component';
+import { PatientWaitComponent } from './patient-wait/patient-wait.component';
+import { DonoractiveComponent } from './donoractive/donoractive.component';
 
 const routes: Routes = [
   {
@@ -37,6 +40,18 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'donor-wait',
+    component: DonorWaitComponent
+  },
+  {
+    path: 'patient-wait',
+    component: PatientWaitComponent
+  },
+  {
+    path: 'donor-active',
+    component: DonoractiveComponent
   },
   {
     path: 'froget-password',
