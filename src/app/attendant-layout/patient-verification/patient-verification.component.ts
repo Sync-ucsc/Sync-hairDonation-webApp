@@ -5,7 +5,7 @@ import {map, startWith} from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
 // socket = require('socket.io-client')('http://localhost:3000');
-import {UserServiceService} from './../../service/user-service.service';
+import {UserService} from './../../service/user.service';
 import {PatientApiService} from './../../service/patient-api.service'
 import {MatDialog,} from '@angular/material/dialog';
 
@@ -26,7 +26,7 @@ export class PatientVerificationComponent implements OnInit {
   imageUrl;
 
   constructor(
-    private apiService: UserServiceService,
+    private apiService: UserService,
     private apiService2: PatientApiService,
     public dialog: MatDialog
   ) {
@@ -35,19 +35,7 @@ export class PatientVerificationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
-    this.socket.on('new-user', () => {
-      this.getUsers();
-    });
-    this.socket.on('update-user', () => {
-      this.getUsers();
-    });
-    this.socket.on('delete-user', () => {
-      this.getUsers();
-    });
     this.socket.on('new-patient', () => {
-      this.getUsers();
-    });
-    this.socket.on('update-patient', () => {
       this.getUsers();
     });
     this.socket.on('delete-patient', () => {
@@ -150,22 +138,21 @@ export class PatientVerificationComponent implements OnInit {
 
   async viewPatientReport(patient) {
     console.log(patient);
-    await this.apiService2.getPatientByEmail(patient.email).subscribe(
+    this.apiService2.getPatientByEmail(patient.email).subscribe(
       data => {
         console.log(data);
         this.selectedPatient = data.data;
+        this.imageUrl = this.selectedPatient.patientReport;
+        const dialogRef = this.dialog.open(this.templateRef);
+
+        dialogRef.afterClosed().subscribe((result) => {
+          console.log(`Dialog result: ${result}`);
+        });
       },
       error => {
         console.log(error)
       }
     )
-    console.log(this.selectedPatient);
-    this.imageUrl = this.selectedPatient.patientReport;
-    const dialogRef = this.dialog.open(this.templateRef);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
   }
 
   private _filter(value: string): string[] {

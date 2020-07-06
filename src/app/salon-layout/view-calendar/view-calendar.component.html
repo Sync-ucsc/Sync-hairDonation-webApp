@@ -31,11 +31,11 @@
       <full-calendar #calendar
                      (dateClick)="handleDateClick($event)"
                      (dayRender)="dayRender($event)"
-                     (eventClick)="deleteEvent($event)"
-                     (eventDragStop)="eventDragStop($event)"
+                     (eventClick)="deleteAppointment($event)"
+                     (eventDragStop)="updateAppointment($event)"
 
-                     (eventDrop)="updateTask($event)"
-                     (eventReceive)="createTask($event)"
+                     (eventDrop)="updateAppointment($event)"
+                     (eventReceive)="createAppointment($event)"
                      (eventRender)="eventDo($event)"
 
 
@@ -98,7 +98,7 @@
                     <input [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"
                            class="form-control"
                            formControlName="mobile"
-                           type="number" min="0"
+                           type="text" min="0"
                     />
                   </label>
                   <!-- change type from text to number, set min to 0-->

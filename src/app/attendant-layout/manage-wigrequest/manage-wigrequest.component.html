@@ -20,8 +20,8 @@
     matInput
     [matAutocomplete]="auto">
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-        <mat-option   *ngFor="let option of filteredOptions | async" [value]="option['name']">
-            {{option['name']}}
+        <mat-option   *ngFor="let option of filteredOptions | async" [value]="option['firstName']">
+            {{option['firstName']}}
         </mat-option>
     </mat-autocomplete>
     
@@ -34,6 +34,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name of the Patient</th>
+                <th scope="col">Patient report Id</th>
                 <th scope="col">Wig request type</th>
                 <th scope="col">Accept or Decline</th>
                 <!-- <th scope="col">Telephone</th>
@@ -47,6 +48,7 @@
                 <ng-container *ngIf="patient.lastRequest && patient.lastRequest.attendantStatus =='0'"> 
                 <th scope="row">{{i+1}}</th>
                 <td>{{patient['firstName']}} {{patient['lastName']}}</td>
+                <td>{{patient['reportId']}} </td>
                 <td>{{patient?.lastRequest?.wigType}}</td>
                 <!-- <td>{{donor['telePhone']}}</td>
                 <td>{{donor['address']}}</td>
@@ -71,6 +73,7 @@
             <tr *ngFor="let patient of filteredOptions | async; let i = index">
                 <th scope="row">{{i+1}}</th>
                 <td>{{patient['firstName']}} {{patient['lastName']}}</td>
+                <td>{{patient['reportId']}} </td>
                 <td>{{patient?.lastRequest?.wigType}}</td>
                 <!-- <td>{{donor['telePhone']}}</td>
                 <td>{{donor['address']}}</td>

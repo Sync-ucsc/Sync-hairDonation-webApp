@@ -6,13 +6,11 @@
         <div class="login login-3 wizard d-flex flex-column flex-lg-row flex-column-fluid wizard" id="kt_login" style="height: 100vh;"
             data-wizard-state="between">
             <!--begin::Aside-->
-            <div class="login-aside d-flex flex-column flex-row-auto" style="background: rgb(170,0,139);
-                            background: linear-gradient(0deg, rgba(170,0,139,1) 0%, rgba(186,48,162,1) 44%, rgb(223, 89, 200) 83%);
-                            
-                            " *ngIf="!ismobile()">
+            <div class="login-aside d-flex flex-column flex-row-auto" style="padding: 0%;height: 100vh;background: #631742;
+                background: linear-gradient(0deg, #631742 0%, #9d1f66 40%, #ec2f9a 83%);" *ngIf="!ismobile()">
                 <!--begin::Aside Top-->
-                <img src="../../assets/images/main-banner-03.png"style="z-index: 1; width: 25%;height: 35%;position: absolute;left: 10vw;top: 65vh;overflow: hidden;" alt="">
-                <div class="d-flex flex-column-auto flex-column pt-15 px-30">
+                <img src="../../assets/images/main-banner-02.png"style="z-index: 1; width: 22%;height: 36%;position: absolute;left: 10vw;top: 64vh;overflow: hidden;" alt="">
+                <div class="d-flex flex-column-auto flex-column pt-15 px-30" style="z-index: 2;">
                     
                     <!--begin: Wizard Nav-->
                     <div class="wizard-nav pt-5 pt-lg-30">
@@ -244,7 +242,7 @@
                                     <label class="font-size-h6 font-weight-bolder text-dark">First Name</label>
                                     <input type="text" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="fname"
                                          placeholder="First Name" required value="" [(ngModel)]=user.fname formControlName="fname"
-                                        style="background-color: aliceblue;border: 1px solid #9f0784 !important;" >
+                                        style="background-color: #fff;border: 1.5px solid #9f0784 !important;" >
                                     <div class="fv-plugins-message-container"></div>
                                 </div>
                                 <!--end::Form Group-->
@@ -254,7 +252,7 @@
                                     <label class="font-size-h6 font-weight-bolder text-dark">Last Name</label>
                                     <input type="text" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="lname"
                                         placeholder="Last Name" required  value="" [(ngModel)]=user.lname formControlName="lname"
-                                        style="background-color: aliceblue;border: 1px solid #9f0784 !important;" >
+                                        style="background-color: #fff;border: 1.5px solid #9f0784 !important;" >
                                     <div class="fv-plugins-message-container"></div>
                                 </div>
                                 <!--end::Form Group-->
@@ -264,7 +262,7 @@
                                     <label class="font-size-h6 font-weight-bolder text-dark">Email</label>
                                     <input type="text" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="lname"
                                         placeholder="Email" required  value="" [(ngModel)]=user.email formControlName="email"
-                                        style="background-color: aliceblue;border: 1px solid #9f0784 !important;" >
+                                        style="background-color: #fff;border: 1.5px solid #9f0784 !important;" >
                                     <div class="fv-plugins-message-container"></div>
                                 </div>
                                 
@@ -307,7 +305,7 @@
                             <div class="form-group fv-plugins-icon-container has-success">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Address</label>
                                 <input type="tel" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="address"
-                                    style="background-color: aliceblue;border: 1px solid #9f0784 !important;" placeholder="Search Nearest Location"
+                                    style="background-color: #fff;border: 1.5px solid #9f0784 !important;" placeholder="Search Nearest Location"
                                     spellcheck="off" type="text" required value="" [(ngModel)]=user.address formControlName="address">
                                 <div class="fv-plugins-message-container"></div>
                             </div>
@@ -317,7 +315,7 @@
                                 <label class="font-size-h6 font-weight-bolder text-dark">Phone</label>
                                 <input type="tel" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="phone"
                                     placeholder="phone" required value="" type="number" [(ngModel)]=user.phone formControlName="phone"
-                                    style="background-color: aliceblue;border: 1px solid #9f0784 !important;">
+                                    style="background-color: #fff;border: 1.5px solid #9f0784 !important;">
                                 <div class="fv-plugins-message-container"></div>
                             </div>
                             <!--begin::Form Group-->
@@ -325,7 +323,7 @@
                                 <label class="font-size-h6 font-weight-bolder text-dark">Nic</label>
                                 <input type="tel" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="nic"
                                     placeholder="Nic" required value="" [(ngModel)]=user.nic formControlName="nic"
-                                    style="background-color: aliceblue;border: 1px solid #9f0784 !important;">
+                                    style="background-color: #fff;border: 1.5px solid #9f0784 !important;">
                                 <div class="fv-plugins-message-container"></div>
                             </div>
                             <!--end::Form Group-->
@@ -396,7 +394,7 @@
                                         <label class="font-size-h6 font-weight-bolder text-dark">from Address</label>
                                         <input type="tel" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" name="address"
                                             (keydown.enter)="$event.preventDefault()"
-                                            style="background-color: aliceblue;border: 1px solid #9f0784 !important;"
+                                            style="background-color: #fff;border: 1.5px solid #9f0784 !important;"
                                             placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
                                             autocomplete="on" [(ngModel)]=user.address1 #search  #search required formControlName="address1">
                                         <div class="fv-plugins-message-container"></div>
@@ -472,7 +470,7 @@
                                 <div class="form-group fv-plugins-icon-container has-success">
                                     <label class="font-size-h6 font-weight-bolder text-dark">Password</label>
                                     <mat-pass-toggle-visibility #toggle matSuffix></mat-pass-toggle-visibility>
-                                    <input formControlName="password" [(ngModel)]="user.password"  style="background-color: aliceblue;border: 1px solid #9f0784 !important;" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" #password [type]="toggle.type" required placeholder="Password">
+                                    <input formControlName="password" [(ngModel)]="user.password"  style="background-color: #fff;border: 1.5px solid #9f0784 !important;" class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" #password [type]="toggle.type" required placeholder="Password">
                                     <mat-hint align="end" aria-live="polite">
                                         {{password.value.length}} / {{passwordComponent.max}}
                                     </mat-hint>
@@ -490,7 +488,7 @@
                                     <label class="font-size-h6 font-weight-bolder text-dark">Confirm Password</label>
                                     <mat-pass-toggle-visibility #toggle1 matSuffix></mat-pass-toggle-visibility>
                                     <input class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6" 
-                                     style="background-color: aliceblue;border: 1px solid #9f0784 !important;"
+                                     style="background-color: #fff;border: 1.5px solid #9f0784 !important;"
                                     formControlName="cpassword"  matInput #cpassword [type]="toggle1.type" required placeholder="Confirm Password"
                                         [errorStateMatcher]="matcher">
                                     <mat-hint align="end" aria-live="polite">

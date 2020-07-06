@@ -25,5 +25,18 @@
         ]
       }
     }
-  ]
+  ],
+  "dataGroups": [{
+    "name": "app",
+    "urls": [
+      ""
+    ],
+    "cacheConfig": {
+      "strategy": "freshness",
+      "timeout": "15s",
+      "maxAge": "1d",
+      "maxSize": 100
+    }
+  }]
+
 }
