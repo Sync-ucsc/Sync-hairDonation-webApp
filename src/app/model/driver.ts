@@ -1,13 +1,8 @@
 export class Driver {
-    fname:string;
-    lname:string;
+    firstName:string;
+    lastName:string;
     email:string;
-    telephone:number;
+    telephone:string;
     address:string;
-    latitude:number;
-    longitude: number;
-    checkSystem:boolean;
-    checkSms:boolean;
-    checkEmail:boolean;
 
 }

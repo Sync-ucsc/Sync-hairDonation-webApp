@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DriverApiService } from './Driver-api.service';
+import { DriverApiService } from './driver-api.service';
 
 describe('DriverApiService', () => {
-  let service: SalonApiService;
+  let service: DriverApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

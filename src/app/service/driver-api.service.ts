@@ -13,7 +13,7 @@ const baseUrl = 'http://localhost:3000/driver';
 })
 export class DriverApiService {
 
-  baseUrl = 'http://localhost:3000/driver';
+  baseUrl = 'http://127.0.0.1:3000/driver';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 
@@ -45,12 +45,12 @@ export class DriverApiService {
 }
 
 
-// Get all salons
+// Get all Drivers
 getDrivers() {
   return this.http.get(`${this.baseUrl}`);
 }
 
-// Get a salon
+// Get a Drivers
 getDriver(id): Observable<any> {
   const url = `${this.baseUrl}/read/${id}`;
   return this.http.get(url, {headers: this.headers}).pipe(
@@ -61,7 +61,7 @@ getDriver(id): Observable<any> {
   )
 }
 
-// Update salons
+// Update Drivers
 updateDriver(id, data): Observable<any> {
   const url = `${this.baseUrl}/update/${id}`;
   return this.http.put(url, data, { headers: this.headers }).pipe(
@@ -69,7 +69,7 @@ updateDriver(id, data): Observable<any> {
   )
 }
 
-// Delete salon
+// Delete Drivers
 deleteDriver(id): Observable<any> {
   const url = `${this.baseUrl}/delete/${id}`;
   return this.http.delete(url, { headers: this.headers }).pipe(

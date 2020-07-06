@@ -17,7 +17,6 @@ import Swal from 'sweetalert2'
 export class ManageDriversComponent implements OnInit {
 
   socket;
-
   @ViewChild('dialog') templateRef: TemplateRef<any>;
   @ViewChild('dialog2') templateRef2: TemplateRef<any>;
 
@@ -26,8 +25,8 @@ export class ManageDriversComponent implements OnInit {
 
 
    updateForm = new FormGroup({
-    fName: new FormControl('', Validators.required),
-    lName: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     telephone: new FormControl('', [Validators.required, Validators.minLength(10)]),
     address: new FormControl('', Validators.required),
@@ -114,7 +113,7 @@ export class ManageDriversComponent implements OnInit {
   // opening the update dialog
 
   openUpdateRef(driver){
-    this.selectedDriver=driver;
+    this.selectedDriver = driver;
     const dialogRef = this.dialog.open(this.templateRef2);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -151,7 +150,7 @@ export class ManageDriversComponent implements OnInit {
           reverseButtons: true,
           preConfirm: (login) => {
 
-            const id=this.selectedDriver._id;
+            const id = this.selectedDriver._id;
             this.apiService.updateDriver(id, this.updateForm.value)
               .subscribe(res => {
                 this.router.navigateByUrl('/admin/manage-drivers');

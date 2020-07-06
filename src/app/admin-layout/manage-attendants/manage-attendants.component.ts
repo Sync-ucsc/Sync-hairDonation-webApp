@@ -9,9 +9,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
 
- // import { Observable } from 'rxjs';
-
-
+// view and delete component
 @Component({
   selector: 'app-manage-attendants',
   templateUrl: './manage-attendants.component.html',
@@ -24,13 +22,12 @@ export class ManageAttendantsComponent implements OnInit {
   @ViewChild('dialog2') templateRef2: TemplateRef<any>;
 
   Attendant:any = [];
-  AttendantNames:any=[];
   selectedAttendant;
 
 
   updateForm = new FormGroup({
-    fstName: new FormControl('', Validators.required),
-    lName: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     telephone: new FormControl('', [Validators.required, Validators.minLength(10)]),
     address: new FormControl('', Validators.required),
@@ -61,7 +58,7 @@ constructor(
 
   }
 
-// view attendants
+ // view attendants
 
  getAttendants(){
 
@@ -71,6 +68,30 @@ constructor(
     })
 
  }
+
+ // opening the view dialog
+
+ openViewRef(attendant){
+  this.selectedAttendant=attendant;
+  const dialogRef = this.dialog.open(this.templateRef);
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log(`Dialog result: ${result}`);
+  });
+
+ }
+
+ // opening the update dialog
+
+openUpdateRef(attendant){
+  this.selectedAttendant=attendant;
+  const dialogRef = this.dialog.open(this.templateRef2);
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log(`Dialog result: ${result}`);
+  });
+
+}
 
  // updating the attendant
 
@@ -118,9 +139,9 @@ constructor(
     });
 
 
-}
+  }
 
-}
+ }
 
  // deleting the attendant
 
@@ -145,7 +166,7 @@ constructor(
         }
        )
 
-     },
+    },
      // tslint:disable-next-line: only-arrow-functions
    }).then(function (result) {
      if (result.value) {
@@ -162,31 +183,7 @@ constructor(
        )
      }
    });
-}
-
-// opening the update dialog
-
-openUpdateRef(attendant){
-  this.selectedAttendant=attendant;
-  const dialogRef = this.dialog.open(this.templateRef2);
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log(`Dialog result: ${result}`);
-  });
-
-}
-
-// opening the view dialog
-
-openViewRef(attendant){
-  this.selectedAttendant=attendant;
-  const dialogRef = this.dialog.open(this.templateRef);
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log(`Dialog result: ${result}`);
-  });
-
-}
+  }
 
 
 }
