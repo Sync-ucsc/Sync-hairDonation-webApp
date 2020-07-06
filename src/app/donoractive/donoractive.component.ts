@@ -20,7 +20,6 @@ export class DonoractiveComponent implements OnInit {
       this.data.email = params.get('email');
       this.data.id = params.get('id');
     });
-    console.log(this.data)
   }
 
   ngOnInit(): void {

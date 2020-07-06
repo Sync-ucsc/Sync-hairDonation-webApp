@@ -50,6 +50,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { DonorWaitComponent } from './donor-wait/donor-wait.component';
 import { PatientWaitComponent } from './patient-wait/patient-wait.component';
 import { DonoractiveComponent } from './donoractive/donoractive.component';
+import { RegisterPasswordComponent } from './register-password/register-password.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { DonoractiveComponent } from './donoractive/donoractive.component';
     DonorWaitComponent,
     PatientWaitComponent,
     DonoractiveComponent,
+    RegisterPasswordComponent,
   ],
   imports: [
     BrowserModule,
