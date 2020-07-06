@@ -12,7 +12,7 @@
 
                 
                 <div class="checkbox-inline">
-                    <h6 class="form-text">{{selectedDonor.address}}. Is this the current address?</h6>
+                    <h6 class="text">{{selectedDonor.address}}. Is this the current address of yours?</h6>
                     <label class="checkbox checkbox-circle checkbox-success">
                         <input type="checkbox" (change)="clickYes()" [value]='yes' formControlName="yes" [(ngModel)]="yes"/> Yes
                         <span></span>
@@ -25,9 +25,9 @@
              <ng-container *ngIf="no">
                 <div class="mb-15">
                     <div class="form-group row">
-                        <label class="col-lg-3 col-form-label">Your Address:</label>
+                        <label class="col-lg-3 col-form-label">Your new address:</label>
                         <div class="col-lg-9">
-                            <input type="text" class="form-control"  (keydown.enter)="$event.preventDefault()" placeholder="Type your address" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+                            <input type="text" class="form-control"  (keydown.enter)="$event.preventDefault()" placeholder="Type your new address" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                 <label class="col-form-label col-5 ">After which date you can donate :</label>
                 <div class="col-6">
                     <input type="date" class="form-control form-control-solid" placeholder="Enter appointment date" formControlName="validDate">
-                    <span class="form-text text-muted">Please enter customer appointment date</span>
+                    <span class="form-text text-muted">Please enter the appointment date</span>
                 </div>
             </div>
 
