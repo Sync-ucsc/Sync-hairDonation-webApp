@@ -7,7 +7,6 @@
 *------------------------------------------------------------------------
 */
 $(document).ready(function () {
-
     /*----MAIN SLIDER-----*/
     $('.main-slider').owlCarousel({
         loop: true,
@@ -15,7 +14,7 @@ $(document).ready(function () {
         margin: 0,
         nav: true,
         dots: true,
-        autoplay: false,
+        autoplay: true,
         autoplayTimeout: 5000,
         items: 1,
         responsiveClass: true,
@@ -45,7 +44,7 @@ $(document).ready(function () {
         margin: 0,
         nav: true,
         dots: true,
-        autoplay: false,
+        autoplay: true,
         autoplayTimeout: 5000,
         items: 2,
         responsiveClass: true,
@@ -74,7 +73,7 @@ $(document).ready(function () {
         margin: 0,
         nav: true,
         dots: true,
-        autoplay: false,
+        autoplay: true,
         autoplayTimeout: 5000,
         items: 2,
         responsiveClass: true,
