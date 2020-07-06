@@ -35,19 +35,7 @@ export class PatientVerificationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
-    this.socket.on('new-user', () => {
-      this.getUsers();
-    });
-    this.socket.on('update-user', () => {
-      this.getUsers();
-    });
-    this.socket.on('delete-user', () => {
-      this.getUsers();
-    });
     this.socket.on('new-patient', () => {
-      this.getUsers();
-    });
-    this.socket.on('update-patient', () => {
       this.getUsers();
     });
     this.socket.on('delete-patient', () => {
@@ -89,7 +77,7 @@ export class PatientVerificationComponent implements OnInit {
         this.apiService.activeUser(patient.email).subscribe((data) => {
           console.log(data);
           this.socket.emit('updatedata', data);
-          if (!data.msg) Swal.showValidationMessage(`Request failed`);
+          if (!data['msg']) Swal.showValidationMessage(`Request failed`);
         });
         // methana aye get users function eka awilla patient array eka update krnna one; active nathi un withrak pennana
         this.getUsers();
@@ -124,7 +112,7 @@ export class PatientVerificationComponent implements OnInit {
         this.apiService.removePatient(patient.email).subscribe((data) => {
           console.log(data);
           this.socket.emit('updatedata', data);
-          if (!data.msg) Swal.showValidationMessage(`Request failed`);
+          if (!data['msg']) Swal.showValidationMessage(`Request failed`);
         });
         this.apiService2.deletePatient(patient._id).subscribe((data) => {
           console.log(data);
@@ -148,22 +136,21 @@ export class PatientVerificationComponent implements OnInit {
 
   async viewPatientReport(patient) {
     console.log(patient);
-    await this.apiService2.getPatientByEmail(patient.email).subscribe(
+    this.apiService2.getPatientByEmail(patient.email).subscribe(
       data => {
         console.log(data);
         this.selectedPatient = data.data;
+        this.imageUrl = this.selectedPatient.patientReport;
+        const dialogRef = this.dialog.open(this.templateRef);
+
+        dialogRef.afterClosed().subscribe((result) => {
+          console.log(`Dialog result: ${result}`);
+        });
       },
       error => {
         console.log(error)
       }
     )
-    console.log(this.selectedPatient);
-    this.imageUrl = this.selectedPatient.patientReport;
-    const dialogRef = this.dialog.open(this.templateRef);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
   }
 
   private _filter(value: string): string[] {

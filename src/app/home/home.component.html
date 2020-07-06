@@ -44,7 +44,7 @@
   }
 </style>
 
-<div class="loader-class" *ngIf="!ismobile()">
+<div class="loader-class">
   <div class="loader"></div>
 </div>
 <div style="overflow: hidden;">
@@ -96,7 +96,7 @@
     </nav>
   </header>
   <!-- Home Start-->
-  <section class="main-header bg-header" id="home">
+  <section class="main-header bg-header"  *ngIf="!ismobile()" id="home">
     <div class="home-bg-img">
       <div class="container">
         <!-- <owl-carousel [options]="SlideOptions" [items]="divs" [carouselClasses]="['owl-theme', 'main-slider']">
@@ -169,6 +169,77 @@
                     effect on their appearance can be a further setback to patients who are already enduring physical
                     and emotional hardship.
                   </p>
+                  <div class="mt-md-4 mb-4 text-lg-left text-center">
+                    <a class="btn theme-btn text-white" routerLink="/signup-donor">GET STARTED</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="banner-img-02">
+                  <img alt class="img-fluid" src="../../assets/images/main-banner-03.png">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="main-header bg-header" *ngIf="ismobile()" id="home">
+    <div class="home-bg-img">
+      <div class="container">
+        <!-- <owl-carousel [options]="SlideOptions" [items]="divs" [carouselClasses]="['owl-theme', 'main-slider']">
+              <div class="item" *ngFor="let div of divs">
+                  <div [innerHTML] = div></div>
+              </div>
+          </owl-carousel> -->
+        <div class="owl-carousel owl-theme main-slider">
+          <div class="item">
+            <div class="row align-items-center">
+              <div class="col-lg-7">
+                <div class="content">
+                  <h1 class="banner-title text-lg-left text-center text-white text-uppercase" style="padding-top: 10%;font-size: 2rem;">
+                    SHOW YOU CARE, DONATE YOUR HAIR
+                  </h1>
+                  <div class="mt-md-4 mb-4 text-lg-left text-center">
+                    <a class="btn theme-btn text-white">GET STARTED</a>
+                    <!--                    <a class="btn theme-btn text-white" routerLink='admin/dashboard' >GET STARTED</a>-->
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="banner-img-02">
+                  <img alt class="img-fluid" src="../../assets/images/main-banner-01.png">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="row align-items-center">
+              <div class="col-lg-7">
+                <div class="content">
+                  <h1 class="banner-title text-lg-left text-center text-white text-uppercase" style="padding-top: 10%;font-size: 2rem;">
+                    ANYONE CAN DONATE
+                  </h1>
+                  <div class="mt-md-4 mb-4 text-lg-left text-center">
+                    <a class="btn theme-btn text-white" routerLink="/signup-donor">GET STARTED</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="banner-img-02">
+                  <img alt class="img-fluid" src="../../assets/images/main-banner-02.png">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="row align-items-center">
+              <div class="col-lg-7">
+                <div class="content">
+                  <h2 class="banner-title text-lg-left text-center text-white text-uppercase" style="padding-top: 10%;font-size: 2rem;">
+                    THE NEED IS GREAT
+                  </h2>
                   <div class="mt-md-4 mb-4 text-lg-left text-center">
                     <a class="btn theme-btn text-white" routerLink="/signup-donor">GET STARTED</a>
                   </div>
