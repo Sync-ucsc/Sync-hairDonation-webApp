@@ -68,6 +68,14 @@ export class UserService {
     return this.http.get(`${this.baseUrl}`);
   }
 
+  activeUser(userEmail: string) {
+    return this.http.post(`${this.baseUrl}/patientActivate`, { userEmail });
+  }
+
+  removePatient(userEmail: string) {
+    return this.http.post(`${this.baseUrl}/removePatient`, { userEmail });
+  }
+
   // delete a single user
   deleteUser(id): Observable<any> {
     const url = `${this.baseUrl}/delete/${id}`;
@@ -77,10 +85,10 @@ export class UserService {
   }
 
 
-  //error management
+  // error management
 
   errorMgmt(error: HttpErrorResponse) {
-    let errorMessage = "";
+    let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       // Get client-side error
       errorMessage = error.error.message;
@@ -91,8 +99,4 @@ export class UserService {
     console.log(errorMessage);
     return throwError(errorMessage);
   }
-
-
-
-
 }
