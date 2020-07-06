@@ -1,60 +1,125 @@
 <div class="card card-custom">
     <div class="card-header">
-        <div class="card-title">
-            <h3 class="card-label">
-                Appointment Calendar
-            </h3>
-        </div>
+      <!-- <div class="card-title"> -->
+      <!-- <h3 class="card-label">
+          Appointment Calendar
+      </h3> -->
+      <!-- </div> -->
     </div>
     <div class="card-body">
-        <div >
-            <!-- <button (click)="updateEvents()" id="updateEvents">Update events</button>
-        <button (click)="updateHeader()" id="updateHeader">Update header</button> -->
-            <!-- <div class='app-calendar' *ngIf="calendarVisible"> -->
-            <!-- <full-calendar
-          #calendar
-          [selectable]=true
-          [editable]="true"
-          [droppable]= "true"
-          defaultView="dayGridMonth"
-          [header]="{
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-          }"
-          [plugins]="calendarPlugins"
-          [weekends]="calendarWeekends"
-          [events]="calendarEvents"
-          (dateClick)="handleDateClick($event)"
-        ></full-calendar> -->
-           
-                <full-calendar #calendar 
-                [editable]="true" 
-                [events]="calendarEvents"
-                [header]="options.header"
-                [eventLimit] = true
+      <div>
+        <!-- <button (click)="updateEvents()" id="updateEvents">Update events</button>
+    <button (click)="updateHeader()" id="updateHeader">Update header</button> -->
+        <!-- <div class='app-calendar' *ngIf="calendarVisible"> -->
+        <!-- <full-calendar
+      #calendar
+      [selectable]=true
+      [editable]="true"
+      [droppable]= "true"
+      defaultView="dayGridMonth"
+      [header]="{
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      }"
+      [plugins]="calendarPlugins"
+      [weekends]="calendarWeekends"
+      [events]="calendarEvents"
+      (dateClick)="handleDateClick($event)"
+    ></full-calendar> -->
 
-                [height] = 500
-                [contentHeight] = 480
-                [aspectRatio] =3 
+        <full-calendar #calendar
+                       (dateClick)="handleDateClick($event)"
+                       (dayRender)="dayRender($event)"
+                       (eventClick)="deleteAppointment($event)"
+                       (eventDragStop)="eventDragStop($event)"
 
-                [nowIndicator] = true
+                       (eventDrop)="updateAppointment($event)"
+                       (eventReceive)="createAppointment($event)"
+                       (eventRender)="eventDo($event)"
 
-                defaultView = "dayGridMonth"
-                
-                [businessHours] = true
-                
-                    [customButtons]="options.customButtons" [weekends]="calendarWeekends"
-                    (eventDragStop)="eventDragStop($event)" [plugins]="options.plugins" (dayRender)="dayRender($event)"
-                    (eventReceive)="createTask($event)" (eventDrop)="updateTask($event)" (eventRender)="eventDo($event)"
-                    (eventClick)="deleteEvent($event)" (dateClick)="handleDateClick($event)"
-                    [columnHeaderHtml]="options.columnHeaderHtml"></full-calendar>
-        
-        
-        
-          
-        </div>
+
+                       [aspectRatio]=3
+
+                       [businessHours]="{
+                      startTime: '8:00',
+                      endTime: '17:00',
+                      daysOfWeek: [0, 1, 2,3,4,5,6 ]
+                  }"
+
+                       [columnHeaderHtml]="options.columnHeaderHtml"
+                       [contentHeight]=480
+                       [customButtons]="options.customButtons"
+                       [editable]="true"
+
+                       [eventLimit]=true
+                       [events]="calendarEvents"
+                       [header]="options.header"
+                       [height]=500
+                       [nowIndicator]=true
+                       [plugins]="options.plugins"
+                       [visibleRange]="{
+                      start: '2020-01-01',
+                      end: '2020-12-31'
+                  }"
+                       [weekends]="calendarWeekends"
+                       calendarWeekends=true;
+                       defaultView="timeGridWeek"
+                       slotDuration="00:30"></full-calendar>
+
+
+      </div>
     </div>
-</div>
+    <!-- <div [style.display]="showModal ? 'block' : 'none'" aria-hidden="true" aria-labelledby="myModalLabel" class="modal" id="imagemodal"
+         role="dialog" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Add Appointment</h4>
+          </div>
+          <div class="modal-body">
+            <form (ngSubmit)="onSubmit()" [formGroup]="addForm">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Customer Name</label>
+                    <input [ngClass]="{ 'is-invalid': submitted && f.name.errors }" class="form-control" formControlName="name"
+                           type="text"/>
+                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                      <div *ngIf="f.name.errors.required">Customer Name is required</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Customer Phone Number</label>
+                    <label>
+                      <input [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"
+                             class="form-control"
+                             formControlName="mobile"
+                             type="number" min="0"
+                      />
+                    </label>
+                    <!-- change type from text to number, set min to 0-->
+                    <!-- <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                      <div *ngIf="f.mobile.errors">Mobile must be Valid and at least 10 digits</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+
+
+          </div>
+          <div class="modal-footer">
+            <button (click)="onClick()" class="btn btn-dark" data-dismiss="modal" type="button">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
 
 
