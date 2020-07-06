@@ -11,7 +11,8 @@ export class TokenService {
   private iss = {
     login: 'http://127.0.0.1:3000/user'
   };
-  constructor(private http: HttpClient, private router: Router,) { }
+  constructor(private http: HttpClient, private router: Router,) {
+   }
 
   handle(token) {
     this.set(token);
@@ -64,6 +65,10 @@ export class TokenService {
 
   public getEmail() {
     return this.payload(this.gettoken()).email;
+  }
+
+  public getId() {
+    return this.payload(this.gettoken())._id;
   }
 
   public isUserAdmin(): boolean {
