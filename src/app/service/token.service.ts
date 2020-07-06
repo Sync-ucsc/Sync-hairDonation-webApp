@@ -11,7 +11,8 @@ export class TokenService {
   private iss = {
     login: 'http://127.0.0.1:3000/user'
   };
-  constructor(private http: HttpClient, private router: Router,) { }
+  constructor(private http: HttpClient, private router: Router,) {
+   }
 
   handle(token) {
     this.set(token);
