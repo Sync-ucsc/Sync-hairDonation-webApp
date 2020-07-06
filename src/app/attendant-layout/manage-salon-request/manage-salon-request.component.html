@@ -36,7 +36,7 @@
     <ng-container matColumnDef="assign">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> address </th>
       <td mat-cell *matCellDef="let row">
-        <button (click)="assignToDriver()"
+        <button (click)="assignToDriver(row)"
                 color="primary"
                 mat-stroked-button
         >assign to driver</button>

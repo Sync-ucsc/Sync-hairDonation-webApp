@@ -46,6 +46,14 @@ export class WigRequestComponent implements OnInit {
   async submit(): Promise<void> {
     try {
 
+      this.lastRequestData = await this.getLastRequest()
+
+      if (this.lastRequestData && !this.lastRequestData.finished && !this.lastRequestData.canceled) {
+        this._toastr.warning(`your last request is still processing`);
+        this.Type = null;
+        return;
+      }
+
       if (!this.Type) {
         this._toastr.warning(`plz select type`);
         return;
@@ -61,8 +69,11 @@ export class WigRequestComponent implements OnInit {
         attendantStatus: 0,
       } as DbWigRequest;
 
+
       const response = await this._patientService.createWigRequest(wigRequestObject, patientId).toPromise() as BackendResponse;
       if (!response.success) throw new Error(response.debugMessage)
+
+      this.Type = null;
 
       this._toastr.success(`wig request add successfully`)
 

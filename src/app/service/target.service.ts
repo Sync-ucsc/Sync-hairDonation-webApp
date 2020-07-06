@@ -43,7 +43,18 @@ export class TargetService {
   }
 
   /**
+   * get All drivers
+   */
+  getAllDrivers(): Observable<any>{
+    return this._http.get(`${this.baseUrl}/allDrivers`)
+      .pipe(catchError(this._sharedService.httpErrorManagement))
+  }
+
+  /**
    * add new location to the salon
    */
-
+  assignToDriver(driverEmail, data): Observable<any>{
+    return this._http.put(`${this.baseUrl}/assignToDriver/${driverEmail}`, data)
+      .pipe(catchError(this._sharedService.httpErrorManagement))
+  }
 }

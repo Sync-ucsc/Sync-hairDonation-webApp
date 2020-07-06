@@ -3,13 +3,14 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import {MatDialog} from '@angular/material/dialog';
 // services
 import {TargetService} from '@services/target.service';
 // models
 import {BackendResponse} from '@model/backendResponse';
 import {AllSalonNeedToDelivers} from '@model/Response/allSalonNeedToDelivers';
-import {MatDialog} from "@angular/material/dialog";
-
+// Modal
+import {AssignDriverComponent} from './assign-driver/assign-driver.component';
 
 
 @Component({
@@ -19,7 +20,7 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class ManageSalonRequestComponent implements OnInit {
 
-  displayedColumns: string[] = ['salonName', 'address' , 'createdAt' , 'status', 'assign'];
+  displayedColumns: string[] = ['salonName', 'address', 'createdAt', 'status', 'assign'];
   dataSource: MatTableDataSource<AllSalonNeedToDelivers>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -34,24 +35,29 @@ export class ManageSalonRequestComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<any> {
+   await this.buildTable()
+  }
+
+  async buildTable(){
     const response = await this.fetchData()
+    console.log(response)
     this.showTable = true;
     this.dataSource = new MatTableDataSource(response);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  async fetchData(): Promise<AllSalonNeedToDelivers[] | null>{
-    try{
+  async fetchData(): Promise<AllSalonNeedToDelivers[] | null> {
+    try {
 
       const response = await this._targetService
         .getAllSalonNeedToDelivers().toPromise() as BackendResponse
 
-      if(!response.success) throw new Error(`failed to get`);
+      if (!response.success) throw new Error(`failed to get`);
 
       return response.data as AllSalonNeedToDelivers[];
 
-    }catch (error) {
+    } catch (error) {
       console.log(`error`)
       console.log(error)
       return null
@@ -68,12 +74,15 @@ export class ManageSalonRequestComponent implements OnInit {
     }
   }
 
-  assignToDriver() {
-    // this.DialogContentExampleDialog
-    const dialogRef = this.dialog.open(null);
+  assignToDriver(row) {
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+    const dialogRef = this.dialog.open(AssignDriverComponent, {
+      data: {salonDetails: row}
+    });
+
+    dialogRef.afterClosed().subscribe(async result => {
+      console.log(result);
+      await this.buildTable()
     });
     console.log(`call assign`)
   }

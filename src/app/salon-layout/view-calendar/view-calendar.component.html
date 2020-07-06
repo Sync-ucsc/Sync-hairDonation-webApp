@@ -1,38 +1,14 @@
 <div class="card card-custom">
   <div class="card-header">
-    <!-- <div class="card-title"> -->
-    <!-- <h3 class="card-label">
-        Appointment Calendar
-    </h3> -->
-    <!-- </div> -->
   </div>
   <div class="card-body">
     <div>
-      <!-- <button (click)="updateEvents()" id="updateEvents">Update events</button>
-  <button (click)="updateHeader()" id="updateHeader">Update header</button> -->
-      <!-- <div class='app-calendar' *ngIf="calendarVisible"> -->
-      <!-- <full-calendar
-    #calendar
-    [selectable]=true
-    [editable]="true"
-    [droppable]= "true"
-    defaultView="dayGridMonth"
-    [header]="{
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-    }"
-    [plugins]="calendarPlugins"
-    [weekends]="calendarWeekends"
-    [events]="calendarEvents"
-    (dateClick)="handleDateClick($event)"
-  ></full-calendar> -->
 
       <full-calendar #calendar
                      (dateClick)="handleDateClick($event)"
                      (dayRender)="dayRender($event)"
                      (eventClick)="deleteAppointment($event)"
-                     (eventDragStop)="eventDragStop($event)"
+                     (eventDragStop)="updateAppointment($event)"
 
                      (eventDrop)="updateAppointment($event)"
                      (eventReceive)="createAppointment($event)"
@@ -98,7 +74,7 @@
                     <input [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"
                            class="form-control"
                            formControlName="mobile"
-                           type="number" min="0"
+                           type="text" min="0"
                     />
                   </label>
                   <!-- change type from text to number, set min to 0-->
