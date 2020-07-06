@@ -15,7 +15,7 @@
           <div
             *ngIf="driverForm.controls['fname'].invalid && (driverForm.controls['fname'].dirty || driverForm.controls['fname'].touched)"
             class="alert ">
-            <div *ngIf="driverForm.controls['fname'].errors.required">first name is required</div>
+            <div *ngIf="driverForm.controls['fname'].errors.required">First name is required</div>
           </div>
         </div>
       </div>
@@ -27,7 +27,7 @@
           <div
             *ngIf="driverForm.controls['lname'].invalid && (driverForm.controls['lname'].dirty || driverForm.controls['lname'].touched)"
             class="alert ">
-            <div *ngIf="driverForm.controls['lname'].errors.required">last name is required</div>
+            <div *ngIf="driverForm.controls['lname'].errors.required">Last name is required</div>
           </div>
         </div>
       </div>
@@ -40,7 +40,7 @@
             *ngIf="driverForm.controls['email'].invalid && (driverForm.controls['email'].dirty || driverForm.controls['email'].touched)"
             class="alert ">
             <div *ngIf="driverForm.controls['email'].errors.email">Please enter a valid email.</div>
-            <div *ngIf="driverForm.controls['email'].errors.required">email is required</div>
+            <div *ngIf="driverForm.controls['email'].errors.required">Email is required</div>
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@
             *ngIf="driverForm.controls['telephone'].invalid && (driverForm.controls['telephone'].dirty || driverForm.controls['telephone'].touched)"
             class="alert ">
             <div *ngIf="driverForm.controls['telephone'].errors.minlength">Ten numbers required</div>
-            <div *ngIf="driverForm.controls['telephone'].errors.required">telephone number is required</div>
+            <div *ngIf="driverForm.controls['telephone'].errors.required">Telephone number is required</div>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
           <div
             *ngIf="driverForm.controls['address'].invalid && (driverForm.controls['address'].dirty || driverForm.controls['address'].touched)"
             class="alert ">
-            <div *ngIf="driverForm.controls['address'].errors.required">address is required</div>
+            <div *ngIf="driverForm.controls['address'].errors.required">Address is required</div>
           </div>
         </div>
       </div>
