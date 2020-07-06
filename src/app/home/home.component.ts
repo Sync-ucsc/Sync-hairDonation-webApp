@@ -44,6 +44,22 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // const owl = $('.owl-carousel');
+    // // @ts-ignore
+    // owl.owlCarousel({
+    //   items:4,
+    //   loop:true,
+    //   margin:10,
+    //   autoplay:true,
+    //   autoplayTimeout:1000,
+    //   autoplayHoverPause:true
+    // });
+    // $('.play').on('click',() => {
+    //   owl.trigger('play.owl.autoplay',[1000])
+    // })
+    // $('.stop').on('click',() => {
+    //   owl.trigger('stop.owl.autoplay')
+    // })
     setTimeout(() => {
       const loader = document.getElementsByClassName('loader-class')[0] as HTMLElement;
       const head = document.getElementsByClassName('head')[0] as HTMLElement;

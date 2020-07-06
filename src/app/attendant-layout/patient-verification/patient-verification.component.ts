@@ -89,6 +89,7 @@ export class PatientVerificationComponent implements OnInit {
         this.apiService.activeUser(patient.email).subscribe((data) => {
           console.log(data);
           this.socket.emit('updatedata', data);
+          // @ts-ignore
           if (!data.msg) Swal.showValidationMessage(`Request failed`);
         });
         // methana aye get users function eka awilla patient array eka update krnna one; active nathi un withrak pennana
@@ -124,6 +125,7 @@ export class PatientVerificationComponent implements OnInit {
         this.apiService.removePatient(patient.email).subscribe((data) => {
           console.log(data);
           this.socket.emit('updatedata', data);
+          // @ts-ignore
           if (!data.msg) Swal.showValidationMessage(`Request failed`);
         });
         this.apiService2.deletePatient(patient._id).subscribe((data) => {
