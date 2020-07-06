@@ -39,11 +39,10 @@ export class ViewCalendarComponent implements OnInit {
   // calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
   calendarWeekends = true;
   calendarEvents: EventInput[] = [
-    {title: 'Event Now', start: '2020-07-03T16:00:00'},
-    {title: 'Event Now', start: '2020-07-03T16:00:00'},
+    { title: 'Event Now', start: '2020-07-05T16:00:00', id: 'ddd'},
     {
-      start: '2020-07-03T10:00:00',
-      end: '2020-07-03T13:00:00',
+      start: '2020-07-05T10:00:00',
+      end: '2020-07-05T13:00:00',
       display: 'background',
       rendering: 'background'
     },
@@ -57,6 +56,7 @@ export class ViewCalendarComponent implements OnInit {
   ];
   todayDate = moment().startOf('day');
   TODAY = this.todayDate.format('YYYY-MM-DD')
+  arg;
   taskForm: FormGroup;
 
   constructor(
@@ -69,51 +69,12 @@ export class ViewCalendarComponent implements OnInit {
     });
   }
 
-
-  get taskName() {
-    return this.taskForm.get('taskName') as FormControl;
-  }
-
-  get f() {
-    return this.addForm.controls;
-  }
-
-  show() {
-    this.showModal = true; // Show-Hide Modal Check
-
-  }
-
-  // Modal Close event
-  onClick() {
-    this.showModal = false;
-    document.getElementById('imagemodal').style.display = 'none';
-    console.log(`called me`)
-    this.calendarEvents.pop()
-    // document.getElementById("imagemodal").style.display="hide";
-  }
-
   ngOnInit() {
+    this.getall()
     this.addForm = this.fb.group({
       name: [' ', [Validators.required, Validators.minLength(6)]],
       mobile: [' ', [Validators.required, Validators.pattern(/^-?([0-9]\d*)?$/), Validators.minLength(10)]]
     });
-
-    this._ViewCalendarService.my().subscribe(
-      data => {
-        data.forEach(element => {
-
-          const event = {
-            id: element.id,
-            title: element.name,
-            date: element.date
-          }
-          this.calendar.getApi().addEvent(event);
-
-          //  this.calendarEvents;
-        });
-
-      }
-    )
     this.options = {
       editable: true,
 
@@ -147,6 +108,146 @@ export class ViewCalendarComponent implements OnInit {
 
   }
 
+  handleDateClick(arg) {
+    if (!arg.allday) {
+      document.getElementById('imagemodal').style.display = 'block';
+      this.arg = arg;
+      // this.calendarEvents = this.calendarEvents.concat({
+      //   title: 'fff',
+      //   start: arg.dateStr,
+      //   id: 'dddddd'
+      // })
+      // console.log(arg)
+    }
+
+
+  }
+
+  getall(){
+    this._ViewCalendarService.getAll().subscribe(
+      data => {
+        console.log(data)
+        data.data.forEach(element => {
+
+          const event = {
+            id: element.id,
+            title: element.name,
+            date: element.date
+          }
+          console.log(element)
+
+          // this.calendar.getApi().addEvent(event);
+
+          //  this.calendarEvents;
+        });
+
+      }
+    )
+  }
+
+
+  onSubmit() {
+
+    this.submitted = true;
+    const formValue = this.addForm.value;
+
+    // clear form values
+    this.formGroupDirective.resetForm()
+
+    let appoitment = {
+
+    }
+
+
+    if (!this.addForm.valid) {
+      return false;
+    } else {
+
+      this._ViewCalendarService.createAppointment(appoitment).subscribe(
+        data => {
+          Swal.fire(
+            'Done!',
+            'You added a new appointment!',
+            'success'
+          )
+          this.showModal = false;
+          this.calendarEvents = [];
+          this.getall();
+        },
+        error => {
+          Swal.fire(
+            'Error!',
+            'Error!',
+            'error'
+          )
+          this.showModal = false;
+        },
+      );
+    }
+
+  }
+
+  eventDragStop(model) {
+    console.log(model.event.id);
+    console.log(model.event);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  get taskName() {
+    return this.taskForm.get('taskName') as FormControl;
+  }
+
+  get f() {
+    return this.addForm.controls;
+  }
+
+  show() {
+    this.showModal = true; // Show-Hide Modal Check
+
+  }
+
+  // Modal Close event
+  onClick() {
+    this.showModal = false;
+    document.getElementById('imagemodal').style.display = 'none';
+    console.log(`called me`)
+    this.calendarEvents.pop()
+    // document.getElementById("imagemodal").style.display="hide";
+  }
+
+
+  
+
+
+  
   toggleVisible() {
     this.calendarVisible = !this.calendarVisible;
   }
@@ -159,37 +260,23 @@ export class ViewCalendarComponent implements OnInit {
     alert('dropped!');
   }
 
-  handleDateClick(arg) {
-    document.getElementById('imagemodal').style.display = 'block';
-    this.calendarEvents = this.calendarEvents.concat({
-      // title: this.name,
-      name: this.onSubmit(),
-      start: arg.date,
-      allDay: arg.allDay
-    })
-
-  }
 
   eventClick(model) {
     console.log(model);
   }
 
-  eventDragStop(model) {
-    console.log(model);
-  }
-
   createAppointment(event) {
     console.log(event.event)
-    // console.log('hi')
+    console.log('hi')
     // console.dir(this.calendar.element.nativeElement.querySelector(".fc-event"))
     let date = event.event.start;
     date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     const string = event.event.name;
 
-     this._ViewCalendarService.createAppointment(string, date).subscribe(
+     this._ViewCalendarService.createAppointment(date).subscribe(
       data => {
        if (data.success) {
-         event.event.setProp("id", data.task.id);
+          event.event.setProp('id', data.task.id);
        }
        }
      )
@@ -197,7 +284,7 @@ export class ViewCalendarComponent implements OnInit {
   }
 
   updateAppointment(event) {
-
+    console.log('ddd')
     console.log(event)
     const id = (event.event.id) ? event.event.id : event.event._def.id;
     let date = event.event.start;
@@ -250,38 +337,5 @@ export class ViewCalendarComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-
-    this.submitted = true;
-    const formValue = this.addForm.value;
-
-    // clear form values
-    setTimeout(() => this.formGroupDirective.resetForm(), 0);
-
-    console.log(formValue)
-
-    if (!this.addForm.valid) {
-      return false;
-    } else {
-
-    // this._ViewCalendarService.createAppointment(this.addForm.value).subscribe(
-    // data => {
-    //   console.log('Appointment succesfully added!'+data)
-      Swal.fire(
-        'Done!',
-        'You added a new appointment!',
-        'success'
-      )
-      // }
-      // this.showModal = false;
-
-      // );
-      return name;
-    // }
-    // )
-
-   }
-
-}
-
+  
 }
