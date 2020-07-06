@@ -112,6 +112,7 @@ export class ViewCalendarComponent implements OnInit {
     if (!arg.allday) {
       document.getElementById('imagemodal').style.display = 'block';
       this.arg = arg;
+      console.log(arg)
       // this.calendarEvents = this.calendarEvents.concat({
       //   title: 'fff',
       //   start: arg.dateStr,
