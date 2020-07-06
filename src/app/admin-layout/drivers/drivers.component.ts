@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
-import { DriverApiService } from './../../service/driver-api.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {DriverApiService} from '@services/driver-api.service';
+import {Router} from '@angular/router';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -15,15 +15,13 @@ export class DriversComponent implements OnInit {
 
 
   driverForm = new FormGroup({
-    fame: new FormControl('', Validators.required),
-    lname: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     telephone: new FormControl('', [Validators.required, Validators.minLength(10)]),
     address: new FormControl('', Validators.required),
 
   })
-  @ViewChild('search')
-  public searchElementRef : ElementRef;
 
   constructor(
     private router: Router,

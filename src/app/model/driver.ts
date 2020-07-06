@@ -2,7 +2,7 @@ export class Driver {
     firstName:string;
     lastName:string;
     email:string;
-    telephone:number;
+    telephone:string;
     address:string;
 
 }
