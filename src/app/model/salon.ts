@@ -1,7 +1,7 @@
 export class Salon {
     name:string;
     email:string;
-    telephone:number;
+    telephone:string;
     address:string;
     latitude:number;
     longitude: number;
