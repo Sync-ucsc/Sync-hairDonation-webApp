@@ -31,11 +31,11 @@
       <full-calendar #calendar
                      (dateClick)="handleDateClick($event)"
                      (dayRender)="dayRender($event)"
-                     (eventClick)="deleteEvent($event)"
+                     (eventClick)="deleteAppointment($event)"
                      (eventDragStop)="eventDragStop($event)"
 
-                     (eventDrop)="updateTask($event)"
-                     (eventReceive)="createTask($event)"
+                     (eventDrop)="updateAppointment($event)"
+                     (eventReceive)="createAppointment($event)"
                      (eventRender)="eventDo($event)"
 
 
