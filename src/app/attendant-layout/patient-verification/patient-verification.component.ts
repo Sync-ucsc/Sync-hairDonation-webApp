@@ -5,7 +5,7 @@ import {map, startWith} from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
 // socket = require('socket.io-client')('http://localhost:3000');
-import {UserServiceService} from './../../service/user-service.service';
+import {UserService} from './../../service/user.service';
 import {PatientApiService} from './../../service/patient-api.service'
 import {MatDialog,} from '@angular/material/dialog';
 
@@ -26,7 +26,7 @@ export class PatientVerificationComponent implements OnInit {
   imageUrl;
 
   constructor(
-    private apiService: UserServiceService,
+    private apiService: UserService,
     private apiService2: PatientApiService,
     public dialog: MatDialog
   ) {

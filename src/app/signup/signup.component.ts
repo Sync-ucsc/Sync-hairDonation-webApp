@@ -346,18 +346,7 @@ export class SignupComponent implements OnInit {
           'Your Signup Successfuly!',
           'success'
         )
-        Swal.fire(
-          'Done!',
-          'Your Signup Successfuly!',
-          'success'
-        )
-        Swal.fire(
-          'Done!',
-          'Your Signup Successfuly!',
-          'success'
-        )
-
-        this.router.navigate(['/admin/manage-salons']);
+        this.router.navigate(['/donor-wait']);
       },
       error => {
         // Do something with error
