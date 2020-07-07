@@ -300,7 +300,7 @@ export class Signup2Component implements OnInit {
     return this.url === null? false:true;
   }
   save() {
-    var name = this.selectedImage.name;
+    const name = this.selectedImage.name;
     const fileRef = this.storage.ref(name);
     this.storage.upload(name, this.selectedImage).snapshotChanges().pipe(
       finalize(() => {

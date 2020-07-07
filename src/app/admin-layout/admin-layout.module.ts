@@ -40,6 +40,9 @@ import { ManagePatientComponent } from './manage-patient/manage-patient.componen
 import { MatSelectModule } from '@angular/material/select';
 import { ManageAttendantsComponent} from './manage-attendants/manage-attendants.component';
 import { MatCardModule } from '@angular/material/card';
+import { UserComponent } from './user/user.component';
+import { IpComponent } from './ip/ip.component';
+import { FringerprintComponent } from './fringerprint/fringerprint.component';
 
 
 
@@ -89,6 +92,9 @@ import { MatCardModule } from '@angular/material/card';
     ManageDonorComponent,
     ManagePatientComponent,
     AttendantsComponent,
+    UserComponent,
+    IpComponent,
+    FringerprintComponent,
   ],
 
 })

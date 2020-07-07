@@ -176,7 +176,7 @@ export class SignupComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       cpassword: new FormControl(''),
     }, { validator: this.checkPasswords });
-    
+
   }
 
   // Get Current Location Coordinates

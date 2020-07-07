@@ -14,7 +14,7 @@ import {formatDate} from '@angular/common';
   styleUrls: ['./donor-request.component.scss']
 })
 export class DonorRequestComponent implements OnInit {
-   
+
   socket = io('http://localhost:3000/donor');
   today = new Date()
 
@@ -47,8 +47,8 @@ export class DonorRequestComponent implements OnInit {
     private router: Router,
     private apiService: DonorApiService,
     private tokenService: TokenService
-  ) { 
-    
+  ) {
+
       this.requestDay = formatDate(new Date(), 'yyyy/MM/dd', 'en');
   }
 
@@ -57,7 +57,7 @@ export class DonorRequestComponent implements OnInit {
     this.email=this.tokenService.getEmail();
     console.log(this.email);
     this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
-      this.selectedDonor=data["data"];
+      this.selectedDonor=data['data'];
     })
 
     this.donationRequestForm = new FormGroup({
@@ -77,18 +77,18 @@ export class DonorRequestComponent implements OnInit {
 
     //   // tslint:disable-next-line: new-parens
     //   this.geoCoder = new google.maps.Geocoder;
-  
+
     //   const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
     //   autocomplete.addListener('place_changed', () => {
     //     this.ngZone.run(() => {
     //       // get the place result
     //       const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-  
+
     //       // verify result
     //       if (place.geometry === undefined || place.geometry === null) {
     //         return;
     //       }
-  
+
     //       // set latitude, longitude and zoom
     //       this.latitude = place.geometry.location.lat();
     //       this.longitude = place.geometry.location.lng();
