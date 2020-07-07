@@ -6,6 +6,7 @@ import {PatientApiService} from '@services/patient-api.service';
 // interface
 import {DbWigRequest} from '@model/database/dbWigRequest';
 import {BackendResponse} from '@model/backendResponse';
+import {TokenService} from "@services/token.service";
 
 @Component({
   selector: 'app-wig-request',
@@ -20,19 +21,21 @@ export class WigRequestComponent implements OnInit {
 
   constructor(private _fb: FormBuilder,
               private _patientService: PatientApiService,
-              private _toastr: ToastrService) {
+              private _toastr: ToastrService,
+              private _token: TokenService) {
   }
 
   async ngOnInit(): Promise<void> {
+    console.log(this._token.getId().email)
     this.lastRequestData = await this.getLastRequest()
     console.log(this.lastRequestData)
   }
 
   async getLastRequest(): Promise<DbWigRequest> {
     try {
-      const patientId = this._patientService.getPatientId();
+      const patientEmail = this._token.getId().email;
 
-      const response = await this._patientService.getLastRequest(patientId).toPromise() as BackendResponse;
+      const response = await this._patientService.getLastRequest(patientEmail).toPromise() as BackendResponse;
 
       if (!response.success) throw new Error(response.debugMessage)
 
@@ -59,7 +62,7 @@ export class WigRequestComponent implements OnInit {
         return;
       }
 
-      const patientId = this._patientService.getPatientId();
+      const patientEmail = this._token.getId().email;
 
       const wigRequestObject = {
         requestDay: new Date().toISOString(),
@@ -70,11 +73,11 @@ export class WigRequestComponent implements OnInit {
       } as DbWigRequest;
 
 
-      const response = await this._patientService.createWigRequest(wigRequestObject, patientId).toPromise() as BackendResponse;
+      const response = await this._patientService.createWigRequest(wigRequestObject, patientEmail).toPromise() as BackendResponse;
       if (!response.success) throw new Error(response.debugMessage)
 
       this.Type = null;
-
+      this.lastRequestData = await this.getLastRequest()
       this._toastr.success(`wig request add successfully`)
 
     } catch (error) {

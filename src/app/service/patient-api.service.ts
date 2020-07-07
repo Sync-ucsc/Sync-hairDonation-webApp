@@ -57,16 +57,16 @@ export class PatientApiService {
 
   createWigRequest(
     wigRequestData: DbWigRequest,
-    patientId: string
+    patientEmail: string
   ): Observable<any> {
     return this._http
-      .put(`${this.baseUrl}/add/${patientId}`, wigRequestData)
+      .put(`${this.baseUrl}/add/${patientEmail}`, wigRequestData)
       .pipe(catchError(this.errorManagement));
   }
 
-  getLastRequest(patientId: string): Observable<any> {
+  getLastRequest(patientEmail: string): Observable<any> {
     return this._http
-      .get(`${this.baseUrl}/lastRequestStatus/${patientId}`)
+      .get(`${this.baseUrl}/lastRequestStatus/${patientEmail}`)
       .pipe(catchError(this.errorManagement));
   }
 
