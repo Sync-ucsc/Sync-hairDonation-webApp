@@ -26,20 +26,21 @@ export class WigRequestComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    console.log(this._token.getId().email)
+    console.log(this._token.getEmail())
     this.lastRequestData = await this.getLastRequest()
     console.log(this.lastRequestData)
   }
 
   async getLastRequest(): Promise<DbWigRequest> {
     try {
-      const patientEmail = this._token.getId().email;
+      const patientEmail = this._token.getEmail();
 
       const response = await this._patientService.getLastRequest(patientEmail).toPromise() as BackendResponse;
 
       if (!response.success) throw new Error(response.debugMessage)
-
-      return response.data as DbWigRequest;
+      const res = response.data as DbWigRequest;
+      if (!res.wigType) return null
+      return res
 
     } catch (error) {
       console.log(error)
@@ -62,7 +63,7 @@ export class WigRequestComponent implements OnInit {
         return;
       }
 
-      const patientEmail = this._token.getId().email;
+      const patientEmail = this._token.getEmail();
 
       const wigRequestObject = {
         requestDay: new Date().toISOString(),
