@@ -211,7 +211,7 @@ export class ViewCalendarComponent implements OnInit {
       return false;
     } else {
 
-      
+
     }
 
   }
@@ -300,7 +300,7 @@ export class ViewCalendarComponent implements OnInit {
     // console.dir(this.calendar.element.nativeElement.querySelector(".fc-event"))
     let date = event.event.start;
     date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-    //const string = event.event.name;
+    // const string = event.event.name;
 
      this._ViewCalendarService.createAppointment(date).subscribe(
       data => {
@@ -345,7 +345,7 @@ export class ViewCalendarComponent implements OnInit {
 
   deleteAppointment(event) {
 
-    if (event.jsEvent.srcElement.className == 'delete-icon') {
+    if (event.jsEvent.srcElement.className === 'delete-icon') {
       console.log('delete-icon')
       console.log(event.event)
       const id = (event.event.id) ? event.event.id : event.event._def.id;
