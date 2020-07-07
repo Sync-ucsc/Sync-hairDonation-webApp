@@ -16,6 +16,7 @@ import {formatDate} from '@angular/common';
 export class DonorRequestComponent implements OnInit {
    
   socket = io('http://localhost:3000/donor');
+  today = new Date()
 
   submitted=false;
   email:string;

@@ -466,7 +466,6 @@
 
                 <ng-template #tpl let-element>
                     <div class="mat-row detail-row" [@detailExpand] style="overflow: hidden;position: sticky;">
-                        The symbol for {{element.name}} is {{element.symbol}}
                         <div class="d-flex align-items-center bg-light-danger rounded p-5 mb-9">
                             <!--begin::Icon-->
                             <span class="svg-icon svg-icon-danger mr-5">
@@ -489,8 +488,7 @@
                         
                             <!--begin::Title-->
                             <div class="d-flex flex-column flex-grow-1 mr-2">
-                                <a href="#" class="font-weight-bold text-dark-75 text-hover-primary font-size-lg mb-1">Rebrand strategy
-                                    planning</a>
+                                <a href="#" class="font-weight-bold text-dark-75 text-hover-primary font-size-lg mb-1">{{element.massage}}</a>
                                 <span class="text-muted font-weight-bold">Due in 2 Days</span>
                             </div>
                             <!--end::Title-->
