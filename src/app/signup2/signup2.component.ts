@@ -84,9 +84,9 @@ export class Signup2Component implements OnInit {
   });
 
   signForm2 = new FormGroup({
-    nic: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(8)]),
+    nic: new FormControl('', [Validators.required, Validators.maxLength(12), Validators.minLength(10)]),
     address: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(8)]),
+    phone: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
   });
   signForm3 = new FormGroup({
     patientNumber: new FormControl('', [Validators.required]),
