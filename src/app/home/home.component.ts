@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
-
+import * as $ from 'jquery';
 import {environment} from '@environments/environment';
 import {GetInTouch} from '@model/getInTouch';
 import {BackendResponse} from '@model/backendResponse';

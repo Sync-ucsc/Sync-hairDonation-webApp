@@ -39,8 +39,8 @@ export class ViewCalendarComponent implements OnInit {
   // calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
   calendarWeekends = true;
   calendarEvents: EventInput[] = [
-    { title: 'Event Now', start: '2020-07-05T16:00:00', id: 'ddd'},
     {
+      title: 'Salon closed ',
       start: '2020-07-05T10:00:00',
       end: '2020-07-05T13:00:00',
       display: 'background',
@@ -50,7 +50,8 @@ export class ViewCalendarComponent implements OnInit {
       title: 'Salon closed ',
       start: '2020-07-04T08:00:00',
       end: '2019-07-04T17.00.00',
-      color: '#019efb'
+      display: 'background',
+      rendering: 'background'
     },
 
   ];
@@ -119,6 +120,16 @@ export class ViewCalendarComponent implements OnInit {
       //   id: 'dddddd'
       // })
       // console.log(arg)
+
+      // if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
+      //   this.event = prompt('Enter Event', '')
+      //   console.log(this.event)
+      //   this.calendarEvents = this.calendarEvents.concat({
+      //     title: this.event,
+      //     start: arg.date,
+      //     allDay: arg.allDay
+      //   })
+      // }
     }
 
 
@@ -131,11 +142,14 @@ export class ViewCalendarComponent implements OnInit {
         data.data.forEach(element => {
 
           const event = {
-            id: element.id,
-            title: element.name,
-            date: element.date
+            title: element.customerName,
+            start: element.appointmentTimeSlot.split('+')[0],
+            id: element._id,
           }
           console.log(element)
+          this.calendarEvents = this.calendarEvents.concat(event)
+          this.calendarEvents.concat(event)
+          console.log(this.calendarEvents)
 
           // this.calendar.getApi().addEvent(event);
 
@@ -151,41 +165,53 @@ export class ViewCalendarComponent implements OnInit {
 
     this.submitted = true;
     const formValue = this.addForm.value;
+    console.log(formValue)
 
     // clear form values
     this.formGroupDirective.resetForm()
 
-    let appoitment = {
-//json ekak hadanna ona 
-//variable dare emai saloon ,customer email
-//ng model for, 
-    }
+    // tslint:disable-next-line: prefer-const
+    let appointment = {
+        SalonEmail: 'mailtochamodij@gmail..com',
+        DonorRequest: false,
+        Donoremail: '' ,
+        customerEmail: 'chamo@gmail.com' ,
+        customerNumber: formValue.mobile,
+        customerName: formValue.name,
+        systemRequestDate:'2020.07.17',
+        appointmentDate: this.arg.date,
+        appointmentTimeSlot:this.arg.dateStr
+   }
+
+    this._ViewCalendarService.createAppointment(appointment).subscribe(
+      data => {
+        Swal.fire(
+          'Done!',
+          'You added a new appointment!',
+          'success'
+        )
+        this.showModal = false;
+        this.calendarEvents = [];
+        console.log(data)
+        this.getall();
+      },
+      error => {
+        console.log(error)
+        Swal.fire(
+          'Error!',
+          'Error!',
+          'error'
+        )
+        this.showModal = false;
+      },
+    );
 
 
     if (!this.addForm.valid) {
       return false;
     } else {
 
-      this._ViewCalendarService.createAppointment(appoitment).subscribe(
-        data => {
-          Swal.fire(
-            'Done!',
-            'You added a new appointment!',
-            'success'
-          )
-          this.showModal = false;
-          this.calendarEvents = [];
-          this.getall();
-        },
-        error => {
-          Swal.fire(
-            'Error!',
-            'Error!',
-            'error'
-          )
-          this.showModal = false;
-        },
-      );
+      
     }
 
   }
@@ -247,10 +273,10 @@ export class ViewCalendarComponent implements OnInit {
   }
 
 
-  
 
 
-  
+
+
   toggleVisible() {
     this.calendarVisible = !this.calendarVisible;
   }
@@ -274,7 +300,7 @@ export class ViewCalendarComponent implements OnInit {
     // console.dir(this.calendar.element.nativeElement.querySelector(".fc-event"))
     let date = event.event.start;
     date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-    const string = event.event.name;
+    //const string = event.event.name;
 
      this._ViewCalendarService.createAppointment(date).subscribe(
       data => {
@@ -340,5 +366,5 @@ export class ViewCalendarComponent implements OnInit {
     });
   }
 
-  
+
 }
