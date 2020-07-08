@@ -29,25 +29,56 @@ export class PatientApiService {
     return this._http.get(`${this.baseUrl2}`);
   }
 
-  // Delete patient
-  deletePatient(id): Observable<any> {
-    const url = `${this.baseUrl}/delete/${id}`;
-    return this._http.delete(url, { headers: this.headers }).pipe();
+  // Error handling
+ errorMgmt(error: HttpErrorResponse) {
+  let errorMessage = '';
+  if (error.error instanceof ErrorEvent) {
+    // Get client-side error
+    errorMessage = error.error.message;
+  } else {
+    // Get server-side error
+    errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
   }
+  console.log(errorMessage);
+  return throwError(errorMessage);
+}
+
   // Get a patient
   getPatient(id): Observable<any> {
-    const url = `${this.baseUrl}/read/${id}`;
+    const url = `${this.baseUrl2}/read/${id}`;
     return this._http.get(url, { headers: this.headers }).pipe(
       map((res: Response) => {
-        return res || {};
-      })
-    );
+        return res || {}
+      }),
+      catchError(this.errorMgmt)
+    )
   }
   // Get a by E-mail
   getPatientByEmail(email): Observable<any> {
     const url = `${this.baseUrl2}/readByEmail/${email}`;
-    return this._http.get(url, { headers: this.headers });
+    return this._http.get(url, {headers: this.headers}).pipe(
+      map((res: Response) => {
+        return res || {}
+      }),
+      catchError(this.errorMgmt)
+    )
   }
+
+  // Update Patient
+updatePatient(id, data): Observable<any> {
+  const url = `${this.baseUrl2}/update/${id}`;
+  return this._http.post(url, data, { headers: this.headers }).pipe(
+    catchError(this.errorMgmt)
+  )
+}
+
+// Delete Patient
+deletePatient(id): Observable<any> {
+  const url = `${this.baseUrl}/delete/${id}`;
+  return this._http.delete(url, { headers: this.headers }).pipe(
+    catchError(this.errorMgmt)
+  )
+}
 
   getRandomId = () => uuidV4();
 
