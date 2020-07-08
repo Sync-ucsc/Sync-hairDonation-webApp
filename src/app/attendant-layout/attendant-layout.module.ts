@@ -23,7 +23,7 @@ import { MatButtonModule } from "@angular/material/button";
 // component
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ProfileComponent} from './profile/profile.component';
-import {ManagePatientComponent} from './manage-patient/manage-patient.component';
+import {ManagePatientComponent,uploadDialogComponent} from './manage-patient/manage-patient.component';
 import {AttendantChatComponent} from './attendant-chat/attendant-chat.component';
 import {PatientVerificationComponent} from './patient-verification/patient-verification.component';
 import {ManageWigrequestComponent} from './manage-wigrequest/manage-wigrequest.component';
@@ -63,6 +63,7 @@ import { AssignDriverComponent } from './manage-salon-request/assign-driver/assi
     PatientVerificationComponent,
     ManageSalonRequestComponent,
     AssignDriverComponent,
+    uploadDialogComponent,
   ],
 })
 export class AttendantLayoutModule {}

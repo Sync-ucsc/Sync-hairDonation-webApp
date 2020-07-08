@@ -843,7 +843,15 @@
                                 </a>
                             </li>
 
-                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']" data-menu-toggle="click"
+                            <li class="menu-item  " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                <a routerLink="manage-patient" class="menu-link">
+                                    <span class="menu-text">Manage Patients</span>
+                                    <i class="menu-desc"></i>
+                                </a>
+                            </li>
+
+
+                            <!-- <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']" data-menu-toggle="click"
                                 aria-haspopup="true">
                                 <a href="javascript:;" class="menu-link menu-toggle">
                                     <span class="menu-text">Patient</span>
@@ -867,7 +875,8 @@
 
                                     </ul>
                                 </div>
-                            </li>
+                            </li> -->
+                            
                             <li class="menu-item  " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
                                 <a routerLink="patient-verification" class="menu-link">
                                     <span class="menu-text">Patient Verification</span>
