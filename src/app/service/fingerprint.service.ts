@@ -18,4 +18,16 @@ export class FingerprintService {
     const url = `${this.baseUrl}/get/${fingerprint}`;
     return this.http.get(url);
   }
+
+
+  getAll(): Observable<any> {
+
+    const url = `${this.baseUrl}/getAll`;
+    return this.http.get(url);
+  }
+
+  cecked(fingerprint,x){
+    const url = `${this.baseUrl}/check`;
+    return this.http.post(url, { Fingerprint: fingerprint, val:x});
+  }
 }

@@ -461,9 +461,6 @@
                     </mat-row> -->
             
                 </table>
-                <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons>
-                </mat-paginator>
-
                 <ng-template #tpl let-element>
                     <div class="mat-row detail-row" [@detailExpand] style="overflow: hidden;position: sticky;">
                         <div class="d-flex align-items-center bg-light-danger rounded p-5 mb-9">
@@ -582,12 +579,10 @@
                                 </mat-row> -->
             
                 </table>
-                <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons>
-                </mat-paginator>
+                
             
                 <ng-template #tpl let-element>
                     <div class="mat-row detail-row" [@detailExpand]>
-                        The symbol for {{element.name}} is {{element.symbol}}
                         <div class="d-flex align-items-center bg-light-danger rounded p-5 mb-9">
                             <!--begin::Icon-->
                             <span class="svg-icon svg-icon-danger mr-5">
@@ -624,6 +619,8 @@
                     </div>
                 </ng-template>
             </div>
+            <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons>
+            </mat-paginator>
             <!--end: Datatable-->
         </div>
     </div>
