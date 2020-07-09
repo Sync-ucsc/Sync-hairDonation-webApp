@@ -58,7 +58,7 @@ export class ManageNotificationComponent implements OnInit{
   ngOnInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    // console.log(this.dataSource);
+    console.log(this.paginator);
     // this.dataFilter();
 
   }

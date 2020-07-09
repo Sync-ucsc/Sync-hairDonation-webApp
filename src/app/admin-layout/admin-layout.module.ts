@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSortModule} from '@angular/material/sort';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -66,6 +67,7 @@ import { FringerprintComponent } from './fringerprint/fringerprint.component';
     MatAutocompleteModule,
     NgxSpinnerModule,
     MatSelectModule,
+    MatSlideToggleModule,
     MatCardModule
   ],
   declarations: [

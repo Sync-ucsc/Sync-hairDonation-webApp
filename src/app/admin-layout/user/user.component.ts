@@ -76,16 +76,16 @@ export class UserComponent implements OnInit {
     if (x === 'manager') {
       this.manager = !this.manager;
     }
-    if (x === 'sall' || x === 'stempory' || x === 'sblock' || x === 'sunblock') {
+    if (x === 'sall' || x === 'sdelete' || x === 'sexpire' || x === 'ssend') {
       this.status = x;
       console.log(x)
     }
     if (this.all === true || this.donor === true || this.patient === true || this.salon === true || this.driver === true
-      || this.attendant === true || this.manager === true || x === 'sall' || x === 'stempory' || x === 'sulock' || x === 'sunblock') {
+      || this.attendant === true || this.manager === true || x === 'sall' || x === 'sdelete' || x === 'sexpire' || x === 'ssend') {
       console.log(x)
       ELEMENT_DATA.forEach(e => {
 
-        if (this.status === 'stempory' && e.delete === true) {
+        if (this.status === 'sdelete' && e.delete === true) {
 
           if (e.role === 'all' && this.all === true) {
             data.push(e)
@@ -115,7 +115,7 @@ export class UserComponent implements OnInit {
           }
 
 
-        } else if (this.status === 'sblock' && e.delete !== true) {
+        } else if (this.status === 'sexpir' && e.delete !== true) {
 
           if (e.role === 'all' && this.all === true) {
             data.push(e)
@@ -145,7 +145,7 @@ export class UserComponent implements OnInit {
           }
 
 
-        } else if (this.status === 'sunblock' && e.delete !== true) {
+        } else if (this.status === 'ssend' && e.delete !== true) {
 
           if (e.role === 'all' && this.all === true) {
             data.push(e)
