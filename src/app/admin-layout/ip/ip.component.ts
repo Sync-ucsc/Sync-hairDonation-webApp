@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { IpService } from '@services/ip.service';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 export interface PeriodicElement {
   massage: string;
@@ -9,20 +12,6 @@ export interface PeriodicElement {
   delete: boolean;
 }
 
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { role: 'all', massage: 'Collect wigs from Salon', weight: 1.0079, validDate: '2020.06.16', delete: true },
-  { role: 'donor', massage: 'Collect wigs from Salon', weight: 4.0026, validDate: '2020.06.16', delete: false },
-  { role: 'patient', massage: 'Collect wigs from Salon', weight: 6.941, validDate: '2020.06.16', delete: false },
-  { role: 'salon', massage: 'Collect wigs from Salon', weight: 9.0122, validDate: '2020.06.16', delete: false },
-  { role: 'manager', massage: 'Collect wigs from Salon', weight: 10.811, validDate: '2020.06.16', delete: false },
-  { role: 'attendant', massage: 'Collect wigs from Salon', weight: 12.0107, validDate: '2020.06.16', delete: true },
-  { role: 'driver', massage: 'Collect wigs from Salon', weight: 14.0067, validDate: '2020.06.16', delete: false },
-  { role: 'all', massage: 'Collect wigs from Salon', weight: 15.9994, validDate: '2020.06.16', delete: false },
-  { role: 'manager', massage: 'Collect wigs from Salon', weight: 18.9984, validDate: '2020.06.16', delete: true },
-  { role: 'donor', massage: 'Collect wigs from Salon', weight: 20.1797, validDate: '2020.06.16', delete: false },
-  { role: 'all', massage: 'Collect wigs from Salon', weight: 20.1797, validDate: '2020.06.16', delete: false },
-];
 
 @Component({
   selector: 'app-ip',
@@ -39,11 +28,34 @@ export class IpComponent implements OnInit {
   attendant = false;
   manager = false;
   status = 'sall';
-
+  displayedColumns: string[] = ['ip', 'country','region','notsecure','acounts'];
   dataSource;
   tdata;
 
-  constructor() { }
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
+  constructor(private ipService: IpService) {
+    this.getAll();
+    
+   }
+
+
+  getAll() {
+    this.ipService.getAll().subscribe(
+      data => {
+        console.log(data)
+        this.tdata = data.data
+        this.dataSource = new MatTableDataSource(data.data);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      },
+      error => {
+        console.error(error);
+      }
+    )
+  }
+
 
   ngOnInit(): void {
   }
@@ -88,56 +100,25 @@ export class IpComponent implements OnInit {
 
         if (this.status === 'stempory' && e.delete === true) {
 
-          if (e.userType.indexOf('donor') !== -1  && this.donor === true) {
+          if (e.userType.indexOf('donor') !== -1 && this.donor === true) {
             data.push(e)
           }
-          if (e.role === 'patient' && this.patient === true) {
+          if (e.userType.indexOf('patient') !== -1 && this.patient === true) {
             data.push(e)
           }
-          if (e.role === 'salon' && this.salon === true) {
+          if (e.userType.indexOf('salon') !== -1 && this.salon === true) {
             data.push(e)
           }
-          if (e.role === 'driver' && this.driver === true) {
+          if (e.userType.indexOf('driver') !== -1 && this.driver === true) {
             data.push(e)
           }
-          if (e.role === 'attendant' && this.attendant === true) {
+          if (e.userType.indexOf('attendant') !== -1 && this.attendant === true) {
             data.push(e)
           }
-          if (e.role === 'manager' && this.manager === true) {
+          if (e.userType.indexOf('manager') !== -1 && this.manager === true) {
             data.push(e)
           }
-          if (this.all !== true && this.donor !== true && this.patient !== true && this.salon !== true && this.driver !== true
-            && this.attendant !== true && this.manager !== true) {
-            data.push(e)
-            console.log(x)
-          }
-
-
-        } else if (this.status === 'sblock' && e.delete !== true) {
-
-          if (e.role === 'all' && this.all === true) {
-            data.push(e)
-          }
-          if (e.role === 'donor' && this.donor === true) {
-            data.push(e)
-          }
-          if (e.role === 'patient' && this.patient === true) {
-            data.push(e)
-          }
-          if (e.role === 'salon' && this.salon === true) {
-            data.push(e)
-          }
-          if (e.role === 'driver' && this.driver === true) {
-            data.push(e)
-          }
-          if (e.role === 'attendant' && this.attendant === true) {
-            data.push(e)
-          }
-          if (e.role === 'manager' && this.manager === true) {
-            data.push(e)
-          }
-
-          if (this.all !== true && this.donor !== true && this.patient !== true && this.salon !== true && this.driver !== true
+          if (this.donor !== true && this.patient !== true && this.salon !== true && this.driver !== true
             && this.attendant !== true && this.manager !== true) {
             data.push(e)
           }
@@ -145,10 +126,7 @@ export class IpComponent implements OnInit {
 
         } else if (this.status === 'sunblock' && e.delete !== true) {
 
-          if (e.role === 'all' && this.all === true) {
-            data.push(e)
-          }
-          if (e.role === 'donor' && this.donor === true) {
+          if (e.userType.indexOf('donor') !== -1 && this.donor === true) {
             data.push(e)
           }
           if (e.role === 'patient' && this.patient === true) {
@@ -166,34 +144,32 @@ export class IpComponent implements OnInit {
           if (e.role === 'manager' && this.manager === true) {
             data.push(e)
           }
-          if (this.all !== true && this.donor !== true && this.patient !== true && this.salon !== true && this.driver !== true
+          if (this.donor !== true && this.patient !== true && this.salon !== true && this.driver !== true
             && this.attendant !== true && this.manager !== true) {
             data.push(e)
           }
 
         } else if (this.status === 'sall') {
-          if (e.role === 'all' && this.all === true) {
+
+          if (e.userType.indexOf('donor') !== -1 && this.donor === true) {
             data.push(e)
           }
-          if (e.role === 'donor' && this.donor === true) {
+          if (e.userType.indexOf('patient') !== -1 && this.patient === true) {
             data.push(e)
           }
-          if (e.role === 'patient' && this.patient === true) {
+          if (e.userType.indexOf('salon') !== -1 && this.salon === true) {
             data.push(e)
           }
-          if (e.role === 'salon' && this.salon === true) {
+          if (e.userType.indexOf('driver') !== -1 && this.driver === true) {
             data.push(e)
           }
-          if (e.role === 'driver' && this.driver === true) {
+          if (e.userType.indexOf('attendant') !== -1 && this.attendant === true) {
             data.push(e)
           }
-          if (e.role === 'attendant' && this.attendant === true) {
+          if (e.userType.indexOf('manager') !== -1 && this.manager === true) {
             data.push(e)
           }
-          if (e.role === 'manager' && this.manager === true) {
-            data.push(e)
-          }
-          if (this.all !== true && this.donor !== true && this.patient !== true && this.salon !== true && this.driver !== true
+          if (this.donor !== true && this.patient !== true && this.salon !== true && this.driver !== true
             && this.attendant !== true && this.manager !== true) {
             data.push(e)
           }
@@ -202,12 +178,62 @@ export class IpComponent implements OnInit {
         }
       })
     } else {
-      data = ELEMENT_DATA;
+      data = this.tdata;
     }
 
     this.dataSource = new MatTableDataSource(data);
-    // this.dataSource.sort = this.sort;
-    // this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    
   }
+
+
+  filterItemsOfType(data) {
+    if (this.all === true || this.donor === true || this.patient === true || this.salon === true || this.driver === true
+      || this.attendant === true || this.manager === true) {
+      return data.filter(x => (
+        (x.userType === 'donor' && this.donor === true) ||
+        (x.userType === 'patient' && this.patient === true) ||
+        (x.userType === 'salon' && this.salon === true) ||
+        (x.userType === 'driver' && this.driver === true) ||
+        (x.userType === 'attendant' && this.attendant === true) ||
+        (x.userType === 'manager' && this.manager === true)
+      ));
+      } else {
+        return data;
+      }
+  }
+
+
+  checkFingerprint(fingerprint, x) {
+    console.log(fingerprint, !x)
+    // this.fingerprint.cecked(fingerprint, !x).subscribe(
+    //   data => {
+    //     console.log(data);
+    //     this.tdata.forEach((e) => {
+    //       if (e.Fingerprint === fingerprint) {
+    //         e.check = !x
+    //       }
+    //     });
+    //     console.log(this.tdata);
+    //   },
+    //   error => {
+    //     console.log(error);
+    //     this.getAll();
+    //   }
+    // )
+  }
+
+  checkBan(x){
+    let y =false;
+    x.users.forEach(e=>{
+      if(e.temmporyBan == true){
+        y =true;
+      }
+    })
+
+    return y;
+  }
+
 
 }

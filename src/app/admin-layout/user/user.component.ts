@@ -15,19 +15,6 @@ export interface PeriodicElement {
 }
 
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { role: 'all', massage: 'Collect wigs from Salon', weight: 1.0079, validDate: '2020.06.16', delete: true },
-  { role: 'donor', massage: 'Collect wigs from Salon', weight: 4.0026, validDate: '2020.06.16', delete: false },
-  { role: 'patient', massage: 'Collect wigs from Salon', weight: 6.941, validDate: '2020.06.16', delete: false },
-  { role: 'salon', massage: 'Collect wigs from Salon', weight: 9.0122, validDate: '2020.06.16', delete: false },
-  { role: 'manager', massage: 'Collect wigs from Salon', weight: 10.811, validDate: '2020.06.16', delete: false },
-  { role: 'attendant', massage: 'Collect wigs from Salon', weight: 12.0107, validDate: '2020.06.16', delete: true },
-  { role: 'driver', massage: 'Collect wigs from Salon', weight: 14.0067, validDate: '2020.06.16', delete: false },
-  { role: 'all', massage: 'Collect wigs from Salon', weight: 15.9994, validDate: '2020.06.16', delete: false },
-  { role: 'manager', massage: 'Collect wigs from Salon', weight: 18.9984, validDate: '2020.06.16', delete: true },
-  { role: 'donor', massage: 'Collect wigs from Salon', weight: 20.1797, validDate: '2020.06.16', delete: false },
-  { role: 'all', massage: 'Collect wigs from Salon', weight: 20.1797, validDate: '2020.06.16', delete: false },
-];
 
 @Component({
   selector: 'app-user',
@@ -210,7 +197,7 @@ export class UserComponent implements OnInit {
         }
       })
     } else {
-      data = ELEMENT_DATA;
+      data = this.tdata;
     }
 
     this.dataSource = new MatTableDataSource(data);
