@@ -40,7 +40,8 @@ export class IpComponent implements OnInit {
   manager = false;
   status = 'sall';
 
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource;
+  tdata;
 
   constructor() { }
 
@@ -83,14 +84,11 @@ export class IpComponent implements OnInit {
     if (this.all === true || this.donor === true || this.patient === true || this.salon === true || this.driver === true
       || this.attendant === true || this.manager === true || x === 'sall' || x === 'stempory' || x === 'sulock' || x === 'sunblock') {
       console.log(x)
-      ELEMENT_DATA.forEach(e => {
+      this.tdata.forEach(e => {
 
         if (this.status === 'stempory' && e.delete === true) {
 
-          if (e.role === 'all' && this.all === true) {
-            data.push(e)
-          }
-          if (e.role === 'donor' && this.donor === true) {
+          if (e.userType.indexOf('donor') !== -1  && this.donor === true) {
             data.push(e)
           }
           if (e.role === 'patient' && this.patient === true) {
