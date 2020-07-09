@@ -51,12 +51,19 @@ export class FringerprintComponent implements OnInit {
 
   getAll(){
     this.fingerprint.getAll().subscribe(
-      data => {
+      async data => {
         console.log(data)
-        this.tdata = data.data
-        this.dataSource = new MatTableDataSource(data.data);
+        let y = ''
+        data.data.forEach(e => {
+          e.users.forEach(g => { y = y + g.email + ','; });
+          e.emails = y;
+        });
+        this.tdata = data.data;
+        this.dataSource = new MatTableDataSource(this.tdata);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        console.log(this.dataSource)
+
       },
       error => {
         console.error(error);
@@ -131,6 +138,9 @@ export class FringerprintComponent implements OnInit {
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    // this.dataSource.filterPredicate = (data: Element, filter: string) => data['Fingerprint'].indexOf(filter) != -1;
+    // forEach(e => e.email.indexOf(filter) != -1);
+    console.log(this.dataSource)
   }
 
 
@@ -162,6 +172,11 @@ export class FringerprintComponent implements OnInit {
         this.getAll();
       }
     )
+  }
+
+  setdata(x){
+    
+    console.log(x)
   }
 
 }

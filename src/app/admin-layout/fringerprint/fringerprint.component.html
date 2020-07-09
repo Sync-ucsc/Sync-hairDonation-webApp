@@ -102,7 +102,7 @@
 <table mat-table [dataSource]="dataSource" matSort class="table table-hover">
 
     <!-- Position Column -->
-    <ng-container style="width: 40%;" matColumnDef="fingerprint">
+    <ng-container matColumnDef="fingerprint">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Fingerprint </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.Fingerprint}} </mat-cell>
     </ng-container>
@@ -111,6 +111,11 @@
     <ng-container matColumnDef="check">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Check </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.check}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="account">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> acoount </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.users}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="action">

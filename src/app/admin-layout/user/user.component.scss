@@ -1,0 +1,68 @@
+.mat-sort-header-sorted {
+  color: black;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-header-cell:first-of-type,
+.mat-cell:first-of-type,
+.mat-footer-cell:first-of-type {
+  padding-left: unset !important;
+}
+
+.mat-header-cell,
+.mat-cell,
+.mat-footer-cell {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+  border-bottom-width: unset !important;
+  border-bottom-style: initial !important;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-table {
+  overflow: auto;
+}
+
+.element-row {
+  position: relative;
+}
+
+.element-row:not(.expanded) {
+  cursor: pointer;
+}
+
+.element-row:not(.expanded):hover {
+  background: #f5f5f5;
+}
+
+.element-row.expanded {
+  border-bottom-color: transparent;
+}
+
+::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: #6610f2 !important;
+}
+
+::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: #6710f256 !important;
+  ;
+}
