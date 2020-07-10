@@ -37,7 +37,7 @@ import { ManageNotificationComponent } from './manage-notification/manage-notifi
 import { PushNotificationComponent } from './push-notification/push-notification.component';
 import { CdkDetailRowDirective } from './manage-notification/cdk-detail-row.directive';
 import { ManageDonorComponent,uploadDialog3Component } from './manage-donor/manage-donor.component';
-import { ManagePatientComponent } from './manage-patient/manage-patient.component';
+import { ManagePatientComponent,uploadDialog4Component } from './manage-patient/manage-patient.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ManageAttendantsComponent} from './manage-attendants/manage-attendants.component';
 import { MatCardModule } from '@angular/material/card';
@@ -80,6 +80,7 @@ import { FringerprintComponent } from './fringerprint/fringerprint.component';
     ManageAttendantsComponent,
     uploadDialogComponent,
     uploadDialog3Component,
+    uploadDialog4Component,
     AddManagerComponent,
     ViewManagerComponent,
     ProfileComponent,
