@@ -31,18 +31,11 @@ export class ViewCalendarService {
     return this.http.get<any>(url)
   }
 
-  // Create
+  // Create Appointment
   createAppointment(data): Observable<any> {
     const url = `${this.baseUrl}/create`;
     return this.http.post(url, data);
   }
-
-  // create(name,date){
-  //  return this.http.post<any>(`url`,{name : name , date : date}, this.authorizationHeaders());
-  // }
-  // updateAppointment(id,date){
-  //   return this.http.post(`url`,{id : id , date : date}, this.authorizationHeaders());
-  // }
 
 
   // Error handling
@@ -67,14 +60,17 @@ export class ViewCalendarService {
   )
 }
 
-  //delete Appointment
-  deleteAppointment(id):Observable<any>{
-    const url='${this.baseUrl}/delete/${id}';
-    return this.http.delete(url, { headers: this.headers }).pipe(
-      catchError(this.errorMgmt)
-    )
-   // return this.http.post(`url`,{id : id}, this.authorizationHeaders());
-  }
+
+
+ // Delete Appointment
+ deleteAppointment(id): Observable<any> {
+  const url = `${this.baseUrl}/delete/${id}`;
+  return this.http.delete(url, { headers: this.headers }).pipe(
+    catchError(this.errorMgmt)
+  )
+}
+
+
 
 
   authorizationHeaders(){

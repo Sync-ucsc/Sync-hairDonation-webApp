@@ -46,6 +46,8 @@
 
     </div>
   </div>
+
+  <!-- Pop up form for norml customer in salon -->
   <div [style.display]="showModal ? 'block' : 'none'" aria-hidden="true" aria-labelledby="myModalLabel" class="modal" id="imagemodal"
        role="dialog" tabindex="-1">
     <div class="modal-dialog">
@@ -74,12 +76,12 @@
                     <input [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"
                            class="form-control"
                            formControlName="mobile"
-                           type="text" min="0"
+                           type="text" min="0" max="10"
                     />
                   </label>
                   <!-- change type from text to number, set min to 0-->
                   <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
-                    <div *ngIf="f.mobile.errors">Mobile must be Valid and at least 10 digits</div>
+                    <div *ngIf="f.mobile.errors.required">Mobile must be Valid and at least 10 digits</div>
                   </div>
                 </div>
               </div>
