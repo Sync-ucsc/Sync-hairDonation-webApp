@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
   templateUrl: './view-calendar.component.html',
   styleUrls: ['./view-calendar.component.scss']
 })
+
 export class ViewCalendarComponent implements OnInit {
 
   socket = io('http://localhost:3000/donorAppointment');
@@ -48,8 +49,8 @@ export class ViewCalendarComponent implements OnInit {
     },
     {
       title: 'Salon closed ',
-      start: '2020-07-04T08:00:00',
-      end: '2019-07-04T17.00.00',
+      start: '2020-07-11T08:00:00',
+      end: '2020-07-11T17.00.00',
       display: 'background',
       rendering: 'background'
     },
@@ -216,39 +217,13 @@ export class ViewCalendarComponent implements OnInit {
 
   }
 
+
+
+
   eventDragStop(model) {
     console.log(model.event.id);
     console.log(model.event);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   get taskName() {
     return this.taskForm.get('taskName') as FormControl;
@@ -271,8 +246,6 @@ export class ViewCalendarComponent implements OnInit {
     this.calendarEvents.pop()
     // document.getElementById("imagemodal").style.display="hide";
   }
-
-
 
 
 
@@ -343,22 +316,37 @@ export class ViewCalendarComponent implements OnInit {
 
   // }
 
-  deleteAppointment(event) {
 
-    if (event.jsEvent.srcElement.className === 'delete-icon') {
-      console.log('delete-icon')
-      console.log(event.event)
-      const id = (event.event.id) ? event.event.id : event.event._def.id;
-      console.log(id)
-      this._ViewCalendarService.deleteAppointment(id).subscribe(
-        data => {
-          if (data) {
-            event.event.remove();
-          }
-        }
-      )
-    }
-  }
+//  Delete the appointment
+ deleteAppointment(event) {
+  console.log(event.event);
+  Swal.fire({
+    title: 'Are you sure?',
+    text: `Appointment will be deleted permanently`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true,
+  })
+}
+
+  // deleteAppointment(event) {
+
+  //   if (event.jsEvent.srcElement.className === 'delete-icon') {
+  //     console.log('delete-icon')
+  //     console.log(event.event)
+  //     const id = (event.event.id) ? event.event.id : event.event._def.id;
+  //     console.log(id)
+  //     this._ViewCalendarService.deleteAppointment(id).subscribe(
+  //       data => {
+  //         if (data) {
+  //           event.event.remove();
+  //         }
+  //       }
+  //     )
+  //   }
+  // }
 
   dayRender(ev) {
     ev.el.addEventListener('dblclick', () => {
