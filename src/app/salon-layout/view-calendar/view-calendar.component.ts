@@ -11,11 +11,13 @@ import {FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators} fro
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
 
+//add, update and delete component
 @Component({
   selector: 'app-view-calendar',
   templateUrl: './view-calendar.component.html',
   styleUrls: ['./view-calendar.component.scss']
 })
+
 
 export class ViewCalendarComponent implements OnInit {
 
@@ -298,6 +300,10 @@ export class ViewCalendarComponent implements OnInit {
     )
   }
 
+  
+
+
+
   eventDo(event) {
     const icon = this.renderer.createElement('mat-icon');
     const close = this.renderer.createText('close');
@@ -328,7 +334,34 @@ export class ViewCalendarComponent implements OnInit {
     confirmButtonText: 'Yes, delete it!',
     cancelButtonText: 'No, cancel!',
     reverseButtons: true,
-  })
+    preConfirm: (login) => {
+      this._ViewCalendarService.deleteAppointment(event.event.id).subscribe((data) => {
+        console.log(data);
+        this.socket.emit('updatedata', data);
+        if(!data.msg)
+          Swal.showValidationMessage(
+            `Request failed`
+          )
+       }
+      )
+
+    },
+  }).then(function (result) {
+     if (result.value) {
+       Swal.fire(
+         'Deleted!',
+         'Appointment has been deleted.',
+         'success'
+       )
+     } else if (result.dismiss === Swal.DismissReason.cancel) {
+       Swal.fire(
+         'Cancelled',
+         'APpointment was not deleted',
+         'error'
+       )
+     }
+   });
+
 }
 
   // deleteAppointment(event) {
