@@ -418,8 +418,8 @@
                     <td>{{user.userType}}</td>
                     <td>{{user.registerIp}}</td>
                     <td>
-                        <mat-slide-toggle class="primary" [checked]=element.check
-                            (change)="checkFingerprint(element.Fingerprint,element.check)">
+                        <mat-slide-toggle class="primary" [checked]=user.temporyBan
+                            (change)="checkEmail(user.email,user.temporyBan)">
                             Ban?
                         </mat-slide-toggle>
                     </td>

@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { IpService } from '@services/ip.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { UserService } from '@services/user.service';
 
 export interface PeriodicElement {
   massage: string;
@@ -35,7 +36,7 @@ export class IpComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(private ipService: IpService) {
+  constructor(private ipService: IpService,private userService: UserService) {
     this.getAll();
     
    }
@@ -205,23 +206,30 @@ export class IpComponent implements OnInit {
   }
 
 
-  checkFingerprint(fingerprint, x) {
-    console.log(fingerprint, !x)
-    // this.fingerprint.cecked(fingerprint, !x).subscribe(
-    //   data => {
-    //     console.log(data);
-    //     this.tdata.forEach((e) => {
-    //       if (e.Fingerprint === fingerprint) {
-    //         e.check = !x
-    //       }
-    //     });
-    //     console.log(this.tdata);
-    //   },
-    //   error => {
-    //     console.log(error);
-    //     this.getAll();
-    //   }
-    // )
+  checkEmail(email, x) {
+    let data = {
+      email: email,
+      val: !x
+    }
+    this.userService.temporarydisable(data).subscribe(
+      data => {
+        console.log(data);
+        this.tdata.forEach((e) => {
+          e.users.forEach((el) => {
+            console.log(el.email)
+            console.log(email)
+            if(el.email == email){
+              el.temporyBan = !x;
+            }
+          })
+        });
+        console.log(this.tdata);
+      },
+      error => {
+        console.log(error);
+        this.getAll();
+      }
+    )
   }
 
   checkBan(x){

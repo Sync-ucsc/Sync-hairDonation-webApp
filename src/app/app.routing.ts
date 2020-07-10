@@ -20,6 +20,7 @@ import { DonorWaitComponent } from './donor-wait/donor-wait.component';
 import { PatientWaitComponent } from './patient-wait/patient-wait.component';
 import { DonoractiveComponent } from './donoractive/donoractive.component';
 import { RegisterPasswordComponent } from './register-password/register-password.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,10 @@ const routes: Routes = [
   {
     path: 'register-password',
     component: RegisterPasswordComponent
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent
   },
   {
     canActivate: [AfterLoginService],

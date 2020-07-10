@@ -85,6 +85,11 @@ export class LoginComponent implements OnInit {
         }
         },
       error => {
+        Swal.fire(
+          'Login Error!',
+          error.error.msg,
+          'error'
+        );
         this.handleError(error)
       }
     );
