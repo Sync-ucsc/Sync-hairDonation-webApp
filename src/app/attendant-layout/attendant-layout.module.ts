@@ -29,6 +29,7 @@ import {PatientVerificationComponent} from './patient-verification/patient-verif
 import {ManageWigrequestComponent} from './manage-wigrequest/manage-wigrequest.component';
 import { ManageSalonRequestComponent } from './manage-salon-request/manage-salon-request.component';
 import { AssignDriverComponent } from './manage-salon-request/assign-driver/assign-driver.component';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { AssignDriverComponent } from './manage-salon-request/assign-driver/assi
         MatCardModule,
         MatButtonModule,
         ReactiveFormsModule,
+        MatPasswordStrengthModule.forRoot(),
     ],
   declarations: [
     DashboardComponent,

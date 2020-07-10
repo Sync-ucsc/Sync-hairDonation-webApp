@@ -71,6 +71,14 @@ export class TokenService {
     return this.payload(this.gettoken())._id;
   }
 
+  public getFirstName() {
+    return this.payload(this.gettoken()).firstName;
+  }
+
+  public getLastName() {
+    return this.payload(this.gettoken()).LastName;
+  }
+
   public isUserAdmin(): boolean {
     return 'admin' === this.payload(this.gettoken()).role ? true : false;
   }

@@ -3,6 +3,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { IpService } from '@services/ip.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { UserService } from '@services/user.service';
+import io from 'socket.io-client';
 
 export interface PeriodicElement {
   massage: string;
@@ -31,13 +33,15 @@ export class IpComponent implements OnInit {
   displayedColumns: string[] = ['ip', 'country','region','notsecure','acounts'];
   dataSource;
   tdata;
+  socket;
+  rel;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(private ipService: IpService) {
+  constructor(private ipService: IpService,private userService: UserService) {
     this.getAll();
-    
+    this.socket = io.connect('http://localhost:3000');
    }
 
 
@@ -45,6 +49,11 @@ export class IpComponent implements OnInit {
     this.ipService.getAll().subscribe(
       data => {
         console.log(data)
+        data.data.forEach(e => {
+          let y = '';
+          e.users.forEach(g => { y = y + g.email + ','; });
+          e.emails = y;
+        });
         this.tdata = data.data
         this.dataSource = new MatTableDataSource(data.data);
         this.dataSource.sort = this.sort;
@@ -58,6 +67,12 @@ export class IpComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.socket.on('check-user', () => {
+      if(this.rel){
+        this.getAll();
+      }
+      this.rel = true;
+    });
   }
 
   applyFilter(event: Event) {
@@ -89,16 +104,16 @@ export class IpComponent implements OnInit {
     if (x === 'manager') {
       this.manager = !this.manager;
     }
-    if (x === 'sall' || x === 'stempory' || x === 'sblock' || x === 'sunblock') {
+    if (x === 'sall' || x === 'stempory' ||  x === 'sunblock') {
       this.status = x;
       console.log(x)
     }
     if (this.all === true || this.donor === true || this.patient === true || this.salon === true || this.driver === true
-      || this.attendant === true || this.manager === true || x === 'sall' || x === 'stempory' || x === 'sulock' || x === 'sunblock') {
+      || this.attendant === true || this.manager === true || x === 'sall' || x === 'stempory' ||  x === 'sunblock') {
       console.log(x)
       this.tdata.forEach(e => {
 
-        if (this.status === 'stempory' && e.delete === true) {
+        if (this.status === 'stempory' && this.checkBan(e)  === true) {
 
           if (e.userType.indexOf('donor') !== -1 && this.donor === true) {
             data.push(e)
@@ -124,7 +139,7 @@ export class IpComponent implements OnInit {
           }
 
 
-        } else if (this.status === 'sunblock' && e.delete !== true) {
+        } else if (this.status === 'sunblock' && this.checkBan(e)   !== true) {
 
           if (e.userType.indexOf('donor') !== -1 && this.donor === true) {
             data.push(e)
@@ -205,30 +220,35 @@ export class IpComponent implements OnInit {
   }
 
 
-  checkFingerprint(fingerprint, x) {
-    console.log(fingerprint, !x)
-    // this.fingerprint.cecked(fingerprint, !x).subscribe(
-    //   data => {
-    //     console.log(data);
-    //     this.tdata.forEach((e) => {
-    //       if (e.Fingerprint === fingerprint) {
-    //         e.check = !x
-    //       }
-    //     });
-    //     console.log(this.tdata);
-    //   },
-    //   error => {
-    //     console.log(error);
-    //     this.getAll();
-    //   }
-    // )
+  checkEmail(email, x) {
+    let data = {
+      email: email,
+      val: !x
+    }
+    this.rel = false;
+    this.userService.temporarydisable(data).subscribe(
+      data => {
+        this.tdata.forEach((e) => {
+          e.users.forEach((el) => {
+            if(el.email == email){
+              el.temporyBan = !x;
+            }
+          })
+        });
+        console.log(this.tdata);
+      },
+      error => {
+        console.log(error);
+        this.getAll();
+      }
+    )
   }
 
   checkBan(x){
     let y =false;
     x.users.forEach(e=>{
-      if(e.temmporyBan == true){
-        y =true;
+      if (e.temporyBan === true){
+        y = true;
       }
     })
 
