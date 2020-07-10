@@ -44,6 +44,8 @@ import { MatCardModule } from '@angular/material/card';
 import { UserComponent } from './user/user.component';
 import { IpComponent } from './ip/ip.component';
 import { FringerprintComponent } from './fringerprint/fringerprint.component';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -68,7 +70,9 @@ import { FringerprintComponent } from './fringerprint/fringerprint.component';
     NgxSpinnerModule,
     MatSelectModule,
     MatSlideToggleModule,
-    MatCardModule
+    MatCardModule,
+    MatPasswordStrengthModule.forRoot(),
+    MatInputModule
   ],
   declarations: [
     DashboardComponent,

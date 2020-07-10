@@ -1,0 +1,105 @@
+.avatar-upload {
+  position: relative;
+  max-width: 205px;
+  margin: 50px auto;
+
+  .avatar-edit {
+    position: absolute;
+    right: 12px;
+    z-index: 1;
+    top: 10px;
+
+    input {
+      display: none;
+
+      +label {
+        content: unset !important;
+        display: inline-block;
+        width: 34px;
+        height: 34px;
+        margin-bottom: 0;
+        border-radius: 100%;
+        background: #FFFFFF;
+        border: 1px solid transparent;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+        cursor: pointer;
+        font-weight: normal;
+        transition: all .2s ease-in-out;
+
+        &:hover {
+          background: #f1f1f1;
+          border-color: #d6d6d6;
+        }
+
+        &:after {
+          content: "\f040";
+          font-family: 'FontAwesome';
+          color: #757575;
+          position: absolute;
+          top: 10px;
+          left: 0;
+          right: 0;
+          text-align: center;
+          margin: auto;
+        }
+      }
+    }
+  }
+
+  .avatar-preview {
+    width: 192px;
+    height: 192px;
+    position: relative;
+    border-radius: 100%;
+    border: 6px solid #F8F8F8;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+
+    >div {
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+}
+
+label:after {
+  content: unset !important;
+}
+
+agm-map {
+  height: 300px;
+}
+
+::ng-deep .mat-progress-bar {
+  width: 94% !important;
+}
+
+::ng-deep .ng-trigger-list {
+  width: 94%;
+}
+
+::ng-deep .mat-ripple:not(:empty) {
+  border: unset !important;
+}
+
+.ng-valid[required],
+.ng-valid.required {
+  border-color: #1bc5bd;
+  padding-right: calc(1.5em + 1.3rem);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%231BC5BD' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right calc(.375em + .325rem) center;
+  background-size: calc(.75em + .65rem) calc(.75em + .65rem)
+}
+
+.ng-touched.ng-invalid:not(form) {
+  border-color: #f64e60;
+  padding-right: calc(1.5em + 1.3rem);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23F64E60' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23F64E60' stroke='none'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right calc(.375em + .325rem) center;
+  background-size: calc(.75em + .65rem) calc(.75em + .65rem)
+}

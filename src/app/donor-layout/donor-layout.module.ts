@@ -32,6 +32,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { NgApexchartsModule } from "ng-apexcharts";
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 
 @NgModule({
   imports: [
@@ -57,7 +58,8 @@ import { NgApexchartsModule } from "ng-apexcharts";
     MatInputModule,
     MatNativeDateModule,
     SharedLayoutModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    MatPasswordStrengthModule.forRoot(),
   ],
   declarations: [
     DashboardComponent,

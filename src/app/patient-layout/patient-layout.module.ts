@@ -13,6 +13,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { WigRequestComponent} from './wig-request/wig-request.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PatientChatComponent } from './patient-chat/patient-chat.component';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   imports: [
@@ -23,6 +25,8 @@ import { PatientChatComponent } from './patient-chat/patient-chat.component';
     ReactiveFormsModule,
     MatRadioModule,
     MatCardModule,
+    MatPasswordStrengthModule.forRoot(),
+    MatInputModule
   ],
   declarations: [
     DashboardComponent,
