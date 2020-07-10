@@ -4,7 +4,7 @@
             <div class="row align-items-center">
                 <div class="col-md-8 my-2 my-md-0">
                     <div class="input-icon">
-                        <input type="text" input matInput (keyup)="applyFilter($event)" class="form-control"
+                        <input type="text" input (keyup)="applyFilter($event)" class="form-control form-control-lg form-control-solid"
                             placeholder="Search...">
                         <span><i class="flaticon2-search-1 text-muted"></i></span>
                     </div>
@@ -362,7 +362,7 @@
         <mat-header-cell *matHeaderCellDef style="width: 50vw;"> Action </mat-header-cell>
         <mat-cell *matCellDef="let element">
             <mat-slide-toggle class="primary" [checked]= element.temporyBan
-                (change)="checkFingerprint(element.Fingerprint,element.check)">
+                (change)="checkEmail(element.email,element.temporyBan)">
                 Ban?
             </mat-slide-toggle>
         </mat-cell>
