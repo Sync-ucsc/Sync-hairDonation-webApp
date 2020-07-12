@@ -41,7 +41,7 @@
         </thead>
         <tbody *ngIf="!myControl.valid" >
             <tr *ngFor="let patient of Patient; let i = index">
-                <ng-container *ngIf="patient.lastRequest && patient.lastRequest.attendantStatus =='0'"> 
+                <ng-container *ngIf="patient.lastRequest && patient.lastRequest.attendantStatus =='1' && patient.lastRequest.finished == false && patient.lastRequest.canceled ==false "> 
                 <th scope="row">{{i+1}}</th>
                 <td>{{patient['firstName']}} {{patient['lastName']}}</td>
                 <td>{{patient['reportId']}} </td>

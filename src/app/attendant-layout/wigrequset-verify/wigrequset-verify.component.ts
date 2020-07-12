@@ -44,7 +44,7 @@ export class WigrequsetVerifyComponent implements OnInit {
     this.socket.on('new-patient', () => {
       this.getPatients();
     });
-    this.socket.on('update-patient', () => {
+    this.socket.on('update-wig-request', () => {
       this.getPatients();
     });
     this.socket.on('new-wig-request', () => {
@@ -81,10 +81,10 @@ export class WigrequsetVerifyComponent implements OnInit {
 finishWigrequest(id){
   Swal.fire({
     title: 'Are you sure?',
-    text: `This wig Request will be accepted`,
+    text: `This wig Request will be mark as completed`,
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Yes, accpet it!',
+    confirmButtonText: 'Yes, complete it!',
     cancelButtonText: 'No, cancel!',
     reverseButtons: true,
     preConfirm: (login) => {
@@ -103,14 +103,14 @@ finishWigrequest(id){
   }).then(function (result) {
     if (result.value) {
       Swal.fire(
-        'Accepted!',
-        'Patient wig request has been accepted',
+        'Finished!',
+        'Patient wig request mark as completed',
         'success'
       )
     } else if (result.dismiss === Swal.DismissReason.cancel) {
       Swal.fire(
         'Cancelled',
-        'Patient wig request was not accepttd',
+        'Patient wig request was not mark as completed',
         'error'
       )
     }
@@ -120,10 +120,10 @@ finishWigrequest(id){
 cancelWigrequest(id){
   Swal.fire({
     title: 'Are you sure?',
-    text: `This wig Request will be declined`,
+    text: `This wig Request will be marked as not completed`,
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Yes, Decline it!',
+    confirmButtonText: 'Yes',
     cancelButtonText: 'No, cancel!',
     reverseButtons: true,
     preConfirm: (login) => {
@@ -142,14 +142,14 @@ cancelWigrequest(id){
   }).then(function (result) {
     if (result.value) {
       Swal.fire(
-        'Declined!',
-        'Patient wig request has been declined',
+        'Success!',
+        'Patient wig request has been declined marked as not completed',
         'success'
       )
     } else if (result.dismiss === Swal.DismissReason.cancel) {
       Swal.fire(
         'Cancelled',
-        'Patient wig request was not declined',
+        'Patient wig request was not marked as not completed',
         'error'
       )
     }
