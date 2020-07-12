@@ -34,10 +34,10 @@ export class AppComponent implements OnInit {
     })
       .then(sub1 => {
         const data = {
-          sub: sub1
+          sub: sub1,
+          role: 'all'
         };
-        console.log(sub1);
-        this.notificationService.addPushSubscriber(data).subscribe((data1)=>{console.log(data1)});})
+        this.notificationService.addPushSubscriber(data).subscribe((data1)=>{});})
       .catch(err => console.log('Could not subscribe to notifications', err));
   }
 

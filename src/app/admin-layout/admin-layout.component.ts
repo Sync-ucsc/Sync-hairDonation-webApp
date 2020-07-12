@@ -13,14 +13,8 @@ import { NotificationService } from '@services/notification.service';
   styleUrls: ['./admin-layout.component.scss']
 })
 export class AdminLayoutComponent implements OnInit {
-  private _router: Subscription;
-  private lastPoppedUrl: string;
-  private yScrollStack: number[] = [];
-  x = {
-    publicKey: 'BE-J8ek0Xl6Mpgw5R6-B5M5BYISYVkQi6XVGmt8qymgz-u66hyrkEFcgZKJECL8bLHbPyPiVwgTaoH9EpP6VNlc',
-    privateKey: 'K2cXkx8quUdVzwF35KBX9NRXrGBiRNXRoE1WNz_StBM'
-  }
-  constructor(public location: Location, private router: Router, private swPush: SwPush,private notificationService: NotificationService) {
+
+  constructor(public location: Location) {
       setTimeout(() => {
           const node = document.createElement('script');
           node.src = '../../assets/js/scripts.bundle.js';
@@ -31,16 +25,6 @@ export class AdminLayoutComponent implements OnInit {
   }
 
   ngOnInit() {
-  this.subscribeToNotifications()
-  }
-
-  subscribeToNotifications() {
-
-    this.swPush.requestSubscription({
-      serverPublicKey: this.x.publicKey
-    })
-      .then(sub => this.notificationService.addPushSubscriber(sub).subscribe())
-      .catch(err => console.log('Could not subscribe to notifications', err));
   }
 
 }

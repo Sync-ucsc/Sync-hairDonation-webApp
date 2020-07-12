@@ -204,7 +204,7 @@
                                             Password</label>
                                         <div class="col-9">
                                             <input class="form-control form-control-lg form-control-solid mb-1"
-                                                type="password" formControlName=oldpassword
+                                                type="password" formControlName=oldpassword [(ngModel)]="user4.oldPassword"
                                                 placeholder="Current password">
                                             <a routerLink="/froget-password"
                                                 class="font-weight-bold font-size-sm">Forgot password ?</a>
@@ -224,7 +224,7 @@
                                     <div class="form-group row">
                                         <label class="col-form-label col-3 text-lg-right text-left">New Password</label>
                                         <div class="col-9">
-                                            <input formControlName="password" [(ngModel)]="user.password"
+                                            <input formControlName="password" [(ngModel)]="user4.password"
                                                 class="form-control form-control-lg form-control-solid" #password
                                                 [type]="toggle.type" required placeholder="New password">
                                             <mat-pass-toggle-visibility #toggle matSuffix></mat-pass-toggle-visibility>
