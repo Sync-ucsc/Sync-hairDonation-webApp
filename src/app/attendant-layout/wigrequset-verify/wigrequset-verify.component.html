@@ -36,7 +36,7 @@
                 <th scope="col">Name of the Patient</th>
                 <th scope="col">Patient report Id</th>
                 <th scope="col">Wig request type</th>
-                <th scope="col">Accept or Decline</th>
+                <th scope="col">Finished or canceled</th>
             </tr>
         </thead>
         <tbody *ngIf="!myControl.valid" >
@@ -48,11 +48,11 @@
                 <td>{{patient?.lastRequest?.wigType}}</td>
                 
                 <td>
-                    <div class="btn btn-light-success  font-weight-bold mr-2" (click)="acceptWigrequest(patient.lastRequest._id)">
-                        Accept
+                    <div class="btn btn-light-success  font-weight-bold mr-2" (click)="finishWigrequest(patient.lastRequest._id)">
+                        Finished
                   </div>
-                    <div class="btn btn-light-danger font-weight-bold mr-2"  (click)="declineWigrequest(patient.lastRequest._id)">
-                        Decline
+                    <div class="btn btn-light-danger font-weight-bold mr-2"  (click)="cancelWigrequest(patient.lastRequest._id)">
+                        Canceled
                     </div>
                 </td>
             </ng-container>

@@ -30,6 +30,7 @@ import {ManageWigrequestComponent} from './manage-wigrequest/manage-wigrequest.c
 import { ManageSalonRequestComponent } from './manage-salon-request/manage-salon-request.component';
 import { AssignDriverComponent } from './manage-salon-request/assign-driver/assign-driver.component';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { WigrequsetVerifyComponent } from './wigrequset-verify/wigrequset-verify.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
     ManageSalonRequestComponent,
     AssignDriverComponent,
     uploadDialogComponent,
+    WigrequsetVerifyComponent,
   ],
 })
 export class AttendantLayoutModule {}

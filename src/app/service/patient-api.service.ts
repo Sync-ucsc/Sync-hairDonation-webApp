@@ -113,6 +113,21 @@ deletePatient(id): Observable<any> {
       .pipe(catchError(this.errorManagement));
   }
 
+  
+  finishWigrequest(patientId: string): Observable<any> {
+    return this._http
+      .get(`${this.baseUrl}/finishWigrequest/${patientId}`)
+      .pipe(catchError(this.errorManagement));
+  }
+
+  
+  cancelWigrequest(patientId: string): Observable<any> {
+    return this._http
+      .get(`${this.baseUrl}/cancelWigrequest/${patientId}`)
+      .pipe(catchError(this.errorManagement));
+  }
+
+
   errorManagement(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {
       return throwError(error.error.message);
