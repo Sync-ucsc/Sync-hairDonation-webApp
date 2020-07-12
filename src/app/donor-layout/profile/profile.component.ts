@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { UserService } from '@services/user.service';
 import { TokenService } from '@services/token.service';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { DonorApiService } from '@services/donor-api.service';
+import Swal from 'sweetalert2';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-profile',
@@ -44,14 +47,19 @@ export class ProfileComponent implements OnInit {
 
   user3 = {
     email: '',
-    lat: '',
-    lon: ''
+    lat: 0,
+    lon: 0
   }
 
   user4 = {
     email: '',
     password: '',
-    newPassword: ''
+    oldPassword: ''
+  }
+  user5 = {
+    email: '',
+    password: '',
+    oldPassword: ''
   }
 
 
@@ -91,11 +99,25 @@ export class ProfileComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private donorService: DonorApiService
   ) {
     this.user.email = tokenService.getEmail();
     this.user.firstName = tokenService.getFirstName();
     this.user.lastName = tokenService.getLastName();
+    this.user.phone = tokenService.getPhone();
+    this.user.img = tokenService.getImg();
+    this.donorService.getDonorByEmail(this.user.email).subscribe(
+    data => {
+
+        this.user.address = data.data.address
+        this.user.lat = data.data.lat
+        this.user.lon = data.data.lon
+        this.latitude = data.data.lat
+        this.longitude = data.data.lon
+    },
+    error => {
+    })
 
   }
 
@@ -195,11 +217,50 @@ export class ProfileComponent implements OnInit {
   }
 
   submit2() {
-
+    this.user5.email = this.user.email;
+    this.user5.password = Md5.hashStr(this.user4.password).toString();
+    this.user5.oldPassword = Md5.hashStr(this.user4.oldPassword).toString();
+    this.userService.profileChangePassword(this.user5).subscribe(
+      data => {
+        Swal.fire(
+          'Password change!',
+          data['msg'],
+          'success'
+        );
+      },
+      error => {
+        Swal.fire(
+          'Error!',
+          error.error.msg,
+          'error'
+        );
+      }
+    )
   }
 
   submit3() {
-
+    
+    if(this.latitude !== this.user.lat || this.longitude !== this.user.lon){
+      this.user3.email = this.user.email;
+      this.user3.lat = this.user.lat;
+      this.user3.lon = this.user.lon;
+      this.donorService.changeLocation(this.user3).subscribe(
+        data => {
+          Swal.fire(
+            'Location change!',
+            data['msg'],
+            'success'
+          );
+        },
+        error => {
+          Swal.fire(
+            'Error!',
+            error.error.msg,
+            'error'
+          );
+        }
+      )
+    }
   }
 
 }

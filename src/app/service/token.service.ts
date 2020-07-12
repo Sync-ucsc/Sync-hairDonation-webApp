@@ -64,6 +64,7 @@ export class TokenService {
   }
 
   public getEmail() {
+    console.log(this.payload(this.gettoken()))
     return this.payload(this.gettoken()).email;
   }
 
@@ -76,7 +77,15 @@ export class TokenService {
   }
 
   public getLastName() {
-    return this.payload(this.gettoken()).LastName;
+    return this.payload(this.gettoken()).lastName;
+  }
+
+  public getImg() {
+    return this.payload(this.gettoken()).profilePic;
+  }
+
+  public getPhone() {
+    return this.payload(this.gettoken()).telephone;
   }
 
   public isUserAdmin(): boolean {

@@ -65,6 +65,11 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/changePassword`, data , { headers: header });
   }
 
+  profileChangePassword(data) {
+    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
+    return this.http.post(`${this.baseUrl}/profileChanePassword`, data, { headers: header });
+  }
+
   // donor activate
   donorActivate(data){
     return this.http.post(`${this.baseUrl}/donorActive`, data);
