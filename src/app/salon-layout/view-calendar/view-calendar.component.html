@@ -72,13 +72,9 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label>Customer Phone Number</label>
-                  <label>
-                    <input [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"
-                           class="form-control"
-                           formControlName="mobile"
-                           type="text" min="0" max="10"
-                    />
-                  </label>
+                  <input [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" class="form-control" formControlName="mobile"
+                          type="text" />
+
                   <!-- change type from text to number, set min to 0-->
                   <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
                     <div *ngIf="f.mobile.errors.required">Mobile must be Valid and at least 10 digits</div>

@@ -1,4 +1,4 @@
-import * as io from 'socket.io-client';
+
 import {Component, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {FullCalendarComponent} from '@fullcalendar/angular';
 import {EventInput} from '@fullcalendar/core';
@@ -10,6 +10,9 @@ import {ViewCalendarService} from '@services/viewcalendar.service';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
+import * as io from 'socket.io-client';
+import { Observable } from 'rxjs';
+
 
 //add, update and delete component
 @Component({
@@ -74,9 +77,9 @@ export class ViewCalendarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getall()
+    this.getall();
     this.addForm = this.fb.group({
-      name: [' ', [Validators.required, Validators.minLength(6)]],
+      name: [' ', [Validators.required]],
       mobile: [' ', [Validators.required, Validators.pattern(/^-?([0-9]\d*)?$/), Validators.minLength(10)]]
     });
     this.options = {
@@ -165,7 +168,7 @@ export class ViewCalendarComponent implements OnInit {
 
 
   onSubmit() {
-
+   
     this.submitted = true;
     const formValue = this.addForm.value;
     console.log(formValue)
@@ -185,39 +188,38 @@ export class ViewCalendarComponent implements OnInit {
         appointmentDate: this.arg.date,
         appointmentTimeSlot:this.arg.dateStr
    }
-
-    this._ViewCalendarService.createAppointment(appointment).subscribe(
-      data => {
-        Swal.fire(
-          'Done!',
-          'You added a new appointment!',
-          'success'
-        )
-        this.showModal = false;
-        this.calendarEvents = [];
-        console.log(data)
-        this.getall();
-      },
-      error => {
-        console.log(error)
-        Swal.fire(
-          'Error!',
-          'Error!',
-          'error'
-        )
-        this.showModal = false;
-      },
-    );
-
-
-    if (!this.addForm.valid) {
-      return false;
-    } else {
+ 
+   this._ViewCalendarService.createAppointment(appointment).subscribe(
+    data => {
+      Swal.fire(
+        'Done!',
+        'You added a new appointment!',
+        'success'
+      )
+      this.showModal = false;
+      this.calendarEvents = [];
+      console.log(data)
+      this.getall();
+    },
+    error => {
+      console.log(error)
+      Swal.fire(
+        'Error!',
+        'Error!',
+        'error'
+      )
+      this.showModal = false;
+    },
+  );
 
 
-    }
-
+  if (!this.addForm.valid) {
+    return false;
+  } else {
   }
+  }
+
+
 
 
 
@@ -287,20 +289,65 @@ export class ViewCalendarComponent implements OnInit {
 
   }
 
-  updateAppointment(event) {
-    console.log('ddd')
-    console.log(event)
-    const id = (event.event.id) ? event.event.id : event.event._def.id;
-    let date = event.event.start;
-    date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 
-    this._ViewCalendarService.updateAppointment(id, date).subscribe(
-      data => {
+
+
+
+  updateAppointment(event) {
+    //console.log('ddd');
+    console.log(event);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Salon will be updated permanently`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, update it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true,
+      preConfirm: (login) => {
+
+        this._ViewCalendarService.updateAppointment(event.event.id,this.date).subscribe((data) => {
+          console.log(data);
+          this.socket.emit('updateAppointment', data);
+          if(!data.msg)
+          Swal.showValidationMessage(
+            `Request failed`
+          )
+       }
+      )
+
+    },
+      // tslint:disable-next-line: only-arrow-functions
+    }).then(function (result) {
+      if (result.value) {
+        Swal.fire(
+          'Updated',
+          'Appointment has been updated.',
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Appointment was not updated',
+          'error'
+        )
       }
-    )
+    }
+    );
   }
 
-  
+
+  //   const id = (event.event.id) ? event.event.id : event.event._def.id;
+  //   let date = event.event.start;
+  //   date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+
+  //   this._ViewCalendarService.updateAppointment(id, date).subscribe(
+  //     data => {
+  //     }
+  //   )
+  // }
+
+
 
 
 
@@ -337,7 +384,7 @@ export class ViewCalendarComponent implements OnInit {
     preConfirm: (login) => {
       this._ViewCalendarService.deleteAppointment(event.event.id).subscribe((data) => {
         console.log(data);
-        this.socket.emit('updatedata', data);
+        this.socket.emit('updateAppointment', data);
         if(!data.msg)
           Swal.showValidationMessage(
             `Request failed`
@@ -353,10 +400,11 @@ export class ViewCalendarComponent implements OnInit {
          'Appointment has been deleted.',
          'success'
        )
+       event.event.remove();
      } else if (result.dismiss === Swal.DismissReason.cancel) {
        Swal.fire(
          'Cancelled',
-         'APpointment was not deleted',
+         'Appointment was not deleted',
          'error'
        )
      }
