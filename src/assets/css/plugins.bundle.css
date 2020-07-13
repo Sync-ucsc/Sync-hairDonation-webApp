@@ -87,7 +87,7 @@
   width: 11px
 }
 
-@supports (-ms-overflow-style: none) {
+@supports (-ms-overflow-style:none) {
   .ps {
     overflow: auto !important
   }
@@ -103,7 +103,7 @@
 @font-face {
   font-family: Ki;
   src: url(fonts/keenthemes-icons/Ki.eot);
-  src: url(fonts/keenthemes-icons/Ki.eot?#iefix) format("embedded-opentype"), url(fonts/keenthemes-icons/Ki.woff) format("woff"), url(fonts/keenthemes-icons/Ki.ttf) format("truetype"), url(fonts/keenthemes-icons/Ki.svg#Ki) format("svg");
+  src: url(fonts/keenthemes-icons/Ki.eot#iefix) format("embedded-opentype"), url(fonts/keenthemes-icons/Ki.woff) format("woff");
   font-weight: 400;
   font-style: normal
 }
@@ -2280,14 +2280,14 @@ fieldset[disabled] .datepicker table tr td span.active:hover:hover {
   padding: 4px
 }
 
-@media (min-width: 767px) {
+@media (min-width:767px) {
   .bootstrap-timepicker-widget.modal {
     width: 200px;
     margin-left: -100px
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width:767px) {
   .bootstrap-timepicker {
     width: 100%
   }
@@ -2648,7 +2648,7 @@ fieldset[disabled] .datepicker table tr td span.active:hover:hover {
   color: #fff
 }
 
-@media (min-width: 564px) {
+@media (min-width:564px) {
   .daterangepicker {
     width: auto
   }
@@ -2706,7 +2706,7 @@ fieldset[disabled] .datepicker table tr td span.active:hover:hover {
   }
 }
 
-@media (min-width: 730px) {
+@media (min-width:730px) {
   .daterangepicker .ranges {
     width: auto
   }
@@ -6254,7 +6254,7 @@ select.selectpicker {
   stroke: #06c
 }
 
-@media (pointer: coarse) {
+@media (pointer:coarse) {
 
   .ql-snow .ql-toolbar button:hover:not(.ql-active),
   .ql-snow.ql-toolbar button:hover:not(.ql-active) {
@@ -7211,7 +7211,7 @@ select.selectpicker {
   width: 0
 }
 
-@supports (-moz-appearance: none) {
+@supports (-moz-appearance:none) {
   .tagify__input:empty {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -7240,7 +7240,7 @@ select.selectpicker {
   transform: translatex(6px)
 }
 
-@supports (-moz-appearance: none) {
+@supports (-moz-appearance:none) {
   .tagify__input:focus::before {
     display: none
   }
@@ -7267,7 +7267,7 @@ select.selectpicker {
   transform: none
 }
 
-@supports (-moz-appearance: none) {
+@supports (-moz-appearance:none) {
   .tagify__input:focus:empty::before {
     display: inline-block
   }
@@ -7458,8 +7458,8 @@ select.selectpicker {
   font-family: summernote;
   font-style: normal;
   font-weight: 400;
-  src: url(fonts/summernote/summernote.eot?1d9aeaaff0a8939558a45be6cd52cd4c);
-  src: url(fonts/summernote/summernote.eot?1d9aeaaff0a8939558a45be6cd52cd4c#iefix) format("embedded-opentype"), url(fonts/summernote/summernote.woff?1d9aeaaff0a8939558a45be6cd52cd4c) format("woff"), url(fonts/summernote/summernote.ttf?1d9aeaaff0a8939558a45be6cd52cd4c) format("truetype")
+  src: url(fonts/summernote/summernote.eot);
+  src: url(fonts/summernote/summernote.eot#iefix) format("embedded-opentype"), url(fonts/summernote/summernote.woff) format("woff"), url(fonts/summernote/summernote.ttf) format("truetype")
 }
 
 [class*=" note-icon-"]:before,
@@ -13130,7 +13130,7 @@ button.toast-close-button {
   opacity: .4
 }
 
-@media all and (max-width: 240px) {
+@media all and (max-width:240px) {
   #toast-container>div {
     padding: 8px 8px 8px 50px;
     width: 11em
@@ -13151,7 +13151,7 @@ button.toast-close-button {
   }
 }
 
-@media all and (min-width: 241px) and (max-width:480px) {
+@media all and (min-width:241px) and (max-width:480px) {
   #toast-container>div {
     padding: 8px 8px 8px 50px;
     width: 18em
@@ -13172,7 +13172,7 @@ button.toast-close-button {
   }
 }
 
-@media all and (min-width: 481px) and (max-width:768px) {
+@media all and (min-width:481px) and (max-width:768px) {
   #toast-container>div {
     padding: 15px 15px 15px 50px;
     width: 25em
@@ -13858,7 +13858,7 @@ button.toast-close-button {
   color: #fff
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width:768px) {
   .apexcharts-canvas:hover .apexcharts-toolbar {
     opacity: 1
   }
@@ -21722,7 +21722,7 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
   font-weight: 400;
   font-display: auto;
   src: url(fonts/line-awesome/la-brands-400.eot);
-  src: url(fonts/line-awesome/la-brands-400.eot?#iefix) format("embedded-opentype"), url(fonts/line-awesome/la-brands-400.woff2) format("woff2"), url(fonts/line-awesome/la-brands-400.woff) format("woff"), url(fonts/line-awesome/la-brands-400.ttf) format("truetype"), url(fonts/line-awesome/la-brands-400.svg#lineawesome) format("svg")
+  src: url(fonts/line-awesome/la-brands-400.eot#iefix) format("embedded-opentype"), url(fonts/line-awesome/la-brands-400.woff2) format("woff2"), url(fonts/line-awesome/la-brands-400.woff) format("woff"), url(fonts/line-awesome/la-brands-400.ttf) format("truetype"), url(fonts/line-awesome/la-brands-400.svg#lineawesome) format("svg")
 }
 
 .lab {
@@ -21735,7 +21735,7 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
   font-weight: 400;
   font-display: auto;
   src: url(fonts/line-awesome/la-regular-400.eot);
-  src: url(fonts/line-awesome/la-regular-400.eot?#iefix) format("embedded-opentype"), url(fonts/line-awesome/la-regular-400.woff2) format("woff2"), url(fonts/line-awesome/la-regular-400.woff) format("woff"), url(fonts/line-awesome/la-regular-400.ttf) format("truetype"), url(fonts/line-awesome/la-regular-400.svg#lineawesome) format("svg")
+  src: url(fonts/line-awesome/la-regular-400.eot#iefix) format("embedded-opentype"), url(fonts/line-awesome/la-regular-400.woff2) format("woff2"), url(fonts/line-awesome/la-regular-400.woff) format("woff"), url(fonts/line-awesome/la-regular-400.ttf) format("truetype"), url(fonts/line-awesome/la-regular-400.svg#lineawesome) format("svg")
 }
 
 .lar {
@@ -21749,7 +21749,7 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
   font-weight: 900;
   font-display: auto;
   src: url(fonts/line-awesome/la-solid-900.eot);
-  src: url(fonts/line-awesome/la-solid-900.eot?#iefix) format("embedded-opentype"), url(fonts/line-awesome/la-solid-900.woff2) format("woff2"), url(fonts/line-awesome/la-solid-900.woff) format("woff"), url(fonts/line-awesome/la-solid-900.ttf) format("truetype"), url(fonts/line-awesome/la-solid-900.svg#lineawesome) format("svg")
+  src: url(fonts/line-awesome/la-solid-900.eot#iefix) format("embedded-opentype"), url(fonts/line-awesome/la-solid-900.woff2) format("woff2"), url(fonts/line-awesome/la-solid-900.woff) format("woff"), url(fonts/line-awesome/la-solid-900.ttf) format("truetype"), url(fonts/line-awesome/la-solid-900.svg#lineawesome) format("svg")
 }
 
 .la,
@@ -24535,7 +24535,7 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
 @font-face {
   font-family: Flaticon;
   src: url(fonts/flaticon/Flaticon.eot);
-  src: url(fonts/flaticon/Flaticon.eot?#iefix) format("embedded-opentype"), url(fonts/flaticon/Flaticon.woff) format("woff"), url(fonts/flaticon/Flaticon.ttf) format("truetype"), url(fonts/flaticon/Flaticon.svg#Flaticon) format("svg");
+  src: url(fonts/flaticon/Flaticon.eot#iefix) format("embedded-opentype"), url(fonts/flaticon/Flaticon.woff) format("woff"), url(fonts/flaticon/Flaticon.ttf) format("truetype"), url(fonts/flaticon/Flaticon.svg#Flaticon) format("svg");
   font-weight: 400;
   font-style: normal
 }
@@ -25510,7 +25510,7 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
 @font-face {
   font-family: Flaticon2;
   src: url(fonts/flaticon2/Flaticon2.eot);
-  src: url(fonts/flaticon2/Flaticon2.eot?#iefix) format("embedded-opentype"), url(fonts/flaticon2/Flaticon2.woff) format("woff"), url(fonts/flaticon2/Flaticon2.ttf) format("truetype"), url(fonts/flaticon2/Flaticon2.svg#Flaticon2) format("svg");
+  src: url(fonts/flaticon2/Flaticon2.eot#iefix) format("embedded-opentype"), url(fonts/flaticon2/Flaticon2.woff) format("woff"), url(fonts/flaticon2/Flaticon2.ttf) format("truetype"), url(fonts/flaticon2/Flaticon2.svg#Flaticon2) format("svg");
   font-weight: 400;
   font-style: normal
 }
@@ -26449,7 +26449,7 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
 @font-face {
   font-family: socicon;
   src: url(fonts/socicon/socicon.eot);
-  src: url(fonts/socicon/socicon.eot?#iefix) format("embedded-opentype"), url(fonts/socicon/socicon.woff) format("woff"), url(fonts/socicon/socicon.ttf) format("truetype"), url(fonts/socicon/socicon.svg#socicon) format("svg");
+  src: url(fonts/socicon/socicon.eot#iefix) format("embedded-opentype"), url(fonts/socicon/socicon.woff) format("woff"), url(fonts/socicon/socicon.ttf) format("truetype"), url(fonts/socicon/socicon.svg#socicon) format("svg");
   font-weight: 400;
   font-style: normal
 }
@@ -33160,8 +33160,8 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url(fonts/@fortawesome/fa-brands-400.eot);
-  src: url(fonts/@fortawesome/fa-brands-400.eot?#iefix) format("embedded-opentype"), url(fonts/@fortawesome/fa-brands-400.woff2) format("woff2"), url(fonts/@fortawesome/fa-brands-400.woff) format("woff"), url(fonts/@fortawesome/fa-brands-400.ttf) format("truetype"), url(fonts/@fortawesome/fa-brands-400.svg#fontawesome) format("svg")
+  src: url(fonts/%40fortawesome/fa-brands-400.eot);
+  src: url(fonts/%40fortawesome/fa-brands-400.eot#iefix) format("embedded-opentype"), url(fonts/%40fortawesome/fa-brands-400.woff2) format("woff2"), url(fonts/%40fortawesome/fa-brands-400.woff) format("woff"), url(fonts/%40fortawesome/fa-brands-400.ttf) format("truetype"), url(fonts/%40fortawesome/fa-brands-400.svg#fontawesome) format("svg")
 }
 
 .fab {
@@ -33173,8 +33173,8 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url(fonts/@fortawesome/fa-regular-400.eot);
-  src: url(fonts/@fortawesome/fa-regular-400.eot?#iefix) format("embedded-opentype"), url(fonts/@fortawesome/fa-regular-400.woff2) format("woff2"), url(fonts/@fortawesome/fa-regular-400.woff) format("woff"), url(fonts/@fortawesome/fa-regular-400.ttf) format("truetype"), url(fonts/@fortawesome/fa-regular-400.svg#fontawesome) format("svg")
+  src: url(fonts/%40fortawesome/fa-regular-400.eot);
+  src: url(fonts/%40fortawesome/fa-regular-400.eot#iefix) format("embedded-opentype"), url(fonts/%40fortawesome/fa-regular-400.woff2) format("woff2"), url(fonts/%40fortawesome/fa-regular-400.woff) format("woff"), url(fonts/%40fortawesome/fa-regular-400.ttf) format("truetype"), url(fonts/%40fortawesome/fa-regular-400.svg#fontawesome) format("svg")
 }
 
 .fab,
@@ -33187,8 +33187,8 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
   font-style: normal;
   font-weight: 900;
   font-display: block;
-  src: url(fonts/@fortawesome/fa-solid-900.eot);
-  src: url(fonts/@fortawesome/fa-solid-900.eot?#iefix) format("embedded-opentype"), url(fonts/@fortawesome/fa-solid-900.woff2) format("woff2"), url(fonts/@fortawesome/fa-solid-900.woff) format("woff"), url(fonts/@fortawesome/fa-solid-900.ttf) format("truetype"), url(fonts/@fortawesome/fa-solid-900.svg#fontawesome) format("svg")
+  src: url(fonts/%40fortawesome/fa-solid-900.eot);
+  src: url(fonts/%40fortawesome/fa-solid-900.eot#iefix) format("embedded-opentype"), url(fonts/%40fortawesome/fa-solid-900.woff2) format("woff2"), url(fonts/%40fortawesome/fa-solid-900.woff) format("woff"), url(fonts/%40fortawesome/fa-solid-900.ttf) format("truetype"), url(fonts/%40fortawesome/fa-solid-900.svg#fontawesome) format("svg")
 }
 
 .fa,
