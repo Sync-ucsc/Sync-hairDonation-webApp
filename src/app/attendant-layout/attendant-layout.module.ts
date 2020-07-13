@@ -23,12 +23,14 @@ import { MatButtonModule } from "@angular/material/button";
 // component
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ProfileComponent} from './profile/profile.component';
-import {ManagePatientComponent} from './manage-patient/manage-patient.component';
+import {ManagePatientComponent,uploadDialogComponent} from './manage-patient/manage-patient.component';
 import {AttendantChatComponent} from './attendant-chat/attendant-chat.component';
 import {PatientVerificationComponent} from './patient-verification/patient-verification.component';
 import {ManageWigrequestComponent} from './manage-wigrequest/manage-wigrequest.component';
 import { ManageSalonRequestComponent } from './manage-salon-request/manage-salon-request.component';
 import { AssignDriverComponent } from './manage-salon-request/assign-driver/assign-driver.component';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { WigrequsetVerifyComponent } from './wigrequset-verify/wigrequset-verify.component';
 
 
 @NgModule({
@@ -53,6 +55,7 @@ import { AssignDriverComponent } from './manage-salon-request/assign-driver/assi
         MatCardModule,
         MatButtonModule,
         ReactiveFormsModule,
+        MatPasswordStrengthModule.forRoot(),
     ],
   declarations: [
     DashboardComponent,
@@ -63,6 +66,8 @@ import { AssignDriverComponent } from './manage-salon-request/assign-driver/assi
     PatientVerificationComponent,
     ManageSalonRequestComponent,
     AssignDriverComponent,
+    uploadDialogComponent,
+    WigrequsetVerifyComponent,
   ],
 })
 export class AttendantLayoutModule {}

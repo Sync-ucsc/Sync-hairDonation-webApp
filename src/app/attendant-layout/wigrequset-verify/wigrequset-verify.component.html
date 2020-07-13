@@ -1,0 +1,87 @@
+<div class="input-group mb-3" >
+    <div class="input-group-prepend" >
+    
+    <span class="input-group-text " style=" height: 39px;" id="basic-addon1" >
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <rect x="0" y="0" width="22" height="22"/>
+                <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill=" #9c33ff " fill-rule="nonzero" opacity="0.3"/>
+                <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#9c33ff" fill-rule="nonzero"/>
+            </g>
+        </svg><!--end::Svg Icon-->
+    </span>
+    
+    </div>
+    
+    <input class="form-control" 
+    type="text"
+    placeholder="Search for a Patient"
+    aria-label="Number"
+    matInput
+    [matAutocomplete]="auto">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option   *ngFor="let option of filteredOptions | async" [value]="option['firstName']">
+            {{option['firstName']}}
+        </mat-option>
+    </mat-autocomplete>
+    
+    
+    </div>
+    
+    <div class="card card-custom">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name of the Patient</th>
+                <th scope="col">Patient report Id</th>
+                <th scope="col">Wig request type</th>
+                <th scope="col">Finished or canceled</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="!myControl.valid" >
+            <tr *ngFor="let patient of Patient; let i = index">
+                <ng-container *ngIf="patient.lastRequest && patient.lastRequest.attendantStatus =='1' && patient.lastRequest.finished == false && patient.lastRequest.canceled ==false "> 
+                <th scope="row">{{i+1}}</th>
+                <td>{{patient['firstName']}} {{patient['lastName']}}</td>
+                <td>{{patient['reportId']}} </td>
+                <td>{{patient?.lastRequest?.wigType}}</td>
+                
+                <td>
+                    <div class="btn btn-light-success  font-weight-bold mr-2" (click)="finishWigrequest(patient.lastRequest._id)">
+                        Finished
+                  </div>
+                    <div class="btn btn-light-danger font-weight-bold mr-2"  (click)="cancelWigrequest(patient.lastRequest._id)">
+                        Canceled
+                    </div>
+                </td>
+            </ng-container>
+           
+            </tr>
+            
+        </tbody>
+        <tbody *ngIf="myControl.valid">
+            <tr *ngFor="let patient of filteredOptions | async; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{patient['firstName']}} {{patient['lastName']}}</td>
+                <td>{{patient['reportId']}} </td>
+                <td>{{patient?.lastRequest?.wigType}}</td>
+        
+        
+                <td>
+                    <div class="btn btn-light-success  font-weight-bold mr-2" (click)="finishWigrequest(patient.lastRequest._id)">
+                        Accept
+                  </div>
+                    <div class="btn btn-light-danger font-weight-bold mr-2"  (click)="cancelWigrequest(patient.lastRequest._id)">
+                        Decline
+                    </div>
+                       
+        
+                </td>
+        
+        
+            </tr>
+        
+        </tbody>
+    </table>
+    </div>

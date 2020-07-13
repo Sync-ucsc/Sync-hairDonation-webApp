@@ -26,7 +26,7 @@ export class ChangePasswordComponent implements OnInit {
   }
   logindata = {
     email: '',
-    password: ''
+    token: ''
   }
 
   myform: FormGroup;
@@ -42,9 +42,9 @@ export class ChangePasswordComponent implements OnInit {
     }, { validator: this.checkPasswords });
     this.activatedroute.queryParamMap.subscribe(params => {
       this.logindata.email = params.get('email');
-      this.logindata.password = params.get('token');
+      this.logindata.token = params.get('token');
     });
-    this.userService.login(this.logindata).subscribe(
+    this.userService.request(this.logindata).subscribe(
       data => {
         if (data['msg'] === 'password change') {
           console.log(data)

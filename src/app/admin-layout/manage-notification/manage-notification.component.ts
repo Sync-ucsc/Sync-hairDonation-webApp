@@ -58,14 +58,13 @@ export class ManageNotificationComponent implements OnInit{
   ngOnInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    // console.log(this.dataSource);
+    console.log(this.paginator);
     // this.dataFilter();
 
   }
 
   constructor() { }
 
-  
 
   sExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 
@@ -114,8 +113,8 @@ export class ManageNotificationComponent implements OnInit{
       console.log(x)
       ELEMENT_DATA.forEach(e => {
 
-        if(this.status === 'sdelete' && e.delete === true){ 
-          
+        if(this.status === 'sdelete' && e.delete === true){
+
           if (e.role === 'all' && this.all === true) {
             data.push(e)
           }
@@ -136,7 +135,7 @@ export class ManageNotificationComponent implements OnInit{
           }
           if (e.role === 'manager' && this.manager === true) {
             data.push(e)
-          } 
+          }
           if (this.all !== true && this.donor !== true && this.patient !== true && this.salon !== true && this.driver !== true
             && this.attendant !== true && this.manager !== true){
             data.push(e)

@@ -843,31 +843,13 @@
                                 </a>
                             </li>
 
-                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']" data-menu-toggle="click"
-                                aria-haspopup="true">
-                                <a href="javascript:;" class="menu-link menu-toggle">
-                                    <span class="menu-text">Patient</span>
-                                    <i class="menu-arrow"></i>
+                            <li class="menu-item  " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                <a routerLink="manage-patient" class="menu-link">
+                                    <span class="menu-text">Manage Patients</span>
+                                    <i class="menu-desc"></i>
                                 </a>
-                                <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-                                    <ul class="menu-subnav">
-                                        <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
-                                            <a routerLink="manage-patient" class="menu-link ">
-                                                <span class="menu-text">Manage Patients</span>
-                                                <span class="menu-desc"></span>
-                                            </a>
-                                        </li>
-                                        <li class="menu-item " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
-                                            <a routerLink="#" class="menu-link ">
-                                                <span class="menu-text">Patients Request Manage</span>
-                                                <span class="menu-desc"></span>
-                                            </a>
-                                        </li>
-
-
-                                    </ul>
-                                </div>
                             </li>
+                            
                             <li class="menu-item  " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
                                 <a routerLink="patient-verification" class="menu-link">
                                     <span class="menu-text">Patient Verification</span>
@@ -875,11 +857,31 @@
                                 </a>
                             </li>
 
-                            <li class="menu-item  " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
-                                <a routerLink="manage-wigrequest" class="menu-link">
-                                    <span class="menu-text">Wig Request Manage</span>
-                                    <i class="menu-desc"></i>
+                            
+                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']" data-menu-toggle="click"
+                                aria-haspopup="true">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <span class="menu-text">Wig Request</span>
+                                    <i class="menu-arrow"></i>
                                 </a>
+                                <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+                                    <ul class="menu-subnav">
+                                        <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="manage-wigrequest" class="menu-link ">
+                                                <span class="menu-text">Accept/Decline Wig Request</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-item " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                                            <a routerLink="verify-wigrequest" class="menu-link ">
+                                                <span class="menu-text">Finish/Cancel Wig Request</span>
+                                                <span class="menu-desc"></span>
+                                            </a>
+                                        </li>
+
+
+                                    </ul>
+                                </div>
                             </li>
 
 

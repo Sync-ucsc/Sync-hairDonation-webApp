@@ -1,4 +1,4 @@
-import * as io from 'socket.io-client';
+
 import {Component, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {FullCalendarComponent} from '@fullcalendar/angular';
 import {EventInput} from '@fullcalendar/core';
@@ -10,12 +10,18 @@ import {ViewCalendarService} from '@services/viewcalendar.service';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
+import * as io from 'socket.io-client';
+import { Observable } from 'rxjs';
 
+
+//add, update and delete component
 @Component({
   selector: 'app-view-calendar',
   templateUrl: './view-calendar.component.html',
   styleUrls: ['./view-calendar.component.scss']
 })
+
+
 export class ViewCalendarComponent implements OnInit {
 
   socket = io('http://localhost:3000/donorAppointment');
@@ -48,8 +54,8 @@ export class ViewCalendarComponent implements OnInit {
     },
     {
       title: 'Salon closed ',
-      start: '2020-07-04T08:00:00',
-      end: '2019-07-04T17.00.00',
+      start: '2020-07-11T08:00:00',
+      end: '2020-07-11T17.00.00',
       display: 'background',
       rendering: 'background'
     },
@@ -71,9 +77,9 @@ export class ViewCalendarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getall()
+    this.getall();
     this.addForm = this.fb.group({
-      name: [' ', [Validators.required, Validators.minLength(6)]],
+      name: [' ', [Validators.required]],
       mobile: [' ', [Validators.required, Validators.pattern(/^-?([0-9]\d*)?$/), Validators.minLength(10)]]
     });
     this.options = {
@@ -162,7 +168,7 @@ export class ViewCalendarComponent implements OnInit {
 
 
   onSubmit() {
-
+   
     this.submitted = true;
     const formValue = this.addForm.value;
     console.log(formValue)
@@ -182,73 +188,46 @@ export class ViewCalendarComponent implements OnInit {
         appointmentDate: this.arg.date,
         appointmentTimeSlot:this.arg.dateStr
    }
+ 
+   this._ViewCalendarService.createAppointment(appointment).subscribe(
+    data => {
+      Swal.fire(
+        'Done!',
+        'You added a new appointment!',
+        'success'
+      )
+      this.showModal = false;
+      this.calendarEvents = [];
+      console.log(data)
+      this.getall();
+    },
+    error => {
+      console.log(error)
+      Swal.fire(
+        'Error!',
+        'Error!',
+        'error'
+      )
+      this.showModal = false;
+    },
+  );
 
-    this._ViewCalendarService.createAppointment(appointment).subscribe(
-      data => {
-        Swal.fire(
-          'Done!',
-          'You added a new appointment!',
-          'success'
-        )
-        this.showModal = false;
-        this.calendarEvents = [];
-        console.log(data)
-        this.getall();
-      },
-      error => {
-        console.log(error)
-        Swal.fire(
-          'Error!',
-          'Error!',
-          'error'
-        )
-        this.showModal = false;
-      },
-    );
 
-
-    if (!this.addForm.valid) {
-      return false;
-    } else {
-
-      
-    }
-
+  if (!this.addForm.valid) {
+    return false;
+  } else {
   }
+  }
+
+
+
+
+
 
   eventDragStop(model) {
     console.log(model.event.id);
     console.log(model.event);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   get taskName() {
     return this.taskForm.get('taskName') as FormControl;
@@ -271,8 +250,6 @@ export class ViewCalendarComponent implements OnInit {
     this.calendarEvents.pop()
     // document.getElementById("imagemodal").style.display="hide";
   }
-
-
 
 
 
@@ -300,7 +277,7 @@ export class ViewCalendarComponent implements OnInit {
     // console.dir(this.calendar.element.nativeElement.querySelector(".fc-event"))
     let date = event.event.start;
     date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-    //const string = event.event.name;
+    // const string = event.event.name;
 
      this._ViewCalendarService.createAppointment(date).subscribe(
       data => {
@@ -312,18 +289,67 @@ export class ViewCalendarComponent implements OnInit {
 
   }
 
-  updateAppointment(event) {
-    console.log('ddd')
-    console.log(event)
-    const id = (event.event.id) ? event.event.id : event.event._def.id;
-    let date = event.event.start;
-    date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 
-    this._ViewCalendarService.updateAppointment(id, date).subscribe(
-      data => {
+
+
+
+  updateAppointment(event) {
+    //console.log('ddd');
+    console.log(event);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Salon will be updated permanently`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, update it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true,
+      preConfirm: (login) => {
+
+        this._ViewCalendarService.updateAppointment(event.event.id,this.date).subscribe((data) => {
+          console.log(data);
+          this.socket.emit('updateAppointment', data);
+          if(!data.msg)
+          Swal.showValidationMessage(
+            `Request failed`
+          )
+       }
+      )
+
+    },
+      // tslint:disable-next-line: only-arrow-functions
+    }).then(function (result) {
+      if (result.value) {
+        Swal.fire(
+          'Updated',
+          'Appointment has been updated.',
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Appointment was not updated',
+          'error'
+        )
       }
-    )
+    }
+    );
   }
+
+
+  //   const id = (event.event.id) ? event.event.id : event.event._def.id;
+  //   let date = event.event.start;
+  //   date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+
+  //   this._ViewCalendarService.updateAppointment(id, date).subscribe(
+  //     data => {
+  //     }
+  //   )
+  // }
+
+
+
+
 
   eventDo(event) {
     const icon = this.renderer.createElement('mat-icon');
@@ -343,22 +369,65 @@ export class ViewCalendarComponent implements OnInit {
 
   // }
 
-  deleteAppointment(event) {
 
-    if (event.jsEvent.srcElement.className == 'delete-icon') {
-      console.log('delete-icon')
-      console.log(event.event)
-      const id = (event.event.id) ? event.event.id : event.event._def.id;
-      console.log(id)
-      this._ViewCalendarService.deleteAppointment(id).subscribe(
-        data => {
-          if (data) {
-            event.event.remove();
-          }
-        }
+//  Delete the appointment
+ deleteAppointment(event) {
+  console.log(event.event);
+  Swal.fire({
+    title: 'Are you sure?',
+    text: `Appointment will be deleted permanently`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true,
+    preConfirm: (login) => {
+      this._ViewCalendarService.deleteAppointment(event.event.id).subscribe((data) => {
+        console.log(data);
+        this.socket.emit('updateAppointment', data);
+        if(!data.msg)
+          Swal.showValidationMessage(
+            `Request failed`
+          )
+       }
       )
-    }
-  }
+
+    },
+  }).then(function (result) {
+     if (result.value) {
+       Swal.fire(
+         'Deleted!',
+         'Appointment has been deleted.',
+         'success'
+       )
+       event.event.remove();
+     } else if (result.dismiss === Swal.DismissReason.cancel) {
+       Swal.fire(
+         'Cancelled',
+         'Appointment was not deleted',
+         'error'
+       )
+     }
+   });
+
+}
+
+  // deleteAppointment(event) {
+
+  //   if (event.jsEvent.srcElement.className === 'delete-icon') {
+  //     console.log('delete-icon')
+  //     console.log(event.event)
+  //     const id = (event.event.id) ? event.event.id : event.event._def.id;
+  //     console.log(id)
+  //     this._ViewCalendarService.deleteAppointment(id).subscribe(
+  //       data => {
+  //         if (data) {
+  //           event.event.remove();
+  //         }
+  //       }
+  //     )
+  //   }
+  // }
 
   dayRender(ev) {
     ev.el.addEventListener('dblclick', () => {

@@ -37,10 +37,6 @@
                 <th scope="col">Patient report Id</th>
                 <th scope="col">Wig request type</th>
                 <th scope="col">Accept or Decline</th>
-                <!-- <th scope="col">Telephone</th>
-                <th scope="col">Address</th>
-                <th scope="col">NIC no.</th>
-                <th scope="col">Address</th> -->
             </tr>
         </thead>
         <tbody *ngIf="!myControl.valid" >
@@ -50,11 +46,6 @@
                 <td>{{patient['firstName']}} {{patient['lastName']}}</td>
                 <td>{{patient['reportId']}} </td>
                 <td>{{patient?.lastRequest?.wigType}}</td>
-                <!-- <td>{{donor['telePhone']}}</td>
-                <td>{{donor['address']}}</td>
-                <td>{{donor['nic']}}</td>
-                <td>{{donor['address']}}</td> -->
-               
                 
                 <td>
                     <div class="btn btn-light-success  font-weight-bold mr-2" (click)="acceptWigrequest(patient.lastRequest._id)">
@@ -75,10 +66,6 @@
                 <td>{{patient['firstName']}} {{patient['lastName']}}</td>
                 <td>{{patient['reportId']}} </td>
                 <td>{{patient?.lastRequest?.wigType}}</td>
-                <!-- <td>{{donor['telePhone']}}</td>
-                <td>{{donor['address']}}</td>
-                <td>{{donor['nic']}}</td>
-                <td>{{donor['address']}}</td> -->
         
         
                 <td>
@@ -98,39 +85,3 @@
         </tbody>
     </table>
     </div>
-    
-    
-    <!-- <ng-template #dialog>
-        <mat-card>
-           <mat-card-content [style.overflow]="'auto'" [style.height.px]="'300'">
-                Name of the donor: {{selectedDonor.firstName}} {{selectedDonor.lastName}}<br>
-                E-mail:{{selectedDonor.email}}<br>
-                Telephone:{{selectedDonor.telePhone}}<br>
-                Address:{{selectedSalon.address}}<br>
-                Location:<br>
-                <agm-map [latitude]="selectedSalon.latitude" [longitude]="selectedSalon.longitude" [zoom]=14>
-                   <agm-marker [latitude]="selectedSalon.latitude" [longitude]="selectedSalon.longitude"></agm-marker>
-                   </agm-map>
-                Communication:<br>
-               
-                       <input type="checkbox" formControlName="checkSystem" [(ngModel)]="selectedSalon.checkSystem"> System
-                      
-              
-               
-                   <label class="checkbox">
-                       <input type="checkbox" formControlName="checkSms" [(ngModel)]="selectedSalon.checkSms"> SMS
-                       <span></span>
-                   </label>
-                   <label class="checkbox">
-                       <input type="checkbox" formControlName="checkEmail" [(ngModel)]="selectedSalon.checkEmail"> E-mail
-                       <span></span>
-                   </label>
-             
-            
-
-            </mat-card-content>
-        </mat-card>
-         
-    
-    </ng-template> -->
-    

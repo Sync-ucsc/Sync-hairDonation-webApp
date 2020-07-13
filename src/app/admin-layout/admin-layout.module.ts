@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSortModule} from '@angular/material/sort';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -36,10 +37,15 @@ import { ManageNotificationComponent } from './manage-notification/manage-notifi
 import { PushNotificationComponent } from './push-notification/push-notification.component';
 import { CdkDetailRowDirective } from './manage-notification/cdk-detail-row.directive';
 import { ManageDonorComponent,uploadDialog3Component } from './manage-donor/manage-donor.component';
-import { ManagePatientComponent } from './manage-patient/manage-patient.component';
+import { ManagePatientComponent,uploadDialog4Component } from './manage-patient/manage-patient.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ManageAttendantsComponent} from './manage-attendants/manage-attendants.component';
 import { MatCardModule } from '@angular/material/card';
+import { UserComponent } from './user/user.component';
+import { IpComponent } from './ip/ip.component';
+import { FringerprintComponent } from './fringerprint/fringerprint.component';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -63,7 +69,10 @@ import { MatCardModule } from '@angular/material/card';
     MatAutocompleteModule,
     NgxSpinnerModule,
     MatSelectModule,
-    MatCardModule
+    MatSlideToggleModule,
+    MatCardModule,
+    MatPasswordStrengthModule.forRoot(),
+    MatInputModule
   ],
   declarations: [
     DashboardComponent,
@@ -75,6 +84,7 @@ import { MatCardModule } from '@angular/material/card';
     ManageAttendantsComponent,
     uploadDialogComponent,
     uploadDialog3Component,
+    uploadDialog4Component,
     AddManagerComponent,
     ViewManagerComponent,
     ProfileComponent,
@@ -89,6 +99,9 @@ import { MatCardModule } from '@angular/material/card';
     ManageDonorComponent,
     ManagePatientComponent,
     AttendantsComponent,
+    UserComponent,
+    IpComponent,
+    FringerprintComponent,
   ],
 
 })

@@ -64,11 +64,28 @@ export class TokenService {
   }
 
   public getEmail() {
+    console.log(this.payload(this.gettoken()))
     return this.payload(this.gettoken()).email;
   }
 
   public getId() {
     return this.payload(this.gettoken())._id;
+  }
+
+  public getFirstName() {
+    return this.payload(this.gettoken()).firstName;
+  }
+
+  public getLastName() {
+    return this.payload(this.gettoken()).lastName;
+  }
+
+  public getImg() {
+    return this.payload(this.gettoken()).profilePic;
+  }
+
+  public getPhone() {
+    return this.payload(this.gettoken()).telephone;
   }
 
   public isUserAdmin(): boolean {
