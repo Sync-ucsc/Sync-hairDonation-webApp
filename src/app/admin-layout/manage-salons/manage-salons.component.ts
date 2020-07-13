@@ -1,6 +1,7 @@
 /// <reference types="@types/googlemaps" />
 import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject } from '@angular/core';
 import { SalonApiService } from './../../service/salon-api.service';
+import { UserService } from './../../service/user.service';
 import { MatDialog ,MatDialogConfig,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
@@ -40,6 +41,7 @@ socket;
 
 constructor(
     private apiService:SalonApiService,
+    private apiService2:UserService,
     public dialog: MatDialog,
   ) {
 
@@ -105,6 +107,7 @@ constructor(
        this.apiService.deleteSalon(salon._id).subscribe((data) => {
          console.log(data);
          this.socket.emit('updatedata', data);
+          
          if(!data.msg)
            Swal.showValidationMessage(
              `Request failed`

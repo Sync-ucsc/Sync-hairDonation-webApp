@@ -34,7 +34,10 @@ export class PatientVerificationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUsers();
+    setInterval(()=>{
+      this.getUsers();
+    },1000);
+    
     this.socket.on('new-patient', () => {
       this.getUsers();
     });
