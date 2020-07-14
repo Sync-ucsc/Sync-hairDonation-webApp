@@ -10,7 +10,7 @@ import { throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'http://localhost:3000/user';
+  private baseUrl = 'http://127.0.0.1:3000/user';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   options: any;
 

@@ -50,7 +50,7 @@ export class UserComponent implements OnInit {
 
   constructor(private userService: UserService) {
     this.getAll();
-    this.socket = io.connect('http://localhost:3000');
+    this.socket = io.connect('http://127.0.0.1:3000');
   }
 
   ngOnInit(): void {

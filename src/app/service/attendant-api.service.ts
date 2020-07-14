@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const baseUrl = 'http://localhost:3000/attendant';
+const baseUrl = 'http://127.0.0.1:3000/attendant';
 @Injectable({
   providedIn: 'root'
 })

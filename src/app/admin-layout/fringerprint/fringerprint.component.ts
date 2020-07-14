@@ -36,7 +36,7 @@ export class FringerprintComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(private fingerprint: FingerprintService) {
-    this.socket = io.connect('http://localhost:3000');
+    this.socket = io.connect('http://127.0.0.1:3000');
     this.getAll();
   }
 

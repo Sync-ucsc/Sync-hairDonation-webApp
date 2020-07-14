@@ -6,13 +6,13 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const baseUrl = 'http://localhost:3000/salon';
+const baseUrl = 'http://127.0.0.1:3000/salon';
 @Injectable({
   providedIn: 'root'
 })
 export class SalonApiService {
 
-  baseUrl = 'http://localhost:3000/salon';
+  baseUrl = 'http://127.0.0.1:3000/salon';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 

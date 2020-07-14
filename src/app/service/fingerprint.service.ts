@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class FingerprintService {
 
-  private baseUrl = 'http://localhost:3000/fingerprint';
+  private baseUrl = 'http://127.0.0.1:3000/fingerprint';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   options: any;
 
