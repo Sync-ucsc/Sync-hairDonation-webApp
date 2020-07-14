@@ -33,7 +33,9 @@ export class TokenService {
   isValid() {
     const token = this.gettoken();
     if (token) {
+      console.log(token)
       const payload = this.payload(token);
+      
       if (payload) {
         if (Date.now() >= payload.exp * 1000 || Object.values(this.iss).indexOf(payload.iss) === -1 ) {
           Swal.fire(
@@ -52,11 +54,13 @@ export class TokenService {
 
   payload(token) {
     const payload = token.split('.')[1];
+    console.log(payload)
     return this.decode(payload);
   }
 
   decode(payload) {
-    return JSON.parse(window.atob(payload));
+    const base64 = payload.replace(/-/g, '+').replace(/_/g, '/');
+    return JSON.parse(window.atob(base64));
   }
 
   loggedIn() {
