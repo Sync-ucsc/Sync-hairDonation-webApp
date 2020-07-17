@@ -7,7 +7,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 export class NotificationService {
 
 
-  baseUrl = 'http://localhost:3000/notification';
+  baseUrl = 'http://127.0.0.1:3000/notification';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 

@@ -10,7 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 // declare const Swal: any;
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
-// socket = require('socket.io-client')('http://localhost:3000');
+// socket = require('socket.io-client')('http://127.0.0.1:3000');
 import { Observable } from 'rxjs';
 import { startWith, map, endWith } from 'rxjs/operators';
 import { Salon } from 'src/app/model/salon';
@@ -45,7 +45,7 @@ constructor(
     public dialog: MatDialog,
   ) {
 
-     this.socket = io.connect('http://localhost:3000');
+     this.socket = io.connect('http://127.0.0.1:3000');
 
    }
 
@@ -179,7 +179,7 @@ openViewRef(salon){
 // tslint:disable-next-line: class-name
 export class uploadDialogComponent {
 
- socket = io('http://localhost:3000/salon');
+ socket = io('http://127.0.0.1:3000/salon');
 
  latitude: number;
  longitude: number;

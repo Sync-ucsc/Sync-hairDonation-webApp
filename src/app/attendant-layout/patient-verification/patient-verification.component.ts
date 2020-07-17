@@ -4,7 +4,7 @@ import {FormControl, Validators} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
-// socket = require('socket.io-client')('http://localhost:3000');
+// socket = require('socket.io-client')('http://127.0.0.1:3000');
 import {UserService} from './../../service/user.service';
 import {PatientApiService} from './../../service/patient-api.service'
 import {MatDialog,} from '@angular/material/dialog';
@@ -30,7 +30,7 @@ export class PatientVerificationComponent implements OnInit {
     private apiService2: PatientApiService,
     public dialog: MatDialog
   ) {
-    this.socket = io.connect('http://localhost:3000');
+    this.socket = io.connect('http://127.0.0.1:3000');
   }
 
   ngOnInit(): void {

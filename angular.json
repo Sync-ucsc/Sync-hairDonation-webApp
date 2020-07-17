@@ -37,22 +37,17 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/popper.js/dist/umd/popper.js",
               "node_modules/moment/moment.js",
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.js",
               "src/assets/js/wow.min.js",
               "src/assets/js/util.js",
               "node_modules/block-ui/jquery.blockUI.js",
               "node_modules/typeahead.js/dist/typeahead.bundle.js",
-              "node_modules/handlebars/dist/handlebars.js",
               "node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js",
-              "node_modules/inputmask/dist/jquery.inputmask.js",
               "node_modules/owl.carousel/dist/owl.carousel.min.js",
               "node_modules/autosize/dist/autosize.js",
               "node_modules/dropzone/dist/dropzone.js",
-              "src/assets/plugins/dropzone.init.js",
               "src/assets/plugins/bootstrap-session-timeout.min.js",
               "node_modules/toastr/build/toastr.min.js",
               "node_modules/apexcharts/dist/apexcharts.js",
@@ -61,7 +56,7 @@
               "src/assets/plugins/sweetalert2.init.js",
               "node_modules/sticky-js/dist/sticky.min.js",
               "src/assets/js/fringerprint.js",
-              "node_modules/bootstrap/dist/js/bootstrap.js"
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
           "configurations": {

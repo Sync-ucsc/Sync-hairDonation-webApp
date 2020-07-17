@@ -24,7 +24,7 @@ import { Observable } from 'rxjs';
 
 export class ViewCalendarComponent implements OnInit {
 
-  socket = io('http://localhost:3000/donorAppointment');
+  socket = io('http://127.0.0.1:3000/donorAppointment');
 
   showModal: boolean;
   addForm: FormGroup;

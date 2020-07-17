@@ -1666,12 +1666,14 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 
 // Plugin global lazy initialization
 document.addEventListener("click", function (e) {
+  console.log(e)
   var body = KTUtil.getByTagName('body')[0];
   var query;
   if (query = body.querySelectorAll('.menu-nav .menu-item.menu-item-submenu.menu-item-hover:not(.menu-item-tabs)[data-menu-toggle="click"]')) {
+    console.log(query)
     for (var i = 0, len = query.length; i < len; i++) {
+      
       var element = query[i].closest('.menu-nav').parentNode;
-
       if (element) {
         var the = KTUtil.data(element).get('menu');
 
@@ -1690,6 +1692,7 @@ document.addEventListener("click", function (e) {
     }
   }
 });
+
 
 // Component Definition
 var KTOffcanvas = function (elementId, options) {
@@ -4350,7 +4353,6 @@ var KTWizard = function (t, e) {
 };
 "undefined" != typeof module && void 0 !== module.exports && (module.exports = KTWizard),
   function (t) {
-    console.log(t)
     var e = "KTDatatable",
       a = KTUtil,
       n = KTApp;
@@ -8715,7 +8717,6 @@ var KTWidgets = function () {
         }
       }(),
       function () {
-        console.log('c')
         var t = document.getElementById("kt_mixed_widget_6_chart"),
           e = parseInt(KTUtil.css(t, "height"));
         if (t) {
