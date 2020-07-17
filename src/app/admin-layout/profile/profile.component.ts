@@ -69,6 +69,7 @@ export class ProfileComponent implements OnInit {
 
 
   constructor(
+    @Inject(AngularFireStorage) private storage: AngularFireStorage,
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
@@ -105,9 +106,6 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  changepic() {
-
-  }
 
   submit2() {
     this.user5.email = this.user.email;
@@ -133,6 +131,25 @@ export class ProfileComponent implements OnInit {
 
   submit3() {
 
+  }
+
+  changepic() {
+    const name = this.selectedImage.name;
+    const fileRef = this.storage.ref(name);
+    this.storage.upload(name, this.selectedImage).snapshotChanges().pipe(
+      finalize(() => {
+        fileRef.getDownloadURL().subscribe((url) => {
+          this.url = url;
+          this.user.img = url;
+          console.log(this.id, this.url);
+          Swal.fire(
+            'Success',
+            'Upload Successful',
+            'success'
+          )
+        })
+      })
+    ).subscribe();
   }
 
 }
