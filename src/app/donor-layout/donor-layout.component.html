@@ -849,7 +849,13 @@
                                     <span class="menu-desc"></span>
                                 </a>
                             </li>
-                            <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']"
+                            <li class="menu-item" [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
+                              <a routerLink="book_appointment"class="menu-link">
+                                <span class="menu-text">Appointment</span>
+                                <span class="menu-desc"></span>
+                              </a>
+                          </li>
+                            <!-- <li class="menu-item menu-item-submenu menu-item-rel" [routerLinkActive]="['menu-item-here']"
                                     data-menu-toggle="click" aria-haspopup="true">
                                  <a href="javascript:;" class="menu-link menu-toggle">
                                     <span class="menu-text">Appointment</span>
@@ -871,7 +877,7 @@
                                         </li>
                                     </ul>
                                  </div>
-                            </li>
+                            </li> -->
 
 
                             <li class="menu-item  " [routerLinkActive]="['menu-item-here']" aria-haspopup="true">
