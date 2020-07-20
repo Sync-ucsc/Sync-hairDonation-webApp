@@ -21,8 +21,8 @@ import { Observable } from 'rxjs';
 export class AppointmentDetailsComponent implements OnInit {
   socket = io('http://localhost:3000/donorAppointment');
 
-  
-  
+  showModal: boolean;
+
   options: any;
   event: any;
   eventsModel: any;
@@ -36,9 +36,8 @@ export class AppointmentDetailsComponent implements OnInit {
   // calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
   calendarWeekends = true;
   calendarEvents: EventInput[] = [
-    {title: 'Event Now', start: '2020-07-03T16:00:00'},
-    {title: 'Event Now', start: '2020-07-03T16:00:00'},
     {
+      title: 'Salon closed ',
       start: '2020-07-05T10:00:00',
       end: '2020-07-05T13:00:00',
       display: 'background',
@@ -52,22 +51,23 @@ export class AppointmentDetailsComponent implements OnInit {
       rendering: 'background'
     },
 
+
   ];
 
   todayDate = moment().startOf('day');
   TODAY = this.todayDate.format('YYYY-MM-DD')
   arg;
 
-  constructor(private renderer:Renderer2,
+  constructor(
+    private renderer:Renderer2,
     private _ViewCalendarService: ViewCalendarService,
- 
+
     ){
 
   }
 
 
   ngOnInit() {
-
     this.options = {
       editable: true,
       // customButtons: {
@@ -109,8 +109,12 @@ export class AppointmentDetailsComponent implements OnInit {
   }
 
   handleDateClick(arg) {
-   
-  }
+    if (!arg.allday) {
+      document.getElementById('imagemodal').style.display = 'block';
+      this.arg = arg;
+      console.log(arg)
+    }
+
 
 
     // if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
@@ -122,49 +126,50 @@ export class AppointmentDetailsComponent implements OnInit {
     //     allDay: arg.allDay
     //   })
     // }
-    // const swalWithBootstrapButtons = Swal.mixin({
-    //   customClass: {
-    //     confirmButton: 'btn btn-success',
-    //     cancelButton: 'btn btn-danger'
-    //   },
-    //   buttonsStyling: false
-    // })
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
 
-    // swalWithBootstrapButtons.fire({
-    //   title: 'Add Appointment',
+    swalWithBootstrapButtons.fire({
+      title: 'Add Appointment',
       // text: "Are you want to add appointment?",
       // input: 'text',
     //   inputAttributes: {
     //     autocapitalize: 'off'
     //   },
-    //   showCancelButton: true,
-    //   confirmButtonText: 'Yes, add it!',
-    //   cancelButtonText: 'No, cancel!',
-    //   reverseButtons: true
-    // }).then((result) => {
-    //   if (result.value) {
-    //     swalWithBootstrapButtons.fire(
-    //       'Add!',
-    //       'Your appointment is  added.',
-    //       'success'
-    //     )
-    //   } else if (
+      showCancelButton: true,
+      confirmButtonText: 'Yes, add it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        swalWithBootstrapButtons.fire(
+          'Add!',
+          'Your appointment is  added.',
+          'success'
+        )
+      } else if (
         /* Read more about handling dismissals below */
-    //     result.dismiss === Swal.DismissReason.cancel
-    //   ) {
-    //     swalWithBootstrapButtons.fire(
-    //       'Cancelled',
-    //       'Your appointment is not added.',
-    //       'error'
-    //     )
-    //   }
-    // })
- // }
-  //}
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your appointment is not added.',
+          'error'
+        )
+      }
+    })
+ }
 
-  getall(){
-   
-  }
+
+
+          // this.calendar.getApi().addEvent(event);
+
+          //  this.calendarEvents;
 
 
   drop() {
@@ -197,10 +202,45 @@ export class AppointmentDetailsComponent implements OnInit {
      )
 
   }
- 
-  updateAppointment(event) {
-  
 
+  updateAppointment(event) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Salon will be updated permanently`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, update it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true,
+      preConfirm: (login) => {
+
+        this._ViewCalendarService.updateAppointment(event.event.id,this.date).subscribe((data) => {
+          console.log(data);
+          this.socket.emit('updateAppointment', data);
+          if(!data.msg)
+          Swal.showValidationMessage(
+            `Request failed`
+          )
+       }
+      )
+    },
+    // tslint:disable-next-line: only-arrow-functions
+  }).then(function (result) {
+    if (result.value) {
+      Swal.fire(
+        'Updated',
+        'Appointment has been updated.',
+        'success'
+      )
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire(
+        'Cancelled',
+        'Appointment was not updated',
+        'error'
+      )
+    }
+  }
+  );
   }
 
 
@@ -212,7 +252,7 @@ export class AppointmentDetailsComponent implements OnInit {
     this.renderer.appendChild(event.el, icon)
     this.renderer.addClass(event.el, 'text-light')
   }
-  
+
 
   //  Delete the appointment
  deleteAppointment(event) {
