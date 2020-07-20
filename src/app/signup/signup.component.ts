@@ -350,13 +350,22 @@ export class SignupComponent implements OnInit {
       },
       error => {
         // Do something with error
-        this.router.navigate(['/'])
         console.error(error);
-        Swal.fire(
-          'error!',
-          'connection error!',
-          'error'
-        )
+        if (error.error.data.name === 'MongoError'){
+          Swal.fire(
+            'error!',
+            'Your email or Phone number allready in system!',
+            'error'
+          )
+        } else {
+
+          this.router.navigate(['/'])
+          Swal.fire(
+            'error!',
+            'connection error!',
+            'error'
+          )
+        }
       });
   }
 

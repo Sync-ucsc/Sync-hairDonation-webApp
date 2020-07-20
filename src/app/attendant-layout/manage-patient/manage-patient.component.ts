@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 // declare const Swal: any;
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
-// socket = require('socket.io-client')('http://localhost:3000');
+// socket = require('socket.io-client')('http://127.0.0.1:3000');
 import { Observable } from 'rxjs';
 import { startWith, map, endWith } from 'rxjs/operators';
 
@@ -39,7 +39,7 @@ export class ManagePatientComponent implements OnInit {
     private apiService:PatientApiService,
     public dialog: MatDialog,
   ) { 
-    this.socket = io.connect('http://localhost:3000');
+    this.socket = io.connect('http://127.0.0.1:3000');
   }
 
   ngOnInit(): void {
@@ -118,7 +118,7 @@ openViewRef(patient){
 // tslint:disable-next-line: class-name
 export class uploadDialogComponent {
 
- socket = io('http://localhost:3000/patient');
+ socket = io('http://127.0.0.1:3000/patient');
 
  lat: number;
  lon: number;

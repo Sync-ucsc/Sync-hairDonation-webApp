@@ -8,6 +8,7 @@ import {AfterLoginService} from '@services/after-login.service';
 import {ManageWigrequestComponent} from './manage-wigrequest/manage-wigrequest.component';
 import {PatientVerificationComponent} from './patient-verification/patient-verification.component';
 import {ManageSalonRequestComponent} from './manage-salon-request/manage-salon-request.component';
+import { WigrequsetVerifyComponent } from './wigrequset-verify/wigrequset-verify.component';
 
 export const AttendantLayoutRoutes: Routes = [
   // {
@@ -75,6 +76,11 @@ export const AttendantLayoutRoutes: Routes = [
   {
     path: 'manage-wigrequest',
     component: ManageWigrequestComponent,
+    canActivate: [AfterLoginService],
+  },
+  {
+    path: 'verify-wigrequest',
+    component: WigrequsetVerifyComponent,
     canActivate: [AfterLoginService],
   },
   {

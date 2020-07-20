@@ -1,6 +1,7 @@
 /// <reference types="@types/googlemaps" />
 import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject } from '@angular/core';
 import { SalonApiService } from './../../service/salon-api.service';
+import { UserService } from './../../service/user.service';
 import { MatDialog ,MatDialogConfig,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
@@ -9,7 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 // declare const Swal: any;
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
-// socket = require('socket.io-client')('http://localhost:3000');
+// socket = require('socket.io-client')('http://127.0.0.1:3000');
 import { Observable } from 'rxjs';
 import { startWith, map, endWith } from 'rxjs/operators';
 import { Salon } from 'src/app/model/salon';
@@ -40,10 +41,11 @@ socket;
 
 constructor(
     private apiService:SalonApiService,
+    private apiService2:UserService,
     public dialog: MatDialog,
   ) {
 
-     this.socket = io.connect('http://localhost:3000');
+     this.socket = io.connect('http://127.0.0.1:3000');
 
    }
 
@@ -105,6 +107,7 @@ constructor(
        this.apiService.deleteSalon(salon._id).subscribe((data) => {
          console.log(data);
          this.socket.emit('updatedata', data);
+          
          if(!data.msg)
            Swal.showValidationMessage(
              `Request failed`
@@ -176,7 +179,7 @@ openViewRef(salon){
 // tslint:disable-next-line: class-name
 export class uploadDialogComponent {
 
- socket = io('http://localhost:3000/salon');
+ socket = io('http://127.0.0.1:3000/salon');
 
  latitude: number;
  longitude: number;

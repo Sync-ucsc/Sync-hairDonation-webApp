@@ -34,7 +34,7 @@ export class ViewManagerComponent implements OnInit {
     public dialog: MatDialog,
     private router:Router,
   ) {
-    this.socket = io.connect('http://localhost:3000');
+    this.socket = io.connect('http://127.0.0.1:3000');
    }
 
   ngOnInit(): void {

@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { FingerprintService } from '@services/fingerprint.service';
 import { UserService } from '@services/user.service';
+import io from 'socket.io-client';
 
 export interface PeriodicElement {
   massage: string;
@@ -30,7 +31,6 @@ export interface PeriodicElement {
 })
 export class UserComponent implements OnInit {
 
-  all = false;
   donor = false;
   patient = false;
   salon = false;
@@ -41,18 +41,25 @@ export class UserComponent implements OnInit {
   displayedColumns: string[] = ['index','email', 'role','active', 'action'];
 
   dataSource;
-
+  socket;
   tdata;
+  rel;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(private userService: UserService) {
     this.getAll();
+    this.socket = io.connect('http://127.0.0.1:3000');
   }
 
   ngOnInit(): void {
-
+    this.socket.on('check-user', () => {
+      if (this.rel) {
+        this.getAll();
+      }
+      this.rel = true;
+    });
   }
 
   getAll() {
@@ -78,9 +85,6 @@ export class UserComponent implements OnInit {
   dataFilter(x) {
     let data = [];
     console.log(x)
-    if (x === 'all') {
-      this.all = !this.all;
-    }
     if (x === 'donor') {
       this.donor = !this.donor;
     }
@@ -103,16 +107,13 @@ export class UserComponent implements OnInit {
       this.status = x;
       console.log(x)
     }
-    if (this.all === true || this.donor === true || this.patient === true || this.salon === true || this.driver === true
+    if (this.donor === true || this.patient === true || this.salon === true || this.driver === true
       || this.attendant === true || this.manager === true || x === 'sall' || x === 'stempory' || x === 'sunblock') {
       console.log(x)
       this.tdata.forEach(e => {
 
         if (this.status === 'stempory' && e.temporyBan === true) {
 
-          if (e.role === 'all' && this.all === true) {
-            data.push(e)
-          }
           if (e.role === 'donor' && this.donor === true) {
             data.push(e)
           }
@@ -131,7 +132,7 @@ export class UserComponent implements OnInit {
           if (e.role === 'manager' && this.manager === true) {
             data.push(e)
           }
-          if (this.all !== true && this.donor !== true && this.patient !== true && this.salon !== true && this.driver !== true
+          if (this.donor !== true && this.patient !== true && this.salon !== true && this.driver !== true
             && this.attendant !== true && this.manager !== true) {
             data.push(e)
             console.log(x)
@@ -140,9 +141,7 @@ export class UserComponent implements OnInit {
 
         } else if (this.status === 'sunblock' && e.temporyBan !== true) {
 
-          if (e.role === 'all' && this.all === true) {
-            data.push(e)
-          }
+
           if (e.role === 'donor' && this.donor === true) {
             data.push(e)
           }
@@ -161,15 +160,12 @@ export class UserComponent implements OnInit {
           if (e.role === 'manager' && this.manager === true) {
             data.push(e)
           }
-          if (this.all !== true && this.donor !== true && this.patient !== true && this.salon !== true && this.driver !== true
+          if (this.donor !== true && this.patient !== true && this.salon !== true && this.driver !== true
             && this.attendant !== true && this.manager !== true) {
             data.push(e)
           }
 
         } else if (this.status === 'sall') {
-          if (e.role === 'all' && this.all === true) {
-            data.push(e)
-          }
           if (e.role === 'donor' && this.donor === true) {
             data.push(e)
           }
@@ -188,7 +184,7 @@ export class UserComponent implements OnInit {
           if (e.role === 'manager' && this.manager === true) {
             data.push(e)
           }
-          if (this.all !== true && this.donor !== true && this.patient !== true && this.salon !== true && this.driver !== true
+          if (this.donor !== true && this.patient !== true && this.salon !== true && this.driver !== true
             && this.attendant !== true && this.manager !== true) {
             data.push(e)
           }
@@ -218,22 +214,25 @@ export class UserComponent implements OnInit {
   }
 
 
-  checkFingerprint(fingerprint, x) {
-    console.log(fingerprint, !x)
-    // this.fingerprint.cecked(fingerprint, !x).subscribe(
-    //   data => {
-    //     console.log(data);
-    //     this.tdata.forEach((e) => {
-    //       if (e.Fingerprint === fingerprint) {
-    //         e.check = !x
-    //       }
-    //     });
-    //     console.log(this.tdata);
-    //   },
-    //   error => {
-    //     console.log(error);
-    //     this.getAll();
-    //   }
-    // )
+  checkEmail(email, x) {
+    this.rel =false;
+    let data = {
+      email: email,
+      val: !x
+    }
+    this.userService.temporarydisable(data).subscribe(
+      data => {
+        this.tdata.forEach((e) => {
+          if (e.email == email) {
+              e.temporyBan = !x;
+          }
+        });
+        console.log(this.tdata);
+      },
+      error => {
+        console.log(error);
+        this.getAll();
+      }
+    )
   }
 }

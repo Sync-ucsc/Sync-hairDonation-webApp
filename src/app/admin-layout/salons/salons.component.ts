@@ -16,7 +16,7 @@ import Swal from 'sweetalert2'
 
 export class SalonsComponent implements OnInit {
 
-  socket = io('http://localhost:3000/salon');
+  socket = io('http://127.0.0.1:3000/salon');
 
   submitted=false;
   latitude: number;

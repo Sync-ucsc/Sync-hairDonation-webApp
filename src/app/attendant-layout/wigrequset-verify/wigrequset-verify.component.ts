@@ -14,14 +14,12 @@ import { startWith, map, endWith } from 'rxjs/operators';
 export interface DialogData {
   animal:any;
 }
-
 @Component({
-  selector: 'app-manage-wigrequest',
-  templateUrl: './manage-wigrequest.component.html',
-  styleUrls: ['./manage-wigrequest.component.scss']
+  selector: 'app-wigrequset-verify',
+  templateUrl: './wigrequset-verify.component.html',
+  styleUrls: ['./wigrequset-verify.component.scss']
 })
-export class ManageWigrequestComponent implements OnInit {
-
+export class WigrequsetVerifyComponent implements OnInit {
   socket;
   @ViewChild('dialog') templateRef: TemplateRef<any>;
    Patient:any = [];
@@ -41,12 +39,12 @@ export class ManageWigrequestComponent implements OnInit {
     this.socket = io.connect('http://127.0.0.1:3000');
    }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.getPatients();
     this.socket.on('new-patient', () => {
       this.getPatients();
     });
-    this.socket.on('update-patient', () => {
+    this.socket.on('update-wig-request', () => {
       this.getPatients();
     });
     this.socket.on('new-wig-request', () => {
@@ -80,17 +78,17 @@ export class ManageWigrequestComponent implements OnInit {
     })
  }
 
-acceptWigrequest(id){
+finishWigrequest(id){
   Swal.fire({
     title: 'Are you sure?',
-    text: `This wig Request will be accepted`,
+    text: `This wig Request will be mark as completed`,
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Yes, accpet it!',
+    confirmButtonText: 'Yes, complete it!',
     cancelButtonText: 'No, cancel!',
     reverseButtons: true,
     preConfirm: (login) => {
-      this.apiService.acceptWigrequest(id).subscribe((data) => {
+      this.apiService.finishWigrequest(id).subscribe((data) => {
         console.log(data);
         this.socket.emit('accept-wig-request', data);
         if(!data)
@@ -105,31 +103,31 @@ acceptWigrequest(id){
   }).then(function (result) {
     if (result.value) {
       Swal.fire(
-        'Accepted!',
-        'Patient wig request has been accepted',
+        'Finished!',
+        'Patient wig request mark as completed',
         'success'
       )
     } else if (result.dismiss === Swal.DismissReason.cancel) {
       Swal.fire(
         'Cancelled',
-        'Patient wig request was not accepttd',
+        'Patient wig request was not mark as completed',
         'error'
       )
     }
   });
 }
 
-declineWigrequest(id){
+cancelWigrequest(id){
   Swal.fire({
     title: 'Are you sure?',
-    text: `This wig Request will be declined`,
+    text: `This wig Request will be marked as not completed`,
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Yes, Decline it!',
+    confirmButtonText: 'Yes',
     cancelButtonText: 'No, cancel!',
     reverseButtons: true,
     preConfirm: (login) => {
-      this.apiService.declineWigrequest(id).subscribe((data) => {
+      this.apiService.cancelWigrequest(id).subscribe((data) => {
         console.log(data);
         this.socket.emit('decline-wig-request', data);
         if(!data)
@@ -144,14 +142,14 @@ declineWigrequest(id){
   }).then(function (result) {
     if (result.value) {
       Swal.fire(
-        'Declined!',
-        'Patient wig request has been declined',
+        'Success!',
+        'Patient wig request has been declined marked as not completed',
         'success'
       )
     } else if (result.dismiss === Swal.DismissReason.cancel) {
       Swal.fire(
         'Cancelled',
-        'Patient wig request was not declined',
+        'Patient wig request was not marked as not completed',
         'error'
       )
     }

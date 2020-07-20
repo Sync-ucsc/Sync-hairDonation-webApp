@@ -24,6 +24,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSortModule} from '@angular/material/sort';
 import {MatButtonModule} from '@angular/material/button';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -43,6 +45,11 @@ import {MatButtonModule} from '@angular/material/button';
     MatSortModule,
     MatButtonModule,
     ReactiveFormsModule,
+    MatPasswordStrengthModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAkGlhRjMfmotb0UBMf8EAcmkTB6v3WEVM',
+      libraries: ['places']
+    }),
   ],
   declarations: [
     DashboardComponent,

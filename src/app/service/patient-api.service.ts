@@ -2,12 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import { v4 as uuidV4 } from 'uuid';
 // environment
 import {environment} from '@environments/environment';
 // model
 import {DbWigRequest} from '@model/database/dbWigRequest';
-import {TokenService} from "@services/token.service";
+import {TokenService} from '@services/token.service';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -18,7 +17,7 @@ const httpOptions = {
 })
 export class PatientApiService {
   baseUrl = `${environment.BASE_URL}/wigRequest/`;
-  baseUrl2 = 'http://localhost:3000/patient';
+  baseUrl2 = 'http://127.0.0.1:3000/patient';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private _http: HttpClient,
@@ -80,7 +79,6 @@ deletePatient(id): Observable<any> {
   )
 }
 
-  getRandomId = () => uuidV4();
 
   getPatientId(){
     return this._token.getId()
@@ -112,6 +110,20 @@ deletePatient(id): Observable<any> {
       .get(`${this.baseUrl}/declineWigrequest/${patientId}`)
       .pipe(catchError(this.errorManagement));
   }
+
+
+  finishWigrequest(patientId: string): Observable<any> {
+    return this._http
+      .get(`${this.baseUrl}/finishWigrequest/${patientId}`)
+      .pipe(catchError(this.errorManagement));
+  }
+
+  cancelWigrequest(patientId: string): Observable<any> {
+    return this._http
+      .get(`${this.baseUrl}/cancelWigrequest/${patientId}`)
+      .pipe(catchError(this.errorManagement));
+  }
+
 
   errorManagement(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {

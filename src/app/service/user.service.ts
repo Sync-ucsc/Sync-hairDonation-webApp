@@ -10,7 +10,7 @@ import { throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'http://localhost:3000/user';
+  private baseUrl = 'http://127.0.0.1:3000/user';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   options: any;
 
@@ -33,6 +33,10 @@ export class UserService {
     const url = `${this.baseUrl}/authenticate`;
     return this.http.post(url,data ,{ headers: this.headers });
   }
+  request(data) {
+    const url = `${this.baseUrl}/request`;
+    return this.http.post(url, data, { headers: this.headers });
+  }
   getprofile() {
     const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
     return this.http.get(`${this.baseUrl}/profile`, { headers: header });
@@ -47,16 +51,23 @@ export class UserService {
   temporarydisable(data) {
     return this.http.post(`${this.baseUrl}/temporarydisable`, data);
   }
+  
   defaultpassword(data) {
     return this.http.post(`${this.baseUrl}/defaultpassword`, data);
   }
+
   sendPasswordResetLink(data) {
-    return this.http.post(`${this.baseUrl}/sendPasswordResetLink`, data);
+    return this.http.post(`${this.baseUrl}/emairequest`, data);
   }
 
   changePassword(data,token) {
     const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + token)
     return this.http.post(`${this.baseUrl}/changePassword`, data , { headers: header });
+  }
+
+  profileChangePassword(data) {
+    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
+    return this.http.post(`${this.baseUrl}/profileChanePassword`, data, { headers: header });
   }
 
   // donor activate

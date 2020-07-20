@@ -5,14 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { data } from 'jquery';
-
-export interface PeriodicElement {
-  massage: string;
-  role: string;
-  weight: number;
-  validDate: string;
-  delete: boolean;
-}
+import io from 'socket.io-client';
 
 
 @Component({
@@ -28,7 +21,7 @@ export interface PeriodicElement {
   ],
 })
 export class FringerprintComponent implements OnInit {
-
+  socket;
   donor = false;
   patient = false;
 
@@ -37,24 +30,31 @@ export class FringerprintComponent implements OnInit {
   displayedColumns: string[] = ['fingerprint', 'check', 'action'];
   tdata;
   dataSource;
+  rel;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(private fingerprint: FingerprintService) {
+    this.socket = io.connect('http://127.0.0.1:3000');
     this.getAll();
   }
 
   ngOnInit(): void {
-    
+    this.socket.on('check-user', () => {
+      if (this.rel) {
+        this.getAll();
+      }
+      this.rel = true;
+    });
   }
 
   getAll(){
     this.fingerprint.getAll().subscribe(
       async data => {
         console.log(data)
-        let y = ''
         data.data.forEach(e => {
+          let y = '';
           e.users.forEach(g => { y = y + g.email + ','; });
           e.emails = y;
         });
@@ -157,6 +157,7 @@ export class FringerprintComponent implements OnInit {
 
   checkFingerprint(fingerprint,x){
     console.log(fingerprint,!x)
+    this.rel = false;
     this.fingerprint.cecked(fingerprint, !x).subscribe(
       data => {
         console.log(data);
