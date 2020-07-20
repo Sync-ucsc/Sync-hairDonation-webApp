@@ -1,5 +1,5 @@
 /// <reference types="@types/googlemaps" />
-import { Component, OnInit, NgZone, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, NgZone, ElementRef, ViewChild, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
 import { Router } from '@angular/router';
@@ -9,6 +9,8 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Md5 } from 'ts-md5/dist/md5';
 import { TokenService } from '@services/token.service';
 import Swal from 'sweetalert2';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -66,6 +68,9 @@ export class ProfileComponent implements OnInit {
   myform: FormGroup;
   showDetails = true;
   matcher = new MyErrorStateMatcher();
+  selectedImage;
+  url;
+  id;
 
 
   constructor(
