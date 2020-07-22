@@ -320,7 +320,65 @@
                 <div class="tab-content">
                     <!--begin::Tab-->
                     <div class="tab-pane show active px-7" id="kt_user_edit_tab_1" role="tabpanel">
+                        <div class="col-xl-2"></div>
+                        <div class="col-xl-7 my-2">
+                            <form [formGroup]="signForm1">
+                                
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">First Name</label>
+                                    <div class="col-9">
+                                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName=firstName
+                                            name="firstName" [(ngModel)]=user.firstName>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Last Name</label>
+                                    <div class="col-9">
+                                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName=lastName
+                                            name="lastName" [(ngModel)]=user.lastName>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                                <!--begin::Group-->
                         
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Email Address</label>
+                                    <div class="col-9">
+                                        <div class="input-group input-group-lg input-group-solid">
+                                            <input type="email" class="form-control form-control-lg form-control-solid" placeholder="Email"
+                                                name="email" required value="fff" [(ngModel)]=user.email disabled formControlName="email">
+                                        </div>
+                                        <span class="form-text text-muted">We'll never share your email with anyone
+                                            else.</span>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Contact Phone</label>
+                                    <div class="col-9">
+                                        <div class="input-group input-group-lg input-group-solid">
+                                            <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Phone"
+                                                formControlName=phone name="phone" [(ngModel)]=user.phone>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                        
+                        
+                                <div class="d-flex justify-content-between pt-8">
+                                    <div>
+                                        <button type="button" [disabled]="!signForm1.valid"
+                                            class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-4 py-4 my-3"
+                                            data-wizard-type="action-next" (click)="submit1()">
+                                            Update Profile</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <!--end::Tab-->
 

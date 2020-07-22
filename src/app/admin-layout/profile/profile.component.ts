@@ -138,7 +138,9 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  changepic() {
+  changepic(event: any) {
+    console.log('ddddd')
+    this.selectedImage = event.target.files[0];
     const name = this.selectedImage.name;
     const fileRef = this.storage.ref(name);
     this.storage.upload(name, this.selectedImage).snapshotChanges().pipe(
