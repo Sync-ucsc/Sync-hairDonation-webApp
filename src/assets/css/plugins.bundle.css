@@ -103,7 +103,7 @@
 @font-face {
   font-family: Ki;
   src: url(fonts/keenthemes-icons/Ki.eot);
-  src: url(fonts/keenthemes-icons/Ki.eot#iefix) format("embedded-opentype"), url(fonts/keenthemes-icons/Ki.woff) format("woff");
+  src: url(fonts/keenthemes-icons/Ki.eot#iefix) format("embedded-opentype"), url(../fonts/Ki.woff) format("woff");
   font-weight: 400;
   font-style: normal
 }
