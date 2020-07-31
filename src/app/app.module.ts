@@ -79,7 +79,7 @@ import { RegisterPasswordComponent } from './register-password/register-password
     OwlModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAkGlhRjMfmotb0UBMf8EAcmkTB6v3WEVM',
-      libraries: ['places']
+      libraries: ['places','geometry']
     }),
     ReactiveFormsModule,
     FormsModule,
