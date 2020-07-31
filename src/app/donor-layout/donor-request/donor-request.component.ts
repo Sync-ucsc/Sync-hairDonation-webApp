@@ -1,21 +1,25 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone  } from '@angular/core';
 import * as io from 'socket.io-client';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
-import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { MapsAPILoader, MouseEvent, AgmCoreModule } from '@agm/core';
 import { DonorApiService } from './../../service/donor-api.service';
+import { SalonApiService } from './../../service/salon-api.service';
 import { TokenService } from './../../service/token.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import {formatDate} from '@angular/common';
+declare var google:any;
 
 @Component({
   selector: 'app-donor-request',
   templateUrl: './donor-request.component.html',
   styleUrls: ['./donor-request.component.scss']
 })
+
+
 export class DonorRequestComponent implements OnInit {
 
-  socket = io('http://127.0.0.1:3000/donor');
+  socket = io('http://localhost:3000/donor');
   today = new Date()
 
   submitted=false;
@@ -36,6 +40,7 @@ export class DonorRequestComponent implements OnInit {
   validDate: Date;
   requestDay: string;
   selectedDonor
+  selectedSalon
   donationRequestForm
 
   @ViewChild('search')
@@ -46,6 +51,7 @@ export class DonorRequestComponent implements OnInit {
     private ngZone: NgZone,
     private router: Router,
     private apiService: DonorApiService,
+    private salonService: SalonApiService,
     private tokenService: TokenService
   ) {
 
@@ -58,7 +64,10 @@ export class DonorRequestComponent implements OnInit {
     console.log(this.email);
     this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
       this.selectedDonor=data['data'];
+      console.log(this.selectedDonor)
     })
+
+      
 
     this.donationRequestForm = new FormGroup({
       address:new FormControl(''),
@@ -169,6 +178,18 @@ onChange2(eve: any) {
      latitude:this.latitude === undefined? this.selectedDonor.lat: this.latitude,
      longitude:this.longitude === undefined? this.selectedDonor.lon: this.longitude,
    })
+
+   this.salonService.getSalonByEmail("nishisalon@gmail.com").subscribe((data)=>{
+    this.selectedSalon=data['data'];
+    console.log(this.selectedSalon.latitude)
+    const user = new google.maps.LatLng(this.latitude, this.longitude);
+   const salon = new google.maps.LatLng(this.selectedSalon.latitude, this.selectedSalon.longitude);
+   const distance = google.maps.geometry.spherical.computeDistanceBetween(salon, user);
+   console.log(distance);
+  })
+
+   
+   
    console.log(this.donationRequestForm.value);
    this.submitted=true;
 
