@@ -3,25 +3,34 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
+// environment
+import {environment} from '@environments/environment';
+// model
+import {DbWigRequest} from '@model/database/dbWigRequest';
+import {TokenService} from '@services/token.service';
+
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const baseUrl = 'http://127.0.0.1:3000/attendant';
+// const baseUrl = 'http://127.0.0.1:3000/attendant';
 @Injectable({
   providedIn: 'root'
 })
 export class AttendantApiService {
 
-  baseUrl = 'http://127.0.0.1:3000/attendant';
+  baseUrl = `${environment.BASE_URL}/wigRequest/`;
+  baseUrl2 = 'http://127.0.0.1:3000/attendant';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private _http: HttpClient,
+              private _token: TokenService) {}
+
 
  // Create
  createAttendant(data): Observable<any> {
   const url = `${this.baseUrl}/create`;
-  return this.http.post(url, data)
+  return this._http.post(url, data)
     .pipe(
       catchError(this.errorMgmt)
     )
@@ -46,13 +55,13 @@ export class AttendantApiService {
 
 // Get all attendants
 getAttendants() {
-  return this.http.get(`${this.baseUrl}`);
+  return this._http.get(`${this.baseUrl}`);
 }
 
 // Get an attendant
 getAttendant(id): Observable<any> {
   const url = `${this.baseUrl}/read/${id}`;
-  return this.http.get(url, {headers: this.headers}).pipe(
+  return this._http.get(url, {headers: this.headers}).pipe(
     map((res: Response) => {
       return res || {}
     }),
@@ -63,7 +72,7 @@ getAttendant(id): Observable<any> {
 // Update attendants
 updateAttendant(id, data): Observable<any> {
   const url = `${this.baseUrl}/update/${id}`;
-  return this.http.put(url, data, { headers: this.headers }).pipe(
+  return this._http.put(url, data, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)
   )
 }
@@ -71,9 +80,64 @@ updateAttendant(id, data): Observable<any> {
 // Delete attendant
 deleteAttendant(id): Observable<any> {
   const url = `${this.baseUrl}/delete/${id}`;
-  return this.http.delete(url, { headers: this.headers }).pipe(
+  return this._http.delete(url, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)
   )
+}
+
+getPatientId(){
+  return this._token.getId()
+};
+
+createWigRequest(
+  wigRequestData: DbWigRequest,
+  patientEmail: string
+): Observable<any> {
+  return this._http
+    .put(`${this.baseUrl}/add/${patientEmail}`, wigRequestData)
+    .pipe(catchError(this.errorManagement));
+}
+
+getLastRequest(patientEmail: string): Observable<any> {
+  return this._http
+    .get(`${this.baseUrl}/lastRequestStatus/${patientEmail}`)
+    .pipe(catchError(this.errorManagement));
+}
+
+acceptWigrequest(patientId: string): Observable<any> {
+  return this._http
+    .get(`${this.baseUrl}/acceptWigrequest/${patientId}`)
+    .pipe(catchError(this.errorManagement));
+}
+
+declineWigrequest(patientId: string): Observable<any> {
+  return this._http
+    .get(`${this.baseUrl}/declineWigrequest/${patientId}`)
+    .pipe(catchError(this.errorManagement));
+}
+
+
+finishWigrequest(patientId: string): Observable<any> {
+  return this._http
+    .get(`${this.baseUrl}/finishWigrequest/${patientId}`)
+    .pipe(catchError(this.errorManagement));
+}
+
+cancelWigrequest(patientId: string): Observable<any> {
+  return this._http
+    .get(`${this.baseUrl}/cancelWigrequest/${patientId}`)
+    .pipe(catchError(this.errorManagement));
+}
+
+
+errorManagement(error: HttpErrorResponse): Observable<never> {
+  if (error.error instanceof ErrorEvent) {
+    return throwError(error.error.message);
+  } else {
+    return throwError(
+      `Error Code: ${error.status} Message: ${error.message}`
+    );
+  }
 }
 
 
