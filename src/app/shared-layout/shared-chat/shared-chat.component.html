@@ -1,3 +1,8 @@
+
+<button mat-button color="primary" (click)="sendMessageToReceiver()"> Send Message</button>
+<button mat-button color="primary" (click)="showData()"> Show</button>
+<button mat-button color="primary" (click)="joinRoom1()"> Join to Room1</button>
+<button mat-button color="primary" (click)="joinRoom2()"> Join to Room2</button>
 <!--begin::Chat-->
 <div class="d-flex flex-row">
   <!--begin::Aside-->
@@ -162,10 +167,10 @@
           <!--end::Dropdown Menu-->
         </div>
         <div class="text-center flex-grow-1">
-          <div class="text-dark-75 font-weight-bold font-size-h5">Matt Pears</div>
+          <div class="text-dark-75 font-weight-bold font-size-h5">{{ receiverDetails?.fullName || 'anonymous'}}  </div>
           <div>
-            <span class="label label-sm label-dot label-success"></span>
-            <span class="font-weight-bold text-muted font-size-sm">Active</span>
+<!--            <span class="label label-sm label-dot label-success"></span>-->
+<!--            <span class="font-weight-bold text-muted font-size-sm">Active</span>-->
           </div>
         </div>
         <div class="text-right flex-grow-1">
@@ -268,16 +273,16 @@
                   <div>
                     <span class="text-muted font-size-sm"></span>
                     <a class="text-dark-75 text-hover-primary font-weight-bold font-size-h6" href="#">
-                      {{sendMessageList[i].name}}
+                      {{senderDetails.fullName}}
                     </a>
                   </div>
                   <div class="symbol symbol-circle symbol-40 ml-3">
-                    <img [src]="sendMessageList[i].avatar" alt="Pic"/>
+                    <img [src]="senderDetails.dp" alt="Pic"/>
                   </div>
                 </div>
                 <div
                   class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">
-                  {{sendMessageList[i].message}}
+                  {{sendMessageList[i].content}}
                 </div>
               </div>
               <!--end::Message Out-->
@@ -286,13 +291,13 @@
               <div class="d-flex flex-column mb-5 align-items-start">
                 <div class="d-flex align-items-center">
                   <div class="symbol symbol-circle symbol-40 mr-3">
-                    <img [src]="receiveMessageList[i].avatar" alt="Pic"/>
+                    <img [src]="senderDetails.dp" alt="Pic"/>
                   </div>
                   <div>
                     <a class="text-dark-75 text-hover-primary font-weight-bold font-size-h6" href="#">
-                      {{receiveMessageList[i].name}}
+                      {{receiveMessageList[i].senderId}}
                     </a>
-                    <span class="text-muted font-size-sm">{{receiveMessageList[i].lastSeen}}</span>
+<!--                    <span class="text-muted font-size-sm">{{receiveMessageList[i].lastSeen}}</span>-->
                   </div>
                 </div>
                 <div
