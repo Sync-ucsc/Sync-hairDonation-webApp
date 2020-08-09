@@ -1,4 +1,10 @@
-
+<ng-container *ngIf="selectedDonor.request">
+    <mat-card *ngIf="!selectedDonor?.request?.finished && !selectedDonor?.request?.canceled"
+              class="last-request">
+      Your last request is still processing
+    </mat-card>
+  </ng-container>
+  
 <div class="card card-custom">
     <div class="col-lg-8" style="float:none;margin:auto;">
     <div class="card-header">
