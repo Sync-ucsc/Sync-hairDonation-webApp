@@ -30,22 +30,12 @@
 
       <div class="form-group row">
         <label class="col-form-label col-3 text-lg-right text-left">Wig Type:</label>
-        <mat-radio-group [(ngModel)]="Type">
-          <div class="checkbox-list">
-            <label class="checkbox">
-              <mat-radio-button class="example-margin" value="Short Hair Wigs">Short Hair Wigs</mat-radio-button>
-            </label>
-            <label class="checkbox">
-              <mat-radio-button class="example-margin" value="Long Hair Wigs">Long Hair Wigs</mat-radio-button>
-            </label>
-            <label class="checkbox">
-              <mat-radio-button class="example-margin" value="Curly Hair Wigs">Curly Hair Wigs</mat-radio-button>
-            </label>
-            <label class="checkbox">
-              <mat-radio-button class="example-margin" value="Straight Hair Wigs">Straight Hair Wigs</mat-radio-button>
-            </label>
-          </div>
+        <mat-radio-group class= "wigsType-radio-group " [(ngModel)]="wigsType">
+          <mat-radio-button class="wigsType-radio-button" *ngFor="let Type of Types" [value]="Type">
+            {{Type}}
+          </mat-radio-button>
         </mat-radio-group>
+
       </div>
 
       <div class="card-footer">

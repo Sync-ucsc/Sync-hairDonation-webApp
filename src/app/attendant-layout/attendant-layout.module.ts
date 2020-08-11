@@ -39,6 +39,7 @@ import { ManualRequestComponent } from './manual-request/manual-request.componen
         CommonModule,
         RouterModule.forChild(AttendantLayoutRoutes),
         FormsModule,
+        ReactiveFormsModule,
         SharedLayoutModule,
         MatTableModule,
         MatPaginatorModule,
