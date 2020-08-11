@@ -7,6 +7,9 @@ import { SalonApiService } from './../../service/salon-api.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
 
+
+import { MatAutocompleteModule } from '@angular/material/autocomplete'; 
+
 @Component({
   selector: 'app-salons',
   templateUrl: './salons.component.html',
@@ -29,6 +32,8 @@ export class SalonsComponent implements OnInit {
   checkSms=false;
   checkEmail=false;
 
+  districts: any = ['Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo', 'Galle', 'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara', 'Polonnaruwa', 'Kandy'];
+
   salonForm= new FormGroup({
     name: new FormControl('',Validators.required),
     email: new FormControl('',[Validators.required,Validators.email]),
@@ -38,8 +43,8 @@ export class SalonsComponent implements OnInit {
     checkEmail: new FormControl(''),
     address:new FormControl(''),
     latitude:new FormControl(''),
-    longitude:new FormControl('')
-
+    longitude:new FormControl(''),
+    district: new FormControl('', Validators.required),
 
   })
 
