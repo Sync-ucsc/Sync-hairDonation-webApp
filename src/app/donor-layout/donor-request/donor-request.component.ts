@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import {formatDate} from '@angular/common';
 declare var google:any;
+import { computeDistanceBetween } from 'spherical-geometry-js';
 
 @Component({
   selector: 'app-donor-request',
@@ -52,7 +53,7 @@ export class DonorRequestComponent implements OnInit {
     private router: Router,
     private apiService: DonorApiService,
     private salonService: SalonApiService,
-    private tokenService: TokenService
+    private tokenService: TokenService, 
   ) {
 
       this.requestDay = formatDate(new Date(), 'yyyy/MM/dd', 'en');
@@ -171,33 +172,56 @@ onChange2(eve: any) {
   console.log(this.no)
 }
 
- onSubmit(){
+ async onSubmit(){
+   try{
 
-   this.donationRequestForm.patchValue({
-     address:this.placeaddress === undefined? this.selectedDonor.address: this.placeaddress.formatted_address,
-     latitude:this.latitude === undefined? this.selectedDonor.lat: this.latitude,
-     longitude:this.longitude === undefined? this.selectedDonor.lon: this.longitude,
-   })
+    this.donationRequestForm.patchValue({
+      address:this.placeaddress === undefined? this.selectedDonor.address: this.placeaddress.formatted_address,
+      latitude:this.latitude === undefined? this.selectedDonor.lat: this.latitude,
+      longitude:this.longitude === undefined? this.selectedDonor.lon: this.longitude,
+    })
+ 
+    const donorCoordinate = new google.maps.LatLng(
+      this.latitude === undefined? this.selectedDonor.lat: this.latitude,   
+      this.longitude === undefined? this.selectedDonor.lon: this.longitude
+    );
 
-   this.salonService.getSalonByEmail("nishisalon@gmail.com").subscribe((data)=>{
-    this.selectedSalon=data['data'];
-    console.log(this.selectedSalon.latitude)
-    const user = new google.maps.LatLng(this.latitude, this.longitude);
-   const salon = new google.maps.LatLng(this.selectedSalon.latitude, this.selectedSalon.longitude);
-   const distance = google.maps.geometry.spherical.computeDistanceBetween(salon, user);
-   console.log(distance);
-  })
+    const response = await this.salonService.getSalons().toPromise();
+    // @ts-ignore
+    const salons = response.data;
 
-   
-   
-   console.log(this.donationRequestForm.value);
+    const selectedSalon = salons.map( salon => {
+     
+      const salonCoordinate = new google.maps.LatLng(salon.latitude,salon.longitude);
+
+      salon.distance = computeDistanceBetween(salonCoordinate, donorCoordinate )
+
+      return salon;
+
+    }).filter( salon => { 
+      return salon.distance <= 700000
+    }).sort((a, b) => {
+      if (a.distance < b.distance) {
+          return 1
+      } else if (a.distance > b.distance) {
+          return -1 
+      } else {
+          return 0
+      }
+    })
+
+    console.log(selectedSalon)
+
    this.submitted=true;
 
    if (!this.donationRequestForm.valid) {
     return false;
   } else {
-
-    this.apiService.donorRequset(this.donationRequestForm.value).subscribe(
+    this.apiService.donorRequset({
+      ...this.donationRequestForm.value , 
+      selectedSalon:selectedSalon,
+      district: selectedSalon[0].district
+    }).subscribe(
       data => {
         console.log('Your requset has been recorded!'+data)
         Swal.fire(
@@ -215,6 +239,10 @@ onChange2(eve: any) {
         )
       });
   }
+
+   }catch(error){
+     console.log(error)
+   }
   }
 
   clickYes(){
