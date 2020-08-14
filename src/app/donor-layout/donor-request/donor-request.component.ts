@@ -199,11 +199,11 @@ onChange2(eve: any) {
       return salon;
 
     }).filter( salon => { 
-      return salon.distance <= 700000
+      return salon.distance <= 7000
     }).sort((a, b) => {
-      if (a.distance < b.distance) {
+      if (a.distance > b.distance) {
           return 1
-      } else if (a.distance > b.distance) {
+      } else if (a.distance < b.distance) {
           return -1 
       } else {
           return 0
@@ -219,7 +219,7 @@ onChange2(eve: any) {
   } else {
     this.apiService.donorRequset({
       ...this.donationRequestForm.value , 
-      selectedSalon:selectedSalon,
+      // selectedSalon:selectedSalon,
       district: selectedSalon[0].district
     }).subscribe(
       data => {
@@ -238,6 +238,16 @@ onChange2(eve: any) {
           'error'
         )
       });
+      this.apiService.changeNearSalon({
+        email: this.email,
+        selectedSalon:selectedSalon
+      }).subscribe(
+        data => {
+          console.log('near salon updated'+data)
+        },(error) => {
+          console.log(error);
+        }
+      );
   }
 
    }catch(error){
