@@ -26,7 +26,7 @@ export class SharedChatComponent implements OnInit {
   senderDetails;
   receiverDetails;
 
-  sendMessage: FormGroup;
+  sendMessageForum: FormGroup;
   searchBarValue: string;
 
   previousChatList: PreviousChatList[];
@@ -41,6 +41,11 @@ export class SharedChatComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+
+    this.sendMessageForum = this._fb.group({
+      message: new FormControl('', Validators.required)
+    })
+
     // join for chat room
     this.socket.emit('join_to_room', {roomId: this.roomId})
     // get sender and receiver full name and profile picture
@@ -67,21 +72,11 @@ export class SharedChatComponent implements OnInit {
       console.log(this.receiveMessageList)
     })
 
-    this.buildForms();
-
     this.previousChatList = this._chat.getPreviousChatList();
     // this.sendMessageList = this._chat.getSendMessage();
     // this.receiveMessageList = this._chat.getReceiveMessage();
 
   }
-
-  buildForms() {
-    this.sendMessage = this._fb.group({
-      message: new FormControl('', Validators.required)
-    })
-  }
-
-
 
   showData() {
     console.log({
@@ -93,24 +88,24 @@ export class SharedChatComponent implements OnInit {
   }
 
   sendMessageToReceiver() {
-
-    const data: DbChat = {
-      senderId: this.senderId,
-      receiverId: this.receiverId,
-      senderRole: this.senderRole,
-      receiverRole: this.receiverRole,
-      content: this.sendMessage.value.message,
-      createdAt: Date.now().toString(),
-    }
-
-    this.sendMessageList.push(data);
-
-    if(this.sendMessageList.length >= 4) {
-      this.sendMessageList.shift();
-    }
-    console.log(this.sendMessageList)
-
-    this.socket.emit('send_message', data)
+    console.log(this.sendMessageForum.value)
+    // const data: DbChat = {
+    //   senderId: this.senderId,
+    //   receiverId: this.receiverId,
+    //   senderRole: this.senderRole,
+    //   receiverRole: this.receiverRole,
+    //   content: this.sendMessage.value.message,
+    //   createdAt: Date.now().toString(),
+    // }
+    //
+    // this.sendMessageList.push(data);
+    //
+    // if(this.sendMessageList.length >= 4) {
+    //   this.sendMessageList.shift();
+    // }
+    // console.log(this.sendMessageList)
+    //
+    // this.socket.emit('send_message', data)
   }
 
   joinRoom1() {

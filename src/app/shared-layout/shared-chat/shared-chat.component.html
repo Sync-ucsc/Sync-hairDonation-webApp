@@ -273,16 +273,16 @@
                   <div>
                     <span class="text-muted font-size-sm"></span>
                     <a class="text-dark-75 text-hover-primary font-weight-bold font-size-h6" href="#">
-                      {{senderDetails.fullName}}
+                      {{senderDetails?.fullName}}
                     </a>
                   </div>
                   <div class="symbol symbol-circle symbol-40 ml-3">
-                    <img [src]="senderDetails.dp" alt="Pic"/>
+                    <img [src]="senderDetails?.dp" alt="Pic"/>
                   </div>
                 </div>
                 <div
                   class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">
-                  {{sendMessageList[i].content}}
+                  {{sendMessageList[i]?.content}}
                 </div>
               </div>
               <!--end::Message Out-->
@@ -291,11 +291,11 @@
               <div class="d-flex flex-column mb-5 align-items-start">
                 <div class="d-flex align-items-center">
                   <div class="symbol symbol-circle symbol-40 mr-3">
-                    <img [src]="senderDetails.dp" alt="Pic"/>
+                    <img [src]="senderDetails?.dp" alt="Pic"/>
                   </div>
                   <div>
                     <a class="text-dark-75 text-hover-primary font-weight-bold font-size-h6" href="#">
-                      {{receiveMessageList[i].senderId}}
+                      {{receiveMessageList[i]?.senderId}}
                     </a>
 <!--                    <span class="text-muted font-size-sm">{{receiveMessageList[i].lastSeen}}</span>-->
                   </div>
@@ -315,29 +315,29 @@
       <!--end::Body-->
 
       <!--begin::Footer-->
-      <div class="card-footer align-items-center">
-        <!--begin::MessageSender-->
-        <form [formGroup]="sendMessage">
-          <label>
-            <textarea formControlName="message"
-                      class="form-control border-0 p-0" placeholder="Type a message" rows="2"></textarea>
-          </label>
-          <div class="d-flex align-items-center justify-content-between mt-5">
-            <div class="mr-3">
-              <a class="btn btn-clean btn-icon btn-md mr-1" href="#"><i class="flaticon2-photograph icon-lg"></i></a>
-              <a class="btn btn-clean btn-icon btn-md" href="#"><i class="flaticon2-photo-camera  icon-lg"></i></a>
-            </div>
-            <div>
-              <button class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6"
-                      (click)="sendMessageToReceiver()"
-                      type="button">
-                Send
-              </button>
-            </div>
+      <form [formGroup]="sendMessageForum">
+        <div class="card-footer align-items-center">
+          <!--begin::MessageSender-->
+          <textarea formControlName="message"
+                    class="form-control border-0 p-0" placeholder="Type a message" rows="2"></textarea>
+          <!--begin::MessageSender-->
+        <div class="d-flex align-items-center justify-content-between mt-5">
+          <div class="mr-3">
+            <a class="btn btn-clean btn-icon btn-md mr-1" href="#"><i class="flaticon2-photograph icon-lg"></i></a>
+            <a class="btn btn-clean btn-icon btn-md" href="#"><i class="flaticon2-photo-camera  icon-lg"></i></a>
           </div>
-        </form>
-        <!--begin::MessageSender-->
-      </div>
+          <div>
+            <button class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6"
+                    (click)="sendMessageToReceiver()"
+                    type="button">
+              Send
+            </button>
+          </div>
+        </div>
+        </div>
+      </form>
+
+
       <!--end::Footer-->
     </div>
     <!--end::Card-->
