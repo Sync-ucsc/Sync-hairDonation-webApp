@@ -8,6 +8,7 @@ import { TokenService } from './../../service/token.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import {formatDate} from '@angular/common';
+import {ToastrService} from 'ngx-toastr';
 declare var google:any;
 import { computeDistanceBetween } from 'spherical-geometry-js';
 
@@ -44,6 +45,7 @@ export class DonorRequestComponent implements OnInit {
   selectedSalon
   donationRequestForm
 
+  unfinishedDonateRequest = false;
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
@@ -54,6 +56,7 @@ export class DonorRequestComponent implements OnInit {
     private apiService: DonorApiService,
     private salonService: SalonApiService,
     private tokenService: TokenService, 
+    private _toastr: ToastrService
   ) {
 
       this.requestDay = formatDate(new Date(), 'yyyy/MM/dd', 'en');
@@ -65,6 +68,12 @@ export class DonorRequestComponent implements OnInit {
     console.log(this.email);
     this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
       this.selectedDonor=data['data'];
+
+      this.unfinishedDonateRequest = this.selectedDonor.request
+      .filter( r => !r.finished && !r.canceled)
+      .length > 0;
+
+      console.log(this.unfinishedDonateRequest)
       console.log(this.selectedDonor)
     })
 
@@ -174,6 +183,12 @@ onChange2(eve: any) {
 
  async onSubmit(){
    try{
+
+    if (this.unfinishedDonateRequest) {
+      this._toastr.warning(`your last request is still processing`);
+      // this.Type = null;
+      return;
+    }
 
     this.donationRequestForm.patchValue({
       address:this.placeaddress === undefined? this.selectedDonor.address: this.placeaddress.formatted_address,
