@@ -35,7 +35,7 @@ export class TokenService {
     if (token) {
       console.log(token)
       const payload = this.payload(token);
-      
+
       if (payload) {
         if (Date.now() >= payload.exp * 1000 || Object.values(this.iss).indexOf(payload.iss) === -1 ) {
           Swal.fire(
@@ -68,8 +68,11 @@ export class TokenService {
   }
 
   public getEmail() {
-    console.log(this.payload(this.gettoken()))
     return this.payload(this.gettoken()).email;
+  }
+
+  public getRole(){
+    return this.payload(this.gettoken()).role
   }
 
   public getId() {
