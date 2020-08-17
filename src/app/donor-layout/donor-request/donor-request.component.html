@@ -1,4 +1,4 @@
-<ng-container *ngIf="selectedDonor.request">
+<ng-container *ngIf="selectedDonor.request.length > 0">
     <mat-card *ngIf="!selectedDonor?.request?.finished && !selectedDonor?.request?.canceled"
               class="last-request">
       Your last request is still processing
