@@ -9,11 +9,8 @@ import {ManageWigrequestComponent} from './manage-wigrequest/manage-wigrequest.c
 import {PatientVerificationComponent} from './patient-verification/patient-verification.component';
 import {ManageSalonRequestComponent} from './manage-salon-request/manage-salon-request.component';
 import { WigrequsetVerifyComponent } from './wigrequset-verify/wigrequset-verify.component';
-<<<<<<< HEAD
+
 import { ManualRequestComponent } from './manual-request/manual-request.component';
-=======
-// import { ManualRequestComponent } from './manual-request/manual_request.component';
->>>>>>> 414f9e90a893d67f002019858e574fcc7631f874
 
 export const AttendantLayoutRoutes: Routes = [
   // {
