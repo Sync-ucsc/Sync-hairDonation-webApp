@@ -8,5 +8,5 @@ export class Salon {
     checkSystem:boolean;
     checkSms:boolean;
     checkEmail:boolean;
-    
+    district:string;
 }

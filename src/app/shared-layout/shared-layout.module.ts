@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SharedChatComponent } from './shared-chat/shared-chat.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule
   ]
 })
 export class SharedLayoutModule { }

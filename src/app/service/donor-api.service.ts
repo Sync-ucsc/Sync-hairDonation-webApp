@@ -82,6 +82,12 @@ export class DonorApiService {
     const url = `${this.baseUrl}/changeLocation`;
     return this.http.post(url, data, { headers: this.headers });
   }
-
+  //change near salon
+  changeNearSalon(data): Observable<any> {
+    const url = `${this.baseUrl}/changeNearSalon`;
+    return this.http.post(url, data, { headers: this.headers }).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
 
 }

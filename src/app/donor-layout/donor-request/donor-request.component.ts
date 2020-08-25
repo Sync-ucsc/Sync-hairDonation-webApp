@@ -8,7 +8,9 @@ import { TokenService } from './../../service/token.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import {formatDate} from '@angular/common';
+import {ToastrService} from 'ngx-toastr';
 declare var google:any;
+import { computeDistanceBetween } from 'spherical-geometry-js';
 
 @Component({
   selector: 'app-donor-request',
@@ -43,6 +45,7 @@ export class DonorRequestComponent implements OnInit {
   selectedSalon
   donationRequestForm
 
+  unfinishedDonateRequest = false;
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
@@ -52,7 +55,8 @@ export class DonorRequestComponent implements OnInit {
     private router: Router,
     private apiService: DonorApiService,
     private salonService: SalonApiService,
-    private tokenService: TokenService
+    private tokenService: TokenService, 
+    private _toastr: ToastrService
   ) {
 
       this.requestDay = formatDate(new Date(), 'yyyy/MM/dd', 'en');
@@ -64,6 +68,12 @@ export class DonorRequestComponent implements OnInit {
     console.log(this.email);
     this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
       this.selectedDonor=data['data'];
+
+      this.unfinishedDonateRequest = this.selectedDonor.request
+      .filter( r => !r.finished && !r.canceled)
+      .length > 0;
+
+      console.log(this.unfinishedDonateRequest)
       console.log(this.selectedDonor)
     })
 
@@ -171,33 +181,62 @@ onChange2(eve: any) {
   console.log(this.no)
 }
 
- onSubmit(){
+ async onSubmit(){
+   try{
 
-   this.donationRequestForm.patchValue({
-     address:this.placeaddress === undefined? this.selectedDonor.address: this.placeaddress.formatted_address,
-     latitude:this.latitude === undefined? this.selectedDonor.lat: this.latitude,
-     longitude:this.longitude === undefined? this.selectedDonor.lon: this.longitude,
-   })
+    if (this.unfinishedDonateRequest) {
+      this._toastr.warning(`your last request is still processing`);
+      // this.Type = null;
+      return;
+    }
 
-   this.salonService.getSalonByEmail("nishisalon@gmail.com").subscribe((data)=>{
-    this.selectedSalon=data['data'];
-    console.log(this.selectedSalon.latitude)
-    const user = new google.maps.LatLng(this.latitude, this.longitude);
-   const salon = new google.maps.LatLng(this.selectedSalon.latitude, this.selectedSalon.longitude);
-   const distance = google.maps.geometry.spherical.computeDistanceBetween(salon, user);
-   console.log(distance);
-  })
+    this.donationRequestForm.patchValue({
+      address:this.placeaddress === undefined? this.selectedDonor.address: this.placeaddress.formatted_address,
+      latitude:this.latitude === undefined? this.selectedDonor.lat: this.latitude,
+      longitude:this.longitude === undefined? this.selectedDonor.lon: this.longitude,
+    })
+ 
+    const donorCoordinate = new google.maps.LatLng(
+      this.latitude === undefined? this.selectedDonor.lat: this.latitude,   
+      this.longitude === undefined? this.selectedDonor.lon: this.longitude
+    );
 
-   
-   
-   console.log(this.donationRequestForm.value);
+    const response = await this.salonService.getSalons().toPromise();
+    // @ts-ignore
+    const salons = response.data;
+
+    const selectedSalon = salons.map( salon => {
+     
+      const salonCoordinate = new google.maps.LatLng(salon.latitude,salon.longitude);
+
+      salon.distance = computeDistanceBetween(salonCoordinate, donorCoordinate )
+
+      return salon;
+
+    }).filter( salon => { 
+      return salon.distance <= 7000
+    }).sort((a, b) => {
+      if (a.distance > b.distance) {
+          return 1
+      } else if (a.distance < b.distance) {
+          return -1 
+      } else {
+          return 0
+      }
+    })
+
+    console.log(selectedSalon)
+
    this.submitted=true;
 
    if (!this.donationRequestForm.valid) {
     return false;
   } else {
-
-    this.apiService.donorRequset(this.donationRequestForm.value).subscribe(
+    this.apiService.donorRequset({
+      ...this.donationRequestForm.value , 
+      // selectedSalon:selectedSalon,
+      district: selectedSalon[0].district
+    }).subscribe(
       data => {
         console.log('Your requset has been recorded!'+data)
         Swal.fire(
@@ -214,7 +253,21 @@ onChange2(eve: any) {
           'error'
         )
       });
+      this.apiService.changeNearSalon({
+        email: this.email,
+        selectedSalon:selectedSalon
+      }).subscribe(
+        data => {
+          console.log('near salon updated'+data)
+        },(error) => {
+          console.log(error);
+        }
+      );
   }
+
+   }catch(error){
+     console.log(error)
+   }
   }
 
   clickYes(){
