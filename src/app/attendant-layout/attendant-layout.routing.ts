@@ -95,9 +95,9 @@ export const AttendantLayoutRoutes: Routes = [
     component: ManageSalonRequestComponent,
     canActivate: [AfterLoginService],
   },
-  // {
-  //   path: 'manual-request',
-  //   component: ManualRequestComponent,
-  //   canActivate: [AfterLoginService],
-  // },
+  {
+    path: 'manual-request',
+    component: ManualRequestComponent,
+     canActivate: [AfterLoginService],
+  },
 ];
