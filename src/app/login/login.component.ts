@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
     this.user1.password = Md5.hashStr(this.user.password).toString();
     this.Users.login(this.user1).subscribe(
       data => {
+
         if (data['success'] === true && data['msg'] === 'sign in'){
 
           this.handleResponse(data['data']);

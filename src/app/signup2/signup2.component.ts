@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 declare function getFingerprint(): any;
@@ -162,6 +162,9 @@ export class Signup2Component implements OnInit {
         )
       }
     )
+  }
+  ngOnDestroy(): void {
+    throw new Error("Method not implemented.");
   }
 
 
