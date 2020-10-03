@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-patient-chat',
@@ -7,7 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PatientChatComponent implements OnInit {
 
-  constructor() { }
+  roomId = '5f09ec3de78dc2ce346234ab';
+  senderRole = 'patient';
+  senderId = '5f09ec3de78dc2ce346234ab';
+  receiverId = '5f09eaf4e78dc2ce34623499';
+  receiverRole = 'salon';
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
