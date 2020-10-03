@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
 import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -11,13 +11,18 @@ import { Router } from '@angular/router';
   templateUrl: './view-manager.component.html',
   styleUrls: ['./view-manager.component.scss']
 })
-export class ViewManagerComponent implements OnInit {
+export class ViewManagerComponent implements OnInit,OnDestroy {
   socket;
   @ViewChild('dialog') templateRef: TemplateRef<any>;
   @ViewChild('dialog2') templateRef2: TemplateRef<any>;
 
   Manager: any = [];
   selectedManager;
+  getManagersSub;
+  dialogRef1Sub;
+  dialogRef2Sub;
+  updateManagerSub;
+  deleteManagerSub;
 
 
   updateForm = new FormGroup({
@@ -54,7 +59,7 @@ export class ViewManagerComponent implements OnInit {
 
   getManagers() {
 
-    this.apiService.getManagers().subscribe((data) => {
+    this.getManagersSub = this.apiService.getManagers().subscribe((data) => {
       this.Manager = data["data"];
      
       console.log(this.Manager);
@@ -67,7 +72,7 @@ export class ViewManagerComponent implements OnInit {
     this.selectedManager = manager;
     const dialogRef = this.dialog.open(this.templateRef);
 
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogRef1Sub = dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
   }
@@ -77,7 +82,7 @@ export class ViewManagerComponent implements OnInit {
     this.selectedManager = manager;
     const dialogRef = this.dialog.open(this.templateRef2);
 
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogRef2Sub = dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
   }
@@ -100,7 +105,7 @@ export class ViewManagerComponent implements OnInit {
         preConfirm: (login) => {
 
           const id = this.selectedManager._id;
-          this.apiService.updateManager(id, this.updateForm.value)
+          this.updateManagerSub = this.apiService.updateManager(id, this.updateForm.value)
             .subscribe(res => {
               this.router.navigateByUrl('/admin/view-manager');
               console.log('Manager updated successfully!');
@@ -145,7 +150,7 @@ export class ViewManagerComponent implements OnInit {
       cancelButtonText: 'No, cancel!',
       reverseButtons: true,
       preConfirm: (login) => {
-        this.apiService.deleteManager(manager._id).subscribe((data) => {
+        this.deleteManagerSub = this.apiService.deleteManager(manager._id).subscribe((data) => {
           console.log(data);
           this.socket.emit('updatedata', data);
           if (!data.msg)
@@ -174,4 +179,26 @@ export class ViewManagerComponent implements OnInit {
     });
 
   }
+
+  ngOnDestroy() {
+
+    if (this.getManagersSub !== undefined) {
+      this.getManagersSub.unsubscribe();
+    }
+    if (this.dialogRef2Sub !== undefined) {
+      this.dialogRef2Sub.unsubscribe();
+    }
+    if (this.dialogRef1Sub !== undefined) {
+      this.dialogRef1Sub.unsubscribe();
+    }
+    if (this.updateManagerSub !== undefined) {
+      this.updateManagerSub.unsubscribe();
+    }
+    if (this.deleteManagerSub !== undefined) {
+      this.deleteManagerSub.unsubscribe();
+    }
+
+  }
+
+  
 }

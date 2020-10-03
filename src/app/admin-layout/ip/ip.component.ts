@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { IpService } from '@services/ip.service';
 import { MatSort } from '@angular/material/sort';
@@ -20,7 +20,7 @@ export interface PeriodicElement {
   templateUrl: './ip.component.html',
   styleUrls: ['./ip.component.scss']
 })
-export class IpComponent implements OnInit {
+export class IpComponent implements OnInit,OnDestroy {
 
   all = false;
   donor = false;
@@ -35,6 +35,8 @@ export class IpComponent implements OnInit {
   tdata;
   socket;
   rel;
+  ipGetAllSub;
+  temporarydisableSub;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -46,7 +48,7 @@ export class IpComponent implements OnInit {
 
 
   getAll() {
-    this.ipService.getAll().subscribe(
+    this.ipGetAllSub = this.ipService.getAll().subscribe(
       data => {
         console.log(data)
         data.data.forEach(e => {
@@ -226,7 +228,7 @@ export class IpComponent implements OnInit {
       val: !x
     }
     this.rel = false;
-    this.userService.temporarydisable(data).subscribe(
+    this.temporarydisableSub =this.userService.temporarydisable(data).subscribe(
       data => {
         this.tdata.forEach((e) => {
           e.users.forEach((el) => {
@@ -254,6 +256,14 @@ export class IpComponent implements OnInit {
 
     return y;
   }
-
+  
+  ngOnDestroy(){
+    if (this.ipGetAllSub !== undefined) {
+      this.ipGetAllSub.unsubscribe();
+    }
+    if (this.temporarydisableSub !== undefined) {
+      this.temporarydisableSub.unsubscribe();
+    }
+  }
 
 }

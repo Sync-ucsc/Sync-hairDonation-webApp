@@ -54,7 +54,6 @@ export class TokenService {
 
   payload(token) {
     const payload = token.split('.')[1];
-    console.log(payload)
     return this.decode(payload);
   }
 
@@ -102,7 +101,8 @@ export class TokenService {
     return 'donor' === this.payload(this.gettoken()).role ? true : false;
   }
   public isUserHospital(): boolean {
-    return 'hospital' === this.payload(this.gettoken()).role ? true : false;
+    console.log(this.payload(this.gettoken()).role)
+    return 'manager' === this.payload(this.gettoken()).role ? true : false;
   }
   public isUserPatient(): boolean {
     return 'patient' === this.payload(this.gettoken()).role ? true : false;
@@ -110,5 +110,4 @@ export class TokenService {
   public isUserSalon(): boolean {
     return 'salon' === this.payload(this.gettoken()).role ? true : false;
   }
-
 }

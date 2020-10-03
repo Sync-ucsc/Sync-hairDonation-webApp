@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { FingerprintService } from '@services/fingerprint.service';
 import { MatSort } from '@angular/material/sort';
@@ -20,10 +20,12 @@ import io from 'socket.io-client';
     ]),
   ],
 })
-export class FringerprintComponent implements OnInit {
+export class FringerprintComponent implements OnInit,OnDestroy {
   socket;
   donor = false;
   patient = false;
+  fingerprintGetAllSub;
+  fingerprintCeckedSub;
 
   manager = false;
   status = 'sall';
@@ -50,7 +52,7 @@ export class FringerprintComponent implements OnInit {
   }
 
   getAll(){
-    this.fingerprint.getAll().subscribe(
+    this.fingerprintGetAllSub =this.fingerprint.getAll().subscribe(
       async data => {
         console.log(data)
         data.data.forEach(e => {
@@ -158,7 +160,7 @@ export class FringerprintComponent implements OnInit {
   checkFingerprint(fingerprint,x){
     console.log(fingerprint,!x)
     this.rel = false;
-    this.fingerprint.cecked(fingerprint, !x).subscribe(
+    this.fingerprintCeckedSub = this.fingerprint.cecked(fingerprint, !x).subscribe(
       data => {
         console.log(data);
         this.tdata.forEach((e)=>{
@@ -178,6 +180,15 @@ export class FringerprintComponent implements OnInit {
   setdata(x){
     
     console.log(x)
+  }
+
+  ngOnDestroy(){
+    if (this.fingerprintCeckedSub !== undefined) {
+      this.fingerprintCeckedSub.unsubscribe();
+    }
+    if (this.fingerprintGetAllSub !== undefined) {
+      this.fingerprintGetAllSub.unsubscribe();
+    }
   }
 
 }

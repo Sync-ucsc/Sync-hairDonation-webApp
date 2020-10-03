@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone  } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, OnDestroy } from '@angular/core';
 import * as io from 'socket.io-client';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent, AgmCoreModule } from '@agm/core';
@@ -19,7 +19,7 @@ import { computeDistanceBetween } from 'spherical-geometry-js';
 })
 
 
-export class DonorRequestComponent implements OnInit {
+export class DonorRequestComponent implements OnInit,OnDestroy {
 
   socket = io('http://localhost:3000/donor');
   today = new Date()
@@ -43,7 +43,10 @@ export class DonorRequestComponent implements OnInit {
   requestDay: string;
   selectedDonor
   selectedSalon
-  donationRequestForm
+  donationRequestForm;
+  getDonorByEmailSub;
+  getSalonByEmailSub;
+  donorRequsetSub;
 
   unfinishedDonateRequest = false;
   @ViewChild('search')
@@ -66,7 +69,7 @@ export class DonorRequestComponent implements OnInit {
 
     this.email=this.tokenService.getEmail();
     console.log(this.email);
-    this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
+    this.getDonorByEmailSub = this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
       this.selectedDonor=data['data'];
 
       this.unfinishedDonateRequest = this.selectedDonor.request
@@ -181,6 +184,7 @@ onChange2(eve: any) {
   console.log(this.no)
 }
 
+
  async onSubmit(){
    try{
 
@@ -232,6 +236,7 @@ onChange2(eve: any) {
    if (!this.donationRequestForm.valid) {
     return false;
   } else {
+
     this.apiService.donorRequset({
       ...this.donationRequestForm.value , 
       // selectedSalon:selectedSalon,
@@ -283,6 +288,19 @@ onChange2(eve: any) {
     console.log('click yes')
     this.donationRequestForm.value.yes = !this.donationRequestForm.value.no;
     setTimeout(() => this.loadMap(), 1000);
+  }
+
+  ngOnDestroy() {
+
+    if (this.getDonorByEmailSub !== undefined) {
+      this.getDonorByEmailSub.unsubscribe();
+    }
+    if (this.getSalonByEmailSub !== undefined) {
+      this.getSalonByEmailSub.unsubscribe();
+    }
+    if (this.donorRequsetSub !== undefined) {
+      this.donorRequsetSub.unsubscribe();
+    }
   }
 
 }

@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 /// <reference types="@types/googlemaps" />
 import { Component, OnInit, ViewChild, ElementRef, NgZone, ɵConsole } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
@@ -17,7 +18,7 @@ import { FingerprintService } from '@services/fingerprint.service';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
 
   user = {
     fname:'',
@@ -53,6 +54,8 @@ export class SignupComponent implements OnInit {
   myform: FormGroup;
   showDetails = true;
   matcher = new MyErrorStateMatcher();
+  checkfpSub;
+  adduserSub;
 
   test = false;
   latitude = 0;
@@ -117,7 +120,7 @@ export class SignupComponent implements OnInit {
     private fingerprint: FingerprintService
   ) {
     this.user.fingerprint = getFingerprint()
-    this.fingerprint.checkfp(getFingerprint()).subscribe(
+    this.checkfpSub =this.fingerprint.checkfp(getFingerprint()).subscribe(
       data => {
         console.log(data)
         if(data.success === true){
@@ -177,6 +180,15 @@ export class SignupComponent implements OnInit {
       cpassword: new FormControl(''),
     }, { validator: this.checkPasswords });
 
+  }
+
+  ngOnDestroy(){
+    if (this.checkfpSub !== undefined) {
+      this.checkfpSub.unsubscribe();
+    }
+    if (this.adduserSub !== undefined) {
+      this.adduserSub.unsubscribe();
+    }
   }
 
   // Get Current Location Coordinates
@@ -338,7 +350,7 @@ export class SignupComponent implements OnInit {
     this.user1.lon = this.user.lon;
     this.user1.fingerprint = this.user.fingerprint;
     this.user1.fpcount = this.user.fpcount;
-    this.userService.adduser(this.user1).subscribe(
+    this.adduserSub =this.userService.adduser(this.user1).subscribe(
       data => {
         console.log(data)
         Swal.fire(

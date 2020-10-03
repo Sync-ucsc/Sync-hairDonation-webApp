@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '@services/user.service';
 import { TokenService } from '@services/token.service';
 import { Router } from '@angular/router';
@@ -12,12 +12,13 @@ import { Md5 } from 'ts-md5/dist/md5';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit,OnDestroy {
 
   user = {
     email:'',
     password: ''
   }
+  loginSub;
   user1 = {
     email: '',
     password: ''
@@ -38,8 +39,9 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.user1.email = this.user.email;
     this.user1.password = Md5.hashStr(this.user.password).toString();
-    this.Users.login(this.user1).subscribe(
+    this.loginSub = this.Users.login(this.user1).subscribe(
       data => {
+
         if (data['success'] === true && data['msg'] === 'sign in'){
 
           this.handleResponse(data['data']);
@@ -126,6 +128,12 @@ export class LoginComponent implements OnInit {
       return true;
     } else {
       return false;
+    }
+  }
+
+  ngOnDestroy(){
+    if (this.loginSub !== undefined) {
+      this.loginSub.unsubscribe();
     }
   }
 

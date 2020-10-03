@@ -6254,41 +6254,40 @@ var KTWidgets = function () {
   };
   return {
     init: function () {
-      console.log(KTApp.getSettings())
-      // ! function () {
-      //   if (0 != $("#kt_dashboard_daterangepicker").length) {
-      //     var t = $("#kt_dashboard_daterangepicker"),
-      //       e = moment(),
-      //       o = moment();
-      //     t.daterangepicker({
-      //         direction: KTUtil.isRTL(),
-      //         startDate: e,
-      //         endDate: o,
-      //         opens: "left",
-      //         applyClass: "btn-primary",
-      //         cancelClass: "btn-light-primary",
-      //         ranges: {
-      //           Today: [moment(), moment()],
-      //           Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")],
-      //           "Last 7 Days": [moment().subtract(6, "days"), moment()],
-      //           "Last 30 Days": [moment().subtract(29, "days"), moment()],
-      //           "This Month": [moment().startOf("month"), moment().endOf("month")],
-      //           "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
-      //         }
-      //       }, s),
-      //       s(e, o, "")
-      //   }
+      ! function () {
+        if (0 != $("#kt_dashboard_daterangepicker").length) {
+          var t = $("#kt_dashboard_daterangepicker"),
+            e = moment(),
+            o = moment();
+          t.daterangepicker({
+              direction: KTUtil.isRTL(),
+              startDate: e,
+              endDate: o,
+              opens: "left",
+              applyClass: "btn-primary",
+              cancelClass: "btn-light-primary",
+              ranges: {
+                Today: [moment(), moment()],
+                Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                "Last 7 Days": [moment().subtract(6, "days"), moment()],
+                "Last 30 Days": [moment().subtract(29, "days"), moment()],
+                "This Month": [moment().startOf("month"), moment().endOf("month")],
+                "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
+              }
+            }, s),
+            s(e, o, "")
+        }
 
-      //   function s(t, e, o) {
-      //     var s = "",
-      //       a = "";
-      //     e - t < 100 || "Today" == o ? (s = "Today:",
-      //         a = t.format("MMM D")) : "Yesterday" == o ? (s = "Yesterday:",
-      //         a = t.format("MMM D")) : a = t.format("MMM D") + " - " + e.format("MMM D"),
-      //       $("#kt_dashboard_daterangepicker_date").html(a),
-      //       $("#kt_dashboard_daterangepicker_title").html(s)
-      //   }
-      // }(),
+        function s(t, e, o) {
+          var s = "",
+            a = "";
+          e - t < 100 || "Today" == o ? (s = "Today:",
+              a = t.format("MMM D")) : "Yesterday" == o ? (s = "Yesterday:",
+              a = t.format("MMM D")) : a = t.format("MMM D") + " - " + e.format("MMM D"),
+            $("#kt_dashboard_daterangepicker_date").html(a),
+            $("#kt_dashboard_daterangepicker_title").html(s)
+        }
+      }(),
       ! function () {
         var t = document.getElementById("kt_stats_widget_7_chart");
         if (t) {

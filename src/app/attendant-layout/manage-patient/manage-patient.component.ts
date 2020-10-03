@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 // <reference types="@types/googlemaps" />
 import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject } from '@angular/core';
 import { PatientApiService } from './../../service/patient-api.service';
@@ -22,13 +23,16 @@ export interface DialogData {
   templateUrl: './manage-patient.component.html',
   styleUrls: ['./manage-patient.component.scss']
 })
-export class ManagePatientComponent implements OnInit {
+export class ManagePatientComponent implements OnInit ,OnDestroy{
   socket;
   @ViewChild('dialog') templateRef: TemplateRef<any>;
    Patient:any = [];
    PatientNames:any=[];
   
    selectedPatient;
+  dialogRef1Sub;
+  dialogRef2Sub;
+  getPatientsSub;
   
   
     myControl = new FormControl('',Validators.required);
@@ -69,7 +73,7 @@ export class ManagePatientComponent implements OnInit {
   // view Patients
   getPatients(){
 
-    this.apiService.getPatients().subscribe((data) => {
+    this.getPatientsSub = this.apiService.getPatients().subscribe((data) => {
     this.Patient = data["data"];
     this.options = data["data"];
      console.log(this.Patient);
@@ -87,7 +91,7 @@ openUpdateRef(patient){
     }
   });
 
-  dialogRef.afterClosed().subscribe(result => {
+  this.dialogRef2Sub =dialogRef.afterClosed().subscribe(result => {
     console.log(`Dialog result: ${result}`);
   });
 
@@ -101,11 +105,24 @@ openViewRef(patient){
   this.selectedPatient=patient;
   const dialogRef = this.dialog.open(this.templateRef);
 
-  dialogRef.afterClosed().subscribe(result => {
+  this.dialogRef1Sub = dialogRef.afterClosed().subscribe(result => {
     console.log(`Dialog result: ${result}`);
   });
 
 }
+  ngOnDestroy() {
+
+    if (this.dialogRef1Sub !== undefined) {
+      this.dialogRef1Sub.unsubscribe();
+    }
+    if (this.dialogRef2Sub !== undefined) {
+      this.dialogRef2Sub.unsubscribe();
+    }
+    if (this.getPatientsSub !== undefined) {
+      this.getPatientsSub.unsubscribe();
+    }
+
+  }
 
 }
 
@@ -116,7 +133,7 @@ openViewRef(patient){
   templateUrl: 'upload-dialog.html',
 })
 // tslint:disable-next-line: class-name
-export class uploadDialogComponent {
+export class uploadDialogComponent implements OnDestroy{
 
  socket = io('http://127.0.0.1:3000/patient');
 
@@ -130,6 +147,7 @@ export class uploadDialogComponent {
 //  checkSms=false;
 //  checkEmail=false;
  selectedPatient;
+  updatePatientSub;
 
 
 
@@ -169,6 +187,13 @@ export class uploadDialogComponent {
       console.log(data.animal);
     ;
    }
+
+  ngOnDestroy() {
+
+    if (this.updatePatientSub !== undefined) {
+      this.updatePatientSub.unsubscribe();
+    }
+    }
 
   // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit(): void {
@@ -225,7 +250,7 @@ updatePatient(){
 
           const id=this.selectedPatient.id;
           console.log(id)
-          this.apiService.updatePatient(id, this.updateForm.value)
+          this.updatePatientSub = this.apiService.updatePatient(id, this.updateForm.value)
             .subscribe(res => {
               this.router.navigateByUrl('/admin/manage-patients');
               console.log('patient updated successfully!');
