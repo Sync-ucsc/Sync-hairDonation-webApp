@@ -6,8 +6,7 @@ import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { SalonApiService } from './../../service/salon-api.service';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2'
-import { google } from '@agm/core/services/google-maps-types';
+import Swal from 'sweetalert2';
 
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete'; 
@@ -73,7 +72,7 @@ export class SalonsComponent implements OnInit,OnDestroy {
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
           // get the place result
-          const place = autocomplete.getPlace();
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
           // verify result
           if (place.geometry === undefined || place.geometry === null) {

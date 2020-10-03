@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { SwUpdate, SwPush } from '@angular/service-worker';
 import { NotificationService } from '@services/notification.service';
+import { TokenService } from '@services/token.service';
+import { UserService } from '@services/user.service';
 
 @Component({
   selector: 'app-donor-layout',
@@ -17,7 +19,9 @@ export class DonorLayoutComponent implements OnInit,OnDestroy {
     private lastPoppedUrl: string;
     private yScrollStack: number[] = [];
     addPushSubscriberSub;
-    readonly VAPID_PUBLIC_KEY = 'BE-J8ek0Xl6Mpgw5R6-B5M5BYISYVkQi6XVGmt8qymgz-u66hyrkEFcgZKJECL8bLHbPyPiVwgTaoH9EpP6VNlc'
+    readonly VAPID_PUBLIC_KEY = 'BE-J8ek0Xl6Mpgw5R6-B5M5BYISYVkQi6XVGmt8qymgz-u66hyrkEFcgZKJECL8bLHbPyPiVwgTaoH9EpP6VNlc';
+    image;
+    name;
 
 
     constructor(
@@ -25,8 +29,12 @@ export class DonorLayoutComponent implements OnInit,OnDestroy {
         private router: Router,
         private swUpdate: SwUpdate,
         private swPush: SwPush,
-        private notificationService: NotificationService
+        private notificationService: NotificationService,
+        private userService: UserService,
+        private token: TokenService
         ) {
+        this.name = token.getFirstName() + ' ' + token.getLastName();
+        this.image = token.getImg();
         this.subscribeToNotifications()
         setTimeout(() => {
             const node = document.createElement('script');
@@ -53,6 +61,9 @@ export class DonorLayoutComponent implements OnInit,OnDestroy {
                 this.addPushSubscriberSub = this.notificationService.addPushSubscriber(data).subscribe((data1) => { });
             })
             .catch(err => console.log('Could not subscribe to notifications', err));
+    }
+    logout() {
+        this.userService.loguot();
     }
 
     ngOnDestroy() {

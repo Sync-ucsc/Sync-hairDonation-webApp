@@ -323,51 +323,56 @@
                         <div class="col-xl-2"></div>
                         <div class="col-xl-7 my-2">
                             <form [formGroup]="signForm1">
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Title</label>
+                                    <div class="col-9">
+                                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName=title
+                                            name="title" [(ngModel)]=notification.title>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Massage</label>
+                                    <div class="col-9">
+                                        <textarea maxlength="80" class="form-control form-control-lg form-control-solid" type="text" formControlName=massage
+                                            name="massage" [(ngModel)]=notification.massage></textarea>
+                                            <span class="form-text text-muted">Max size is 80 characters</span>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
                                 
                                 <!--begin::Group-->
                                 <div class="form-group row">
-                                    <label class="col-form-label col-3 text-lg-right text-left">First Name</label>
+                                    <label class="col-3 col-form-label text-lg-right text-left">Icon type</label>
                                     <div class="col-9">
-                                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName=firstName
-                                            name="firstName" [(ngModel)]=user.firstName>
+                                
+                                        <select class="form-control" [(ngModel)]=notification.icon id="exampleSelect1" formControlName="icon">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                
+                                        </select>
+                                
+                                
+                                        <!-- <div *ngIf="salonForm.controls['district'].errors.required">District is required</div> -->
                                     </div>
                                 </div>
+                                
                                 <!--end::Group-->
                                 <!--begin::Group-->
                                 <div class="form-group row">
-                                    <label class="col-form-label col-3 text-lg-right text-left">Last Name</label>
+                                    <label class="col-form-label col-3 text-lg-right text-left ">Expire date </label>
                                     <div class="col-9">
-                                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName=lastName
-                                            name="lastName" [(ngModel)]=user.lastName>
+                                        <input type="date" [min]="today | date" class="form-control form-control-solid" placeholder="Enter appointment date"
+                                        [(ngModel)]=notification.validDate formControlName="validDate">
+                                        <span class="form-text text-muted">Please enter the Expire date</span>
                                     </div>
                                 </div>
                                 <!--end::Group-->
-                                <!--begin::Group-->
-                        
-                                <div class="form-group row">
-                                    <label class="col-form-label col-3 text-lg-right text-left">Email Address</label>
-                                    <div class="col-9">
-                                        <div class="input-group input-group-lg input-group-solid">
-                                            <input type="email" class="form-control form-control-lg form-control-solid" placeholder="Email"
-                                                name="email" required value="fff" [(ngModel)]=user.email disabled formControlName="email">
-                                        </div>
-                                        <span class="form-text text-muted">We'll never share your email with anyone
-                                            else.</span>
-                                    </div>
-                                </div>
-                                <!--end::Group-->
-                                <!--begin::Group-->
-                                <div class="form-group row">
-                                    <label class="col-form-label col-3 text-lg-right text-left">Contact Phone</label>
-                                    <div class="col-9">
-                                        <div class="input-group input-group-lg input-group-solid">
-                                            <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Phone"
-                                                formControlName=phone name="phone" [(ngModel)]=user.phone>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end::Group-->
-                        
+                               
                         
                                 <div class="d-flex justify-content-between pt-8">
                                     <div>

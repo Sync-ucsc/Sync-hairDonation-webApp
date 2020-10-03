@@ -1,3 +1,5 @@
+import { TokenService } from './../service/token.service';
+import { UserService } from '@services/user.service';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy, PopStateEvent } from '@angular/common';
 import 'rxjs/add/operator/filter';
@@ -14,7 +16,12 @@ import { NotificationService } from '@services/notification.service';
 })
 export class AdminLayoutComponent implements OnInit {
 
-  constructor(public location: Location) {
+  image;
+  name;
+
+  constructor(public location: Location,private userService: UserService,private token: TokenService) {
+      this.name = token.getFirstName() + ' ' + token.getLastName();
+      this.image = token.getImg();
       setTimeout(() => {
           const node = document.createElement('script');
           node.src = '../../assets/js/scripts.bundle.js';
@@ -25,6 +32,10 @@ export class AdminLayoutComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  logout(){
+    this.userService.loguot();
   }
 
 }

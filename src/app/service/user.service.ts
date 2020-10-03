@@ -4,6 +4,8 @@ import { TokenService } from './token.service';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { Observable } from 'rxjs/internal/Observable';
 import { throwError } from 'rxjs';
+import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -14,7 +16,7 @@ export class UserService {
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   options: any;
 
-  constructor(private http: HttpClient,private token: TokenService) {
+  constructor(private http: HttpClient, private token: TokenService, private Auth: AuthService, private router: Router,) {
 
     // this.headers.append('enctype', 'multi-part/form-data');
     // this.headers.append('Content-Type', 'application/json');
@@ -32,6 +34,11 @@ export class UserService {
   login(data) {
     const url = `${this.baseUrl}/authenticate`;
     return this.http.post(url,data ,{ headers: this.headers });
+  }
+  loguot(){
+    this.Auth.changeAuthStatus(false);
+    this.token.remove();
+    this.router.navigate(['/']);
   }
   request(data) {
     const url = `${this.baseUrl}/request`;
