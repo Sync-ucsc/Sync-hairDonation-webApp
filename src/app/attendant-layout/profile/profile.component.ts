@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, NgZone, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '@services/user.service';
@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit,OnDestroy {
 
   user = {
     firstName: '',
@@ -52,6 +52,8 @@ export class ProfileComponent implements OnInit {
     password: '',
     oldPassword: ''
   }
+
+  profileChangePasswordSub;
 
 
   signForm1 = new FormGroup({
@@ -129,7 +131,7 @@ export class ProfileComponent implements OnInit {
     this.user5.email = this.user.email;
     this.user5.password = Md5.hashStr(this.user4.password).toString();
     this.user5.oldPassword = Md5.hashStr(this.user4.oldPassword).toString();
-    this.userService.profileChangePassword(this.user5).subscribe(
+    this.profileChangePasswordSub = this.userService.profileChangePassword(this.user5).subscribe(
       data => {
         Swal.fire(
           'Password change!',
@@ -149,6 +151,13 @@ export class ProfileComponent implements OnInit {
 
   submit3() {
 
+  }
+
+  ngOnDestroy() {
+  
+    if (this.profileChangePasswordSub !== undefined) {
+      this.profileChangePasswordSub.unsubscribe();
+    }
   }
 
 }

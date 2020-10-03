@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone  } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, OnDestroy } from '@angular/core';
 import * as io from 'socket.io-client';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent, AgmCoreModule } from '@agm/core';
@@ -17,7 +17,7 @@ declare var google:any;
 })
 
 
-export class DonorRequestComponent implements OnInit {
+export class DonorRequestComponent implements OnInit,OnDestroy {
 
   socket = io('http://localhost:3000/donor');
   today = new Date()
@@ -41,7 +41,10 @@ export class DonorRequestComponent implements OnInit {
   requestDay: string;
   selectedDonor
   selectedSalon
-  donationRequestForm
+  donationRequestForm;
+  getDonorByEmailSub;
+  getSalonByEmailSub;
+  donorRequsetSub;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -62,7 +65,7 @@ export class DonorRequestComponent implements OnInit {
 
     this.email=this.tokenService.getEmail();
     console.log(this.email);
-    this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
+    this.getDonorByEmailSub = this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
       this.selectedDonor=data['data'];
       console.log(this.selectedDonor)
     })
@@ -179,7 +182,7 @@ onChange2(eve: any) {
      longitude:this.longitude === undefined? this.selectedDonor.lon: this.longitude,
    })
 
-   this.salonService.getSalonByEmail("nishisalon@gmail.com").subscribe((data)=>{
+   this.getSalonByEmailSub = this.salonService.getSalonByEmail("nishisalon@gmail.com").subscribe((data)=>{
     this.selectedSalon=data['data'];
     console.log(this.selectedSalon.latitude)
     const user = new google.maps.LatLng(this.latitude, this.longitude);
@@ -197,7 +200,7 @@ onChange2(eve: any) {
     return false;
   } else {
 
-    this.apiService.donorRequset(this.donationRequestForm.value).subscribe(
+     this.donorRequsetSub = this.apiService.donorRequset(this.donationRequestForm.value).subscribe(
       data => {
         console.log('Your requset has been recorded!'+data)
         Swal.fire(
@@ -230,6 +233,19 @@ onChange2(eve: any) {
     console.log('click yes')
     this.donationRequestForm.value.yes = !this.donationRequestForm.value.no;
     setTimeout(() => this.loadMap(), 1000);
+  }
+
+  ngOnDestroy() {
+
+    if (this.getDonorByEmailSub !== undefined) {
+      this.getDonorByEmailSub.unsubscribe();
+    }
+    if (this.getSalonByEmailSub !== undefined) {
+      this.getSalonByEmailSub.unsubscribe();
+    }
+    if (this.donorRequsetSub !== undefined) {
+      this.donorRequsetSub.unsubscribe();
+    }
   }
 
 }

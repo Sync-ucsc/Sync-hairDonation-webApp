@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 /// <reference types="@types/googlemaps" />
 import { Component, OnInit, NgZone, ElementRef, ViewChild, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
@@ -17,8 +18,11 @@ import { finalize } from 'rxjs/operators';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit,OnDestroy {
 
+  profileChangePasswordSub;
+  getDownloadURLSub;
+  snapshotChangesSub;
   user = {
     firstName: '',
     lastName: '',
@@ -116,7 +120,7 @@ export class ProfileComponent implements OnInit {
     this.user5.email = this.user.email;
     this.user5.password = Md5.hashStr(this.user4.password).toString();
     this.user5.oldPassword = Md5.hashStr(this.user4.oldPassword).toString();
-    this.userService.profileChangePassword(this.user5).subscribe(
+    this.profileChangePasswordSub = this.userService.profileChangePassword(this.user5).subscribe(
       data => {
         Swal.fire(
           'Password change!',
@@ -143,9 +147,9 @@ export class ProfileComponent implements OnInit {
     this.selectedImage = event.target.files[0];
     const name = this.selectedImage.name;
     const fileRef = this.storage.ref(name);
-    this.storage.upload(name, this.selectedImage).snapshotChanges().pipe(
+    this.snapshotChangesSub = this.storage.upload(name, this.selectedImage).snapshotChanges().pipe(
       finalize(() => {
-        fileRef.getDownloadURL().subscribe((url) => {
+        this.getDownloadURLSub = fileRef.getDownloadURL().subscribe((url) => {
           this.url = url;
           this.user.img = url;
           console.log(this.id, this.url);
@@ -157,6 +161,19 @@ export class ProfileComponent implements OnInit {
         })
       })
     ).subscribe();
+  }
+
+  ngOnDestroy() {
+
+    if (this.profileChangePasswordSub !== undefined) {
+      this.profileChangePasswordSub.unsubscribe();
+    }
+    if (this.snapshotChangesSub !== undefined) {
+      this.snapshotChangesSub.unsubscribe();
+    }
+    if (this.getDownloadURLSub !== undefined) {
+      this.getDownloadURLSub.unsubscribe();
+    }
   }
 
 }

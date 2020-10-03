@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, NgZone, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { Md5 } from 'ts-md5/dist/md5';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
 
   user = {
@@ -91,6 +91,9 @@ export class ProfileComponent implements OnInit {
   longitude = 0;
   placeaddress;
   private geoCoder;
+  profileChangePasswordSub;
+  getDonorByEmailSub;
+  changeLocationSub;
 
 
   constructor(
@@ -107,7 +110,7 @@ export class ProfileComponent implements OnInit {
     this.user.lastName = tokenService.getLastName();
     this.user.phone = tokenService.getPhone();
     this.user.img = tokenService.getImg();
-    this.donorService.getDonorByEmail(this.user.email).subscribe(
+    this.getDonorByEmailSub = this.donorService.getDonorByEmail(this.user.email).subscribe(
     data => {
 
         this.user.address = data.data.address
@@ -220,7 +223,7 @@ export class ProfileComponent implements OnInit {
     this.user5.email = this.user.email;
     this.user5.password = Md5.hashStr(this.user4.password).toString();
     this.user5.oldPassword = Md5.hashStr(this.user4.oldPassword).toString();
-    this.userService.profileChangePassword(this.user5).subscribe(
+    this.profileChangePasswordSub = this.userService.profileChangePassword(this.user5).subscribe(
       data => {
         Swal.fire(
           'Password change!',
@@ -244,7 +247,7 @@ export class ProfileComponent implements OnInit {
       this.user3.email = this.user.email;
       this.user3.lat = this.user.lat;
       this.user3.lon = this.user.lon;
-      this.donorService.changeLocation(this.user3).subscribe(
+      this.changeLocationSub = this.donorService.changeLocation(this.user3).subscribe(
         data => {
           Swal.fire(
             'Location change!',
@@ -260,6 +263,19 @@ export class ProfileComponent implements OnInit {
           );
         }
       )
+    }
+  }
+
+  ngOnDestroy() {
+
+    if (this.profileChangePasswordSub !== undefined) {
+      this.profileChangePasswordSub.unsubscribe();
+    }
+    if (this.getDonorByEmailSub !== undefined) {
+      this.getDonorByEmailSub.unsubscribe();
+    }
+    if (this.changeLocationSub !== undefined) {
+      this.changeLocationSub.unsubscribe();
     }
   }
 

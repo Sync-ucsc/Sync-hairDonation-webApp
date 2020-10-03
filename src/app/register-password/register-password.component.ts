@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { UserService } from '@services/user.service';
@@ -11,7 +11,7 @@ import { Md5 } from 'ts-md5/dist/md5';
   templateUrl: './register-password.component.html',
   styleUrls: ['./register-password.component.scss']
 })
-export class RegisterPasswordComponent implements OnInit {
+export class RegisterPasswordComponent implements OnInit ,OnDestroy{
 
   passwordForm = new FormGroup({
     password: new FormControl('', [Validators.required]),
@@ -27,6 +27,9 @@ export class RegisterPasswordComponent implements OnInit {
     email:'',
     password:''
   }
+  changePasswordSub;
+  loginSub;
+  activatedrouteSub;
 
   myform: FormGroup;
   showDetails = true;
@@ -39,11 +42,11 @@ export class RegisterPasswordComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       cpassword: new FormControl(''),
     }, { validator: this.checkPasswords });
-    this.activatedroute.queryParamMap.subscribe(params => {
+    this.activatedrouteSub = this.activatedroute.queryParamMap.subscribe(params => {
       this.logindata.email = params.get('email');
       this.logindata.password = params.get('token');
     });
-    this.userService.login(this.logindata).subscribe(
+    this.loginSub = this.userService.login(this.logindata).subscribe(
       data => {
         if (data['msg'] === 'password change'){
           console.log(data)
@@ -79,7 +82,7 @@ export class RegisterPasswordComponent implements OnInit {
       email: this.user.email,
       password: Md5.hashStr(this.user.password).toString()
     }
-    this.userService.changePassword(udata,this.user.token).subscribe(
+    this.changePasswordSub = this.userService.changePassword(udata,this.user.token).subscribe(
       data => {
         console.log(data)
         if (data['success'] === true){
@@ -115,7 +118,18 @@ export class RegisterPasswordComponent implements OnInit {
     return pass === confirmPass ? null : { notSame: true };
   }
 
+  ngOnDestroy() {
 
+    if (this.changePasswordSub !== undefined) {
+      this.changePasswordSub.unsubscribe();
+    }
+    if (this.loginSub !== undefined) {
+      this.loginSub.unsubscribe();
+    }
+    if (this.activatedrouteSub !== undefined) {
+      this.activatedrouteSub.unsubscribe();
+    }
+  }
 
 }
 

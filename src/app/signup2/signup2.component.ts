@@ -14,7 +14,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
   templateUrl: './signup2.component.html',
   styleUrls: ['./signup2.component.scss']
 })
-export class Signup2Component implements OnInit {
+export class Signup2Component implements OnInit,OnDestroy {
 
   user = {
     fname: '',
@@ -62,6 +62,10 @@ export class Signup2Component implements OnInit {
   btncu2 = false;
   btncu3 = false;
   btncu4 = false;
+  checkfpSub;
+  adduserSub;
+  getDownloadURLSub;
+  uploadSub
 
 
 
@@ -112,7 +116,7 @@ export class Signup2Component implements OnInit {
     private fingerprint: FingerprintService
   ) {
     this.user.fingerprint = getFingerprint()
-    this.fingerprint.checkfp(getFingerprint()).subscribe(
+    this.checkfpSub = this.fingerprint.checkfp(getFingerprint()).subscribe(
       data => {
         console.log(data)
         if (data.success === true) {
@@ -163,8 +167,19 @@ export class Signup2Component implements OnInit {
       }
     )
   }
-  ngOnDestroy(): void {
-    throw new Error("Method not implemented.");
+  ngOnDestroy() {
+    if (this.checkfpSub !== undefined) {
+      this.checkfpSub.unsubscribe();
+    }
+    if (this.adduserSub !== undefined) {
+      this.adduserSub.unsubscribe();
+    }
+    if (this.getDownloadURLSub !== undefined) {
+      this.getDownloadURLSub.unsubscribe();
+    }
+    if (this.uploadSub !== undefined) {
+      this.uploadSub.unsubscribe();
+    }
   }
 
 
@@ -263,7 +278,7 @@ export class Signup2Component implements OnInit {
     this.user1.fpcount = this.user.fpcount;
     this.user1.patientNumber = this.user.patientNumber;
     this.user1.patientReport = this.user.patientReport;
-    this.userService.adduser(this.user1).subscribe(
+    this.adduserSub = this.userService.adduser(this.user1).subscribe(
       data => {
         console.log(data)
         Swal.fire(
@@ -305,9 +320,9 @@ export class Signup2Component implements OnInit {
   save() {
     const name = this.selectedImage.name;
     const fileRef = this.storage.ref(name);
-    this.storage.upload(name, this.selectedImage).snapshotChanges().pipe(
+    this.uploadSub = this.storage.upload(name, this.selectedImage).snapshotChanges().pipe(
       finalize(() => {
-        fileRef.getDownloadURL().subscribe((url) => {
+        this.getDownloadURLSub = fileRef.getDownloadURL().subscribe((url) => {
           this.url = url;
           this.user.patientReport =url;
           console.log(this.id, this.url);
@@ -320,6 +335,7 @@ export class Signup2Component implements OnInit {
       })
     ).subscribe();
   }
+
 }
 
 

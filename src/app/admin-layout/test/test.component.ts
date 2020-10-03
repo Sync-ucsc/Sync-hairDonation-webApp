@@ -160,6 +160,7 @@ export class TestComponent implements OnInit {
       alert('double click!');
     });
   }
+
 }
  // customButtons: {
       //   prev:{

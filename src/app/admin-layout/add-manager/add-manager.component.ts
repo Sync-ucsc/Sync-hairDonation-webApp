@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ManagerApiService } from '@services/manager-api.service'
 import { Router } from '@angular/router';
@@ -10,9 +10,10 @@ import Swal from 'sweetalert2';
   templateUrl: './add-manager.component.html',
   styleUrls: ['./add-manager.component.scss']
 })
-export class AddManagerComponent implements OnInit {
+export class AddManagerComponent implements OnInit,OnDestroy {
 
  submitted=false;
+createManagerSub;
 
   managerForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -40,7 +41,7 @@ export class AddManagerComponent implements OnInit {
       return false;
     } else {
 
-      this.apiService.createManager(this.managerForm.value).subscribe(
+      this.createManagerSub = this.apiService.createManager(this.managerForm.value).subscribe(
         data => {
           console.log('Manager successfully created!' + data)
           Swal.fire(
@@ -61,6 +62,13 @@ export class AddManagerComponent implements OnInit {
         }
       );
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.createManagerSub !== undefined){
+      this.createManagerSub.unsubscribe();
+    }
+    
   }
 }
 

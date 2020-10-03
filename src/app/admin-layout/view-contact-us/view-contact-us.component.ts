@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as io from 'socket.io-client';
 import {HttpClient} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
@@ -13,11 +13,13 @@ import {BackendResponse} from '@model/backendResponse';
   templateUrl: './view-contact-us.component.html',
   styleUrls: ['./view-contact-us.component.scss']
 })
-export class ViewContactUsComponent implements OnInit {
+export class ViewContactUsComponent implements OnInit,OnDestroy {
   BASE_URL = `${environment.BASE_URL}/getInTouch`;
   socket = io(`${environment.BASE_URL}`);
   loading = true;
   messages;
+  geturlSub;
+  posturlSub;
 
   constructor(private _http: HttpClient,
               private _toastr: ToastrService,
@@ -39,7 +41,7 @@ export class ViewContactUsComponent implements OnInit {
 
     const url = `${this.BASE_URL}/all`;
 
-    this._http.get(url).subscribe(
+    this.geturlSub = this._http.get(url).subscribe(
       (response: BackendResponse) => {
         this.loading = false;
         if (response.success) {
@@ -81,7 +83,7 @@ export class ViewContactUsComponent implements OnInit {
           'error'
         )
       } else {
-        this._http.post(url, {id: message._id}).subscribe(
+        this.posturlSub = this._http.post(url, {id: message._id}).subscribe(
           (response: BackendResponse) => {
             if (!response.success) {
               Swal.fire(
@@ -108,5 +110,15 @@ export class ViewContactUsComponent implements OnInit {
       }
     });
     console.log(message)
+  }
+
+  ngOnDestroy() {
+
+    if (this.posturlSub !== undefined) {
+      this.posturlSub.unsubscribe();
+    }
+    if (this.geturlSub !== undefined) {
+      this.geturlSub.unsubscribe();
+    }
   }
 }
