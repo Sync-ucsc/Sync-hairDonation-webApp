@@ -57,6 +57,11 @@ export class ManagerApiService {
     )
   }
 
+  getManagerByEmail(email): Observable<any> {
+    const url = `${this.baseUrl}/getManager/${email}`;
+    return this.http.get(url, { headers: this.headers })
+  }
+
   // Update salons
   updateManager(id, data): Observable<any> {
     const url = `${this.baseUrl}/update/${id}`;

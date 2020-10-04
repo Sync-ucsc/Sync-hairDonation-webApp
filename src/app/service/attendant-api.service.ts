@@ -18,8 +18,8 @@ const httpOptions = {
 })
 export class AttendantApiService {
 
-  baseUrl = `${environment.BASE_URL}/wigRequest/`;
-  baseUrl2 = 'http://127.0.0.1:3000/attendant';
+  baseUrl2 = `${environment.BASE_URL}/wigRequest/`;
+  baseUrl = 'http://127.0.0.1:3000/attendant';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 
@@ -69,6 +69,11 @@ getAttendant(id): Observable<any> {
   )
 }
 
+  getAttendantByEmail(email): Observable<any> {
+    const url = `${this.baseUrl}/getAttendant/${email}`;
+    return this._http.get(url, { headers: this.headers })
+  }
+
 // Update attendants
 updateAttendant(id, data): Observable<any> {
   const url = `${this.baseUrl}/update/${id}`;
@@ -94,38 +99,38 @@ createWigRequest(
   patientEmail: string
 ): Observable<any> {
   return this._http
-    .put(`${this.baseUrl}/add/${patientEmail}`, wigRequestData)
+    .put(`${this.baseUrl2}/add/${patientEmail}`, wigRequestData)
     .pipe(catchError(this.errorManagement));
 }
 
 getLastRequest(patientEmail: string): Observable<any> {
   return this._http
-    .get(`${this.baseUrl}/lastRequestStatus/${patientEmail}`)
+    .get(`${this.baseUrl2}/lastRequestStatus/${patientEmail}`)
     .pipe(catchError(this.errorManagement));
 }
 
 acceptWigrequest(patientId: string): Observable<any> {
   return this._http
-    .get(`${this.baseUrl}/acceptWigrequest/${patientId}`)
+    .get(`${this.baseUrl2}/acceptWigrequest/${patientId}`)
     .pipe(catchError(this.errorManagement));
 }
 
 declineWigrequest(patientId: string): Observable<any> {
   return this._http
-    .get(`${this.baseUrl}/declineWigrequest/${patientId}`)
+    .get(`${this.baseUrl2}/declineWigrequest/${patientId}`)
     .pipe(catchError(this.errorManagement));
 }
 
 
 finishWigrequest(patientId: string): Observable<any> {
   return this._http
-    .get(`${this.baseUrl}/finishWigrequest/${patientId}`)
+    .get(`${this.baseUrl2}/finishWigrequest/${patientId}`)
     .pipe(catchError(this.errorManagement));
 }
 
 cancelWigrequest(patientId: string): Observable<any> {
   return this._http
-    .get(`${this.baseUrl}/cancelWigrequest/${patientId}`)
+    .get(`${this.baseUrl2}/cancelWigrequest/${patientId}`)
     .pipe(catchError(this.errorManagement));
 }
 

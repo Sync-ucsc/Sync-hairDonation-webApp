@@ -8,6 +8,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { SalonApiService } from '@services/salon-api.service';
 import Swal from 'sweetalert2';
 import { Md5 } from 'ts-md5';
+import { CommonService } from '@services/common.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,11 +19,9 @@ export class ProfileComponent implements OnInit,OnDestroy {
 
   user = {
     firstName: '',
-    lastName: '',
     email: '',
     phone: '',
     address: '',
-    password: '',
     img: 'http://i.pravatar.cc/500?img=7',
     lat: 6.86,
     lon: 79.89
@@ -65,7 +64,6 @@ export class ProfileComponent implements OnInit,OnDestroy {
 
   signForm1 = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
-    lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     address: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)])
@@ -94,6 +92,8 @@ export class ProfileComponent implements OnInit,OnDestroy {
   getSalonByEmailSub;
   profileChangePasswordSub;
   changeLocationSub;
+  image;
+  name;
 
 
   constructor(
@@ -103,17 +103,18 @@ export class ProfileComponent implements OnInit,OnDestroy {
     private router: Router,
     private userService: UserService,
     private tokenService: TokenService,
-    private salonService: SalonApiService
+    private salonService: SalonApiService,
+    private service: CommonService
   ) {
+    this.name = this.tokenService.getFirstName() + ' ' + this.tokenService.getLastName();
+    this.image = this.tokenService.getImg();
     this.user.email = tokenService.getEmail();
     this.user.firstName = tokenService.getFirstName();
-    this.user.lastName = tokenService.getLastName();
     this.user.phone = tokenService.getPhone();
     this.user.img = tokenService.getImg();
     this.getSalonByEmailSub = this.salonService.getSalonByEmail(this.user.email).subscribe(
       data => {
-        console.log(data)
-        this.user.address = data.address
+        this.user.address = data.data.address
         this.user.lat = data.lat
         this.user.lon = data.lon
         this.latitude = data.lat
@@ -162,6 +163,7 @@ export class ProfileComponent implements OnInit,OnDestroy {
         // this.getAddress(this.user.lat, this.user.lon);
       });
     }, 100)
+    this.service.data$.subscribe(res => { this.image = res['image'], this.name = res['name'] })
   }
 
 
@@ -213,7 +215,28 @@ export class ProfileComponent implements OnInit,OnDestroy {
 
 
   submit1() {
-
+    this.userService.salonProfileChange(this.user).subscribe(
+      data => {
+        console.log(this.user)
+        console.log(data)
+        this.tokenService.handle(data['data'].userToken);
+        this.name = this.tokenService.getFirstName() + ' ' + this.tokenService.getLastName();
+        this.image = this.tokenService.getImg();
+        this.service.changeData({ image: this.image, name: this.name })
+        Swal.fire(
+          'Profile change!',
+          data['msg'],
+          'success'
+        );
+      },
+      error => {
+        Swal.fire(
+          'Error!',
+          error.error.msg,
+          'error'
+        );
+      }
+    )
   }
 
   changepic() {

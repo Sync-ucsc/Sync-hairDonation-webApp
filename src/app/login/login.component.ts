@@ -6,6 +6,7 @@ import { AuthService } from '@services/auth.service';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import Swal from 'sweetalert2'
 import { Md5 } from 'ts-md5/dist/md5';
+import { CommonService } from '@services/common.service';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,8 @@ export class LoginComponent implements OnInit,OnDestroy {
     email: '',
     password: ''
   }
+  name;
+  image;
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)])
@@ -32,7 +35,8 @@ export class LoginComponent implements OnInit,OnDestroy {
     private Users: UserService,
     private Token: TokenService,
     private router: Router,
-    private Auth: AuthService
+    private Auth: AuthService,
+    private service: CommonService
   ) {
    }
 
@@ -103,6 +107,9 @@ export class LoginComponent implements OnInit,OnDestroy {
   handleResponse(data) {
     this.Token.handle(data.userToken);
     this.Auth.changeAuthStatus(true);
+    this.name = this.Token.getFirstName() + ' ' + this.Token.getLastName();
+    this.image = this.Token.getImg();
+    this.service.changeData({ image: this.image, name: this.name })
     if (this.Token.isUserAdmin()) {
       this.router.navigate(['/admin/dashboard']);
     } else if (this.Token.isUserAttendant()) {
