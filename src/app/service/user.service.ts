@@ -92,6 +92,10 @@ export class UserService {
     const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
     return this.http.post(`${this.baseUrl}/attendantProfileChange`, data, { headers: header });
   }
+  donorProfileChange(data) {
+    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
+    return this.http.post(`${this.baseUrl}/donorProfileChange`, data, { headers: header });
+  }
 
   mangerProfileChange(data) {
     const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])

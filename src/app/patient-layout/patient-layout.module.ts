@@ -1,3 +1,4 @@
+import { BlockUIModule } from 'ng-block-ui';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -19,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 @NgModule({
   imports: [
     CommonModule,
+    BlockUIModule.forRoot(),
     RouterModule.forChild(PatientLayoutRoutes),
     FormsModule,
     SharedLayoutModule,

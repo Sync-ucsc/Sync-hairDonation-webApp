@@ -8,6 +8,7 @@ import { SwUpdate, SwPush } from '@angular/service-worker';
 import { NotificationService } from '@services/notification.service';
 import { TokenService } from '@services/token.service';
 import { UserService } from '@services/user.service';
+import { CommonService } from '@services/common.service';
 
 @Component({
   selector: 'app-donor-layout',
@@ -31,8 +32,9 @@ export class DonorLayoutComponent implements OnInit,OnDestroy {
         private swPush: SwPush,
         private notificationService: NotificationService,
         private userService: UserService,
-        private token: TokenService
-        ) {
+        private token: TokenService,
+        private service: CommonService
+    ) {
         this.name = token.getFirstName() + ' ' + token.getLastName();
         this.image = token.getImg();
         this.subscribeToNotifications()
@@ -46,7 +48,8 @@ export class DonorLayoutComponent implements OnInit,OnDestroy {
     }
 
     ngOnInit() {
-
+        if (this.image)
+            this.service.data$.subscribe(res => { this.image = res['image'], this.name = res['name'] })
     }
     subscribeToNotifications() {
 
