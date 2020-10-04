@@ -21,4 +21,8 @@ export class NotificationService {
   send() {
     return this.http.post('/api/newsletter', null);
   }
+
+  addNotification(data){
+    return this.http.post(`${this.baseUrl}/add`, data);
+  }
 }
