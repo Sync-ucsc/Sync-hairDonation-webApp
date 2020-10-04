@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { CommonService } from './common.service';
 
 
 @Injectable({
@@ -72,10 +73,38 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/changePassword`, data , { headers: header });
   }
 
+  adminprofileChange(data) {
+    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
+    return this.http.post(`${this.baseUrl}/adminprofileChange`, data , { headers: header });
+  }
+
+  patientprofileChange(data) {
+    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
+    return this.http.post(`${this.baseUrl}/patientprofileChange`, data, { headers: header });
+  }
+
+  salonProfileChange(data) {
+    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
+    return this.http.post(`${this.baseUrl}/salonProfileChange`, data, { headers: header });
+  }
+
+  attendantProfileChange(data) {
+    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
+    return this.http.post(`${this.baseUrl}/attendantProfileChange`, data, { headers: header });
+  }
+
+  mangerProfileChange(data) {
+    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
+    return this.http.post(`${this.baseUrl}/mangerProfileChange`, data, { headers: header });
+  }
+
+
   profileChangePassword(data) {
     const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
     return this.http.post(`${this.baseUrl}/profileChanePassword`, data, { headers: header });
   }
+
+ 
 
   // donor activate
   donorActivate(data){

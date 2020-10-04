@@ -8,6 +8,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { PatientApiService } from '@services/patient-api.service';
 import { Md5 } from 'ts-md5';
 import Swal from 'sweetalert2';
+import { CommonService } from '@services/common.service';
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +23,6 @@ export class ProfileComponent implements OnInit,OnDestroy {
     email: '',
     phone: '',
     address: '',
-    password: '',
     img: 'http://i.pravatar.cc/500?img=7'
   }
 
@@ -62,6 +62,8 @@ export class ProfileComponent implements OnInit,OnDestroy {
     address: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)])
   });
+  image;
+  name;
 
 
   searchElementRef: ElementRef;
@@ -84,8 +86,11 @@ export class ProfileComponent implements OnInit,OnDestroy {
     private router: Router,
     private userService: UserService,
     private tokenService: TokenService,
-    private patientService: PatientApiService
+    private patientService: PatientApiService,
+    private service: CommonService
   ) {
+    this.name = this.tokenService.getFirstName() + ' ' + this.tokenService.getLastName();
+    this.image = this.tokenService.getImg();
     this.user.email = tokenService.getEmail();
     this.user.firstName = tokenService.getFirstName();
     this.user.lastName = tokenService.getLastName();
@@ -109,6 +114,7 @@ export class ProfileComponent implements OnInit,OnDestroy {
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       cpassword: new FormControl('', [Validators.required]),
     }, { validator: this.checkPasswords });
+    this.service.data$.subscribe(res => { this.image = res['image'], this.name = res['name'] })
   }
 
 
@@ -121,7 +127,28 @@ export class ProfileComponent implements OnInit,OnDestroy {
 
 
   submit1() {
-
+    this.userService.patientprofileChange(this.user).subscribe(
+      data => {
+        console.log(this.user)
+        console.log(data)
+        this.tokenService.handle(data['data'].userToken);
+        this.name = this.tokenService.getFirstName() + ' ' + this.tokenService.getLastName();
+        this.image = this.tokenService.getImg();
+        this.service.changeData({ image: this.image, name: this.name })
+        Swal.fire(
+          'Profile change!',
+          data['msg'],
+          'success'
+        );
+      },
+      error => {
+        Swal.fire(
+          'Error!',
+          error.error.msg,
+          'error'
+        );
+      }
+    )
   }
 
   changepic() {
