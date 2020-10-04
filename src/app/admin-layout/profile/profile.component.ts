@@ -171,7 +171,6 @@ export class ProfileComponent implements OnInit,OnDestroy {
   }
 
   changepic(event: any) {
-    console.log('ddddd')
     this.selectedImage = event.target.files[0];
     const name = this.selectedImage.name;
     const fileRef = this.storage.ref(name);
@@ -181,7 +180,6 @@ export class ProfileComponent implements OnInit,OnDestroy {
         this.getDownloadURLSub = fileRef.getDownloadURL().subscribe((url) => {
           this.url = url;
           this.user.img = url;
-          console.log(this.id, this.url);
           this.blockUI.stop();
           Swal.fire(
             'Success',

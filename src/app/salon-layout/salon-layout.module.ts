@@ -1,3 +1,4 @@
+import { BlockUIModule } from 'ng-block-ui';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -31,6 +32,7 @@ import { AgmCoreModule } from '@agm/core';
 @NgModule({
   imports: [
     CommonModule,
+    BlockUIModule.forRoot(),
     RouterModule.forChild(SalonLayoutRoutes),
     FormsModule,
     FullCalendarModule,

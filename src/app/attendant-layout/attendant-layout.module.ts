@@ -1,3 +1,4 @@
+import { BlockUIModule } from 'ng-block-ui';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
@@ -37,6 +38,7 @@ import { ManualRequestComponent } from './manual-request/manual-request.componen
 @NgModule({
     imports: [
         CommonModule,
+        BlockUIModule.forRoot(),
         RouterModule.forChild(AttendantLayoutRoutes),
         FormsModule,
         ReactiveFormsModule,

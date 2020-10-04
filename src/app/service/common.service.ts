@@ -13,7 +13,7 @@ export class CommonService {
   });
   data$ = this.data.asObservable();
   constructor(private token: TokenService,) {
-    if(token.loggedIn){
+    if(token.loggedIn()){
       this.changeData({ image: token.getImg(), name: token.getFirstName() + ' ' + token.getLastName() })
     }
    }

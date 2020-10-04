@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild, NgZone, OnDestroy } from '@angular/core';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { Component, OnInit, ElementRef, ViewChild, NgZone, OnDestroy, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
 import { Router } from '@angular/router';
@@ -9,6 +10,8 @@ import { PatientApiService } from '@services/patient-api.service';
 import { Md5 } from 'ts-md5';
 import Swal from 'sweetalert2';
 import { CommonService } from '@services/common.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -64,11 +67,17 @@ export class ProfileComponent implements OnInit,OnDestroy {
   });
   image;
   name;
+  selectedImage;
+  url;
+  id;
 
 
   searchElementRef: ElementRef;
   getPatientByEmailSub;
+  @BlockUI() blockUI: NgBlockUI;
   profileChangePasswordSub;
+  getDownloadURLSub;
+  snapshotChangesSub;
 
   @ViewChild('search') set content(content: ElementRef) {
     if (content) { // initially setter gets called with undefined
@@ -82,6 +91,7 @@ export class ProfileComponent implements OnInit,OnDestroy {
 
 
   constructor(
+    @Inject(AngularFireStorage) private storage: AngularFireStorage,
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
@@ -98,7 +108,7 @@ export class ProfileComponent implements OnInit,OnDestroy {
     this.user.img = tokenService.getImg();
     this.getPatientByEmailSub = this.patientService.getPatientByEmail(this.user.email).subscribe(
       data => {
-        this.user.address = data.address
+        this.user.address = data.data.address
       },
       error => {
 
@@ -151,8 +161,25 @@ export class ProfileComponent implements OnInit,OnDestroy {
     )
   }
 
-  changepic() {
-
+  changepic(event: any) {
+    this.selectedImage = event.target.files[0];
+    const name = this.selectedImage.name;
+    const fileRef = this.storage.ref(name);
+    this.blockUI.start();
+    this.snapshotChangesSub = this.storage.upload(name, this.selectedImage).snapshotChanges().pipe(
+      finalize(() => {
+        this.getDownloadURLSub = fileRef.getDownloadURL().subscribe((url) => {
+          this.url = url;
+          this.user.img = url;
+          this.blockUI.stop();
+          Swal.fire(
+            'Success',
+            'Upload Successful',
+            'success'
+          )
+        })
+      })
+    ).subscribe();
   }
 
   submit2() {

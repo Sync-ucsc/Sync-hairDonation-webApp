@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild, NgZone, OnDestroy } from '@angular/core';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { Component, OnInit, ElementRef, ViewChild, NgZone, OnDestroy, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
 import { Router } from '@angular/router';
@@ -9,6 +10,8 @@ import { SalonApiService } from '@services/salon-api.service';
 import Swal from 'sweetalert2';
 import { Md5 } from 'ts-md5';
 import { CommonService } from '@services/common.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -90,13 +93,20 @@ export class ProfileComponent implements OnInit,OnDestroy {
   placeaddress;
   private geoCoder;
   getSalonByEmailSub;
+  @BlockUI() blockUI: NgBlockUI;
   profileChangePasswordSub;
+  getDownloadURLSub;
+  snapshotChangesSub;
   changeLocationSub;
   image;
   name;
+  selectedImage;
+  url;
+  id;
 
 
   constructor(
+    @Inject(AngularFireStorage) private storage: AngularFireStorage,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private fb: FormBuilder,
@@ -239,8 +249,25 @@ export class ProfileComponent implements OnInit,OnDestroy {
     )
   }
 
-  changepic() {
-
+  changepic(event: any) {
+    this.selectedImage = event.target.files[0];
+    const name = this.selectedImage.name;
+    const fileRef = this.storage.ref(name);
+    this.blockUI.start();
+    this.snapshotChangesSub = this.storage.upload(name, this.selectedImage).snapshotChanges().pipe(
+      finalize(() => {
+        this.getDownloadURLSub = fileRef.getDownloadURL().subscribe((url) => {
+          this.url = url;
+          this.user.img = url;
+          this.blockUI.stop();
+          Swal.fire(
+            'Success',
+            'Upload Successful',
+            'success'
+          )
+        })
+      })
+    ).subscribe();
   }
 
   submit2() {

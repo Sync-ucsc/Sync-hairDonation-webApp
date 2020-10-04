@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild, NgZone, OnDestroy } from '@angular/core';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { Component, OnInit, ElementRef, ViewChild, NgZone, OnDestroy, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '@services/user.service';
@@ -8,6 +9,8 @@ import { AttendantApiService } from '@services/attendant-api.service';
 import { Md5 } from 'ts-md5';
 import Swal from 'sweetalert2';
 import { CommonService } from '@services/common.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -55,7 +58,13 @@ export class ProfileComponent implements OnInit,OnDestroy {
     oldPassword: ''
   }
 
+  @BlockUI() blockUI: NgBlockUI;
   profileChangePasswordSub;
+  getDownloadURLSub;
+  snapshotChangesSub;
+  selectedImage;
+  url;
+  id;
 
 
   signForm1 = new FormGroup({
@@ -81,6 +90,7 @@ export class ProfileComponent implements OnInit,OnDestroy {
 
 
   constructor(
+    @Inject(AngularFireStorage) private storage: AngularFireStorage,
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
@@ -150,10 +160,26 @@ export class ProfileComponent implements OnInit,OnDestroy {
     )
   }
 
-  changepic() {
-
+  changepic(event: any) {
+    this.selectedImage = event.target.files[0];
+    const name = this.selectedImage.name;
+    const fileRef = this.storage.ref(name);
+    this.blockUI.start();
+    this.snapshotChangesSub = this.storage.upload(name, this.selectedImage).snapshotChanges().pipe(
+      finalize(() => {
+        this.getDownloadURLSub = fileRef.getDownloadURL().subscribe((url) => {
+          this.url = url;
+          this.user.img = url;
+          this.blockUI.stop();
+          Swal.fire(
+            'Success',
+            'Upload Successful',
+            'success'
+          )
+        })
+      })
+    ).subscribe();
   }
-
   submit2() {
     this.user5.email = this.user.email;
     this.user5.password = Md5.hashStr(this.user4.password).toString();
@@ -184,6 +210,12 @@ export class ProfileComponent implements OnInit,OnDestroy {
   
     if (this.profileChangePasswordSub !== undefined) {
       this.profileChangePasswordSub.unsubscribe();
+    }
+    if (this.snapshotChangesSub !== undefined) {
+      this.snapshotChangesSub.unsubscribe();
+    }
+    if (this.getDownloadURLSub !== undefined) {
+      this.getDownloadURLSub.unsubscribe();
     }
   }
 
