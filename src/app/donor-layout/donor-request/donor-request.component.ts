@@ -40,6 +40,7 @@ export class DonorRequestComponent implements OnInit {
   finished=false;
   canceled = false;
   validDate: Date;
+  date: string;
   requestDay: string;
   selectedDonor
   selectedSalon
@@ -63,6 +64,10 @@ export class DonorRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    let now = new Date();
+
+    this.date =  new Date().toJSON().split('T')[0];
 
     this.email=this.tokenService.getEmail();
     console.log(this.email);
