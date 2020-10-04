@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { Component, OnInit, ElementRef, ViewChild, NgZone, OnDestroy, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
 import { Router } from '@angular/router';
@@ -8,13 +9,16 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { DonorApiService } from '@services/donor-api.service';
 import Swal from 'sweetalert2';
 import { Md5 } from 'ts-md5/dist/md5';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
+import { CommonService } from '@services/common.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
 
   user = {
@@ -91,23 +95,38 @@ export class ProfileComponent implements OnInit {
   longitude = 0;
   placeaddress;
   private geoCoder;
+  @BlockUI() blockUI: NgBlockUI;
+  profileChangePasswordSub;
+  getDownloadURLSub;
+  snapshotChangesSub;
+  getDonorByEmailSub;
+  changeLocationSub;
+  selectedImage;
+  url;
+  id;
+  image;
+  name;
 
 
   constructor(
+    @Inject(AngularFireStorage) private storage: AngularFireStorage,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
     private tokenService: TokenService,
-    private donorService: DonorApiService
+    private donorService: DonorApiService,
+    private service: CommonService
   ) {
+    this.name = this.tokenService.getFirstName() + ' ' + this.tokenService.getLastName();
+    this.image = this.tokenService.getImg();
     this.user.email = tokenService.getEmail();
     this.user.firstName = tokenService.getFirstName();
     this.user.lastName = tokenService.getLastName();
     this.user.phone = tokenService.getPhone();
     this.user.img = tokenService.getImg();
-    this.donorService.getDonorByEmail(this.user.email).subscribe(
+    this.getDonorByEmailSub = this.donorService.getDonorByEmail(this.user.email).subscribe(
     data => {
 
         this.user.address = data.data.address
@@ -158,6 +177,7 @@ export class ProfileComponent implements OnInit {
         // this.getAddress(this.user.lat, this.user.lon);
       });
     }, 100)
+    this.service.data$.subscribe(res => { this.image = res['image'], this.name = res['name'] })
   }
 
 
@@ -209,18 +229,56 @@ export class ProfileComponent implements OnInit {
 
 
   submit1() {
-
+    this.userService.donorProfileChange(this.user).subscribe(
+      data => {
+        console.log(this.user)
+        console.log(data)
+        this.tokenService.handle(data['data'].userToken);
+        this.name = this.tokenService.getFirstName() + ' ' + this.tokenService.getLastName();
+        this.image = this.tokenService.getImg();
+        this.service.changeData({ image: this.image, name: this.name })
+        Swal.fire(
+          'Profile change!',
+          data['msg'],
+          'success'
+        );
+      },
+      error => {
+        Swal.fire(
+          'Error!',
+          error.error.msg,
+          'error'
+        );
+      }
+    )
   }
 
-  changepic() {
-
+  changepic(event: any) {
+    this.selectedImage = event.target.files[0];
+    const name = this.selectedImage.name;
+    const fileRef = this.storage.ref(name);
+    this.blockUI.start();
+    this.snapshotChangesSub = this.storage.upload(name, this.selectedImage).snapshotChanges().pipe(
+      finalize(() => {
+        this.getDownloadURLSub = fileRef.getDownloadURL().subscribe((url) => {
+          this.url = url;
+          this.user.img = url;
+          this.blockUI.stop();
+          Swal.fire(
+            'Success',
+            'Upload Successful',
+            'success'
+          )
+        })
+      })
+    ).subscribe();
   }
 
   submit2() {
     this.user5.email = this.user.email;
     this.user5.password = Md5.hashStr(this.user4.password).toString();
     this.user5.oldPassword = Md5.hashStr(this.user4.oldPassword).toString();
-    this.userService.profileChangePassword(this.user5).subscribe(
+    this.profileChangePasswordSub = this.userService.profileChangePassword(this.user5).subscribe(
       data => {
         Swal.fire(
           'Password change!',
@@ -244,7 +302,7 @@ export class ProfileComponent implements OnInit {
       this.user3.email = this.user.email;
       this.user3.lat = this.user.lat;
       this.user3.lon = this.user.lon;
-      this.donorService.changeLocation(this.user3).subscribe(
+      this.changeLocationSub = this.donorService.changeLocation(this.user3).subscribe(
         data => {
           Swal.fire(
             'Location change!',
@@ -260,6 +318,25 @@ export class ProfileComponent implements OnInit {
           );
         }
       )
+    }
+  }
+
+  ngOnDestroy() {
+
+    if (this.profileChangePasswordSub !== undefined) {
+      this.profileChangePasswordSub.unsubscribe();
+    }
+    if (this.getDonorByEmailSub !== undefined) {
+      this.getDonorByEmailSub.unsubscribe();
+    }
+    if (this.changeLocationSub !== undefined) {
+      this.changeLocationSub.unsubscribe();
+    }
+    if (this.snapshotChangesSub !== undefined) {
+      this.snapshotChangesSub.unsubscribe();
+    }
+    if (this.getDownloadURLSub !== undefined) {
+      this.getDownloadURLSub.unsubscribe();
     }
   }
 

@@ -1,5 +1,5 @@
 
-import {Component, OnInit, Renderer2, ViewChild} from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild, OnDestroy } from '@angular/core';
 import {FullCalendarComponent} from '@fullcalendar/angular';
 import {EventInput} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -22,13 +22,18 @@ import { Observable } from 'rxjs';
 })
 
 
-export class ViewCalendarComponent implements OnInit {
+export class ViewCalendarComponent implements OnInit, OnDestroy{
 
   socket = io('http://127.0.0.1:3000/donorAppointment');
 
   showModal: boolean;
   addForm: FormGroup;
   submitted = false;
+  deleteAppointmentSub;
+  getAllSub;
+  createAppointmentSub;
+  createAppointment1Sub;
+  updateAppointmentSub;
 
   // use for clear formFiled
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
@@ -142,7 +147,7 @@ export class ViewCalendarComponent implements OnInit {
   }
 
   getall(){
-    this._ViewCalendarService.getAll().subscribe(
+    this.getAllSub = this._ViewCalendarService.getAll().subscribe(
       data => {
         console.log(data)
         data.data.forEach(element => {
@@ -189,7 +194,7 @@ export class ViewCalendarComponent implements OnInit {
         appointmentTimeSlot:this.arg.dateStr
    }
  
-   this._ViewCalendarService.createAppointment(appointment).subscribe(
+   this.createAppointmentSub = this._ViewCalendarService.createAppointment(appointment).subscribe(
     data => {
       Swal.fire(
         'Done!',
@@ -279,7 +284,7 @@ export class ViewCalendarComponent implements OnInit {
     date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     // const string = event.event.name;
 
-     this._ViewCalendarService.createAppointment(date).subscribe(
+     this.createAppointment1Sub = this._ViewCalendarService.createAppointment(date).subscribe(
       data => {
        if (data.success) {
           event.event.setProp('id', data.task.id);
@@ -306,7 +311,7 @@ export class ViewCalendarComponent implements OnInit {
       reverseButtons: true,
       preConfirm: (login) => {
 
-        this._ViewCalendarService.updateAppointment(event.event.id,this.date).subscribe((data) => {
+        this.updateAppointmentSub = this._ViewCalendarService.updateAppointment(event.event.id,this.date).subscribe((data) => {
           console.log(data);
           this.socket.emit('updateAppointment', data);
           if(!data.msg)
@@ -382,7 +387,7 @@ export class ViewCalendarComponent implements OnInit {
     cancelButtonText: 'No, cancel!',
     reverseButtons: true,
     preConfirm: (login) => {
-      this._ViewCalendarService.deleteAppointment(event.event.id).subscribe((data) => {
+      this.deleteAppointmentSub = this._ViewCalendarService.deleteAppointment(event.event.id).subscribe((data) => {
         console.log(data);
         this.socket.emit('updateAppointment', data);
         if(!data.msg)
@@ -433,6 +438,25 @@ export class ViewCalendarComponent implements OnInit {
     ev.el.addEventListener('dblclick', () => {
       alert('double click!');
     });
+  }
+
+  ngOnDestroy() {
+
+    if (this.deleteAppointmentSub !== undefined) {
+      this.deleteAppointmentSub.unsubscribe();
+    }
+    if (this.getAllSub !== undefined) {
+      this.getAllSub.unsubscribe();
+    }
+    if (this.createAppointmentSub !== undefined) {
+      this.createAppointmentSub.unsubscribe();
+    }
+    if (this.createAppointment1Sub !== undefined) {
+      this.createAppointment1Sub.unsubscribe();
+    }
+    if (this.updateAppointmentSub !== undefined) {
+      this.updateAppointmentSub.unsubscribe();
+    }
   }
 
 

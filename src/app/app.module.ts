@@ -51,6 +51,7 @@ import { DonorWaitComponent } from './donor-wait/donor-wait.component';
 import { PatientWaitComponent } from './patient-wait/patient-wait.component';
 import { DonoractiveComponent } from './donoractive/donoractive.component';
 import { RegisterPasswordComponent } from './register-password/register-password.component';
+import { BlockUIModule } from 'ng-block-ui';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { RegisterPasswordComponent } from './register-password/register-password
     BrowserModule,
     AppRoutingModule,
     OwlModule,
+    BlockUIModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAkGlhRjMfmotb0UBMf8EAcmkTB6v3WEVM',
       libraries: ['places','geometry']

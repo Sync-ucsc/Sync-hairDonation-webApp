@@ -15,7 +15,21 @@ export class BeforLoginService {
     const beforlogin: boolean = !this.Token.loggedIn();
     // if not, redirect to /pagenotfound
     if (!beforlogin) {
-      this.router.navigate(['/pagenotfound']);
+      if (this.Token.isUserAdmin()) {
+        this.router.navigate(['/admin/dashboard']);
+      } else if (this.Token.isUserAttendant()) {
+        this.router.navigate(['/attendant/dashboard']);
+      } else if (this.Token.isUserDonor()) {
+        this.router.navigate(['/donor/dashboard']);
+      } else if (this.Token.isUserHospital()) {
+        this.router.navigate(['/hospital/dashboard']);
+      } else if (this.Token.isUserPatient()) {
+        this.router.navigate(['/patient/dashboard']);
+      } else if (this.Token.isUserSalon()) {
+        this.router.navigate(['/salon/dashboard']);
+      } else {
+        this.router.navigate(['/']);
+      }
     }
     return beforlogin;
   }

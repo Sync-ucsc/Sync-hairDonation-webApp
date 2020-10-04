@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 /// <reference types="@types/googlemaps" />
 import * as io from 'socket.io-client';
 import { Component, OnInit, ViewChild, ElementRef, NgZone  } from '@angular/core';
@@ -5,7 +6,7 @@ import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { SalonApiService } from './../../service/salon-api.service';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete'; 
@@ -17,7 +18,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 })
 
 
-export class SalonsComponent implements OnInit {
+export class SalonsComponent implements OnInit,OnDestroy {
 
   socket = io('http://127.0.0.1:3000/salon');
 
@@ -51,6 +52,7 @@ export class SalonsComponent implements OnInit {
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
+  createSalonSub
 
 
   constructor(
@@ -131,7 +133,7 @@ getAddress(latitude, longitude) {
      })
      console.log(this.salonForm.value);
      this.submitted=true;
-    this.apiService.createSalon(this.salonForm.value).subscribe(
+     this.createSalonSub = this.apiService.createSalon(this.salonForm.value).subscribe(
       data => {
           console.log('Salon successfully created!'+data)
           Swal.fire(
@@ -152,6 +154,12 @@ getAddress(latitude, longitude) {
       }
     );
   }
+ }
+
+ ngOnDestroy(){
+   if (this.createSalonSub !== undefined) {
+     this.createSalonSub.unsubscribe();
+   }
  }
 
 }

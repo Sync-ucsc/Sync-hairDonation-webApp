@@ -1,3 +1,4 @@
+import { BlockUIModule } from 'ng-block-ui';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -12,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   imports: [
     CommonModule,
+    BlockUIModule.forRoot(),
     RouterModule.forChild(HospitalLayoutRoutes),
     FormsModule,
     MatPasswordStrengthModule.forRoot(),

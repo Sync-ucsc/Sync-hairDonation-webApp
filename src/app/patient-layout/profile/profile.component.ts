@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { Component, OnInit, ElementRef, ViewChild, NgZone, OnDestroy, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
 import { Router } from '@angular/router';
@@ -8,13 +9,16 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { PatientApiService } from '@services/patient-api.service';
 import { Md5 } from 'ts-md5';
 import Swal from 'sweetalert2';
+import { CommonService } from '@services/common.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit,OnDestroy {
 
   user = {
     firstName: '',
@@ -22,7 +26,6 @@ export class ProfileComponent implements OnInit {
     email: '',
     phone: '',
     address: '',
-    password: '',
     img: 'http://i.pravatar.cc/500?img=7'
   }
 
@@ -62,9 +65,19 @@ export class ProfileComponent implements OnInit {
     address: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)])
   });
+  image;
+  name;
+  selectedImage;
+  url;
+  id;
 
 
   searchElementRef: ElementRef;
+  getPatientByEmailSub;
+  @BlockUI() blockUI: NgBlockUI;
+  profileChangePasswordSub;
+  getDownloadURLSub;
+  snapshotChangesSub;
 
   @ViewChild('search') set content(content: ElementRef) {
     if (content) { // initially setter gets called with undefined
@@ -78,20 +91,24 @@ export class ProfileComponent implements OnInit {
 
 
   constructor(
+    @Inject(AngularFireStorage) private storage: AngularFireStorage,
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
     private tokenService: TokenService,
-    private patientService: PatientApiService
+    private patientService: PatientApiService,
+    private service: CommonService
   ) {
+    this.name = this.tokenService.getFirstName() + ' ' + this.tokenService.getLastName();
+    this.image = this.tokenService.getImg();
     this.user.email = tokenService.getEmail();
     this.user.firstName = tokenService.getFirstName();
     this.user.lastName = tokenService.getLastName();
     this.user.phone = tokenService.getPhone();
     this.user.img = tokenService.getImg();
-    this.patientService.getPatientByEmail(this.user.email).subscribe(
+    this.getPatientByEmailSub = this.patientService.getPatientByEmail(this.user.email).subscribe(
       data => {
-        this.user.address = data.address
+        this.user.address = data.data.address
       },
       error => {
 
@@ -107,6 +124,7 @@ export class ProfileComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       cpassword: new FormControl('', [Validators.required]),
     }, { validator: this.checkPasswords });
+    this.service.data$.subscribe(res => { this.image = res['image'], this.name = res['name'] })
   }
 
 
@@ -119,18 +137,56 @@ export class ProfileComponent implements OnInit {
 
 
   submit1() {
-
+    this.userService.patientprofileChange(this.user).subscribe(
+      data => {
+        console.log(this.user)
+        console.log(data)
+        this.tokenService.handle(data['data'].userToken);
+        this.name = this.tokenService.getFirstName() + ' ' + this.tokenService.getLastName();
+        this.image = this.tokenService.getImg();
+        this.service.changeData({ image: this.image, name: this.name })
+        Swal.fire(
+          'Profile change!',
+          data['msg'],
+          'success'
+        );
+      },
+      error => {
+        Swal.fire(
+          'Error!',
+          error.error.msg,
+          'error'
+        );
+      }
+    )
   }
 
-  changepic() {
-
+  changepic(event: any) {
+    this.selectedImage = event.target.files[0];
+    const name = this.selectedImage.name;
+    const fileRef = this.storage.ref(name);
+    this.blockUI.start();
+    this.snapshotChangesSub = this.storage.upload(name, this.selectedImage).snapshotChanges().pipe(
+      finalize(() => {
+        this.getDownloadURLSub = fileRef.getDownloadURL().subscribe((url) => {
+          this.url = url;
+          this.user.img = url;
+          this.blockUI.stop();
+          Swal.fire(
+            'Success',
+            'Upload Successful',
+            'success'
+          )
+        })
+      })
+    ).subscribe();
   }
 
   submit2() {
     this.user5.email = this.user.email;
     this.user5.password = Md5.hashStr(this.user4.password).toString();
     this.user5.oldPassword = Md5.hashStr(this.user4.oldPassword).toString();
-    this.userService.profileChangePassword(this.user5).subscribe(
+    this.profileChangePasswordSub = this.userService.profileChangePassword(this.user5).subscribe(
       data => {
         Swal.fire(
           'Password change!',
@@ -150,6 +206,15 @@ export class ProfileComponent implements OnInit {
 
   submit3() {
 
+  }
+
+  ngOnDestroy(){
+    if (this.getPatientByEmailSub !== undefined) {
+      this.getPatientByEmailSub.unsubscribe();
+    }
+    if (this.profileChangePasswordSub !== undefined) {
+      this.profileChangePasswordSub.unsubscribe();
+    }
   }
 
 }

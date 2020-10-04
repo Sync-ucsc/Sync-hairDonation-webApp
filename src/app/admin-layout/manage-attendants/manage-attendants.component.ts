@@ -1,7 +1,7 @@
 
 import { AttendantApiService } from './../../service/attendant-api.service';
 import { Attendant } from 'src/app/model/attendant';
-import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,8 +16,13 @@ import io from 'socket.io-client';
   styleUrls: ['./manage-attendants.component.scss']
 })
 
-export class ManageAttendantsComponent implements OnInit {
+export class ManageAttendantsComponent implements OnInit,OnDestroy {
   socket;
+  getAttendantsSub;
+  dialogRef1Sub;
+  dialogRef2Sub;
+  updateAttendantSub;
+  deleteAttendantSub;
   @ViewChild('dialog') templateRef: TemplateRef<any>;
   @ViewChild('dialog2') templateRef2: TemplateRef<any>;
 
@@ -62,7 +67,7 @@ constructor(
 
  getAttendants(){
 
-    this.apiService.getAttendants().subscribe((data) => {
+   this.getAttendantsSub = this.apiService.getAttendants().subscribe((data) => {
      this.Attendant = data['data'];
      console.log(this.Attendant);
     })
@@ -75,7 +80,7 @@ constructor(
   this.selectedAttendant=attendant;
   const dialogRef = this.dialog.open(this.templateRef);
 
-  dialogRef.afterClosed().subscribe(result => {
+   this.dialogRef1Sub = dialogRef.afterClosed().subscribe(result => {
     console.log(`Dialog result: ${result}`);
   });
 
@@ -87,7 +92,7 @@ openUpdateRef(attendant){
   this.selectedAttendant=attendant;
   const dialogRef = this.dialog.open(this.templateRef2);
 
-  dialogRef.afterClosed().subscribe(result => {
+  this.dialogRef2Sub = dialogRef.afterClosed().subscribe(result => {
     console.log(`Dialog result: ${result}`);
   });
 
@@ -110,7 +115,7 @@ openUpdateRef(attendant){
       preConfirm: (login) => {
 
         const id = this.selectedAttendant._id;
-        this.apiService.updateAttendant(id, this.updateForm.value)
+        this.updateAttendantSub = this.apiService.updateAttendant(id, this.updateForm.value)
           .subscribe(res => {
             this.router.navigateByUrl('/admin/manage-attendants');
             console.log('Attendant updated successfully!');
@@ -156,7 +161,7 @@ openUpdateRef(attendant){
      cancelButtonText: 'No, cancel!',
      reverseButtons: true,
      preConfirm: (login) => {
-       this.apiService.deleteAttendant(attendant._id).subscribe((data) => {
+       this.deleteAttendantSub =this.apiService.deleteAttendant(attendant._id).subscribe((data) => {
          console.log(data);
          this.socket.emit('updatedata', data);
          if(!data.msg)
@@ -183,6 +188,24 @@ openUpdateRef(attendant){
        )
      }
    });
+  }
+
+  ngOnDestroy(){
+    if (this.getAttendantsSub !== undefined) {
+      this.getAttendantsSub.unsubscribe();
+    }
+    if (this.dialogRef1Sub !== undefined) {
+      this.dialogRef1Sub.unsubscribe();
+    }
+    if (this.dialogRef2Sub !== undefined) {
+      this.dialogRef2Sub.unsubscribe();
+    }
+    if (this.updateAttendantSub !== undefined) {
+      this.updateAttendantSub.unsubscribe();
+    }
+    if (this.deleteAttendantSub !== undefined) {
+      this.deleteAttendantSub.unsubscribe();
+    }
   }
 
 

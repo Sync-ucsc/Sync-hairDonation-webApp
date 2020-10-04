@@ -1,3 +1,4 @@
+import { BlockUIModule } from 'ng-block-ui';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
@@ -20,6 +21,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
 import { MatButtonModule } from "@angular/material/button";
+import { MatRadioModule } from '@angular/material/radio';
 // component
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ProfileComponent} from './profile/profile.component';
@@ -31,13 +33,15 @@ import { ManageSalonRequestComponent } from './manage-salon-request/manage-salon
 import { AssignDriverComponent } from './manage-salon-request/assign-driver/assign-driver.component';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import { WigrequsetVerifyComponent } from './wigrequset-verify/wigrequset-verify.component';
-
+import { ManualRequestComponent } from './manual-request/manual-request.component';
 
 @NgModule({
     imports: [
         CommonModule,
+        BlockUIModule.forRoot(),
         RouterModule.forChild(AttendantLayoutRoutes),
         FormsModule,
+        ReactiveFormsModule,
         SharedLayoutModule,
         MatTableModule,
         MatPaginatorModule,
@@ -55,6 +59,7 @@ import { WigrequsetVerifyComponent } from './wigrequset-verify/wigrequset-verify
         MatCardModule,
         MatButtonModule,
         ReactiveFormsModule,
+        MatRadioModule,
         MatPasswordStrengthModule.forRoot(),
     ],
   declarations: [
@@ -68,6 +73,7 @@ import { WigrequsetVerifyComponent } from './wigrequset-verify/wigrequset-verify
     AssignDriverComponent,
     uploadDialogComponent,
     WigrequsetVerifyComponent,
+    ManualRequestComponent,
   ],
 })
 export class AttendantLayoutModule {}

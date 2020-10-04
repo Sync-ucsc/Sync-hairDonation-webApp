@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, OnDestroy } from '@angular/core';
 import {Observable} from 'rxjs';
 import {FormControl, Validators} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
@@ -14,11 +14,17 @@ import {MatDialog,} from '@angular/material/dialog';
   templateUrl: './patient-verification.component.html',
   styleUrls: ['./patient-verification.component.scss'],
 })
-export class PatientVerificationComponent implements OnInit {
+export class PatientVerificationComponent implements OnInit,OnDestroy {
   Patient: any = [];
   PatientNames: any = [];
   socket;
+  getUsersSub;
   selectedPatient;
+  activeUserSub;
+  removePatientSub;
+  deletePatientSub;
+  getPatientByEmailSub;
+  dialogRef1Sub;
   options: any = [];
   myControl = new FormControl('', Validators.required);
   filteredOptions: Observable<string[]>;
@@ -53,7 +59,7 @@ export class PatientVerificationComponent implements OnInit {
 
   // Getting the patients from user collection for display
   getUsers() {
-    this.apiService.getUsers().subscribe((data) => {
+    this.getUsersSub = this.apiService.getUsers().subscribe((data) => {
       // @ts-ignore
       this.Patient = data.data.filter((d) => !d.active && d.role === `patient`);
       this.options = this.Patient;
@@ -77,7 +83,7 @@ export class PatientVerificationComponent implements OnInit {
       reverseButtons: true,
       preConfirm: (login) => {
         // methana update ekak enna one; active=true krnna one
-        this.apiService.activeUser(patient.email).subscribe((data) => {
+        this.activeUserSub = this.apiService.activeUser(patient.email).subscribe((data) => {
           console.log(data);
           this.socket.emit('updatedata', data);
           // @ts-ignore
@@ -113,13 +119,13 @@ export class PatientVerificationComponent implements OnInit {
       reverseButtons: true,
       preConfirm: (login) => {
         // me delete eke awulak enwa delete wenne na
-        this.apiService.removePatient(patient.email).subscribe((data) => {
+        this.removePatientSub =this.apiService.removePatient(patient.email).subscribe((data) => {
           console.log(data);
           this.socket.emit('updatedata', data);
           // @ts-ignore
           if (!data.msg) Swal.showValidationMessage(`Request failed`);
         });
-        this.apiService2.deletePatient(patient._id).subscribe((data) => {
+        this.deletePatientSub = this.apiService2.deletePatient(patient._id).subscribe((data) => {
           console.log(data);
           this.socket.emit('updatedata', data);
           if (!data.msg) Swal.showValidationMessage(`Request failed`);
@@ -141,14 +147,14 @@ export class PatientVerificationComponent implements OnInit {
 
   async viewPatientReport(patient) {
     console.log(patient);
-    this.apiService2.getPatientByEmail(patient.email).subscribe(
+    this.getPatientByEmailSub = this.apiService2.getPatientByEmail(patient.email).subscribe(
       data => {
         console.log(data);
         this.selectedPatient = data.data;
         this.imageUrl = this.selectedPatient.patientReport;
         const dialogRef = this.dialog.open(this.templateRef);
 
-        dialogRef.afterClosed().subscribe((result) => {
+        this.dialogRef1Sub = dialogRef.afterClosed().subscribe((result) => {
           console.log(`Dialog result: ${result}`);
         });
       },
@@ -163,5 +169,29 @@ export class PatientVerificationComponent implements OnInit {
     return this.options.filter(
       (option) => option.firstName.toLowerCase().indexOf(filterValue) === 0
     );
+  }
+
+
+  ngOnDestroy() {
+
+    if (this.getUsersSub !== undefined) {
+      this.getUsersSub.unsubscribe();
+    }
+    if (this.getPatientByEmailSub !== undefined) {
+      this.getPatientByEmailSub.unsubscribe();
+    }
+    if (this.dialogRef1Sub !== undefined) {
+      this.dialogRef1Sub.unsubscribe();
+    }
+    if (this.activeUserSub !== undefined) {
+      this.activeUserSub.unsubscribe();
+    }
+    if (this.removePatientSub !== undefined) {
+      this.removePatientSub.unsubscribe();
+    }
+    if (this.deletePatientSub !== undefined) {
+      this.deletePatientSub.unsubscribe();
+    }
+
   }
 }
