@@ -21,7 +21,6 @@ export class AssignDriverComponent implements OnInit {
               private _fb: FormBuilder,
               public dialogRef: MatDialogRef<AssignDriverComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-    console.log(data)
   }
 
   async ngOnInit(): Promise<void> {
@@ -77,11 +76,17 @@ export class AssignDriverComponent implements OnInit {
 
       if(!response.success) throw new Error(response.debugMessage)
 
-      this.dialogRef.close({response: response.data})
       console.log(response.data)
 
     }catch (error) {
       console.log(error)
     }
   }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }
+
+
