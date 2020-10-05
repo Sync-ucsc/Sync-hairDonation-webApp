@@ -1,5 +1,5 @@
 
-import {Component, OnInit, Renderer2, ViewChild} from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild, OnDestroy } from '@angular/core';
 import {FullCalendarComponent} from '@fullcalendar/angular';
 import {EventInput} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -18,11 +18,13 @@ import { Observable } from 'rxjs';
   templateUrl: './appointment-details.component.html',
   styleUrls: ['./appointment-details.component.scss']
 })
-export class AppointmentDetailsComponent implements OnInit {
+export class AppointmentDetailsComponent implements OnInit,OnDestroy {
   socket = io('http://localhost:3000/donorAppointment');
 
   showModal: boolean;
-
+  deleteAppointmentSub;
+  createAppointmentSub;
+  updateAppointmentSub;
   options: any;
   event: any;
   eventsModel: any;
@@ -193,7 +195,7 @@ export class AppointmentDetailsComponent implements OnInit {
     date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     //let string = event.event.title;
 
-    this._ViewCalendarService.createAppointment(date).subscribe(
+    this.createAppointmentSub = this._ViewCalendarService.createAppointment(date).subscribe(
       data => {
        if (data.success) {
           event.event.setProp('id', data.task.id);
@@ -214,7 +216,7 @@ export class AppointmentDetailsComponent implements OnInit {
       reverseButtons: true,
       preConfirm: (login) => {
 
-        this._ViewCalendarService.updateAppointment(event.event.id,this.date).subscribe((data) => {
+        this.updateAppointmentSub = this._ViewCalendarService.updateAppointment(event.event.id,this.date).subscribe((data) => {
           console.log(data);
           this.socket.emit('updateAppointment', data);
           if(!data.msg)
@@ -266,7 +268,7 @@ export class AppointmentDetailsComponent implements OnInit {
     cancelButtonText: 'No, cancel!',
     reverseButtons: true,
     preConfirm: (login) => {
-      this._ViewCalendarService.deleteAppointment(event.event.id).subscribe((data) => {
+      this.deleteAppointmentSub = this._ViewCalendarService.deleteAppointment(event.event.id).subscribe((data) => {
         console.log(data);
         this.socket.emit('updateAppointment', data);
         if(!data.msg)
@@ -309,6 +311,19 @@ export class AppointmentDetailsComponent implements OnInit {
     ev.el.addEventListener('dblclick', () => {
       alert('double click!');
     });
+  }
+
+  ngOnDestroy() {
+
+    if (this.deleteAppointmentSub !== undefined) {
+      this.deleteAppointmentSub.unsubscribe();
+    }
+    if (this.createAppointmentSub !== undefined) {
+      this.createAppointmentSub.unsubscribe();
+    }
+    if (this.updateAppointmentSub !== undefined) {
+      this.updateAppointmentSub.unsubscribe();
+    }
   }
 }
  // customButtons: {

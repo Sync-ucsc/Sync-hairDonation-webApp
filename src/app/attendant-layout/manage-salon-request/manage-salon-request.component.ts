@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 // material
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
@@ -18,7 +18,7 @@ import {AssignDriverComponent} from './assign-driver/assign-driver.component';
   templateUrl: './manage-salon-request.component.html',
   styleUrls: ['./manage-salon-request.component.scss']
 })
-export class ManageSalonRequestComponent implements OnInit {
+export class ManageSalonRequestComponent implements OnInit,OnDestroy {
 
   displayedColumns: string[] = ['salonName', 'address', 'createdAt', 'status', 'assign'];
   dataSource: MatTableDataSource<AllSalonNeedToDelivers>;
@@ -27,6 +27,7 @@ export class ManageSalonRequestComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   showTable = false;
+  dialogRefSub
 
 
   constructor(private _targetService: TargetService,
@@ -80,10 +81,16 @@ export class ManageSalonRequestComponent implements OnInit {
       data: {salonDetails: row}
     });
 
-    dialogRef.afterClosed().subscribe(async result => {
+    this.dialogRefSub = dialogRef.afterClosed().subscribe(async result => {
       console.log(result);
       await this.buildTable()
     });
     console.log(`call assign`)
+  }
+
+  ngOnDestroy() {
+    if (this.dialogRefSub !== undefined) {
+      this.dialogRefSub.unsubscribe();
+    }
   }
 }

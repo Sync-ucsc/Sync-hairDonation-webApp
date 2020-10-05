@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -9,9 +9,10 @@ import { UserService } from '@services/user.service';
   templateUrl: './password-request.component.html',
   styleUrls: ['./password-request.component.scss']
 })
-export class PasswordRequestComponent implements OnInit {
+export class PasswordRequestComponent implements OnInit,OnDestroy {
 
   email:'';
+  sendPasswordResetLinkSub;
   requestForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
   });
@@ -24,7 +25,7 @@ export class PasswordRequestComponent implements OnInit {
     let data ={
       email: this.email
     }
-    this.userService.sendPasswordResetLink(data).subscribe(
+    this.sendPasswordResetLinkSub = this.userService.sendPasswordResetLink(data).subscribe(
       data => {
         console.log(data)
         if (data['success'] === true) {
@@ -50,6 +51,12 @@ export class PasswordRequestComponent implements OnInit {
         );
       }
     )
+  }
+
+  ngOnDestroy(){
+    if (this.sendPasswordResetLinkSub !== undefined) {
+      this.sendPasswordResetLinkSub.unsubscribe();
+    }
   }
 
 }

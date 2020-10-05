@@ -4,6 +4,9 @@ import { TokenService } from './token.service';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { Observable } from 'rxjs/internal/Observable';
 import { throwError } from 'rxjs';
+import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
+import { CommonService } from './common.service';
 
 
 @Injectable({
@@ -14,7 +17,7 @@ export class UserService {
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   options: any;
 
-  constructor(private http: HttpClient,private token: TokenService) {
+  constructor(private http: HttpClient, private token: TokenService, private Auth: AuthService, private router: Router,) {
 
     // this.headers.append('enctype', 'multi-part/form-data');
     // this.headers.append('Content-Type', 'application/json');
@@ -32,6 +35,11 @@ export class UserService {
   login(data) {
     const url = `${this.baseUrl}/authenticate`;
     return this.http.post(url,data ,{ headers: this.headers });
+  }
+  loguot(){
+    this.Auth.changeAuthStatus(false);
+    this.token.remove();
+    this.router.navigate(['/']);
   }
   request(data) {
     const url = `${this.baseUrl}/request`;
@@ -65,10 +73,42 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/changePassword`, data , { headers: header });
   }
 
+  adminprofileChange(data) {
+    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
+    return this.http.post(`${this.baseUrl}/adminprofileChange`, data , { headers: header });
+  }
+
+  patientprofileChange(data) {
+    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
+    return this.http.post(`${this.baseUrl}/patientprofileChange`, data, { headers: header });
+  }
+
+  salonProfileChange(data) {
+    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
+    return this.http.post(`${this.baseUrl}/salonProfileChange`, data, { headers: header });
+  }
+
+  attendantProfileChange(data) {
+    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
+    return this.http.post(`${this.baseUrl}/attendantProfileChange`, data, { headers: header });
+  }
+  donorProfileChange(data) {
+    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
+    return this.http.post(`${this.baseUrl}/donorProfileChange`, data, { headers: header });
+  }
+
+  mangerProfileChange(data) {
+    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
+    return this.http.post(`${this.baseUrl}/mangerProfileChange`, data, { headers: header });
+  }
+
+
   profileChangePassword(data) {
     const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
     return this.http.post(`${this.baseUrl}/profileChanePassword`, data, { headers: header });
   }
+
+ 
 
   // donor activate
   donorActivate(data){

@@ -1,16 +1,25 @@
 import { Injectable } from '@angular/core';
 import {Message} from '@model/chat/Message';
 import {PreviousChatList} from '@model/chat/PreviousChatList';
+import {ChatRoom} from '@model/database/dbChat';
+import {Observable} from "rxjs";
+import {catchError} from "rxjs/operators";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "@environments/environment";
+import {SharedService} from "@services/shared.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
 
+  chatUrl = `${environment.BASE_URL}/chat`;
+
   senderAvatar = '../../assets/chat/maleAvatar.svg';
   receiverAvatar = '../../assets/chat/femaleAvatar.svg';
 
-  constructor() { }
+  constructor(private _http: HttpClient,
+              private _sharedService: SharedService) { }
 
   getPreviousChatList(): PreviousChatList[]{
     return [
@@ -65,5 +74,10 @@ export class ChatService {
         message: 'receiver2'
       }
     ]
+  }
+
+  getUserDetails(userId: string){
+    return this._http.get(`${this.chatUrl}/userDetails/${userId}`)
+      .pipe(catchError(this._sharedService.httpErrorManagement));
   }
 }

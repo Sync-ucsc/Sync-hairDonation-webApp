@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone  } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, OnDestroy } from '@angular/core';
 import * as io from 'socket.io-client';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent, AgmCoreModule } from '@agm/core';
@@ -8,7 +8,9 @@ import { TokenService } from './../../service/token.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import {formatDate} from '@angular/common';
+import {ToastrService} from 'ngx-toastr';
 declare var google:any;
+import { computeDistanceBetween } from 'spherical-geometry-js';
 
 @Component({
   selector: 'app-donor-request',
@@ -17,7 +19,7 @@ declare var google:any;
 })
 
 
-export class DonorRequestComponent implements OnInit {
+export class DonorRequestComponent implements OnInit,OnDestroy {
 
   socket = io('http://localhost:3000/donor');
   today = new Date()
@@ -38,11 +40,16 @@ export class DonorRequestComponent implements OnInit {
   finished=false;
   canceled = false;
   validDate: Date;
+  date: string;
   requestDay: string;
   selectedDonor
   selectedSalon
-  donationRequestForm
+  donationRequestForm;
+  getDonorByEmailSub;
+  getSalonByEmailSub;
+  donorRequsetSub;
 
+  unfinishedDonateRequest = false;
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
@@ -52,7 +59,8 @@ export class DonorRequestComponent implements OnInit {
     private router: Router,
     private apiService: DonorApiService,
     private salonService: SalonApiService,
-    private tokenService: TokenService
+    private tokenService: TokenService, 
+    private _toastr: ToastrService
   ) {
 
       this.requestDay = formatDate(new Date(), 'yyyy/MM/dd', 'en');
@@ -60,10 +68,20 @@ export class DonorRequestComponent implements OnInit {
 
   ngOnInit(): void {
 
+    let now = new Date();
+
+    this.date =  new Date().toJSON().split('T')[0];
+
     this.email=this.tokenService.getEmail();
     console.log(this.email);
-    this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
+    this.getDonorByEmailSub = this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
       this.selectedDonor=data['data'];
+
+      this.unfinishedDonateRequest = this.selectedDonor.request
+      .filter( r => !r.finished && !r.canceled)
+      .length > 0;
+
+      console.log(this.unfinishedDonateRequest)
       console.log(this.selectedDonor)
     })
 
@@ -171,33 +189,64 @@ onChange2(eve: any) {
   console.log(this.no)
 }
 
- onSubmit(){
 
-   this.donationRequestForm.patchValue({
-     address:this.placeaddress === undefined? this.selectedDonor.address: this.placeaddress.formatted_address,
-     latitude:this.latitude === undefined? this.selectedDonor.lat: this.latitude,
-     longitude:this.longitude === undefined? this.selectedDonor.lon: this.longitude,
-   })
+ async onSubmit(){
+   try{
 
-   this.salonService.getSalonByEmail("nishisalon@gmail.com").subscribe((data)=>{
-    this.selectedSalon=data['data'];
-    console.log(this.selectedSalon.latitude)
-    const user = new google.maps.LatLng(this.latitude, this.longitude);
-   const salon = new google.maps.LatLng(this.selectedSalon.latitude, this.selectedSalon.longitude);
-   const distance = google.maps.geometry.spherical.computeDistanceBetween(salon, user);
-   console.log(distance);
-  })
+    if (this.unfinishedDonateRequest) {
+      this._toastr.warning(`your last request is still processing`);
+      // this.Type = null;
+      return;
+    }
 
-   
-   
-   console.log(this.donationRequestForm.value);
+    this.donationRequestForm.patchValue({
+      address:this.placeaddress === undefined? this.selectedDonor.address: this.placeaddress.formatted_address,
+      latitude:this.latitude === undefined? this.selectedDonor.lat: this.latitude,
+      longitude:this.longitude === undefined? this.selectedDonor.lon: this.longitude,
+    })
+ 
+    const donorCoordinate = new google.maps.LatLng(
+      this.latitude === undefined? this.selectedDonor.lat: this.latitude,   
+      this.longitude === undefined? this.selectedDonor.lon: this.longitude
+    );
+
+    const response = await this.salonService.getSalons().toPromise();
+    // @ts-ignore
+    const salons = response.data;
+
+    const selectedSalon = salons.map( salon => {
+     
+      const salonCoordinate = new google.maps.LatLng(salon.latitude,salon.longitude);
+
+      salon.distance = computeDistanceBetween(salonCoordinate, donorCoordinate )
+
+      return salon;
+
+    }).filter( salon => { 
+      return salon.distance <= 7000
+    }).sort((a, b) => {
+      if (a.distance > b.distance) {
+          return 1
+      } else if (a.distance < b.distance) {
+          return -1 
+      } else {
+          return 0
+      }
+    })
+
+    console.log(selectedSalon)
+
    this.submitted=true;
 
    if (!this.donationRequestForm.valid) {
     return false;
   } else {
 
-    this.apiService.donorRequset(this.donationRequestForm.value).subscribe(
+    this.apiService.donorRequset({
+      ...this.donationRequestForm.value , 
+      // selectedSalon:selectedSalon,
+      district: selectedSalon[0].district
+    }).subscribe(
       data => {
         console.log('Your requset has been recorded!'+data)
         Swal.fire(
@@ -214,7 +263,21 @@ onChange2(eve: any) {
           'error'
         )
       });
+      this.apiService.changeNearSalon({
+        email: this.email,
+        selectedSalon:selectedSalon
+      }).subscribe(
+        data => {
+          console.log('near salon updated'+data)
+        },(error) => {
+          console.log(error);
+        }
+      );
   }
+
+   }catch(error){
+     console.log(error)
+   }
   }
 
   clickYes(){
@@ -230,6 +293,19 @@ onChange2(eve: any) {
     console.log('click yes')
     this.donationRequestForm.value.yes = !this.donationRequestForm.value.no;
     setTimeout(() => this.loadMap(), 1000);
+  }
+
+  ngOnDestroy() {
+
+    if (this.getDonorByEmailSub !== undefined) {
+      this.getDonorByEmailSub.unsubscribe();
+    }
+    if (this.getSalonByEmailSub !== undefined) {
+      this.getSalonByEmailSub.unsubscribe();
+    }
+    if (this.donorRequsetSub !== undefined) {
+      this.donorRequsetSub.unsubscribe();
+    }
   }
 
 }

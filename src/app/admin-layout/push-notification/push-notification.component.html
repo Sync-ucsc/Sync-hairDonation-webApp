@@ -322,59 +322,64 @@
                     <div class="tab-pane show active px-7" id="kt_user_edit_tab_1" role="tabpanel">
                         <div class="col-xl-2"></div>
                         <div class="col-xl-7 my-2">
-                            <form [formGroup]="signForm1">
+                            <form [formGroup]="notificationForm1">
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Title</label>
+                                    <div class="col-9">
+                                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName=title
+                                            name="title" [(ngModel)]=notification.title>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Massage</label>
+                                    <div class="col-9">
+                                        <textarea maxlength="80" class="form-control form-control-lg form-control-solid" type="text" formControlName=massage
+                                            name="massage" [(ngModel)]=notification.massage></textarea>
+                                            <span class="form-text text-muted">Max size is 80 characters</span>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
                                 
                                 <!--begin::Group-->
                                 <div class="form-group row">
-                                    <label class="col-form-label col-3 text-lg-right text-left">First Name</label>
+                                    <label class="col-3 col-form-label text-lg-right text-left">Icon type</label>
                                     <div class="col-9">
-                                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName=firstName
-                                            name="firstName" [(ngModel)]=user.firstName>
+                                
+                                        <select class="form-control" [(ngModel)]=notification.icon id="exampleSelect1" formControlName="icon">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                
+                                        </select>
+                                
+                                
+                                        <!-- <div *ngIf="salonForm.controls['district'].errors.required">District is required</div> -->
                                     </div>
                                 </div>
+                                
                                 <!--end::Group-->
                                 <!--begin::Group-->
                                 <div class="form-group row">
-                                    <label class="col-form-label col-3 text-lg-right text-left">Last Name</label>
+                                    <label class="col-form-label col-3 text-lg-right text-left ">Expire date </label>
                                     <div class="col-9">
-                                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName=lastName
-                                            name="lastName" [(ngModel)]=user.lastName>
+                                        <input type="date" [min]="today | date" class="form-control form-control-solid" placeholder="Enter appointment date"
+                                        [(ngModel)]=notification.validDate formControlName="validDate">
+                                        <span class="form-text text-muted">Please enter the Expire date</span>
                                     </div>
                                 </div>
                                 <!--end::Group-->
-                                <!--begin::Group-->
-                        
-                                <div class="form-group row">
-                                    <label class="col-form-label col-3 text-lg-right text-left">Email Address</label>
-                                    <div class="col-9">
-                                        <div class="input-group input-group-lg input-group-solid">
-                                            <input type="email" class="form-control form-control-lg form-control-solid" placeholder="Email"
-                                                name="email" required value="fff" [(ngModel)]=user.email disabled formControlName="email">
-                                        </div>
-                                        <span class="form-text text-muted">We'll never share your email with anyone
-                                            else.</span>
-                                    </div>
-                                </div>
-                                <!--end::Group-->
-                                <!--begin::Group-->
-                                <div class="form-group row">
-                                    <label class="col-form-label col-3 text-lg-right text-left">Contact Phone</label>
-                                    <div class="col-9">
-                                        <div class="input-group input-group-lg input-group-solid">
-                                            <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Phone"
-                                                formControlName=phone name="phone" [(ngModel)]=user.phone>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end::Group-->
-                        
+                               
                         
                                 <div class="d-flex justify-content-between pt-8">
                                     <div>
-                                        <button type="button" [disabled]="!signForm1.valid"
-                                            class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-4 py-4 my-3"
+                                        <button type="button" [disabled]="!notificationForm1.valid"
+                                            class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-8 py-4 my-3"
                                             data-wizard-type="action-next" (click)="submit1()">
-                                            Update Profile</button>
+                                            Send</button>
                                     </div>
                                 </div>
                             </form>
@@ -384,35 +389,411 @@
 
                     <!--begin::Tab-->
                     <div class="tab-pane px-7" id="kt_user_edit_tab_2" role="tabpanel">
-                       
+                        <div class="col-xl-2"></div>
+                        <div class="col-xl-7 my-2">
+                            <form [formGroup]="notificationForm2">
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Title</label>
+                                    <div class="col-9">
+                                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName=title
+                                            name="title" [(ngModel)]=notification.title>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Massage</label>
+                                    <div class="col-9">
+                                        <textarea maxlength="80" class="form-control form-control-lg form-control-solid" type="text"
+                                            formControlName=massage name="massage" [(ngModel)]=notification.massage></textarea>
+                                        <span class="form-text text-muted">Max size is 80 characters</span>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                        
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-3 col-form-label text-lg-right text-left">Icon type</label>
+                                    <div class="col-9">
+                        
+                                        <select class="form-control" [(ngModel)]=notification.icon id="exampleSelect1" formControlName="icon">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                        
+                                        </select>
+                        
+                        
+                                        <!-- <div *ngIf="salonForm.controls['district'].errors.required">District is required</div> -->
+                                    </div>
+                                </div>
+                        
+                                <!--end::Group-->
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left ">Expire date </label>
+                                    <div class="col-9">
+                                        <input type="date" [min]="today | date" class="form-control form-control-solid"
+                                            placeholder="Enter appointment date" [(ngModel)]=notification.validDate formControlName="validDate">
+                                        <span class="form-text text-muted">Please enter the Expire date</span>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                        
+                        
+                                <div class="d-flex justify-content-between pt-8">
+                                    <div>
+                                        <button type="button" [disabled]="!notificationForm2.valid"
+                                            class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-8 py-4 my-3"
+                                            data-wizard-type="action-next" (click)="submit2()">
+                                            Send</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <!--end::Tab-->
 
                     <!--begin::Tab-->
                     <div class="tab-pane px-7" id="kt_user_edit_tab_3" role="tabpanel">
+                        <div class="col-xl-2"></div>
+                        <div class="col-xl-7 my-2">
+                            <form [formGroup]="notificationForm3">
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Title</label>
+                                    <div class="col-9">
+                                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName=title
+                                            name="title" [(ngModel)]=notification.title>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Massage</label>
+                                    <div class="col-9">
+                                        <textarea maxlength="80" class="form-control form-control-lg form-control-solid" type="text"
+                                            formControlName=massage name="massage" [(ngModel)]=notification.massage></textarea>
+                                        <span class="form-text text-muted">Max size is 80 characters</span>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
                         
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-3 col-form-label text-lg-right text-left">Icon type</label>
+                                    <div class="col-9">
+                        
+                                        <select class="form-control" [(ngModel)]=notification.icon id="exampleSelect1" formControlName="icon">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                        
+                                        </select>
+                        
+                        
+                                        <!-- <div *ngIf="salonForm.controls['district'].errors.required">District is required</div> -->
+                                    </div>
+                                </div>
+                        
+                                <!--end::Group-->
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left ">Expire date </label>
+                                    <div class="col-9">
+                                        <input type="date" [min]="today | date" class="form-control form-control-solid"
+                                            placeholder="Enter appointment date" [(ngModel)]=notification.validDate formControlName="validDate">
+                                        <span class="form-text text-muted">Please enter the Expire date</span>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                        
+                        
+                                <div class="d-flex justify-content-between pt-8">
+                                    <div>
+                                        <button type="button" [disabled]="!notificationForm3.valid"
+                                            class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-8 py-4 my-3"
+                                            data-wizard-type="action-next" (click)="submit3()">
+                                            Send</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <!--end::Tab-->
 
                     <!--begin::Tab-->
                     <div class="tab-pane px-7" id="kt_user_edit_tab_4" role="tabpanel">
+                        <div class="col-xl-2"></div>
+                        <div class="col-xl-7 my-2">
+                            <form [formGroup]="notificationForm4">
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Title</label>
+                                    <div class="col-9">
+                                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName=title
+                                            name="title" [(ngModel)]=notification.title>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Massage</label>
+                                    <div class="col-9">
+                                        <textarea maxlength="80" class="form-control form-control-lg form-control-solid" type="text"
+                                            formControlName=massage name="massage" [(ngModel)]=notification.massage></textarea>
+                                        <span class="form-text text-muted">Max size is 80 characters</span>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                        
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-3 col-form-label text-lg-right text-left">Icon type</label>
+                                    <div class="col-9">
+                        
+                                        <select class="form-control" [(ngModel)]=notification.icon id="exampleSelect1" formControlName="icon">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                        
+                                        </select>
+                        
+                        
+                                        <!-- <div *ngIf="salonForm.controls['district'].errors.required">District is required</div> -->
+                                    </div>
+                                </div>
+                        
+                                <!--end::Group-->
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left ">Expire date </label>
+                                    <div class="col-9">
+                                        <input type="date" [min]="today | date" class="form-control form-control-solid"
+                                            placeholder="Enter appointment date" [(ngModel)]=notification.validDate formControlName="validDate">
+                                        <span class="form-text text-muted">Please enter the Expire date</span>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                        
+                        
+                                <div class="d-flex justify-content-between pt-8">
+                                    <div>
+                                        <button type="button" [disabled]="!notificationForm4.valid"
+                                            class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-8 py-4 my-3"
+                                            data-wizard-type="action-next" (click)="submit4()">
+                                            Send</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <!--end::Tab-->
                     <!--begin::Tab-->
                     <div class="tab-pane px-7" id="kt_user_edit_tab_5" role="tabpanel">
-                    
+                        <div class="col-xl-2"></div>
+                        <div class="col-xl-7 my-2">
+                            <form [formGroup]="notificationForm7">
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Title</label>
+                                    <div class="col-9">
+                                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName=title
+                                            name="title" [(ngModel)]=notification.title>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Massage</label>
+                                    <div class="col-9">
+                                        <textarea maxlength="80" class="form-control form-control-lg form-control-solid" type="text"
+                                            formControlName=massage name="massage" [(ngModel)]=notification.massage></textarea>
+                                        <span class="form-text text-muted">Max size is 80 characters</span>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                        
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-3 col-form-label text-lg-right text-left">Icon type</label>
+                                    <div class="col-9">
+                        
+                                        <select class="form-control" [(ngModel)]=notification.icon id="exampleSelect1" formControlName="icon">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                        
+                                        </select>
+                        
+                        
+                                        <!-- <div *ngIf="salonForm.controls['district'].errors.required">District is required</div> -->
+                                    </div>
+                                </div>
+                        
+                                <!--end::Group-->
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left ">Expire date </label>
+                                    <div class="col-9">
+                                        <input type="date" [min]="today | date" class="form-control form-control-solid"
+                                            placeholder="Enter appointment date" [(ngModel)]=notification.validDate formControlName="validDate">
+                                        <span class="form-text text-muted">Please enter the Expire date</span>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                        
+                        
+                                <div class="d-flex justify-content-between pt-8">
+                                    <div>
+                                        <button type="button" [disabled]="!notificationForm7.valid"
+                                            class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-8 py-4 my-3"
+                                            data-wizard-type="action-next" (click)="submit7()">Send</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <!--end::Tab-->
                     
                     <!--begin::Tab-->
                     <div class="tab-pane px-7" id="kt_user_edit_tab_6" role="tabpanel">
-                    
+                        <div class="col-xl-2"></div>
+                        <div class="col-xl-7 my-2">
+                            <form [formGroup]="notificationForm6">
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Title</label>
+                                    <div class="col-9">
+                                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName=title
+                                            name="title" [(ngModel)]=notification.title>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Massage</label>
+                                    <div class="col-9">
+                                        <textarea maxlength="80" class="form-control form-control-lg form-control-solid" type="text"
+                                            formControlName=massage name="massage" [(ngModel)]=notification.massage></textarea>
+                                        <span class="form-text text-muted">Max size is 80 characters</span>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                        
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-3 col-form-label text-lg-right text-left">Icon type</label>
+                                    <div class="col-9">
+                        
+                                        <select class="form-control" [(ngModel)]=notification.icon id="exampleSelect1" formControlName="icon">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                        
+                                        </select>
+                        
+                        
+                                        <!-- <div *ngIf="salonForm.controls['district'].errors.required">District is required</div> -->
+                                    </div>
+                                </div>
+                        
+                                <!--end::Group-->
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left ">Expire date </label>
+                                    <div class="col-9">
+                                        <input type="date" [min]="today | date" class="form-control form-control-solid"
+                                            placeholder="Enter appointment date" [(ngModel)]=notification.validDate formControlName="validDate">
+                                        <span class="form-text text-muted">Please enter the Expire date</span>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                        
+                        
+                                <div class="d-flex justify-content-between pt-8">
+                                    <div>
+                                        <button type="button" [disabled]="!notificationForm6.valid"
+                                            class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-8 py-4 my-3"
+                                            data-wizard-type="action-next" (click)="submit6()">Send</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <!--end::Tab-->
                     
                     <!--begin::Tab-->
                     <div class="tab-pane px-7" id="kt_user_edit_tab_7" role="tabpanel">
-                    
+                        <div class="col-xl-2"></div>
+                        <div class="col-xl-7 my-2">
+                            <form [formGroup]="notificationForm5">
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Title</label>
+                                    <div class="col-9">
+                                        <input class="form-control form-control-lg form-control-solid" type="text" formControlName=title
+                                            name="title" [(ngModel)]=notification.title>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left">Massage</label>
+                                    <div class="col-9">
+                                        <textarea maxlength="80" class="form-control form-control-lg form-control-solid" type="text"
+                                            formControlName=massage name="massage" [(ngModel)]=notification.massage></textarea>
+                                        <span class="form-text text-muted">Max size is 80 characters</span>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                        
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-3 col-form-label text-lg-right text-left">Icon type</label>
+                                    <div class="col-9">
+                        
+                                        <select class="form-control" [(ngModel)]=notification.icon id="exampleSelect1" formControlName="icon">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                        
+                                        </select>
+                        
+                        
+                                        <!-- <div *ngIf="salonForm.controls['district'].errors.required">District is required</div> -->
+                                    </div>
+                                </div>
+                        
+                                <!--end::Group-->
+                                <!--begin::Group-->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-3 text-lg-right text-left ">Expire date </label>
+                                    <div class="col-9">
+                                        <input type="date" [min]="today | date" class="form-control form-control-solid"
+                                            placeholder="Enter appointment date" [(ngModel)]=notification.validDate formControlName="validDate">
+                                        <span class="form-text text-muted">Please enter the Expire date</span>
+                                    </div>
+                                </div>
+                                <!--end::Group-->
+                        
+                        
+                                <div class="d-flex justify-content-between pt-8">
+                                    <div>
+                                        <button type="button" [disabled]="!notificationForm5.valid"
+                                            class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-8 py-4 my-3"
+                                            data-wizard-type="action-next" (click)="submit5()">Send</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <!--end::Tab-->
                     

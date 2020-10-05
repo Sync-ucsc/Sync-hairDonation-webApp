@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef,ElementRef, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ElementRef, Inject, OnDestroy } from '@angular/core';
 import { MatDialog,MatDialogConfig,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { DriverApiService } from './../../service/driver-api.service';
@@ -14,7 +14,7 @@ import Swal from 'sweetalert2'
   templateUrl: './manage-drivers.component.html',
   styleUrls: ['./manage-drivers.component.scss']
 })
-export class ManageDriversComponent implements OnInit {
+export class ManageDriversComponent implements OnInit,OnDestroy {
 
   socket;
   @ViewChild('dialog') templateRef: TemplateRef<any>;
@@ -22,6 +22,11 @@ export class ManageDriversComponent implements OnInit {
 
    Driver:any = [];
    selectedDriver;
+  dialogRef2Sub;
+  dialogRef1Sub;
+  deleteDriverSub;
+  getDriversSub;
+  updateDriverSub;
 
 
    updateForm = new FormGroup({
@@ -58,7 +63,7 @@ export class ManageDriversComponent implements OnInit {
 
    getDrivers(){
 
-      this.apiService.getDrivers().subscribe((data) => {
+     this.getDriversSub = this.apiService.getDrivers().subscribe((data) => {
        this.Driver = data['data'];
 
        console.log(this.Driver);
@@ -80,7 +85,7 @@ export class ManageDriversComponent implements OnInit {
        cancelButtonText: 'No, cancel!',
        reverseButtons: true,
        preConfirm: (login) => {
-         this.apiService.deleteDriver(driver._id).subscribe((data) => {
+         this.deleteDriverSub = this.apiService.deleteDriver(driver._id).subscribe((data) => {
            console.log(data);
            this.socket.emit('updatedata', data);
            if(!data.msg)
@@ -116,7 +121,7 @@ export class ManageDriversComponent implements OnInit {
     this.selectedDriver = driver;
     const dialogRef = this.dialog.open(this.templateRef2);
 
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogRef2Sub = dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
 
@@ -129,7 +134,7 @@ export class ManageDriversComponent implements OnInit {
     this.selectedDriver=driver;
     const dialogRef = this.dialog.open(this.templateRef);
 
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogRef1Sub =dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
 
@@ -151,7 +156,7 @@ export class ManageDriversComponent implements OnInit {
           preConfirm: (login) => {
 
             const id = this.selectedDriver._id;
-            this.apiService.updateDriver(id, this.updateForm.value)
+            this.updateDriverSub = this.apiService.updateDriver(id, this.updateForm.value)
               .subscribe(res => {
                 this.router.navigateByUrl('/admin/manage-drivers');
                 console.log('Driver details updated successfully!');
@@ -183,6 +188,24 @@ export class ManageDriversComponent implements OnInit {
       }
 
 
+  }
+
+  ngOnDestroy() {
+    if (this.deleteDriverSub !== undefined) {
+      this.deleteDriverSub.unsubscribe();
+    }
+    if (this.dialogRef1Sub !== undefined) {
+      this.dialogRef1Sub.unsubscribe();
+    }
+    if (this.dialogRef2Sub !== undefined) {
+      this.dialogRef2Sub.unsubscribe();
+    }
+    if (this.getDriversSub !== undefined) {
+      this.getDriversSub.unsubscribe();
+    }
+    if (this.updateDriverSub !== undefined) {
+      this.updateDriverSub.unsubscribe();
+    }
   }
 
 

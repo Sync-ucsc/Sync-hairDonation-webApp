@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DriverApiService} from '@services/driver-api.service';
 import {Router} from '@angular/router';
@@ -9,9 +9,10 @@ import Swal from 'sweetalert2'
   templateUrl: './drivers.component.html',
   styleUrls: ['./drivers.component.scss']
 })
-export class DriversComponent implements OnInit {
+export class DriversComponent implements OnInit,OnDestroy {
 
   submitted = false;
+  createDriverSub
 
 
   driverForm = new FormGroup({
@@ -41,7 +42,7 @@ export class DriversComponent implements OnInit {
       return false;
     } else {
 
-      this.apiService.createDriver(this.driverForm.value).subscribe(
+      this.createDriverSub = this.apiService.createDriver(this.driverForm.value).subscribe(
         data => {
           console.log('Driver successfully created!' + data)
           Swal.fire(
@@ -61,6 +62,12 @@ export class DriversComponent implements OnInit {
           )
         }
       );
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.createDriverSub !== undefined) {
+      this.createDriverSub.unsubscribe();
     }
   }
 

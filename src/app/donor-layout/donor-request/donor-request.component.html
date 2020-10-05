@@ -1,10 +1,10 @@
-<ng-container *ngIf="selectedDonor.request">
+<ng-container *ngIf="selectedDonor.request.length > 0">
     <mat-card *ngIf="!selectedDonor?.request?.finished && !selectedDonor?.request?.canceled"
               class="last-request">
       Your last request is still processing
     </mat-card>
   </ng-container>
-  
+
 <div class="card card-custom">
     <div class="col-lg-8" style="float:none;margin:auto;">
     <div class="card-header">
@@ -16,7 +16,7 @@
     <form [formGroup]="donationRequestForm" (ngSubmit)="onSubmit()">
         <div class="card-body">
 
-                
+
                 <div class="checkbox-inline">
                     <h6 class="text">{{selectedDonor.address}}. Is this the current address of yours?</h6>
                     <label class="checkbox checkbox-circle checkbox-success">
@@ -41,8 +41,8 @@
                   <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
                     (dragEnd)="markerDragEnd($event)"></agm-marker>
                 </agm-map>
-              
-                
+
+
                 <div>Latitude: {{latitude}}</div>
                 <div>Longitude: {{longitude}}</div>
             </ng-container>
@@ -50,14 +50,12 @@
             <div class="form-group row">
                 <label class="col-form-label col-5 ">After which date you can donate :</label>
                 <div class="col-6">
-                    <input type="date"  min="2020-07-07" class="form-control form-control-solid" placeholder="Enter appointment date" formControlName="validDate">
+                    <input type="date"  [min]="date" class="form-control form-control-solid" placeholder="Enter appointment date" formControlName="validDate">
                     <span class="form-text text-muted">Please enter the appointment date</span>
                 </div>
             </div>
 
             </div>
-            
-        
         <div class="card-footer">
             <div class="row">
                 <div class="col-2">

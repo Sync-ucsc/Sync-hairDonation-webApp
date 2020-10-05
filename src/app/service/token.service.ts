@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router';
+import { CommonService } from './common.service';
 
 
 @Injectable({
@@ -11,6 +12,8 @@ export class TokenService {
   private iss = {
     login: 'http://127.0.0.1:3000/user'
   };
+  name
+  image
   constructor(private http: HttpClient, private router: Router,) {
    }
 
@@ -54,7 +57,6 @@ export class TokenService {
 
   payload(token) {
     const payload = token.split('.')[1];
-    console.log(payload)
     return this.decode(payload);
   }
 
@@ -102,7 +104,8 @@ export class TokenService {
     return 'donor' === this.payload(this.gettoken()).role ? true : false;
   }
   public isUserHospital(): boolean {
-    return 'hospital' === this.payload(this.gettoken()).role ? true : false;
+    console.log(this.payload(this.gettoken()).role)
+    return 'manager' === this.payload(this.gettoken()).role ? true : false;
   }
   public isUserPatient(): boolean {
     return 'patient' === this.payload(this.gettoken()).role ? true : false;
@@ -110,5 +113,4 @@ export class TokenService {
   public isUserSalon(): boolean {
     return 'salon' === this.payload(this.gettoken()).role ? true : false;
   }
-
 }
