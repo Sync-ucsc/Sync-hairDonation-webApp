@@ -21,10 +21,13 @@ export class AdminLayoutComponent implements OnInit {
 
   image;
   name;
+  arr: any = [];
 
-  constructor(public location: Location, private userService: UserService, private token: TokenService, private service: CommonService) {
+  constructor(public location: Location, private userService: UserService, private token: TokenService, private service: CommonService,
+    private notificationService:NotificationService) {
       this.name = token.getFirstName() + ' ' + token.getLastName();
       this.image = token.getImg();
+    this.getNotification()
       setTimeout(() => {
           const node = document.createElement('script');
           node.src = '../../assets/js/scripts.bundle.js';
@@ -42,6 +45,26 @@ export class AdminLayoutComponent implements OnInit {
 
   logout(){
     this.userService.loguot();
+  }
+
+  getNotification(){
+    this.notificationService.getAllNotification().subscribe(
+      data=> {
+        data['data'].forEach(e => { 
+          if (e.role === 'all' && e.notificationStatus !== '2' && this.calculateDiff(e.validDate) >= 0){
+            this.arr.push(e);
+          }
+        })
+        console.log(this.arr);
+      }
+    )
+  }
+
+  calculateDiff(date) {
+    let validDate = new Date(date);
+    let currentDate = new Date();
+
+    return Math.floor((Date.UTC(validDate.getFullYear(), validDate.getMonth(), validDate.getDate()) - Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())) / (1000 * 60 * 60 * 24));
   }
 
 }
