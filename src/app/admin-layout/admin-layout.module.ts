@@ -46,6 +46,7 @@ import { IpComponent } from './ip/ip.component';
 import { FringerprintComponent } from './fringerprint/fringerprint.component';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import { MatInputModule } from '@angular/material/input';
+import { ManageDonorRequestComponent } from './manage-donor-request/manage-donor-request.component';
 
 
 
@@ -102,6 +103,7 @@ import { MatInputModule } from '@angular/material/input';
     UserComponent,
     IpComponent,
     FringerprintComponent,
+    ManageDonorRequestComponent,
   ],
 
 })
