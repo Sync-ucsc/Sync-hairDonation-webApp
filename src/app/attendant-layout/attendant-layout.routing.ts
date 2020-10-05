@@ -9,8 +9,12 @@ import {ManageWigrequestComponent} from './manage-wigrequest/manage-wigrequest.c
 import {PatientVerificationComponent} from './patient-verification/patient-verification.component';
 import {ManageSalonRequestComponent} from './manage-salon-request/manage-salon-request.component';
 import { WigrequsetVerifyComponent } from './wigrequset-verify/wigrequset-verify.component';
+<<<<<<< HEAD
+//import { ManualRequestComponent } from './manual-request/manual-request.component';
+=======
 import { ManualRequestComponent } from './manual-request/manual-request.component';
 
+>>>>>>> 6b148954c024be41fc6b4a197f9767c8f2572451
 
 export const AttendantLayoutRoutes: Routes = [
   // {
@@ -95,9 +99,17 @@ export const AttendantLayoutRoutes: Routes = [
     component: ManageSalonRequestComponent,
     canActivate: [AfterLoginService],
   },
+<<<<<<< HEAD
+ // {
+  //  path: 'manual-request',
+  //  component: ManualRequestComponent,
+  //  canActivate: [AfterLoginService],
+ // },
+=======
   {
     path: 'manual-request',
     component: ManualRequestComponent,
      canActivate: [AfterLoginService],
   },
+>>>>>>> 6b148954c024be41fc6b4a197f9767c8f2572451
 ];

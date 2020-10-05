@@ -23,6 +23,7 @@ export class SalonLayoutComponent implements OnInit,OnDestroy {
     readonly VAPID_PUBLIC_KEY = 'BE-J8ek0Xl6Mpgw5R6-B5M5BYISYVkQi6XVGmt8qymgz-u66hyrkEFcgZKJECL8bLHbPyPiVwgTaoH9EpP6VNlc';
     image;
     name;
+    arr: any = [];
 
     constructor(
         public location: Location,
@@ -36,7 +37,8 @@ export class SalonLayoutComponent implements OnInit,OnDestroy {
     ) {
         this.name = token.getFirstName() + ' ' + token.getLastName();
         this.image = token.getImg();
-        this.subscribeToNotifications()
+        this.getNotification();
+        this.subscribeToNotifications();
         setTimeout(() => {
             const node = document.createElement('script');
             node.src = '../../assets/js/scripts.bundle.js';
@@ -74,6 +76,26 @@ export class SalonLayoutComponent implements OnInit,OnDestroy {
         if (this.addPushSubscriberSub !== undefined) {
             this.addPushSubscriberSub.unsubscribe();
         }
+    }
+
+    getNotification() {
+        this.notificationService.getAllNotification().subscribe(
+            data => {
+                data['data'].forEach(e => {
+                    if ((e.role === 'all' || e.role === 'salon') && e.notificationStatus !== '2' && this.calculateDiff(e.validDate) >= 0) {
+                        this.arr.push(e);
+                    }
+                })
+                console.log(this.arr);
+            }
+        )
+    }
+
+    calculateDiff(date) {
+        let validDate = new Date(date);
+        let currentDate = new Date();
+
+        return Math.floor((Date.UTC(validDate.getFullYear(), validDate.getMonth(), validDate.getDate()) - Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())) / (1000 * 60 * 60 * 24));
     }
 
 }

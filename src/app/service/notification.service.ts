@@ -18,11 +18,28 @@ export class NotificationService {
     return this.http.post(`${this.baseUrl}/subcribe`, sub);
   }
 
+  getAllNotification() {
+    return this.http.get(`${this.baseUrl}/all`);
+  }
+
   send() {
     return this.http.post('/api/newsletter', null);
   }
 
   addNotification(data){
     return this.http.post(`${this.baseUrl}/add`, data);
+  }
+
+  deleteNotification(id) {
+    const url = `${this.baseUrl}/delete/${id}`;
+    return this.http.delete(url, { headers: this.headers });
+  }
+
+  repush(id) {
+    let data = {
+      id: id
+    }
+    const url = `${this.baseUrl}/repush`;
+    return this.http.post(url, data);
   }
 }
