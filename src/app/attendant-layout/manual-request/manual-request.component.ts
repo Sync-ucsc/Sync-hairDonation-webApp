@@ -64,7 +64,7 @@ export class ManualRequestComponent implements OnInit {
     patientReport: ''
   }
 
-  myform: FormGroup;
+  manualform: FormGroup;
   showDetails = true;
   matcher = new MyErrorStateMatcher();
 
@@ -86,7 +86,6 @@ export class ManualRequestComponent implements OnInit {
   form1 = true;
   form2 = false;
   form3 = false;
-  form4 = false;
   searchElementRef: ElementRef;
   @ViewChild('search') set content(content: ElementRef) {
     if (content) { // initially setter gets called with undefined
@@ -100,30 +99,28 @@ export class ManualRequestComponent implements OnInit {
 
   lastRequestData: DbWigRequest;
 
-  manualForm = new FormGroup({
-    reportId: new FormControl('', [Validators.required])
-  });
 
-  signForm1 = new FormGroup({
+  mForm1 = new FormGroup({
     fname: new FormControl('', [Validators.required]),
     lname: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  signForm2 = new FormGroup({
+  mForm2 = new FormGroup({
     nic: new FormControl('', [Validators.required, Validators.maxLength(12), Validators.minLength(10)]),
     address: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
   });
-  signForm3 = new FormGroup({
+  mForm3 = new FormGroup({
     patientNumber: new FormControl('', [Validators.required]),
     patientReport: new FormControl('', [Validators.required]),
+    wigsType: new FormControl('', [Validators.required]),
   });
 
 
 
   valid(){
-    return !this.signForm3.valid || this.url === null
+    return !this.mForm3.valid || this.url === null
   }
   constructor(
     @Inject(AngularFireStorage) private storage: AngularFireStorage,
@@ -195,9 +192,9 @@ export class ManualRequestComponent implements OnInit {
   }
   async getLastRequest(): Promise<DbWigRequest> {
     try {
-      const patientreportId = this._token.getId();
+      const patientNumber = this._token.getId();
 
-      const response = await this._patientService.getLastRequest(patientreportId).toPromise() as BackendResponse;
+      const response = await this._patientService.getLastRequest(patientNumber).toPromise() as BackendResponse;
 
       if (!response.success) throw new Error(response.debugMessage)
       const res = response.data as DbWigRequest;
@@ -232,7 +229,7 @@ export class ManualRequestComponent implements OnInit {
       this.btncu3 = false;
       this.btncu4 = false;
     } else if (x === 'form2') {
-      if (this.signForm1.valid) {
+      if (this.mForm1.valid) {
         this.form1 = false;
         this.form2 = true;
         this.form3 = false;
@@ -245,33 +242,20 @@ export class ManualRequestComponent implements OnInit {
         this.btncu3 = false;
         this.btncu4 = false;
       }
-    } else if (x === 'form3') {
-      if (this.signForm2.valid) {
+    } else if (x === 'form3')
+      {
         this.form2 = false;
         this.form3 = true;
-        this.form4 = false;
 
         this.btn1 = true;
         this.btn2 = true;
         this.btn3 = false;
         this.btn4 = false;
         this.btncu2 = false;
-        this.btncu3 = true;
-        this.btncu4 = false;
+        this.btncu3 = false;
+        this.btncu4 = true;
       }
 
-    } else if (x === 'form4') {
-      this.form3 = false;
-      this.form4 = true;
-
-      this.btn1 = true;
-      this.btn2 = true;
-      this.btn3 = true;
-      this.btn4 = false;
-      this.btncu2 = false;
-      this.btncu3 = false;
-      this.btncu4 = true;
-    }
   }
 
   async onSubmit(): Promise<void> {
@@ -290,7 +274,7 @@ export class ManualRequestComponent implements OnInit {
         return;
       }
 
-      const patientreportId = this._token.getId();
+      const patientNumber = this._token.getId();
 
       const wigRequestObject = {
         requestDay: new Date().toISOString(),
@@ -301,7 +285,7 @@ export class ManualRequestComponent implements OnInit {
       } as DbWigRequest;
 
 
-      const response = await this._patientService.createWigRequest(wigRequestObject, patientreportId).toPromise() as BackendResponse;
+      const response = await this._patientService.createWigRequest(wigRequestObject, patientNumber).toPromise() as BackendResponse;
       if (!response.success) throw new Error(response.debugMessage)
 
       this.Types = null;
@@ -322,7 +306,6 @@ export class ManualRequestComponent implements OnInit {
       this.user1.fingerprint = this.user.fingerprint;
       this.user1.fpcount = this.user.fpcount;
       this.user1.patientNumber = this.user.patientNumber;
-      this.user1.patientReport = this.user.patientReport;
       this.userService.adduser(this.user1).subscribe(
         data => {
           console.log(data)
