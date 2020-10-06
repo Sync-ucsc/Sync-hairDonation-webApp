@@ -29,6 +29,7 @@ export class DonorRequestComponent implements OnInit {
    Donor:any = [];
    DonorNames:any=[];
    finishDonorrequestSub;
+   cancelDonorrequestSub;
    selectedDonor;
   
   
@@ -115,6 +116,45 @@ export class DonorRequestComponent implements OnInit {
       Swal.fire(
         'Cancelled',
         'Donation was not mark as completed',
+        'error'
+      )
+    }
+  });
+}
+
+cancelDonorrequest(id){
+  Swal.fire({
+    title: 'Are you sure?',
+    text: `This wig Request will be marked as not completed`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true,
+    preConfirm: (login) => {
+      this.cancelDonorrequestSub = this.apiService.cancelDonorrequest(id).subscribe((data) => {
+        console.log(data);
+        this.socket.emit('decline-wig-request', data);
+        if(!data)
+          Swal.showValidationMessage(
+            `Request failed`
+          )
+       }
+      )
+
+    },
+    // tslint:disable-next-line: only-arrow-functions
+  }).then(function (result) {
+    if (result.value) {
+      Swal.fire(
+        'Success!',
+        'Patient wig request has been declined marked as not completed',
+        'success'
+      )
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire(
+        'Cancelled',
+        'Patient wig request was not marked as not completed',
         'error'
       )
     }

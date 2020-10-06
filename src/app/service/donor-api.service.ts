@@ -4,6 +4,7 @@ import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 import {environment} from '@environments/environment';
+import {DbDonorRequest} from '@model/database/dbDonorRequest';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -13,7 +14,7 @@ const baseUrl = 'http://127.0.0.1:3000/donor';
   providedIn: 'root'
 })
 export class DonorApiService {
-  baseUrl2 = `${environment.BASE_URL}/donorRequest`;
+  baseUrl2 = `${environment.BASE_URL}/donorRequest/`;
   baseUrl = 'http://127.0.0.1:3000/donor';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
@@ -95,6 +96,12 @@ export class DonorApiService {
   finishDonorrequest(donorId: string): Observable<any> {
     return this.http
       .get(`${this.baseUrl2}/finishDonorrequest/${donorId}`)
+      .pipe(catchError(this.errorMgmt));
+  }
+
+  cancelDonorrequest(donorId: string): Observable<any> {
+    return this.http
+      .get(`${this.baseUrl2}/cancelDonorrequest/${donorId}`)
       .pipe(catchError(this.errorMgmt));
   }
 
