@@ -53,7 +53,7 @@ export class BookAppointmentComponent implements OnInit ,OnDestroy {
 
     this.getDonorByEmailSub = this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
       this.selectedDonor=data['data'];
-       this.salonList = data['data'];
+       this.salonList = this.selectedDonor.nearSalon;
 
     // this.getSalonsSub = this.apiService.getDonorById().subscribe((data) => {
     // this.Donor = data["data"];
