@@ -1,4 +1,3 @@
-
 import { Component, OnInit, Renderer2, ViewChild, OnDestroy } from '@angular/core';
 import {FullCalendarComponent} from '@fullcalendar/angular';
 import {EventInput} from '@fullcalendar/core';
@@ -25,6 +24,7 @@ export class AppointmentDetailsComponent implements OnInit,OnDestroy {
   deleteAppointmentSub;
   createAppointmentSub;
   updateAppointmentSub;
+  getAllSub;
   options: any;
   event: any;
   eventsModel: any;
@@ -65,6 +65,7 @@ export class AppointmentDetailsComponent implements OnInit,OnDestroy {
     private _ViewCalendarService: ViewCalendarService,
 
     ){
+
 
   }
 
@@ -206,45 +207,72 @@ export class AppointmentDetailsComponent implements OnInit,OnDestroy {
   }
 
   updateAppointment(event) {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: `Salon will be updated permanently`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, update it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true,
-      preConfirm: (login) => {
+    //console.log('ddd');
+    let data;
+    let date;
+    if (event.delta !== undefined){
+      data = event.delta;
+      date = event
+      let pdate = new Date(date.oldEvent.start)
+      if (data.milliseconds !== 0){
+        pdate.setMilliseconds(data.milliseconds + pdate.getMilliseconds());
+      }
+      if (data.days !== 0) {
+        pdate.setDate(data.days + pdate.getDate())
+      }
+      if (data.months !== 0) {
+        pdate.setMonth(data.months + pdate.getMonth());
+      }
+      if (data.years !== 0) {
+        pdate.setFullYear(data.years+ pdate.getFullYear());
+      }
+      pdate.setMilliseconds(pdate.getMilliseconds() + 5.5*60*60*1000)
+      Swal.fire({
+        title: 'Are you sure?',
+        text: `Salon will be updated permanently`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, update it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true,
+        preConfirm: (login) => {
 
-        this.updateAppointmentSub = this._ViewCalendarService.updateAppointment(event.event.id,this.date).subscribe((data) => {
-          console.log(data);
-          this.socket.emit('updateAppointment', data);
-          if(!data.msg)
-          Swal.showValidationMessage(
-            `Request failed`
+          this.updateAppointmentSub = this._ViewCalendarService.updateAppointmentTime(
+            { id: event.event.id, time: pdate.toISOString().substring(0, 19) + '+05:30'}
+            ).subscribe(
+              (data) => {
+                console.log(data);
+                this.socket.emit('updateAppointment', data);
+                if (!data)
+                  Swal.showValidationMessage(
+                    `Request failed`
+                  )
+              }
           )
-       }
-      )
-    },
-    // tslint:disable-next-line: only-arrow-functions
-  }).then(function (result) {
-    if (result.value) {
-      Swal.fire(
-        'Updated',
-        'Appointment has been updated.',
-        'success'
-      )
-    } else if (result.dismiss === Swal.DismissReason.cancel) {
-      Swal.fire(
-        'Cancelled',
-        'Appointment was not updated',
-        'error'
-      )
-    }
-  }
-  );
-  }
 
+        },
+        // tslint:disable-next-line: only-arrow-functions
+      }).then(function (result) {
+        if (result.value) {
+          Swal.fire(
+            'Updated',
+            'Appointment has been updated.',
+            'success'
+          )
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire(
+            'Cancelled',
+            'Appointment was not updated',
+            'error'
+          )
+        }
+      }
+      );
+    }
+
+
+
+  }
 
   eventDo(event) {
     const icon = this.renderer.createElement("mat-icon");
@@ -255,8 +283,7 @@ export class AppointmentDetailsComponent implements OnInit,OnDestroy {
     this.renderer.addClass(event.el, 'text-light')
   }
 
-
-  //  Delete the appointment
+//  Delete the appointment
  deleteAppointment(event) {
   console.log(event.event);
   Swal.fire({
@@ -298,6 +325,7 @@ export class AppointmentDetailsComponent implements OnInit,OnDestroy {
 
 }
 
+
   // get yearMonth(): number {
   //   const dateObj = new Date();
   //   console.log(dateObj.getUTCMonth() + 1);
@@ -324,44 +352,6 @@ export class AppointmentDetailsComponent implements OnInit,OnDestroy {
     if (this.updateAppointmentSub !== undefined) {
       this.updateAppointmentSub.unsubscribe();
     }
+
   }
 }
- // customButtons: {
-      //   prev:{
-      //     click: function () {
-      //       const dateObj = new Date();
-      //       //console.log(dateObj.getUTCMonth() + 1);
-      //       this.date=dateObj.getUTCMonth() + 1;
-      //       //this.n++;
-      //       //return (dateObj.getUTCMonth() + 1);
-      //       console.log(  this.date-1)
-      //     }
-      //   },
-      //   next:{
-      //     click: function () {
-      //       const dateObj = new Date();
-      //       //console.log(dateObj.getUTCMonth() + 1);
-      //       this.date=dateObj.getUTCMonth() + 1;
-      //       //this.n++;
-      //       //return (dateObj.getUTCMonth() + 1);
-      //       console.log(  this.date+1)
-      //     }
-      //   },
-      // },
-
-       // updateHeader() {
-  //   this.options.header = {
-  //     left: 'prev,next',
-  //     center: 'title',
-  //     right: ''
-  //   };
-  // }
-  // updateEvents() {
-  //   this.eventsModel = [{
-  //     title: 'Updaten Event',
-  //     start: this.yearMonth + '-08',
-  //     end: this.yearMonth + '-10'
-  //   }];
-  //   console.log(this.eventsModel);
-
-  // }
