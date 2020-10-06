@@ -8,7 +8,7 @@ import {ViewCalendarComponent} from './view-calendar/view-calendar.component';
 import { SaloonChatComponent } from './saloon-chat/saloon-chat.component';
 import { SalonLocationComponent } from './salon-location/salon-location.component';
 import { AfterLoginService } from '@services/after-login.service';
-
+import { DonorRequestComponent } from './donor-request/donor-request.component';
 
 export const SalonLayoutRoutes: Routes = [
     // {
@@ -60,4 +60,5 @@ export const SalonLayoutRoutes: Routes = [
     {path:  'view_calendar',component:ViewCalendarComponent},
     { path: 'chat', component: SaloonChatComponent, canActivate: [AfterLoginService],},
     { path: 'wigCollect', component: SalonLocationComponent, canActivate: [AfterLoginService],},
+    { path: 'donor_request', component: DonorRequestComponent, canActivate: [AfterLoginService],},
 ];
