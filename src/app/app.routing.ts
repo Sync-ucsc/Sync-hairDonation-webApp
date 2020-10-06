@@ -1,3 +1,5 @@
+import { AttendantLoginService } from './service/attendant-login.service';
+import { SalonLoginService } from './service/salon-login.service';
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -21,6 +23,11 @@ import { PatientWaitComponent } from './patient-wait/patient-wait.component';
 import { DonoractiveComponent } from './donoractive/donoractive.component';
 import { RegisterPasswordComponent } from './register-password/register-password.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { BeforLoginService } from '@services/befor-login.service';
+import { DonorLoginService } from '@services/donor-login.service';
+import { AdminLoginService } from '@services/admin-login.service';
+import { PatientLoginService } from '@services/patient-login.service';
+import { ManagerLoginService } from '@services/manager-login.service';
 
 const routes: Routes = [
   {
@@ -32,14 +39,17 @@ const routes: Routes = [
     component: DashboardComponent
   },
   {
+    canActivate: [BeforLoginService],
     path: 'signup-donor',
     component: SignupComponent
   },
   {
+    canActivate: [BeforLoginService],
     path: 'signup-patient',
     component: Signup2Component
   },
   {
+    canActivate: [BeforLoginService],
     path: 'login',
     component: LoginComponent
   },
@@ -60,15 +70,17 @@ const routes: Routes = [
     component: PasswordRequestComponent
   },
   {
+    canActivate: [BeforLoginService],
     path: 'register-password',
     component: RegisterPasswordComponent
   },
   {
+    canActivate: [BeforLoginService],
     path: 'change-password',
     component: ChangePasswordComponent
   },
   {
-    canActivate: [AfterLoginService],
+    canActivate: [AfterLoginService,AdminLoginService],
     path: 'admin',
     component: AdminLayoutComponent,
     children: [{
@@ -77,7 +89,7 @@ const routes: Routes = [
     }]
   },
   {
-    canActivate: [AfterLoginService],
+    canActivate: [AfterLoginService,AttendantLoginService],
     path: 'attendant',
     component: AttendantLayoutComponent,
     children: [{
@@ -86,7 +98,7 @@ const routes: Routes = [
     }]
   },
   {
-    canActivate: [AfterLoginService],
+    canActivate: [AfterLoginService,SalonLoginService],
     path: 'salon',
     component: SalonLayoutComponent,
     children: [{
@@ -96,7 +108,7 @@ const routes: Routes = [
   },
 
   {
-    canActivate: [AfterLoginService],
+    canActivate: [AfterLoginService,DonorLoginService],
     path: 'donor',
     component: DonorLayoutComponent,
     children: [{
@@ -105,7 +117,7 @@ const routes: Routes = [
     }]
   },
   {
-    canActivate: [AfterLoginService],
+    canActivate: [AfterLoginService,PatientLoginService],
     path: 'patient',
     component: PatientLayoutComponent,
     children: [{
@@ -114,7 +126,7 @@ const routes: Routes = [
     }]
   },
   {
-    canActivate: [AfterLoginService],
+    canActivate: [AfterLoginService,ManagerLoginService],
     path: 'hospital',
     component: HospitalLayoutComponent,
     children: [{

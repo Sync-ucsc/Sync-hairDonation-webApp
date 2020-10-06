@@ -20,6 +20,7 @@ import {PushNotificationComponent} from './push-notification/push-notification.c
 import {ManageNotificationComponent} from './manage-notification/manage-notification.component';
 import {ManageDonorComponent} from './manage-donor/manage-donor.component';
 import {ManagePatientComponent} from './manage-patient/manage-patient.component';
+import { ManageDonorRequestComponent } from './manage-donor-request/manage-donor-request.component';
 
 import {AttendantsComponent} from './attendants/attendants.component';
 import {ManageAttendantsComponent} from './manage-attendants/manage-attendants.component';
@@ -85,6 +86,7 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'manage-notification', component: ManageNotificationComponent, canActivate: [AfterLoginService],},
   {path: 'push-notification', component: PushNotificationComponent, canActivate: [AfterLoginService],},
   {path: 'manage-donor', component: ManageDonorComponent, canActivate: [AfterLoginService],},
+  {path: 'manage-donor-request', component: ManageDonorRequestComponent, canActivate: [AfterLoginService],},
   {path: 'manage-patient', component: ManagePatientComponent, canActivate: [AfterLoginService],},
   {path: 'attendants', component: AttendantsComponent, canActivate: [AfterLoginService],},
   {path: 'manage-attendants', component: ManageAttendantsComponent, canActivate: [AfterLoginService],},

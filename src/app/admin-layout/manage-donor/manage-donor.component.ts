@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 // <reference types="@types/googlemaps" />
 import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject } from '@angular/core';
 import { DonorApiService } from './../../service/donor-api.service';
@@ -22,13 +23,17 @@ export interface DialogData {
   templateUrl: './manage-donor.component.html',
   styleUrls: ['./manage-donor.component.scss']
 })
-export class ManageDonorComponent implements OnInit {
+export class ManageDonorComponent implements OnInit ,OnDestroy {
   socket;
   @ViewChild('dialog') templateRef: TemplateRef<any>;
    Donor:any = [];
    DonorNames:any=[];
   
    selectedDonor;
+  deleteDonorSub;
+  dialogRef1Sub;
+  dialogRef2Sub;
+  getDonorsSub;
   
   
     myControl = new FormControl('',Validators.required);
@@ -70,7 +75,7 @@ export class ManageDonorComponent implements OnInit {
   // view donors
   getDonors(){
 
-    this.apiService.getDonors().subscribe((data) => {
+    this.getDonorsSub = this.apiService.getDonors().subscribe((data) => {
     this.Donor = data["data"];
     this.options = data["data"];
      console.log(this.Donor);
@@ -88,7 +93,7 @@ openUpdateRef(donor){
     }
   });
 
-  dialogRef.afterClosed().subscribe(result => {
+  this.dialogRef2Sub = dialogRef.afterClosed().subscribe(result => {
     console.log(`Dialog result: ${result}`);
   });
 
@@ -102,7 +107,7 @@ openViewRef(donor){
   this.selectedDonor=donor;
   const dialogRef = this.dialog.open(this.templateRef);
 
-  dialogRef.afterClosed().subscribe(result => {
+  this.dialogRef1Sub = dialogRef.afterClosed().subscribe(result => {
     console.log(`Dialog result: ${result}`);
   });
 
@@ -121,7 +126,7 @@ openViewRef(donor){
       cancelButtonText: 'No, cancel!',
       reverseButtons: true,
       preConfirm: (login) => {
-        this.apiService.deleteDonor(donor._id).subscribe((data) => {
+        this.deleteDonorSub = this.apiService.deleteDonor(donor._id).subscribe((data) => {
           console.log(data);
           this.socket.emit('updatedata', data);
           if(!data.msg)
@@ -151,6 +156,21 @@ openViewRef(donor){
  
  }
 
+ ngOnDestroy(){
+   if (this.deleteDonorSub !== undefined) {
+     this.deleteDonorSub.unsubscribe();
+   }
+   if (this.dialogRef1Sub !== undefined) {
+     this.dialogRef1Sub.unsubscribe();
+   }
+   if (this.dialogRef2Sub !== undefined) {
+     this.dialogRef2Sub.unsubscribe();
+   }
+   if (this.getDonorsSub !== undefined) {
+     this.getDonorsSub.unsubscribe();
+   }
+ }
+
 }
 
 // update component
@@ -160,7 +180,7 @@ openViewRef(donor){
   templateUrl: 'upload-dialog3.html',
 })
 // tslint:disable-next-line: class-name
-export class uploadDialog3Component {
+export class uploadDialog3Component implements OnDestroy {
 
  socket = io('http://127.0.0.1:3000/donor');
 
@@ -198,6 +218,7 @@ export class uploadDialog3Component {
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
+  updateDonorSub;
 
   constructor(private apiService:DonorApiService,
     public dialog: MatDialog,
@@ -268,7 +289,7 @@ updateDonor(){
         preConfirm: (login) => {
 
           const id=this.selectedDonor._id;
-          this.apiService.updateDonor(id, this.updateForm.value)
+          this.updateDonorSub = this.apiService.updateDonor(id, this.updateForm.value)
             .subscribe(res => {
               this.router.navigateByUrl('/admin/manage-donors');
               console.log('Donor updated successfully!');
@@ -327,5 +348,11 @@ getAddress(latitude, longitude) {
 
   });
 }
+
+  ngOnDestroy(){
+    if (this.updateDonorSub !== undefined) {
+      this.updateDonorSub.unsubscribe();
+    }
+  }
 
 }

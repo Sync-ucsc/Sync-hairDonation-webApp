@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 /// <reference types="@types/googlemaps" />
 import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject } from '@angular/core';
 import { SalonApiService } from './../../service/salon-api.service';
@@ -26,13 +27,17 @@ export interface DialogData {
   styleUrls: ['./manage-salons.component.scss']
 })
 
-export class ManageSalonsComponent implements OnInit {
+export class ManageSalonsComponent implements OnInit,OnDestroy {
 socket;
 @ViewChild('dialog') templateRef: TemplateRef<any>;
  Salon:any = [];
  SalonNames:any=[];
 
  selectedSalon;
+  dialogRef1Sub;
+  dialogRef2Sub;
+  deleteSalonSub;
+  getSalonsSub;
 
 
   myControl = new FormControl('',Validators.required);
@@ -82,7 +87,7 @@ constructor(
 
  getSalons(){
 
-    this.apiService.getSalons().subscribe((data) => {
+   this.getSalonsSub = this.apiService.getSalons().subscribe((data) => {
      this.Salon = data["data"];
     this.options = data["data"];
      console.log(this.Salon);
@@ -104,7 +109,7 @@ constructor(
      cancelButtonText: 'No, cancel!',
      reverseButtons: true,
      preConfirm: (login) => {
-       this.apiService.deleteSalon(salon._id).subscribe((data) => {
+       this.deleteSalonSub = this.apiService.deleteSalon(salon._id).subscribe((data) => {
          console.log(data);
          this.socket.emit('updatedata', data);
           
@@ -146,7 +151,7 @@ openUpdateRef(salon){
     }
   });
 
-  dialogRef.afterClosed().subscribe(result => {
+  this.dialogRef2Sub = dialogRef.afterClosed().subscribe(result => {
     console.log(`Dialog result: ${result}`);
   });
 
@@ -160,11 +165,27 @@ openViewRef(salon){
   this.selectedSalon=salon;
   const dialogRef = this.dialog.open(this.templateRef);
 
-  dialogRef.afterClosed().subscribe(result => {
+  this.dialogRef1Sub = dialogRef.afterClosed().subscribe(result => {
     console.log(`Dialog result: ${result}`);
   });
 
 }
+
+  ngOnDestroy() {
+
+    if (this.dialogRef1Sub !== undefined) {
+      this.dialogRef1Sub.unsubscribe();
+    }
+    if (this.dialogRef2Sub !== undefined) {
+      this.dialogRef2Sub.unsubscribe();
+    }
+    if (this.deleteSalonSub !== undefined) {
+      this.deleteSalonSub.unsubscribe();
+    }
+    if (this.getSalonsSub !== undefined) {
+      this.getSalonsSub.unsubscribe();
+    }
+  }
 
 
 }
@@ -177,7 +198,7 @@ openViewRef(salon){
   templateUrl: 'upload-dialog.html',
 })
 // tslint:disable-next-line: class-name
-export class uploadDialogComponent {
+export class uploadDialogComponent implements OnDestroy{
 
  socket = io('http://127.0.0.1:3000/salon');
 
@@ -191,6 +212,7 @@ export class uploadDialogComponent {
  checkSms=false;
  checkEmail=false;
  selectedSalon;
+  updateSalonSub;
 
 
 
@@ -281,7 +303,7 @@ updateSalon(){
         preConfirm: (login) => {
 
           const id=this.selectedSalon._id;
-          this.apiService.updateSalon(id, this.updateForm.value)
+          this.updateSalonSub = this.apiService.updateSalon(id, this.updateForm.value)
             .subscribe(res => {
               this.router.navigateByUrl('/admin/manage-salons');
               console.log('Salon updated successfully!');
@@ -345,4 +367,10 @@ getAddress(latitude, longitude) {
   });
 }
 
+  ngOnDestroy() {
+
+    if (this.updateSalonSub !== undefined) {
+      this.updateSalonSub.unsubscribe();
+    }
+  }
 }

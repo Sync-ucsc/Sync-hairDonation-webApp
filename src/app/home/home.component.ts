@@ -1,3 +1,4 @@
+import { TokenService } from './../service/token.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
@@ -22,7 +23,9 @@ export class HomeComponent implements OnInit {
 
   BASE_URL = environment.BASE_URL;
 
-  constructor(private _fb: FormBuilder,
+  constructor(
+              private token: TokenService,
+              private _fb: FormBuilder,
               private _http: HttpClient,
               private _toastr: ToastrService) {
     const node = document.createElement('script');
@@ -113,6 +116,10 @@ export class HomeComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  login(){
+    return this.token.loggedIn();
   }
 
 }

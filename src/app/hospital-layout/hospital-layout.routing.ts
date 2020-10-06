@@ -1,3 +1,4 @@
+import { DriverLocationComponent } from './driver-location/driver-location.component';
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -49,4 +50,5 @@ export const HospitalLayoutRoutes: Routes = [
     // }
     { path: 'dashboard',      component: DashboardComponent, canActivate: [AfterLoginService],},
     { path: 'profile', component: ProfileComponent, canActivate: [AfterLoginService],},
+    { path: 'driver-location', component: DriverLocationComponent, canActivate: [AfterLoginService], },
 ];

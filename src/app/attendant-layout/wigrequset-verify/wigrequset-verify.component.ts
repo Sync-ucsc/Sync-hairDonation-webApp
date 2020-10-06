@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject, OnDestroy } from '@angular/core';
 import { PatientApiService } from './../../service/patient-api.service';
 import { MatDialog ,MatDialogConfig,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
@@ -19,13 +19,15 @@ export interface DialogData {
   templateUrl: './wigrequset-verify.component.html',
   styleUrls: ['./wigrequset-verify.component.scss']
 })
-export class WigrequsetVerifyComponent implements OnInit {
+export class WigrequsetVerifyComponent implements OnInit,OnDestroy {
   socket;
   @ViewChild('dialog') templateRef: TemplateRef<any>;
    Patient:any = [];
    PatientNames:any=[];
-  
+  getPatientsSub;
    selectedPatient;
+  finishWigrequestSub;
+  cancelWigrequestSub;
   
   
     myControl = new FormControl('',Validators.required);
@@ -71,7 +73,7 @@ export class WigrequsetVerifyComponent implements OnInit {
 
   getPatients(){
     
-    this.apiService.getPatients().subscribe((data) => {
+    this.getPatientsSub = this.apiService.getPatients().subscribe((data) => {
     this.Patient = data["data"];
     this.options = data["data"];
      console.log(this.Patient);
@@ -88,7 +90,7 @@ finishWigrequest(id){
     cancelButtonText: 'No, cancel!',
     reverseButtons: true,
     preConfirm: (login) => {
-      this.apiService.finishWigrequest(id).subscribe((data) => {
+      this.finishWigrequestSub = this.apiService.finishWigrequest(id).subscribe((data) => {
         console.log(data);
         this.socket.emit('accept-wig-request', data);
         if(!data)
@@ -127,7 +129,7 @@ cancelWigrequest(id){
     cancelButtonText: 'No, cancel!',
     reverseButtons: true,
     preConfirm: (login) => {
-      this.apiService.cancelWigrequest(id).subscribe((data) => {
+      this.cancelWigrequestSub = this.apiService.cancelWigrequest(id).subscribe((data) => {
         console.log(data);
         this.socket.emit('decline-wig-request', data);
         if(!data)
@@ -155,5 +157,18 @@ cancelWigrequest(id){
     }
   });
 }
+  ngOnDestroy() {
+
+    if (this.getPatientsSub !== undefined) {
+      this.getPatientsSub.unsubscribe();
+    }
+    if (this.finishWigrequestSub !== undefined) {
+      this.finishWigrequestSub.unsubscribe();
+    }
+    if (this.cancelWigrequestSub !== undefined) {
+      this.cancelWigrequestSub.unsubscribe();
+    }
+    
+  }
 
 }

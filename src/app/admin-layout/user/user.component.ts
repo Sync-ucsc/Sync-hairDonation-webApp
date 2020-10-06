@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MatSort } from '@angular/material/sort';
@@ -29,7 +29,7 @@ export interface PeriodicElement {
     ]),
   ],
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit,OnDestroy {
 
   donor = false;
   patient = false;
@@ -44,6 +44,8 @@ export class UserComponent implements OnInit {
   socket;
   tdata;
   rel;
+  getUsersSub;
+  temporarydisableSub;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -63,7 +65,7 @@ export class UserComponent implements OnInit {
   }
 
   getAll() {
-    this.userService.getUsers().subscribe(
+    this.getUsersSub = this.userService.getUsers().subscribe(
       data => {
         console.log(data)
         this.tdata = data['data']
@@ -220,7 +222,7 @@ export class UserComponent implements OnInit {
       email: email,
       val: !x
     }
-    this.userService.temporarydisable(data).subscribe(
+    this.temporarydisableSub = this.userService.temporarydisable(data).subscribe(
       data => {
         this.tdata.forEach((e) => {
           if (e.email == email) {
@@ -234,5 +236,14 @@ export class UserComponent implements OnInit {
         this.getAll();
       }
     )
+  }
+
+  ngOnDestroy(){
+    if (this.getUsersSub !== undefined) {
+      this.getUsersSub.unsubscribe();
+    }
+    if (this.temporarydisableSub !== undefined) {
+      this.temporarydisableSub.unsubscribe();
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { UserService } from '@services/user.service';
@@ -12,7 +12,7 @@ import { Md5 } from 'ts-md5/dist/md5';
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss']
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangePasswordComponent implements OnInit ,OnDestroy{
 
   passwordForm = new FormGroup({
     password: new FormControl('', [Validators.required]),
@@ -28,7 +28,9 @@ export class ChangePasswordComponent implements OnInit {
     email: '',
     token: ''
   }
-
+  changePasswordSub;
+  requestSub;
+  activatedrouteSub;
   myform: FormGroup;
   showDetails = true;
   matcher = new MyErrorStateMatcher();
@@ -40,11 +42,11 @@ export class ChangePasswordComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       cpassword: new FormControl(''),
     }, { validator: this.checkPasswords });
-    this.activatedroute.queryParamMap.subscribe(params => {
+    this.activatedrouteSub = this.activatedroute.queryParamMap.subscribe(params => {
       this.logindata.email = params.get('email');
       this.logindata.token = params.get('token');
     });
-    this.userService.request(this.logindata).subscribe(
+    this.requestSub = this.userService.request(this.logindata).subscribe(
       data => {
         if (data['msg'] === 'password change') {
           console.log(data)
@@ -80,7 +82,7 @@ export class ChangePasswordComponent implements OnInit {
       email: this.user.email,
       password: Md5.hashStr(this.user.password).toString()
     }
-    this.userService.changePassword(udata, this.user.token).subscribe(
+    this.changePasswordSub = this.userService.changePassword(udata, this.user.token).subscribe(
       data => {
         console.log(data)
         if (data['success'] === true) {
@@ -114,6 +116,20 @@ export class ChangePasswordComponent implements OnInit {
     const confirmPass = group.get('cpassword').value;
 
     return pass === confirmPass ? null : { notSame: true };
+  }
+
+
+  ngOnDestroy() {
+
+    if (this.changePasswordSub !== undefined) {
+      this.changePasswordSub.unsubscribe();
+    }
+    if (this.requestSub !== undefined) {
+      this.requestSub.unsubscribe();
+    }
+    if (this.activatedrouteSub !== undefined) {
+      this.activatedrouteSub.unsubscribe();
+    }
   }
 
 

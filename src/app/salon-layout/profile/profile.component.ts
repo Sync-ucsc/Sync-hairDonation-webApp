@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { Component, OnInit, ElementRef, ViewChild, NgZone, OnDestroy, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
 import { Router } from '@angular/router';
@@ -8,21 +9,22 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { SalonApiService } from '@services/salon-api.service';
 import Swal from 'sweetalert2';
 import { Md5 } from 'ts-md5';
+import { CommonService } from '@services/common.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit,OnDestroy {
 
   user = {
     firstName: '',
-    lastName: '',
     email: '',
     phone: '',
     address: '',
-    password: '',
     img: 'http://i.pravatar.cc/500?img=7',
     lat: 6.86,
     lon: 79.89
@@ -65,7 +67,6 @@ export class ProfileComponent implements OnInit {
 
   signForm1 = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
-    lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     address: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)])
@@ -91,26 +92,39 @@ export class ProfileComponent implements OnInit {
   longitude = 0;
   placeaddress;
   private geoCoder;
+  getSalonByEmailSub;
+  @BlockUI() blockUI: NgBlockUI;
+  profileChangePasswordSub;
+  getDownloadURLSub;
+  snapshotChangesSub;
+  changeLocationSub;
+  image;
+  name;
+  selectedImage;
+  url;
+  id;
 
 
   constructor(
+    @Inject(AngularFireStorage) private storage: AngularFireStorage,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
     private tokenService: TokenService,
-    private salonService: SalonApiService
+    private salonService: SalonApiService,
+    private service: CommonService
   ) {
+    this.name = this.tokenService.getFirstName() + ' ' + this.tokenService.getLastName();
+    this.image = this.tokenService.getImg();
     this.user.email = tokenService.getEmail();
     this.user.firstName = tokenService.getFirstName();
-    this.user.lastName = tokenService.getLastName();
     this.user.phone = tokenService.getPhone();
     this.user.img = tokenService.getImg();
-    this.salonService.getSalonByEmail(this.user.email).subscribe(
+    this.getSalonByEmailSub = this.salonService.getSalonByEmail(this.user.email).subscribe(
       data => {
-        console.log(data)
-        this.user.address = data.address
+        this.user.address = data.data.address
         this.user.lat = data.lat
         this.user.lon = data.lon
         this.latitude = data.lat
@@ -159,6 +173,7 @@ export class ProfileComponent implements OnInit {
         // this.getAddress(this.user.lat, this.user.lon);
       });
     }, 100)
+    this.service.data$.subscribe(res => { this.image = res['image'], this.name = res['name'] })
   }
 
 
@@ -210,18 +225,56 @@ export class ProfileComponent implements OnInit {
 
 
   submit1() {
-
+    this.userService.salonProfileChange(this.user).subscribe(
+      data => {
+        console.log(this.user)
+        console.log(data)
+        this.tokenService.handle(data['data'].userToken);
+        this.name = this.tokenService.getFirstName() + ' ' + this.tokenService.getLastName();
+        this.image = this.tokenService.getImg();
+        this.service.changeData({ image: this.image, name: this.name })
+        Swal.fire(
+          'Profile change!',
+          data['msg'],
+          'success'
+        );
+      },
+      error => {
+        Swal.fire(
+          'Error!',
+          error.error.msg,
+          'error'
+        );
+      }
+    )
   }
 
-  changepic() {
-
+  changepic(event: any) {
+    this.selectedImage = event.target.files[0];
+    const name = this.selectedImage.name;
+    const fileRef = this.storage.ref(name);
+    this.blockUI.start();
+    this.snapshotChangesSub = this.storage.upload(name, this.selectedImage).snapshotChanges().pipe(
+      finalize(() => {
+        this.getDownloadURLSub = fileRef.getDownloadURL().subscribe((url) => {
+          this.url = url;
+          this.user.img = url;
+          this.blockUI.stop();
+          Swal.fire(
+            'Success',
+            'Upload Successful',
+            'success'
+          )
+        })
+      })
+    ).subscribe();
   }
 
   submit2() {
     this.user5.email = this.user.email;
     this.user5.password = Md5.hashStr(this.user4.password).toString();
     this.user5.oldPassword = Md5.hashStr(this.user4.oldPassword).toString();
-    this.userService.profileChangePassword(this.user5).subscribe(
+    this.profileChangePasswordSub = this.userService.profileChangePassword(this.user5).subscribe(
       data => {
         Swal.fire(
           'Password change!',
@@ -244,7 +297,7 @@ export class ProfileComponent implements OnInit {
       this.user3.email = this.user.email;
       this.user3.lat = this.user.lat;
       this.user3.lon = this.user.lon;
-      this.salonService.changeLocation(this.user3).subscribe(
+      this.changeLocationSub = this.salonService.changeLocation(this.user3).subscribe(
         data => {
           Swal.fire(
             'Location change!',
@@ -260,6 +313,18 @@ export class ProfileComponent implements OnInit {
           );
         }
       )
+    }
+  }
+
+  ngOnDestroy(){
+    if (this.getSalonByEmailSub !== undefined) {
+      this.getSalonByEmailSub.unsubscribe();
+    }
+    if (this.profileChangePasswordSub !== undefined) {
+      this.profileChangePasswordSub.unsubscribe();
+    }
+    if (this.changeLocationSub !== undefined) {
+      this.changeLocationSub.unsubscribe();
     }
   }
 

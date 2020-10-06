@@ -1,3 +1,4 @@
+import { BlockUIModule } from 'ng-block-ui';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -38,6 +39,7 @@ import { PaymentComponent } from './payment/payment.component';
 @NgModule({
   imports: [
     CommonModule,
+    BlockUIModule.forRoot(),
     RouterModule.forChild(DonorLayoutRoutes),
     FormsModule,
 	  FullCalendarModule,

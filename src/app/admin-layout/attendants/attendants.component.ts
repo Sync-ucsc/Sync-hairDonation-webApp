@@ -1,5 +1,5 @@
 import { AttendantApiService } from '../../service/attendant-api.service';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2'
 })
 
 
-export class AttendantsComponent implements OnInit {
+export class AttendantsComponent implements OnInit,OnDestroy {
   submitted=false;
 
   attendantForm= new FormGroup({
@@ -24,6 +24,7 @@ export class AttendantsComponent implements OnInit {
   })
   @ViewChild('search')
   public searchElementRef: ElementRef;
+  createAttendantSub
 
   constructor(
     private router: Router,
@@ -40,7 +41,7 @@ export class AttendantsComponent implements OnInit {
     return false;
   } else {
 
-    this.apiService.createAttendant(this.attendantForm.value).subscribe(
+     this.createAttendantSub = this.apiService.createAttendant(this.attendantForm.value).subscribe(
       data => {
         console.log(' successfully added!' + data)
         Swal.fire(
@@ -64,4 +65,10 @@ export class AttendantsComponent implements OnInit {
  }
 
 }
+
+  ngOnDestroy() {
+    if (this.createAttendantSub !== undefined) {
+      this.createAttendantSub.unsubscribe();
+    }
+  }
 }
