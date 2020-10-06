@@ -27,6 +27,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatButtonModule} from '@angular/material/button';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import { AgmCoreModule } from '@agm/core';
+import { DonorRequestComponent } from './donor-request/donor-request.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { AgmCoreModule } from '@agm/core';
     SaloonChatComponent,
     ViewCalendarComponent,
     SalonLocationComponent,
+    DonorRequestComponent,
   ]
 })
 

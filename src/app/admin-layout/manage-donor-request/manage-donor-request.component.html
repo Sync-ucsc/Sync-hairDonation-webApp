@@ -40,24 +40,24 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <!-- <th scope="col">#</th> -->
                 <th scope="col">Name of the Donor</th>
-                <th scope="col">E-mail</th>
-                <th scope="col">Telephone</th>
+                <!-- <th scope="col">E-mail</th>
+                <th scope="col">Telephone</th> -->
                 <th scope="col">Address</th>
-                <th scope="col">NIC no.</th>
+                <th scope="col">Request date</th>
                 <!-- <th scope="col">Address</th> -->
             </tr>
         </thead>
         <tbody *ngIf="!myControl.valid" >
             <tr *ngFor="let donor of Donor; let i = index">
-                <th scope="row">{{i+1}}</th>
+                <ng-container *ngIf="donor.lastRequest && (!donor?.lastRequest?.finished && !donor?.lastRequest?.canceled)"> 
+                <!-- <th scope="row">{{i+1}}</th> -->
                 <td>{{donor['firstName']}} {{donor['lastName']}}</td>
-                <td>{{donor['email']}}</td>
-                <td>{{donor['telePhone']}}</td>
-                <td>{{donor['address']}}</td>
-                <td>{{donor['nic']}}</td>
-                <!-- <td>{{donor['address']}}</td> -->
+                <!-- <td>{{donor['email']}}</td>
+                <td>{{donor['telePhone']}}</td> -->
+                <td>{{donor?.lastRequest?.address}}</td>
+                <td>{{donor?.lastRequest?.validDate}}</td>
                
                 
                 <td class="text-center edit-block">
@@ -83,19 +83,19 @@
                     
                 </td>
             
-                
+            </ng-container>
             </tr>
             
         </tbody>
         <tbody *ngIf="myControl.valid">
             <tr *ngFor="let donor of filteredOptions | async; let i = index">
-                <th scope="row">{{i+1}}</th>
-                <td>{{donor['firstName']}} {{donor['lastName']}}</td>
-                <td>{{donor['email']}}</td>
-                <td>{{donor['telePhone']}}</td>
-                <td>{{donor['address']}}</td>
-                <td>{{donor['nic']}}</td>
-                <!-- <td>{{donor['address']}}</td> -->
+                <ng-container *ngIf="donor.lastRequest && (!donor?.lastRequest?.finished && !donor?.lastRequest?.canceled)"> 
+                    <!-- <th scope="row">{{i+1}}</th> -->
+                    <td>{{donor['firstName']}} {{donor['lastName']}}</td>
+                    <!-- <td>{{donor['email']}}</td>
+                    <td>{{donor['telePhone']}}</td> -->
+                    <td>{{donor?.lastRequest?.address}}</td>
+                    <td>{{donor?.lastRequest?.validDate | date: 'medium'}}</td>
         
         
                 <td class="text-center edit-block">
@@ -121,7 +121,7 @@
         
                 </td>
         
-        
+                </ng-container>
             </tr>
         
         </tbody>
