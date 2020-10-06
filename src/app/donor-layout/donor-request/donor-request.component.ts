@@ -59,7 +59,7 @@ export class DonorRequestComponent implements OnInit,OnDestroy {
     private router: Router,
     private apiService: DonorApiService,
     private salonService: SalonApiService,
-    private tokenService: TokenService, 
+    private tokenService: TokenService,
     private _toastr: ToastrService
   ) {
 
@@ -85,7 +85,7 @@ export class DonorRequestComponent implements OnInit,OnDestroy {
       console.log(this.selectedDonor)
     })
 
-      
+
 
     this.donationRequestForm = new FormGroup({
       address:new FormControl(''),
@@ -204,9 +204,9 @@ onChange2(eve: any) {
       latitude:this.latitude === undefined? this.selectedDonor.lat: this.latitude,
       longitude:this.longitude === undefined? this.selectedDonor.lon: this.longitude,
     })
- 
+
     const donorCoordinate = new google.maps.LatLng(
-      this.latitude === undefined? this.selectedDonor.lat: this.latitude,   
+      this.latitude === undefined? this.selectedDonor.lat: this.latitude,
       this.longitude === undefined? this.selectedDonor.lon: this.longitude
     );
 
@@ -215,20 +215,20 @@ onChange2(eve: any) {
     const salons = response.data;
 
     const selectedSalon = salons.map( salon => {
-     
+
       const salonCoordinate = new google.maps.LatLng(salon.latitude,salon.longitude);
 
       salon.distance = computeDistanceBetween(salonCoordinate, donorCoordinate )
 
       return salon;
 
-    }).filter( salon => { 
+    }).filter( salon => {
       return salon.distance <= 7000
     }).sort((a, b) => {
       if (a.distance > b.distance) {
           return 1
       } else if (a.distance < b.distance) {
-          return -1 
+          return -1
       } else {
           return 0
       }
@@ -243,7 +243,7 @@ onChange2(eve: any) {
   } else {
 
     this.apiService.donorRequset({
-      ...this.donationRequestForm.value , 
+      ...this.donationRequestForm.value ,
       // selectedSalon:selectedSalon,
       district: selectedSalon[0].district
     }).subscribe(
@@ -254,7 +254,7 @@ onChange2(eve: any) {
           'Your requset has been recorded!',
           'success'
         )
-        this.router.navigateByUrl('/donor/dashboard');
+        this.router.navigateByUrl('/donor/book_appointment');
       }, (error) => {
         console.log(error);
         Swal.fire(
