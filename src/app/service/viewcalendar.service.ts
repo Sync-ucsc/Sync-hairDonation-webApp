@@ -58,7 +58,12 @@ export class ViewCalendarService {
   return this.http.post(url, data, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)
   )
-}
+  }
+
+  updateAppointmentTime(data){
+    const url = `${this.baseUrl}/updateTime`;
+    return this.http.post(url, data, { headers: this.headers })
+  }
 
 
 
