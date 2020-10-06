@@ -60,6 +60,5 @@ export class SharedChatComponent implements OnInit {
 
   changeUser(selectedUser){
     this.receiverIds = selectedUser.id;
-    console.log(selectedUser)
   }
 }
