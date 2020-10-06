@@ -15,6 +15,7 @@ export class BookAppointmentComponent implements OnInit ,OnDestroy {
   socket = io('http://localhost:3000/donor');
   email:string;
   Donor:any[];
+  salonList:any = [];
   selectedDonor;
   getDonorByEmailSub;
 
@@ -52,6 +53,7 @@ export class BookAppointmentComponent implements OnInit ,OnDestroy {
 
     this.getDonorByEmailSub = this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
       this.selectedDonor=data['data'];
+       this.salonList = data['data'];
 
     // this.getSalonsSub = this.apiService.getDonorById().subscribe((data) => {
     // this.Donor = data["data"];
