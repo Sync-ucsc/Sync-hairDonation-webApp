@@ -300,45 +300,70 @@ export class ViewCalendarComponent implements OnInit, OnDestroy{
 
   updateAppointment(event) {
     //console.log('ddd');
-    console.log(event);
-    Swal.fire({
-      title: 'Are you sure?',
-      text: `Salon will be updated permanently`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, update it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true,
-      preConfirm: (login) => {
-
-        this.updateAppointmentSub = this._ViewCalendarService.updateAppointment(event.event.id,this.date).subscribe((data) => {
-          console.log(data);
-          this.socket.emit('updateAppointment', data);
-          if(!data.msg)
-          Swal.showValidationMessage(
-            `Request failed`
-          )
-       }
-      )
-
-    },
-      // tslint:disable-next-line: only-arrow-functions
-    }).then(function (result) {
-      if (result.value) {
-        Swal.fire(
-          'Updated',
-          'Appointment has been updated.',
-          'success'
-        )
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelled',
-          'Appointment was not updated',
-          'error'
-        )
+    let data;
+    let date;
+    if (event.delta !== undefined){
+      data = event.delta;
+      date = event
+      let pdate = new Date(date.oldEvent.start)
+      if (data.milliseconds !== 0){
+        pdate.setMilliseconds(data.milliseconds + pdate.getMilliseconds());
       }
+      if (data.days !== 0) {
+        pdate.setDate(data.days + pdate.getDate())
+      }
+      if (data.months !== 0) {
+        pdate.setMonth(data.months + pdate.getMonth());
+      }
+      if (data.years !== 0) {
+        pdate.setFullYear(data.years+ pdate.getFullYear());
+      }
+      pdate.setMilliseconds(pdate.getMilliseconds() + 5.5*60*60*1000)
+      Swal.fire({
+        title: 'Are you sure?',
+        text: `Salon will be updated permanently`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, update it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true,
+        preConfirm: (login) => {
+
+          this.updateAppointmentSub = this._ViewCalendarService.updateAppointmentTime(
+            { id: event.event.id, time: pdate.toISOString().substring(0, 19) + '+05:30'}
+            ).subscribe(
+              (data) => {
+                console.log(data);
+                this.socket.emit('updateAppointment', data);
+                if (!data)
+                  Swal.showValidationMessage(
+                    `Request failed`
+                  )
+              }
+          )
+
+        },
+        // tslint:disable-next-line: only-arrow-functions
+      }).then(function (result) {
+        if (result.value) {
+          Swal.fire(
+            'Updated',
+            'Appointment has been updated.',
+            'success'
+          )
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire(
+            'Cancelled',
+            'Appointment was not updated',
+            'error'
+          )
+        }
+      }
+      );
     }
-    );
+
+
+    
   }
 
 

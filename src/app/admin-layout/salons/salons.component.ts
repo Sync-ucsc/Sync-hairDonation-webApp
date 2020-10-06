@@ -25,7 +25,7 @@ export class SalonsComponent implements OnInit,OnDestroy {
   submitted=false;
   latitude: number;
   longitude: number;
-  zoom: number;
+  zoom: number; 
   address: string;
   placeaddress;
   private geoCoder;
