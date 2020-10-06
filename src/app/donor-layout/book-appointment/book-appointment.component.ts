@@ -13,10 +13,10 @@ import * as io from 'socket.io-client';
 })
 export class BookAppointmentComponent implements OnInit ,OnDestroy {
   socket = io('http://localhost:3000/donor');
-  Salon:any[];
-  SalonNames:any[];
-  seletedSalon;
-  getSalonsSub;
+  email:string;
+  Donor:any[];
+  selectedDonor;
+  getDonorByEmailSub;
 
 
   constructor(
@@ -28,9 +28,9 @@ export class BookAppointmentComponent implements OnInit ,OnDestroy {
 
     {}
   ngOnInit(): void {
-    this.getSalons();
-    this.socket.on('new-salon',() =>{
-      this.getSalons();
+    this.getDonor();
+    this.socket.on('new-donor',() =>{
+      this.getDonor();
     });
     // this.socket.on('accepted-salon',()=>{
     //   this.getDonors();
@@ -45,18 +45,25 @@ export class BookAppointmentComponent implements OnInit ,OnDestroy {
 
   }
 
-  getSalons(){
+  getDonor(){
 
-    this.getSalonsSub = this.salonService.getSalons().subscribe((data) => {
-    this.Salon = data["data"];
+    this.email=this.tokenService.getEmail();
+    console.log(this.email);
+
+    this.getDonorByEmailSub = this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
+      this.selectedDonor=data['data'];
+
+    // this.getSalonsSub = this.apiService.getDonorById().subscribe((data) => {
+    // this.Donor = data["data"];
     // this.options = data["data"];
-     console.log(this.Salon);
+     console.log(this.selectedDonor);
     })
+    
  }
 
- 
 
- 
+
+
 
   // book(){
 
@@ -71,7 +78,7 @@ export class BookAppointmentComponent implements OnInit ,OnDestroy {
    this.route.navigate(['/donor/appointment_details']);
   }
 
- 
+
 
   ngOnDestroy() {
     // if (this.declineSalonSub !== undefined) {
@@ -80,8 +87,8 @@ export class BookAppointmentComponent implements OnInit ,OnDestroy {
     // if (this.acceptedSalonSub !== undefined) {
     //   this.acceptedSalonSub.unsubscribe();
     // }
-    if (this.getSalonsSub !== undefined) {
-      this.getSalonsSub.unsubscribe();
+    if (this.getDonorByEmailSub !== undefined) {
+      this.getDonorByEmailSub.unsubscribe();
     }
 
 
