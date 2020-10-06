@@ -1,0 +1,27 @@
+<div class="content flex-column-fluid" id="kt_content">
+    <!--begin::Card-->
+    <div class="card card-custom">
+        <div class="container" style="padding-top: 10%;padding-bottom: 10%;">
+            <div class="form-group row">
+                <label class="col-2 col-form-label">District</label>
+                <div class="col-10\">
+            
+                    <select class="form-control" id="exampleSelect1" ngModel (ngModelChange)="load($event)" >
+                        <option  *ngFor="let driver of drivers" [ngValue]="driver.email" >{{driver.firstName + ' '+ driver.lastName}}</option>
+            
+                    </select>
+            
+            
+            
+                    <!-- <div *ngIf="salonForm.controls['district'].errors.required">District is required</div> -->
+                </div>
+            </div>
+            
+            <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                <agm-marker (dragEnd)="markerDragEnd($event)" [latitude]="latitude" [longitude]="longitude"
+                    [markerDraggable]="true"></agm-marker>
+            </agm-map>
+        </div>
+        
+    </div>
+</div>

@@ -21,21 +21,23 @@ export class ChatService {
   constructor(private _http: HttpClient,
               private _sharedService: SharedService) { }
 
-  getPreviousChatList(): PreviousChatList[]{
-    return [
-      {
-        name: 'Matt Pears',
-        avatar: this.receiverAvatar,
-        status: 'Head of Development',
-        lastChatTime: '35 mins',
-      },
-      {
-        name: 'Nick Nilson',
-        avatar: this.senderAvatar,
-        status: 'Software Architect',
-        lastChatTime: '3 days',
-      }
-    ]
+  getPreviousChatList(role){
+    return this._http.get(`${this.chatUrl}/getUserDetailsByRole/${role}`)
+      .pipe(catchError(this._sharedService.httpErrorManagement));
+    // return [
+    //   {
+    //     name: 'Matt Pears',
+    //     avatar: this.receiverAvatar,
+    //     status: 'Head of Development',
+    //     lastChatTime: '35 mins',
+    //   },
+    //   {
+    //     name: 'Nick Nilson',
+    //     avatar: this.senderAvatar,
+    //     status: 'Software Architect',
+    //     lastChatTime: '3 days',
+    //   }
+    // ]
   }
 
   getSendMessage(): Message[]{
