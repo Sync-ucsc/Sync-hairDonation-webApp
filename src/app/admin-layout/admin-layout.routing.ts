@@ -26,6 +26,8 @@ import {AttendantsComponent} from './attendants/attendants.component';
 import {ManageAttendantsComponent} from './manage-attendants/manage-attendants.component';
 import {AfterLoginService} from '@services/after-login.service';
 
+import { WigrequestVerifyComponent } from './wigrequest-verify/wigrequest-verify.component';
+
 export const AdminLayoutRoutes: Routes = [
   // {
   //   path: '',
@@ -90,5 +92,6 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'manage-patient', component: ManagePatientComponent, canActivate: [AfterLoginService],},
   {path: 'attendants', component: AttendantsComponent, canActivate: [AfterLoginService],},
   {path: 'manage-attendants', component: ManageAttendantsComponent, canActivate: [AfterLoginService],},
+  {path: 'verify-wigrequest', component: WigrequestVerifyComponent, canActivate: [AfterLoginService],},
 
 ];
