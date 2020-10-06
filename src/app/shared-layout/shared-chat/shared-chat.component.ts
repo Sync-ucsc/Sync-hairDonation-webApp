@@ -6,9 +6,8 @@ import {ChatService} from '@services/chat.service';
 
 import {environment} from '@environments/environment';
 
-import * as io from 'socket.io-client';
 import {DbChat} from '@model/database/dbChat';
-import {BackendResponse} from "@model/backendResponse";
+import {BackendResponse} from '@model/backendResponse';
 
 @Component({
   selector: 'app-shared-chat',
@@ -24,16 +23,12 @@ export class SharedChatComponent implements OnInit {
   @Input() receiverRole: string;
 
   senderDetails;
-  receiverDetails;
 
-  sendMessageForum: FormGroup;
   searchBarValue: string;
 
   previousChatList: PreviousChatList[];
   sendMessageList: DbChat[] = [];
   receiveMessageList: DbChat[] = [];
-
-  socket = io(`${environment.BASE_URL}`);
 
   constructor(private _fb: FormBuilder,
               private _chat: ChatService) {
@@ -42,79 +37,14 @@ export class SharedChatComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
 
-    this.sendMessageForum = this._fb.group({
-      message: new FormControl('', Validators.required)
-    })
+    console.log(`role ${this.senderRole}`)
+    console.log(`sender ${this.senderId}`)
+    console.log(`receiver ${this.receiverId}`)
 
-    // join for chat room
-    this.socket.emit('join_to_room', {roomId: this.roomId})
-    // get sender and receiver full name and profile picture
-    const receiverDetails = await this._chat.getUserDetails(this.receiverId)
-      .toPromise() as BackendResponse
+    const chatListResponse = await this._chat.getPreviousChatList(this.receiverRole).toPromise() as BackendResponse;
 
-    this.receiverDetails = receiverDetails.success ? receiverDetails.data : null;
+    this.previousChatList = chatListResponse.success ? chatListResponse.data : null
 
-    const senderDetails = await this._chat.getUserDetails(this.senderId)
-      .toPromise()  as BackendResponse
-
-    this.senderDetails = senderDetails.success ? senderDetails.data : null;
-
-    console.log(this.receiverDetails)
-    console.log(this.senderDetails)
-    // listen for new message
-    this.socket.on('receive_message', data => {
-
-      this.receiveMessageList.push(data)
-
-      if(this.receiveMessageList.length >= 4) {
-        this.receiveMessageList.shift();
-      }
-      console.log(this.receiveMessageList)
-    })
-
-    this.previousChatList = this._chat.getPreviousChatList();
-    // this.sendMessageList = this._chat.getSendMessage();
-    // this.receiveMessageList = this._chat.getReceiveMessage();
-
-  }
-
-  showData() {
-    console.log({
-      senderId: this.senderId,
-      receiverId: this.receiverId,
-      senderRole: this.senderRole,
-      receiverRole: this.receiverRole,
-    })
-  }
-
-  sendMessageToReceiver() {
-    console.log(this.sendMessageForum.value)
-    // const data: DbChat = {
-    //   senderId: this.senderId,
-    //   receiverId: this.receiverId,
-    //   senderRole: this.senderRole,
-    //   receiverRole: this.receiverRole,
-    //   content: this.sendMessage.value.message,
-    //   createdAt: Date.now().toString(),
-    // }
-    //
-    // this.sendMessageList.push(data);
-    //
-    // if(this.sendMessageList.length >= 4) {
-    //   this.sendMessageList.shift();
-    // }
-    // console.log(this.sendMessageList)
-    //
-    // this.socket.emit('send_message', data)
-  }
-
-  joinRoom1() {
-    this.socket.emit('join_to_room', {roomId: 1})
-  }
-
-
-  joinRoom2() {
-    this.socket.emit('join_to_room', {roomId: 2})
   }
 
   searchValueChange() {

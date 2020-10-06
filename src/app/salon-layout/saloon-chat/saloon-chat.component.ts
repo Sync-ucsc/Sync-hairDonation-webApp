@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {TokenService} from '@services/token.service';
 
 @Component({
   selector: 'app-saloon-chat',
@@ -7,16 +8,24 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SaloonChatComponent implements OnInit {
 
-  roomId = '5f09eaf4e78dc2ce34623499';
+  roomId = '';
   senderRole = 'salon';
-  senderId = '5f09eaf4e78dc2ce34623499';
-  receiverId = '5f09ec3de78dc2ce346234ab';
-  receiverRole = 'patient';
+  senderId = '';
 
-  constructor() {
+  receiverId = '5f0aa78d114675cce8aadd6c';
+  receiverRole = 'donor';
+
+  constructor(private _token: TokenService) {
   }
 
   ngOnInit(): void {
+
+    this.senderId = this._token.getId();
+    this.senderRole = this._token.getRole();
+    this.roomId = this._token.getId();
+
+    console.log(` ${this.senderId} ${this.senderRole} ${this.roomId}`)
+
   }
 
 }

@@ -34,6 +34,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { NgApexchartsModule } from "ng-apexcharts";
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { PaymentComponent } from './payment/payment.component';
 
 @NgModule({
   imports: [
@@ -71,6 +72,7 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
 	  ProfileComponent,
     DonorChatComponent,
     ManageAppointmentComponent,
+    PaymentComponent,
 
   ]
 })
