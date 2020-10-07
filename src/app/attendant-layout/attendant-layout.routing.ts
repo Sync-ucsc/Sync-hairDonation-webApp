@@ -100,4 +100,4 @@ export const AttendantLayoutRoutes: Routes = [
     component: ManualRequestComponent,
      canActivate: [AfterLoginService],
   },
-];
+]; 
