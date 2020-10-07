@@ -12,7 +12,6 @@ import { WigrequsetVerifyComponent } from './wigrequset-verify/wigrequset-verify
 import { ManualRequestComponent } from './manual-request/manual-request.component';
 
 
-
 export const AttendantLayoutRoutes: Routes = [
   // {
   //   path: '',
@@ -101,5 +100,4 @@ export const AttendantLayoutRoutes: Routes = [
     component: ManualRequestComponent,
      canActivate: [AfterLoginService],
   },
-
-];
+]; 
