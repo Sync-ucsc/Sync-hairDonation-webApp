@@ -12,6 +12,9 @@ import io from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { startWith, map, endWith } from 'rxjs/operators';
 
+import { SalonApiService } from './../../service/salon-api.service';
+import { TokenService } from './../../service/token.service';
+
 export interface DialogData {
   animal:any;
 }
@@ -30,7 +33,10 @@ export class DonorRequestComponent implements OnInit {
    DonorNames:any=[];
    finishDonorrequestSub;
    cancelDonorrequestSub;
-   selectedDonor;
+   selectedSalon
+   email;
+   getSalonByEmailSub;
+
   
   
     myControl = new FormControl('',Validators.required);
@@ -40,12 +46,23 @@ export class DonorRequestComponent implements OnInit {
     constructor(
       private apiService:DonorApiService,
       public dialog: MatDialog,
+      private salonService: SalonApiService,
+      private tokenService: TokenService,
     ) 
     { 
       this.socket = io.connect('http://127.0.0.1:3000');
     }
 
   ngOnInit(): void {
+
+    this.email=this.tokenService.getEmail();
+    console.log(this.email);
+    this.getSalonByEmailSub = this.salonService.getSalonByEmail(this.email).subscribe((data)=>{
+      this.selectedSalon=data['data'];
+
+      console.log(this.selectedSalon)
+    })
+
     this.getDonors();
     this.socket.on('new-donor', () => {
       this.getDonors();
@@ -81,6 +98,21 @@ export class DonorRequestComponent implements OnInit {
      console.log(this.Donor);
     })
 
+ }
+
+ changeWigcount(email){
+  preConfirm: (login) => {
+    this.finishDonorrequestSub = this.salonService.getNeedToDeliver(email).subscribe((data) => {
+      console.log(data);
+      this.socket.emit('update-donor-request', data);
+      if(!data)
+        Swal.showValidationMessage(
+          `Request failed`
+        )
+     }
+    )
+
+  }
  }
 
  finishDonorrequest(id){
@@ -125,7 +157,7 @@ export class DonorRequestComponent implements OnInit {
 cancelDonorrequest(id){
   Swal.fire({
     title: 'Are you sure?',
-    text: `This wig Request will be marked as not completed`,
+    text: `This Donation Request will be marked as not completed`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: 'Yes',
@@ -148,13 +180,13 @@ cancelDonorrequest(id){
     if (result.value) {
       Swal.fire(
         'Success!',
-        'Patient wig request has been declined marked as not completed',
+        'Donation has been declined marked as not completed',
         'success'
       )
     } else if (result.dismiss === Swal.DismissReason.cancel) {
       Swal.fire(
         'Cancelled',
-        'Patient wig request was not marked as not completed',
+        'Donationt was not marked as not completed',
         'error'
       )
     }

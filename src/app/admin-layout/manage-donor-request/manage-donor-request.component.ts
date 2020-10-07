@@ -12,6 +12,7 @@ import io from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { startWith, map, endWith } from 'rxjs/operators';
 
+
 export interface DialogData {
   animal:any;
 }
@@ -28,7 +29,8 @@ export class ManageDonorRequestComponent implements OnInit {
   @ViewChild('dialog') templateRef: TemplateRef<any>;
    Donor:any = [];
    DonorNames:any=[];
-  
+   cancelDonorrequestSub;
+   finishDonorrequestSub;
    selectedDonor;
   
   
@@ -55,6 +57,9 @@ export class ManageDonorRequestComponent implements OnInit {
     this.socket.on('delete-donor', () => {
       this.getDonors();
     });
+    this.socket.on('update-donor-request', () => {
+      this.getDonors();
+    });
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
@@ -78,5 +83,98 @@ export class ManageDonorRequestComponent implements OnInit {
     })
 
  }
+
+//  changeWigcount(email){
+//   preConfirm: (login) => {
+//     this.finishDonorrequestSub = this.salonService.getNeedToDeliver(email).subscribe((data) => {
+//       console.log(data);
+//       this.socket.emit('update-donor-request', data);
+//       if(!data)
+//         Swal.showValidationMessage(
+//           `Request failed`
+//         )
+//      }
+//     )
+
+//   }
+//  }
+
+ finishDonorrequest(id){
+  Swal.fire({
+    title: 'Are you sure?',
+    text: `This donation will be mark as completed`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, complete it!',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true,
+    preConfirm: (login) => {
+      this.finishDonorrequestSub = this.apiService.finishDonorrequest(id).subscribe((data) => {
+        console.log(data);
+        this.socket.emit('update-donor-request', data);
+        if(!data)
+          Swal.showValidationMessage(
+            `Request failed`
+          )
+       }
+      )
+
+    },
+    // tslint:disable-next-line: only-arrow-functions
+  }).then(function (result) {
+    if (result.value) {
+      Swal.fire(
+        'Finished!',
+        'Donation mark as completed',
+        'success'
+      )
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire(
+        'Cancelled',
+        'Donation was not mark as completed',
+        'error'
+      )
+    }
+  });
+}
+
+cancelDonorrequest(id){
+  Swal.fire({
+    title: 'Are you sure?',
+    text: `This Donation Request will be marked as not completed`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true,
+    preConfirm: (login) => {
+      this.cancelDonorrequestSub = this.apiService.cancelDonorrequest(id).subscribe((data) => {
+        console.log(data);
+        this.socket.emit('decline-wig-request', data);
+        if(!data)
+          Swal.showValidationMessage(
+            `Request failed`
+          )
+       }
+      )
+
+    },
+    // tslint:disable-next-line: only-arrow-functions
+  }).then(function (result) {
+    if (result.value) {
+      Swal.fire(
+        'Success!',
+        'Donation has been declined marked as not completed',
+        'success'
+      )
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire(
+        'Cancelled',
+        'Donationt was not marked as not completed',
+        'error'
+      )
+    }
+  });
+}
 
 }

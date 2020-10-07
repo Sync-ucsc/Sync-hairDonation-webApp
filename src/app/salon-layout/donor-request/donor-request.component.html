@@ -62,7 +62,7 @@
                 
                 <td class="text-center edit-block">
                    
-                    <div class="btn btn-light-success  font-weight-bold mr-2" (click)="finishDonorrequest(donor.lastRequest._id)">
+                    <div class="btn btn-light-success  font-weight-bold mr-2" (click)="[finishDonorrequest(donor.lastRequest._id), changeWigcount(email)]">
                         Finished
                   </div>
                   <div class="btn btn-light-danger font-weight-bold mr-2"  (click)="cancelDonorrequest(donor.lastRequest._id)">
@@ -88,7 +88,7 @@
         
                 <td class="text-center edit-block">
                     
-                    <div class="btn btn-light-success  font-weight-bold mr-2" (click)="finishDonorrequest(donor.lastRequest._id)">
+                    <div class="btn btn-light-success  font-weight-bold mr-2" (click)="[finishDonorrequest(donor.lastRequest._id), changeWigcount(email)]">
                         Finished
                   </div>
                   <div class="btn btn-light-danger font-weight-bold mr-2"  (click)="cancelDonorrequest(donor.lastRequest._id)">
