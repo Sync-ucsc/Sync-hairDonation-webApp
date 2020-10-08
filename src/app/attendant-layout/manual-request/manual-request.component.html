@@ -203,7 +203,7 @@
 
             <div class="form-group row w-75">
               <label class="col-form-label col-3 text-lg-right text-left">Wig Type:</label>
-              <mat-radio-group class= "wigsType-radio-group " [(ngModel)]="wigsType">
+              <mat-radio-group class= "wigsType-radio-group !important;" [(ngModel)]="wigsType">
                 <mat-radio-button class="wigsType-radio-button" *ngFor="let Type of Types" [value]="Type">
                   {{Type}}
                 </mat-radio-button>
@@ -249,7 +249,7 @@
                 </button>
             </div>
             <div>
-              <button type="button" [disabled]="mForm3.invalid"
+              <button type="button" [disabled]="valid()"
                   class="btn btn-primary font-weight-bolder font-size-h6 pl-5 pr-8 py-4 my-3"
                   data-wizard-type="action-submit" id="kt_login_signup_form_submit_button"
                   (click)=onSubmit()>

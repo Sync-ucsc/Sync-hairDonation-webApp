@@ -80,6 +80,10 @@ export class ManualRequestComponent implements OnInit {
   btncu2 = false;
   btncu3 = false;
   btncu4 = false;
+  checkfpSub;
+  adduserSub;
+  getDownloadURLSub;
+  uploadSub
 
 
 
@@ -242,8 +246,9 @@ export class ManualRequestComponent implements OnInit {
         this.btncu3 = false;
         this.btncu4 = false;
       }
-    } else if (x === 'form3')
-      {
+    }
+    else if (x === 'form3') {
+      if (this.mForm2.valid) {
         this.form2 = false;
         this.form3 = true;
 
@@ -255,6 +260,7 @@ export class ManualRequestComponent implements OnInit {
         this.btncu3 = false;
         this.btncu4 = true;
       }
+    }
 
   }
 
