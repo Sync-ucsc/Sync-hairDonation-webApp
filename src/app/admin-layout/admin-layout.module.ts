@@ -48,6 +48,7 @@ import { FringerprintComponent } from './fringerprint/fringerprint.component';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import { MatInputModule } from '@angular/material/input';
 import { ManageDonorRequestComponent } from './manage-donor-request/manage-donor-request.component';
+import { WigrequestVerifyComponent } from './wigrequest-verify/wigrequest-verify.component';
 
 
 
@@ -106,6 +107,7 @@ import { ManageDonorRequestComponent } from './manage-donor-request/manage-donor
     IpComponent,
     FringerprintComponent,
     ManageDonorRequestComponent,
+    WigrequestVerifyComponent,
   ],
   providers: [
   ]

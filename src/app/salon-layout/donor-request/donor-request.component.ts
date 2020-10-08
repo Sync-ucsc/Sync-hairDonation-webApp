@@ -12,6 +12,8 @@ import io from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { startWith, map, endWith } from 'rxjs/operators';
 
+import { SalonApiService } from './../../service/salon-api.service';
+import { TokenService } from './../../service/token.service';
 
 export interface DialogData {
   animal:any;
@@ -19,19 +21,22 @@ export interface DialogData {
 
 
 @Component({
-  selector: 'app-manage-donor-request',
-  templateUrl: './manage-donor-request.component.html',
-  styleUrls: ['./manage-donor-request.component.scss']
+  selector: 'app-donor-request',
+  templateUrl: './donor-request.component.html',
+  styleUrls: ['./donor-request.component.scss']
 })
-export class ManageDonorRequestComponent implements OnInit {
+export class DonorRequestComponent implements OnInit {
 
   socket;
   @ViewChild('dialog') templateRef: TemplateRef<any>;
    Donor:any = [];
    DonorNames:any=[];
-   cancelDonorrequestSub;
    finishDonorrequestSub;
-   selectedDonor;
+   cancelDonorrequestSub;
+   selectedSalon
+   email;
+   getSalonByEmailSub;
+
   
   
     myControl = new FormControl('',Validators.required);
@@ -41,12 +46,23 @@ export class ManageDonorRequestComponent implements OnInit {
     constructor(
       private apiService:DonorApiService,
       public dialog: MatDialog,
+      private salonService: SalonApiService,
+      private tokenService: TokenService,
     ) 
     { 
       this.socket = io.connect('http://127.0.0.1:3000');
     }
 
   ngOnInit(): void {
+
+    this.email=this.tokenService.getEmail();
+    console.log(this.email);
+    this.getSalonByEmailSub = this.salonService.getSalonByEmail(this.email).subscribe((data)=>{
+      this.selectedSalon=data['data'];
+
+      console.log(this.selectedSalon)
+    })
+
     this.getDonors();
     this.socket.on('new-donor', () => {
       this.getDonors();
@@ -84,20 +100,20 @@ export class ManageDonorRequestComponent implements OnInit {
 
  }
 
-//  changeWigcount(email){
-//   preConfirm: (login) => {
-//     this.finishDonorrequestSub = this.salonService.getNeedToDeliver(email).subscribe((data) => {
-//       console.log(data);
-//       this.socket.emit('update-donor-request', data);
-//       if(!data)
-//         Swal.showValidationMessage(
-//           `Request failed`
-//         )
-//      }
-//     )
+ changeWigcount(email){
+  preConfirm: (login) => {
+    this.finishDonorrequestSub = this.salonService.getNeedToDeliver(email).subscribe((data) => {
+      console.log(data);
+      this.socket.emit('update-donor-request', data);
+      if(!data)
+        Swal.showValidationMessage(
+          `Request failed`
+        )
+     }
+    )
 
-//   }
-//  }
+  }
+ }
 
  finishDonorrequest(id){
   Swal.fire({

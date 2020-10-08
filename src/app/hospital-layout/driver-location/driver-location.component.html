@@ -1,9 +1,9 @@
 <div class="content flex-column-fluid" id="kt_content">
     <!--begin::Card-->
-    <div class="card card-custom">
+    <div class="card card-custom" style="padding-left: 5%;padding-right: 5%;">
         <div class="container" style="padding-top: 10%;padding-bottom: 10%;">
             <div class="form-group row">
-                <label class="col-2 col-form-label">District</label>
+                <label class="col-2 col-form-label">Driver</label>
                 <div class="col-10\">
             
                     <select class="form-control" id="exampleSelect1" ngModel (ngModelChange)="load($event)" >
@@ -16,11 +16,39 @@
                     <!-- <div *ngIf="salonForm.controls['district'].errors.required">District is required</div> -->
                 </div>
             </div>
+
+            <div *ngIf="forMap === undefined ">
+                <div  class="container" style="padding-top: 20%;padding-bottom: 20%;">
+                    <h4>Please select a driver for getting diver progress</h4>
+                </div>
+            </div>
+
+            <div *ngIf="forMap === 0 ">
+                <div class="container"  style="padding-top: 20%;padding-bottom: 20%;">
+                    <h4>That driver commpleted all task or he hasn't assign any task</h4>
+                </div>
+            </div>
             
-            <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-                <agm-marker (dragEnd)="markerDragEnd($event)" [latitude]="latitude" [longitude]="longitude"
-                    [markerDraggable]="true"></agm-marker>
-            </agm-map>
+            <div *ngIf="forMap !== 0 && forMap !== undefined">
+                <div class="row" style="padding: 2%;">
+                    <div class="col-6">
+                        <img src="assets/images/csalon.png" alt="" style="display: inline;">
+                        <h6 style="display: inline;">&nbsp;&nbsp;&nbsp;&nbsp; :- Completed Salon</h6>
+                    </div>
+                    <div class="col-6">
+                        <img src="assets/images/usalon.png" style="display: inline;" alt="">
+                        <h6 style="display: inline;">&nbsp;&nbsp;&nbsp;&nbsp; :- Uncomplete Salon</h6>
+                    </div>
+                </div>
+                
+                <agm-map id='map'  [latitude]="latitude" [longitude]="longitude"
+                    [zoom]="zoom">
+                    <!-- <agm-marker [latitude]="latitude" [longitude]="longitude"
+                                    [markerDraggable]="true"></agm-marker> -->
+                    <agm-marker *ngFor="let item of features" [latitude]="item.lat" [longitude]="item.lon" [markerDraggable]="false"
+                        [iconUrl]=icons[item.type].icon></agm-marker>
+                </agm-map>
+            </div>
         </div>
         
     </div>

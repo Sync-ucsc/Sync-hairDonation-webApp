@@ -57,4 +57,8 @@ export class TargetService {
     return this._http.put(`${this.baseUrl}/assignToDriver/${driverEmail}`, data)
       .pipe(catchError(this._sharedService.httpErrorManagement))
   }
+
+  getAllTarget(){
+    return this._http.get(`${this.baseUrl}/all`)
+  }
 }
