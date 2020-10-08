@@ -13,6 +13,9 @@ import {
   ApexTooltip
 } from "ng-apexcharts";
 
+import { TokenService } from './../../service/token.service';
+import { DonorApiService } from './../../service/donor-api.service';
+
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -35,8 +38,15 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
+  email;
+  selectedDonor;
+  getDonorByEmailSub;
+  donorRequest;
 
-  constructor() { 
+  constructor(
+    private tokenService: TokenService,
+    private apiService:DonorApiService,
+  ) { 
     this.chartOptions = {
       series: [
         {
@@ -99,6 +109,15 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.email=this.tokenService.getEmail();
+    console.log(this.email);
+    this.getDonorByEmailSub = this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
+      this.selectedDonor=data['data'];
+      this.donorRequest = this.selectedDonor.request;
+
+      console.log(this.donorRequest)
+    })
   }
+
 
 }
