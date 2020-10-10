@@ -1,3 +1,4 @@
+import { TokenService } from './../../service/token.service';
 
 import { Component, OnInit, Renderer2, ViewChild, OnDestroy } from '@angular/core';
 import {FullCalendarComponent} from '@fullcalendar/angular';
@@ -75,6 +76,7 @@ export class ViewCalendarComponent implements OnInit, OnDestroy{
     private fb: FormBuilder,
     private renderer: Renderer2,
     private _ViewCalendarService: ViewCalendarService,
+    private tokenService:TokenService
   ) {
     this.taskForm = fb.group({
       taskName: ['']
@@ -120,47 +122,125 @@ export class ViewCalendarComponent implements OnInit, OnDestroy{
 
   }
 
-  handleDateClick(arg) {
-    if (!arg.allday) {
-      document.getElementById('imagemodal').style.display = 'block';
-      this.arg = arg;
-      console.log(arg)
-      // this.calendarEvents = this.calendarEvents.concat({
-      //   title: 'fff',
-      //   start: arg.dateStr,
-      //   id: 'dddddd'
-      // })
-      // console.log(arg)
+  
 
-      // if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
-      //   this.event = prompt('Enter Event', '')
-      //   console.log(this.event)
-      //   this.calendarEvents = this.calendarEvents.concat({
-      //     title: this.event,
-      //     start: arg.date,
-      //     allDay: arg.allDay
-      //   })
-      // }
+  handleDateClick(arg) {
+    let pdate = new Date();
+    pdate.setHours(0)
+    pdate.setDate(0 + pdate.getDate());
+    if (new Date(arg.dateStr.split('+')[0]) > new Date(pdate.toISOString())){
+      if (!this.isAnOverlapEvent(arg.dateStr.split('+')[0], arg.dateStr.split('+')[0].substring(0, 11)
+        + this.increese(arg.dateStr.split('+')[0].substring(11, 13))
+        + arg.dateStr.split('+')[0].substring(13, 19))) {
+        if (!arg.allday) {
+          document.getElementById('imagemodal').style.display = 'block';
+          this.arg = arg;
+          console.log(arg)
+          // this.calendarEvents = this.calendarEvents.concat({
+          //   title: 'fff',
+          //   start: arg.dateStr,
+          //   id: 'dddddd'
+          // })
+          // console.log(arg)
+
+          // if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
+          //   this.event = prompt('Enter Event', '')
+          //   console.log(this.event)
+          //   this.calendarEvents = this.calendarEvents.concat({
+          //     title: this.event,
+          //     start: arg.date,
+          //     allDay: arg.allDay
+          //   })
+          // }
+        }
+        }
+    } else {
+      pdate.setDate(1 + pdate.getDate());
+      Swal.fire(
+        'Error!',
+        'You can get Appointment after ' + pdate.toISOString().substring(0, 10) + ' 00:00',
+        'error'
+      )
     }
+    
 
 
   }
 
+  isAnOverlapEvent(eventStartDay, eventEndDay) {
+    // Events
+    var events = this.calendarEvents;
+
+    for (let i = 0; i < events.length; i++) {
+      const eventA = events[i];
+
+      // start-time in between any of the events
+      if (eventStartDay > eventA.start && eventStartDay < eventA.end) {
+        console.log("start-time in between any of the events")
+        return true;
+      }
+      // end-time in between any of the events
+      if (eventEndDay > eventA.start && eventEndDay < eventA.end) {
+        console.log("end-time in between any of the events")
+        return true;
+      }
+      //any of the events in between/on the start-time and end-time
+      if (eventStartDay <= eventA.start && eventEndDay >= eventA.end) {
+        console.log("any of the events in between/on the start-time and end-time")
+        return true;
+      }
+    }
+    return false;
+  }
+
   getall(){
+    this.calendarEvents = [];
     this.getAllSub = this._ViewCalendarService.getAll().subscribe(
       data => {
         console.log(data)
         data.data.forEach(element => {
-
-          const event = {
-            title: element.customerName,
-            start: element.appointmentTimeSlot.split('+')[0],
-            id: element._id,
+          let event1;
+          if (element.salonEmail === this.tokenService.getEmail() ) {
+            if (element.DonorRequest === false && element.Donoremail !== 'Salon closed') {
+              event1 = {
+                title: element.customerName,
+                start: element.appointmentTimeSlot.split('+')[0],
+                id: element._id,
+              }
+              this.calendarEvents = this.calendarEvents.concat(event1)
+              this.calendarEvents.concat(event1)
+            } else if (element.DonorRequest === true  && element.canceled === false) {
+              event1 = {
+                title: 'Salon closed ',
+                start: element.appointmentTimeSlot.split('+')[0],
+                end: element.appointmentTimeSlot.split('+')[0].substring(0, 11)
+                  + this.increese(element.appointmentTimeSlot.split('+')[0].substring(11, 13))
+                  + element.appointmentTimeSlot.split('+')[0].substring(13, 19),
+                display: 'background',
+                rendering: 'background',
+                id: element._id,
+              }
+              this.calendarEvents = this.calendarEvents.concat(event1)
+              this.calendarEvents.concat(event1)
+            } else if (element.Donoremail === 'Salon closed') {
+              event1 = {
+                title: 'Salon closed ',
+                start: element.appointmentTimeSlot.split('+')[0],
+                end: element.endTime.split('+')[0],
+                display: 'background',
+                rendering: 'background',
+                id: element._id,
+              }
+              this.calendarEvents = this.calendarEvents.concat(event1)
+              this.calendarEvents.concat(event1)
+            }
           }
-          console.log(element)
-          this.calendarEvents = this.calendarEvents.concat(event)
-          this.calendarEvents.concat(event)
-          console.log(this.calendarEvents)
+          // event = {
+          //   title: element.customerName,
+          //   start: element.appointmentTimeSlot.split('+')[0],
+          //   id: element._id,
+          // }
+
 
           // this.calendar.getApi().addEvent(event);
 
@@ -183,13 +263,13 @@ export class ViewCalendarComponent implements OnInit, OnDestroy{
 
     // tslint:disable-next-line: prefer-const
     let appointment = {
-        SalonEmail: 'mailtochamodij@gmail..com',
+        SalonEmail: this.tokenService.getEmail(),
         DonorRequest: false,
         Donoremail: '' ,
         customerEmail: 'chamo@gmail.com' ,
         customerNumber: formValue.mobile,
         customerName: formValue.name,
-        systemRequestDate:'2020.07.17',
+        systemRequestDate:this.TODAY,
         appointmentDate: this.arg.date,
         appointmentTimeSlot:this.arg.dateStr
    }
@@ -222,6 +302,18 @@ export class ViewCalendarComponent implements OnInit, OnDestroy{
     return false;
   } else {
   }
+  }
+
+  increese(x) {
+    x = (+x) + 1;
+    let y
+    if (x < 10) {
+      y = '0' + x;
+    } else {
+      y = x + ''
+    }
+    return y;
+
   }
 
 
@@ -319,51 +411,71 @@ export class ViewCalendarComponent implements OnInit, OnDestroy{
         pdate.setFullYear(data.years+ pdate.getFullYear());
       }
       pdate.setMilliseconds(pdate.getMilliseconds() + 5.5*60*60*1000)
-      Swal.fire({
-        title: 'Are you sure?',
-        text: `Salon will be updated permanently`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, update it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true,
-        preConfirm: (login) => {
+      let xdate = new Date();
+      xdate.setHours(0)
+      xdate.setDate(0 + xdate.getDate());
+      if (new Date(pdate.toISOString().substring(0, 19) + '+05:30') > new Date(xdate.toISOString())) {
+        if (!this.isAnOverlapEvent(pdate.toISOString().substring(0, 19), pdate.toISOString().substring(0, 19).substring(0, 11)
+          + this.increese(pdate.toISOString().substring(0, 19).substring(11, 13))
+          + pdate.toISOString().substring(0, 19).split('+')[0].substring(13, 19))) {
+          Swal.fire({
+            title: 'Are you sure?',
+            text: `Salon will be updated permanently`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, update it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true,
+            preConfirm: (login) => {
 
-          this.updateAppointmentSub = this._ViewCalendarService.updateAppointmentTime(
-            { id: event.event.id, time: pdate.toISOString().substring(0, 19) + '+05:30'}
-            ).subscribe(
-              (data) => {
-                console.log(data);
-                this.socket.emit('updateAppointment', data);
-                if (!data)
-                  Swal.showValidationMessage(
-                    `Request failed`
-                  )
-              }
-          )
+              this.updateAppointmentSub = this._ViewCalendarService.updateAppointmentTime(
+                { id: event.event.id, time: pdate.toISOString().substring(0, 19) + '+05:30' }
+              ).subscribe(
+                (data) => {
+                  console.log(data);
+                  this.socket.emit('updateAppointment', data);
+                  if (!data) {
+                    this.getall()
+                    Swal.showValidationMessage(
+                      `Request failed`
+                    )
+                  }
+                }
+              )
 
-        },
-        // tslint:disable-next-line: only-arrow-functions
-      }).then(function (result) {
-        if (result.value) {
-          Swal.fire(
-            'Updated',
-            'Appointment has been updated.',
-            'success'
-          )
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          Swal.fire(
-            'Cancelled',
-            'Appointment was not updated',
-            'error'
-          )
+            },
+            // tslint:disable-next-line: only-arrow-functions
+          }).then(function (result) {
+            if (result.value) {
+              Swal.fire(
+                'Updated',
+                'Appointment has been updated.',
+                'success'
+              )
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+              this.getall()
+              Swal.fire(
+                'Cancelled',
+                'Appointment was not updated',
+                'error'
+              )
+            }
+          }
+          );
+        } else {
+          this.getall()
         }
+        
+      } else {
+        pdate.setDate(1 + pdate.getDate());
+        this.getall()
+        Swal.fire(
+          'Error!',
+          'You can get Appointment after ' + pdate.toISOString().substring(0, 10) + ' 00:00',
+          'error'
+        )
       }
-      );
     }
-
-
-    
   }
 
 
@@ -403,42 +515,45 @@ export class ViewCalendarComponent implements OnInit, OnDestroy{
 //  Delete the appointment
  deleteAppointment(event) {
   console.log(event.event);
-  Swal.fire({
-    title: 'Are you sure?',
-    text: `Appointment will be deleted permanently`,
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, delete it!',
-    cancelButtonText: 'No, cancel!',
-    reverseButtons: true,
-    preConfirm: (login) => {
-      this.deleteAppointmentSub = this._ViewCalendarService.deleteAppointment(event.event.id).subscribe((data) => {
-        console.log(data);
-        this.socket.emit('updateAppointment', data);
-        if(!data.msg)
-          Swal.showValidationMessage(
-            `Request failed`
-          )
-       }
-      )
+   if (event.event.title  !== 'Salon closed '){
+     Swal.fire({
+       title: 'Are you sure?',
+       text: `Appointment will be deleted permanently`,
+       icon: 'warning',
+       showCancelButton: true,
+       confirmButtonText: 'Yes, delete it!',
+       cancelButtonText: 'No, cancel!',
+       reverseButtons: true,
+       preConfirm: (login) => {
+         this.deleteAppointmentSub = this._ViewCalendarService.deleteAppointment(event.event.id).subscribe((data) => {
+           console.log(data);
+           this.socket.emit('updateAppointment', data);
+           if (!data.msg)
+             Swal.showValidationMessage(
+               `Request failed`
+             )
+         }
+         )
 
-    },
-  }).then(function (result) {
-     if (result.value) {
-       Swal.fire(
-         'Deleted!',
-         'Appointment has been deleted.',
-         'success'
-       )
-       event.event.remove();
-     } else if (result.dismiss === Swal.DismissReason.cancel) {
-       Swal.fire(
-         'Cancelled',
-         'Appointment was not deleted',
-         'error'
-       )
-     }
-   });
+       },
+     }).then(function (result) {
+       if (result.value) {
+         Swal.fire(
+           'Deleted!',
+           'Appointment has been deleted.',
+           'success'
+         )
+         event.event.remove();
+       } else if (result.dismiss === Swal.DismissReason.cancel) {
+         Swal.fire(
+           'Cancelled',
+           'Appointment was not deleted',
+           'error'
+         )
+       }
+     });
+   }
+  
 
 }
 

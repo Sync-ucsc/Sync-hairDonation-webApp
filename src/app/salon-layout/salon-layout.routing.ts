@@ -1,3 +1,4 @@
+import { CloseDateUpdateComponent } from './close-date-update/close-date-update.component';
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -57,8 +58,10 @@ export const SalonLayoutRoutes: Routes = [
     { path: 'book_appointment',      component: BookAppointmentComponent, canActivate: [AfterLoginService],},
     { path: 'appointment_details',      component: AppointmentDetailsComponent, canActivate: [AfterLoginService],},
     { path: 'profile', component: ProfileComponent, canActivate: [AfterLoginService],},
-    {path:  'view_calendar',component:ViewCalendarComponent},
+    {path:  'costomer-appointment',component:ViewCalendarComponent},
     { path: 'chat', component: SaloonChatComponent, canActivate: [AfterLoginService],},
     { path: 'wigCollect', component: SalonLocationComponent, canActivate: [AfterLoginService],},
     { path: 'donor_request', component: DonorRequestComponent, canActivate: [AfterLoginService],},
+    { path: 'close-date-update', component: CloseDateUpdateComponent, canActivate: [AfterLoginService], },
+    
 ];

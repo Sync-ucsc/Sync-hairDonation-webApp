@@ -75,9 +75,9 @@ export class BookAppointmentComponent implements OnInit ,OnDestroy {
   // }
 
 
-  public book()
+  public book(data)
   {
-   this.route.navigate(['/donor/appointment_details']);
+    this.route.navigate(['/donor/appointment_details'], { queryParams: { salon: data }, skipLocationChange: true  });
   }
 
 
