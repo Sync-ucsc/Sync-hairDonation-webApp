@@ -37,6 +37,17 @@ export class ViewCalendarService {
     return this.http.post(url, data);
   }
 
+  // Create Appointment
+  createCloseTime(data): Observable<any> {
+    const url = `${this.baseUrl}/createClose`;
+    return this.http.post(url, data);
+  }
+
+  updateCloseTime(data) {
+    const url = `${this.baseUrl}/updateCloseTime`;
+    return this.http.post(url, data, { headers: this.headers })
+  }
+
 
   // Error handling
  errorMgmt(error: HttpErrorResponse) {

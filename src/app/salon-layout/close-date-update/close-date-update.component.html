@@ -1,0 +1,25 @@
+<div class="card card-custom">
+    <div class="card-header">
+    </div>
+    <div class="card-body">
+        <div>
+
+            <full-calendar #calendar (dateClick)="handleDateClick($event)" 
+                (eventClick)="deleteAppointment($event)" (eventDragStop)="updateAppointment($event)" (eventResize)="resize($event)"
+                (eventDrop)="updateAppointment($event)" (eventReceive)="createAppointment($event)"
+                (eventRender)="eventDo($event)" [aspectRatio]=3 [businessHours]="{
+                    startTime: '8:00',
+                    endTime: '17:00',
+                    daysOfWeek: [0, 1, 2,3,4,5,6 ]
+                }" [columnHeaderHtml]="options.columnHeaderHtml" [contentHeight]=480
+                [customButtons]="options.customButtons" [editable]="true" [eventLimit]=true [events]="calendarEvents"
+                [header]="options.header" [height]=500 [nowIndicator]=true [plugins]="options.plugins" [visibleRange]="{
+                    start: '2020-01-01',
+                    end: '2020-12-31'
+                }" [weekends]="calendarWeekends" calendarWeekends=true; defaultView="timeGridWeek"
+                slotDuration="00:30"></full-calendar>
+
+
+        </div>
+    </div>
+</div>
