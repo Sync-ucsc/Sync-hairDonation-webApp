@@ -86,6 +86,18 @@ export class ViewCalendarService {
   )
 }
 
+  finishDonorrequest(donorId: string): Observable<any> {
+    return this.http
+      .get(`${this.baseUrl}/finishDonorrequest/${donorId}`)
+      .pipe(catchError(this.errorMgmt));
+  }
+
+  cancelDonorrequest(donorId: string): Observable<any> {
+    return this.http
+      .get(`${this.baseUrl}/cancelDonorrequest/${donorId}`)
+      .pipe(catchError(this.errorMgmt));
+  }
+
 
 
 

@@ -1,3 +1,4 @@
+import { ViewCalendarService } from '@services/viewcalendar.service';
 // <reference types="@types/googlemaps" />
 import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject } from '@angular/core';
 import { DonorApiService } from './../../service/donor-api.service';
@@ -33,9 +34,12 @@ export class DonorRequestComponent implements OnInit {
    DonorNames:any=[];
    finishDonorrequestSub;
    cancelDonorrequestSub;
+  finishDonorrequestSub2;
+  cancelDonorrequestSub2;
    selectedSalon
    email;
    getSalonByEmailSub;
+    donorAppointment = [];
 
   
   
@@ -48,6 +52,7 @@ export class DonorRequestComponent implements OnInit {
       public dialog: MatDialog,
       private salonService: SalonApiService,
       private tokenService: TokenService,
+      private _ViewCalendarService: ViewCalendarService,
     ) 
     { 
       this.socket = io.connect('http://127.0.0.1:3000');
@@ -85,20 +90,47 @@ export class DonorRequestComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.firstName.toLowerCase().indexOf(filterValue) === 0);
+    return this.donorAppointment.filter(option => option.donor.firstName.toLowerCase().indexOf(filterValue) === 0);
 
   }
 
   // view donors
   getDonors(){
-
+    this.donorAppointment = [];
     this.apiService.getDonors().subscribe((data) => {
-    this.Donor = data["data"];
-    this.options = data["data"];
-     console.log(this.Donor);
-    })
+    this.Donor = data['data'];
+    this.options = data['data'];
+    this._ViewCalendarService.getAll().subscribe(
+        data => {
+          console.log(data)
+          data.data.forEach(element => {
+            if (element.salonEmail === this.tokenService.getEmail()) {
+              if (element.DonorRequest === true && element.complete === false && element.canceled === false) {
+                this.Donor.forEach(element1 => {
+                  if (element.Donoremail === element1.email){
+                    this.donorAppointment.push({
+                      Donoremail: element.Donoremail,
+                      appointmentDate: element.appointmentDate,
+                      appointmentTimeSlot: element.appointmentTimeSlot,
+                      salonEmail: element.salonEmail,
+                      systemRequestDate: element.systemRequestDate,
+                      _id: element._id,
+                      donor: element1
+                    }
+                    )
 
- }
+                  }
+                });
+                }
+            }
+          });
+          console.log(this.donorAppointment)
+        }
+      )
+
+    })
+  }
+
 
  changeWigcount(email){
   preConfirm: (login) => {
@@ -115,7 +147,7 @@ export class DonorRequestComponent implements OnInit {
   }
  }
 
- finishDonorrequest(id){
+  finishDonorrequest(data2){
   Swal.fire({
     title: 'Are you sure?',
     text: `This donation will be mark as completed`,
@@ -125,14 +157,25 @@ export class DonorRequestComponent implements OnInit {
     cancelButtonText: 'No, cancel!',
     reverseButtons: true,
     preConfirm: (login) => {
-      this.finishDonorrequestSub = this.apiService.finishDonorrequest(id).subscribe((data) => {
+      this.finishDonorrequestSub = this.apiService.finishDonorrequest(data2['donor'].lastRequest._id).subscribe((data) => {
         console.log(data);
+        this.getDonors();
         this.socket.emit('update-donor-request', data);
         if(!data)
           Swal.showValidationMessage(
             `Request failed`
           )
        }
+      )
+      this.finishDonorrequestSub2 = this._ViewCalendarService.finishDonorrequest(data2._id).subscribe((data) => {
+        console.log(data);
+        this.getDonors();
+        this.socket.emit('update-donor-request', data);
+        if (!data)
+          Swal.showValidationMessage(
+            `Request failed`
+          )
+      }
       )
 
     },
@@ -154,7 +197,8 @@ export class DonorRequestComponent implements OnInit {
   });
 }
 
-cancelDonorrequest(id){
+cancelDonorrequest(data2){
+  console.log(data2)
   Swal.fire({
     title: 'Are you sure?',
     text: `This Donation Request will be marked as not completed`,
@@ -164,14 +208,26 @@ cancelDonorrequest(id){
     cancelButtonText: 'No, cancel!',
     reverseButtons: true,
     preConfirm: (login) => {
-      this.cancelDonorrequestSub = this.apiService.cancelDonorrequest(id).subscribe((data) => {
+      this.cancelDonorrequestSub = this.apiService.cancelDonorrequest(data2['donor'].lastRequest._id).subscribe((data) => {
         console.log(data);
+        this.getDonors();
         this.socket.emit('decline-wig-request', data);
         if(!data)
           Swal.showValidationMessage(
             `Request failed`
           )
        }
+      )
+
+      this.cancelDonorrequestSub2 = this._ViewCalendarService.cancelDonorrequest(data2._id).subscribe((data) => {
+        console.log(data);
+        this.getDonors()
+        this.socket.emit('decline-wig-request', data);
+        if (!data)
+          Swal.showValidationMessage(
+            `Request failed`
+          )
+      }
       )
 
     },
