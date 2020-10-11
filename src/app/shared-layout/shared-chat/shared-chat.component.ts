@@ -22,10 +22,13 @@ export class SharedChatComponent implements OnInit {
   @Input() senderRole: string;
   @Input() receiverRole: string;
 
+  receiverIds: string;
+
   senderDetails;
 
   searchBarValue: string;
 
+  filteredChatList: PreviousChatList[];
   previousChatList: PreviousChatList[];
   sendMessageList: DbChat[] = [];
   receiveMessageList: DbChat[] = [];
@@ -37,18 +40,29 @@ export class SharedChatComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
 
-    console.log(`role ${this.senderRole}`)
-    console.log(`sender ${this.senderId}`)
-    console.log(`receiver ${this.receiverId}`)
+    // console.log(`role ${this.senderRole}`)
+    // console.log(`sender ${this.senderId}`)
+    // console.log(`receiver ${this.receiverId}`)
 
     const chatListResponse = await this._chat.getPreviousChatList(this.receiverRole).toPromise() as BackendResponse;
 
     this.previousChatList = chatListResponse.success ? chatListResponse.data : null
+    this.receiverIds = this.previousChatList[0].id
+    this.filteredChatList = this.previousChatList;
 
   }
 
   searchValueChange() {
-    console.log(this.searchBarValue)
+    this.filteredChatList = this
+      .previousChatList
+      .filter( r => r.fullName.trim().toLocaleLowerCase().indexOf(this.searchBarValue.trim().toLocaleLowerCase()) !== -1)
   }
 
+  changeUser(selectedUser){
+    this.receiverIds = selectedUser.id;
+    this.receiverId = selectedUser.id;
+    console.log(`role ${this.senderRole}`)
+    console.log(`sender ${this.senderId}`)
+    console.log(`receiver ${this.receiverId}`)
+  }
 }

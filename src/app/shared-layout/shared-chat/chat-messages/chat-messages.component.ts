@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {ChatService} from '@services/chat.service';
@@ -15,7 +15,7 @@ import * as io from 'socket.io-client';
   templateUrl: './chat-messages.component.html',
   styleUrls: ['./chat-messages.component.scss']
 })
-export class ChatMessagesComponent implements OnInit {
+export class ChatMessagesComponent implements OnInit , OnChanges{
 
   @Input() roomId: string;
   @Input() senderId: string;
@@ -38,6 +38,13 @@ export class ChatMessagesComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+
+    console.log(`sender Id ${this.senderId}`)
+    console.log(`senderRole ${this.senderRole}`)
+    console.log(`receiver Id ${this.receiverId}`)
+    console.log(`receiver role ${this.receiverRole}`)
+    console.log(`roomId ${this.roomId}`)
+
 
     this.sendMessageForum = this._fb.group({
       message: new FormControl('', Validators.required)
@@ -72,6 +79,19 @@ export class ChatMessagesComponent implements OnInit {
     })
   }
 
+  async ngOnChanges(changes: SimpleChanges) {
+
+    this.receiveMessageList = [];
+    this.sendMessageList = [];
+
+    const receiverDetails = await this._chat.getUserDetails(changes.receiverId.currentValue)
+      .toPromise() as BackendResponse
+
+    this.receiverDetails = receiverDetails.success ? receiverDetails.data : null;
+
+    // join for chat room
+    this.socket.emit('join_to_room', {roomId: this.roomId})
+  }
 
   sendMessageToReceiver() {
     const data: DbChat = {
