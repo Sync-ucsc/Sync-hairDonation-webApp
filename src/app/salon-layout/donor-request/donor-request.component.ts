@@ -14,7 +14,8 @@ import { startWith, map, endWith } from 'rxjs/operators';
 
 import { SalonApiService } from './../../service/salon-api.service';
 import { TokenService } from './../../service/token.service';
-
+import {DbNeedToDeliver} from '@model/database/dbNeedToDeliver';
+import {BackendResponse} from '@model/backendResponse';
 export interface DialogData {
   animal:any;
 }
@@ -36,7 +37,8 @@ export class DonorRequestComponent implements OnInit {
    selectedSalon
    email;
    getSalonByEmailSub;
-
+   lastRequestData: DbNeedToDeliver;
+   wigcount;
   
   
     myControl = new FormControl('',Validators.required);
@@ -101,18 +103,41 @@ export class DonorRequestComponent implements OnInit {
  }
 
  changeWigcount(email){
-  preConfirm: (login) => {
-    this.finishDonorrequestSub = this.salonService.getNeedToDeliver(email).subscribe((data) => {
-      console.log(data);
-      this.socket.emit('update-donor-request', data);
-      if(!data)
-        Swal.showValidationMessage(
-          `Request failed`
-        )
-     }
-    )
 
+  if(this.selectedSalon.NeedToDeliverStatus.length==0){
+    const NeedToDeliverObject = {
+      status: "NeedToDeliver",
+      createdAt: new Date(),
+      wigCount: 1,
+      deliveryDate:new Date(),
+    } as DbNeedToDeliver;
+
+      this.finishDonorrequestSub = this.salonService.addNeedToDeliver(NeedToDeliverObject, email).subscribe((data) => {
+        console.log(data);
+        this.socket.emit('update-donor-request', data);
+        if(!data)
+          Swal.showValidationMessage(
+            `Request failed`
+          )
+       }
+      )
+  }else {
+    for(let i=0;i<this.selectedSalon.NeedToDeliverStatus.length;i++){
+      if(this.selectedSalon.NeedToDeliverStatus[i].status == "NeedToDeliver"){
+        this.wigcount = this.selectedSalon.NeedToDeliverStatus[i].wigCount + 1;
+        return this.finishDonorrequestSub = this.salonService.updateWigCount(this.selectedSalon.NeedToDeliverStatus[i]._id, this.wigcount).subscribe((data) => {
+          console.log(data);
+          this.socket.emit('update-donor-request', data);
+          if(!data)
+            Swal.showValidationMessage(
+              `Request failed`
+            )
+         }
+        )
+      }
+    }
   }
+
  }
 
  finishDonorrequest(id){

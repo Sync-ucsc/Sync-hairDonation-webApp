@@ -4,6 +4,8 @@ import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import {environment} from '@environments/environment';
 
+import {DbNeedToDeliver} from '@model/database/dbNeedToDeliver';
+
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
@@ -86,12 +88,19 @@ export class SalonApiService {
     return this.http.post(url, data,{ headers: this.headers });
   }
 
-  getNeedToDeliver(salonEmail){
-    const url = `${this.baseUrl2}/add/${salonEmail}`;
-    return this.http.put(url, { headers: this.headers }).pipe(
-      catchError(this.errorMgmt)
-    )
+  updateWigCount(id:string,wigcount){
+    return this.http
+      .get(`${this.baseUrl2}/updateWigCount/${id}/${wigcount}`)
+      .pipe(catchError(this.errorMgmt));
   }
+
+  addNeedToDeliver(
+    DbNeedToDeliver:DbNeedToDeliver, 
+    email: string): Observable<any> {
+      return this.http
+        .put(`${this.baseUrl2}/add/${email}`, DbNeedToDeliver)
+        .pipe(catchError(this.errorMgmt));
+    }
 
 
 }
