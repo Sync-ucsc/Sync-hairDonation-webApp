@@ -79,6 +79,70 @@ export class DashboardComponent implements OnInit {
     private patientApiService:PatientApiService,
     private viewCalendarService:ViewCalendarService
     ) { 
+    this.chartOptions = {
+      series: [
+        {
+          name: 'patient request',
+          // tslint:disable-next-line: max-line-length
+          data: [this.jan1, this.feb1, this.mar1, this.apr1, this.may1, this.jun1, this.jul1, this.aug1, this.oct1, this.sep1, this.oct1, this.nov1, this.dec1]
+        },
+        {
+          name: 'donation',
+          // tslint:disable-next-line: max-line-length
+          data: [this.jan2, this.feb2, this.mar2, this.apr2, this.may2, this.jun2, this.jul2, this.aug2, this.oct2, this.sep2, this.oct2, this.nov2, this.dec2]
+        }
+      ],
+      chart: {
+        type: 'bar',
+        height: 350
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: '55%',
+          endingShape: 'rounded'
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ['transparent']
+      },
+      xaxis: {
+        categories: [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec'
+        ]
+      },
+      yaxis: {
+        title: {
+          text: 'wigs count '
+        }
+      },
+      fill: {
+        opacity: 1
+      },
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return 'wigs count : ' + val;
+          }
+        }
+      }
+    };
     this.loadChart();
     this.userService.getUsers().subscribe(
       data => {
