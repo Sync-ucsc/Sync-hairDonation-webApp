@@ -42,8 +42,8 @@ export class DonorRequestComponent implements OnInit {
    getSalonByEmailSub;
    lastRequestData: DbNeedToDeliver;
    wigcount;
-=======
-    donorAppointment = [];
+
+  donorAppointment = [];
 
   
   
