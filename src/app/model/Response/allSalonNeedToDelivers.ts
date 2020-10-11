@@ -6,6 +6,7 @@ export interface AllSalonNeedToDelivers {
   salonId: string,
   salonEmail: string,
   salonName: string,
+  wigCount: string,
   lat: number,
   lng: number
 }

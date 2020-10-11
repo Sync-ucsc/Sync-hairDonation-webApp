@@ -12,7 +12,7 @@ export class SaloonChatComponent implements OnInit {
   senderRole = 'salon';
   senderId = '';
 
-  receiverId = '5f0aa78d114675cce8aadd6c';
+  receiverId = '';
   receiverRole = 'donor';
 
   constructor(private _token: TokenService) {
@@ -23,8 +23,6 @@ export class SaloonChatComponent implements OnInit {
     this.senderId = this._token.getId();
     this.senderRole = this._token.getRole();
     this.roomId = this._token.getId();
-
-    console.log(` ${this.senderId} ${this.senderRole} ${this.roomId}`)
 
   }
 

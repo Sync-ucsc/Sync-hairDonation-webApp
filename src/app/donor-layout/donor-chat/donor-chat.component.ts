@@ -12,17 +12,17 @@ export class DonorChatComponent implements OnInit {
   senderRole = 'donor';
   senderId = '';
 
-  receiverId = '5f083ac5c68a84443c228d26';
+  receiverId = '';
   receiverRole = 'salon';
 
   constructor(private _token: TokenService) { }
 
   ngOnInit(): void {
+
     this.senderId = this._token.getId();
     this.senderRole = this._token.getRole();
     this.roomId = this._token.getId();
 
-    console.log(` ${this.senderId} ${this.senderRole} ${this.roomId}`)
   }
 
 }

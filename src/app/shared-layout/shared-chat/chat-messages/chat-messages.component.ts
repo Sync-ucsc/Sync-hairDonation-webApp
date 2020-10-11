@@ -39,6 +39,13 @@ export class ChatMessagesComponent implements OnInit , OnChanges{
 
   async ngOnInit(): Promise<void> {
 
+    console.log(`sender Id ${this.senderId}`)
+    console.log(`senderRole ${this.senderRole}`)
+    console.log(`receiver Id ${this.receiverId}`)
+    console.log(`receiver role ${this.receiverRole}`)
+    console.log(`roomId ${this.roomId}`)
+
+
     this.sendMessageForum = this._fb.group({
       message: new FormControl('', Validators.required)
     })

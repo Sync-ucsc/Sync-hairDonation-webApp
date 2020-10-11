@@ -19,9 +19,10 @@ export class SharedChatComponent implements OnInit {
   @Input() roomId: string;
   @Input() senderId: string;
   @Input() receiverId: string;
-  receiverIds: string;
   @Input() senderRole: string;
   @Input() receiverRole: string;
+
+  receiverIds: string;
 
   senderDetails;
 
@@ -39,15 +40,14 @@ export class SharedChatComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
 
-    console.log(`role ${this.senderRole}`)
-    console.log(`sender ${this.senderId}`)
-    console.log(`receiver ${this.receiverId}`)
+    // console.log(`role ${this.senderRole}`)
+    // console.log(`sender ${this.senderId}`)
+    // console.log(`receiver ${this.receiverId}`)
 
     const chatListResponse = await this._chat.getPreviousChatList(this.receiverRole).toPromise() as BackendResponse;
 
     this.previousChatList = chatListResponse.success ? chatListResponse.data : null
     this.receiverIds = this.previousChatList[0].id
-    console.log(this.receiverId)
     this.filteredChatList = this.previousChatList;
 
   }
@@ -60,5 +60,9 @@ export class SharedChatComponent implements OnInit {
 
   changeUser(selectedUser){
     this.receiverIds = selectedUser.id;
+    this.receiverId = selectedUser.id;
+    console.log(`role ${this.senderRole}`)
+    console.log(`sender ${this.senderId}`)
+    console.log(`receiver ${this.receiverId}`)
   }
 }
