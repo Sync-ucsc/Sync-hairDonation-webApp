@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { DriverLocationComponent } from './driver-location/driver-location.component';
 import { AgmCoreModule } from '@agm/core';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { AgmCoreModule } from '@agm/core';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgApexchartsModule,
   ],
   declarations: [
     DashboardComponent,

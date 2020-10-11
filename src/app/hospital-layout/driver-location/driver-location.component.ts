@@ -56,7 +56,6 @@ export class DriverLocationComponent implements OnInit , OnDestroy{
       data => {
         console.log(data['data']);
         this.drivers = data['data'];
-
       }
     )
     this.mapsAPILoader.load().then(() => {
@@ -70,17 +69,35 @@ export class DriverLocationComponent implements OnInit , OnDestroy{
     },60000)
   }
 
+  getDriverLocation(x){
+    this.driverservice.getDrivers().subscribe(
+      data => {
+       data['data'].forEach(e=>{
+         
+         if(e.email === x){
+           console.log(this.latitude+' '+this.longitude)
+           this.latitude = e.lat
+           this.longitude = e.lon
+           console.log(this.latitude + ' ' + this.longitude)
+         }
+       })
+      }
+    )
+  }
+
   load(data){
     console.log('hihihi')
+    this.getDriverLocation(data)
     this.driver =data;
     this.forMap = 0;
     this.target.forEach( e => {
       
       if (data === e.driverEmail && e.status === 'NOT_COMPLETED'){
         this.forMap = e;
+        console.log(this.latitude + ' ' + this.longitude)
         this.features.push({
-          lat: 6.897889,
-          lon: 79.860133,
+          lat: this.latitude,
+          lon: this.longitude,
           type: 'van'
         })
         e.targets.forEach( ea => {

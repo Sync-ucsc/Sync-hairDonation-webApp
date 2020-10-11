@@ -49,6 +49,7 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
 import { MatInputModule } from '@angular/material/input';
 import { ManageDonorRequestComponent } from './manage-donor-request/manage-donor-request.component';
 import { WigrequestVerifyComponent } from './wigrequest-verify/wigrequest-verify.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 
@@ -77,6 +78,7 @@ import { WigrequestVerifyComponent } from './wigrequest-verify/wigrequest-verify
     MatCardModule,
     MatPasswordStrengthModule.forRoot(),
     MatInputModule,
+    NgApexchartsModule,
   ],
   declarations: [
     DashboardComponent,
