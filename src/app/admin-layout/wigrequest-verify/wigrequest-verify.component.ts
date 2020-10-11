@@ -1,6 +1,5 @@
-// <reference types="@types/googlemaps" />
-import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject } from '@angular/core';
-import { DonorApiService } from './../../service/donor-api.service';
+import { Component, OnInit, ViewChild, TemplateRef, NgZone, ElementRef, Input, Inject, OnDestroy } from '@angular/core';
+import { PatientApiService } from './../../service/patient-api.service';
 import { MatDialog ,MatDialogConfig,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators,ReactiveFormsModule } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
@@ -12,53 +11,54 @@ import io from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { startWith, map, endWith } from 'rxjs/operators';
 
-
 export interface DialogData {
   animal:any;
 }
 
-
 @Component({
-  selector: 'app-manage-donor-request',
-  templateUrl: './manage-donor-request.component.html',
-  styleUrls: ['./manage-donor-request.component.scss']
+  selector: 'app-wigrequest-verify',
+  templateUrl: './wigrequest-verify.component.html',
+  styleUrls: ['./wigrequest-verify.component.scss']
 })
-export class ManageDonorRequestComponent implements OnInit {
+export class WigrequestVerifyComponent implements OnInit {
 
   socket;
   @ViewChild('dialog') templateRef: TemplateRef<any>;
-   Donor:any = [];
-   DonorNames:any=[];
-   cancelDonorrequestSub;
-   finishDonorrequestSub;
-   selectedDonor;
+   Patient:any = [];
+   PatientNames:any=[];
+  getPatientsSub;
+   selectedPatient;
+  finishWigrequestSub;
+  cancelWigrequestSub;
   
   
     myControl = new FormControl('',Validators.required);
     options:any =[];
     filteredOptions: Observable<string[]>;
 
-    constructor(
-      private apiService:DonorApiService,
-      public dialog: MatDialog,
-    ) 
-    { 
-      this.socket = io.connect('http://127.0.0.1:3000');
-    }
+  constructor(
+    private apiService:PatientApiService,
+    public dialog: MatDialog,
+  ) {
+    this.socket = io.connect('http://127.0.0.1:3000');
+   }
 
   ngOnInit(): void {
-    this.getDonors();
-    this.socket.on('new-donor', () => {
-      this.getDonors();
+    this.getPatients();
+    this.socket.on('new-patient', () => {
+      this.getPatients();
     });
-    this.socket.on('update-donor', () => {
-      this.getDonors();
+    this.socket.on('update-wig-request', () => {
+      this.getPatients();
     });
-    this.socket.on('delete-donor', () => {
-      this.getDonors();
+    this.socket.on('new-wig-request', () => {
+      this.getPatients();
     });
-    this.socket.on('update-donor-request', () => {
-      this.getDonors();
+    this.socket.on('accept-wig-request', () => {
+      this.getPatients();
+    });
+    this.socket.on('decline-wig-request', () => {
+      this.getPatients();
     });
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -73,45 +73,28 @@ export class ManageDonorRequestComponent implements OnInit {
 
   }
 
-  // view donors
-  getDonors(){
-
-    this.apiService.getDonors().subscribe((data) => {
-    this.Donor = data["data"];
+  getPatients(){
+    
+    this.getPatientsSub = this.apiService.getPatients().subscribe((data) => {
+    this.Patient = data["data"];
     this.options = data["data"];
-     console.log(this.Donor);
+     console.log(this.Patient);
     })
-
  }
 
-//  changeWigcount(email){
-//   preConfirm: (login) => {
-//     this.finishDonorrequestSub = this.salonService.getNeedToDeliver(email).subscribe((data) => {
-//       console.log(data);
-//       this.socket.emit('update-donor-request', data);
-//       if(!data)
-//         Swal.showValidationMessage(
-//           `Request failed`
-//         )
-//      }
-//     )
-
-//   }
-//  }
-
- finishDonorrequest(id){
+finishWigrequest(id){
   Swal.fire({
     title: 'Are you sure?',
-    text: `This donation will be mark as completed`,
+    text: `This wig Request will be mark as completed`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: 'Yes, complete it!',
     cancelButtonText: 'No, cancel!',
     reverseButtons: true,
     preConfirm: (login) => {
-      this.finishDonorrequestSub = this.apiService.finishDonorrequest(id).subscribe((data) => {
+      this.finishWigrequestSub = this.apiService.finishWigrequest(id).subscribe((data) => {
         console.log(data);
-        this.socket.emit('update-donor-request', data);
+        this.socket.emit('accept-wig-request', data);
         if(!data)
           Swal.showValidationMessage(
             `Request failed`
@@ -125,30 +108,30 @@ export class ManageDonorRequestComponent implements OnInit {
     if (result.value) {
       Swal.fire(
         'Finished!',
-        'Donation mark as completed',
+        'Patient wig request mark as completed',
         'success'
       )
     } else if (result.dismiss === Swal.DismissReason.cancel) {
       Swal.fire(
         'Cancelled',
-        'Donation was not mark as completed',
+        'Patient wig request was not mark as completed',
         'error'
       )
     }
   });
 }
 
-cancelDonorrequest(id){
+cancelWigrequest(id){
   Swal.fire({
     title: 'Are you sure?',
-    text: `This Donation Request will be marked as not completed`,
+    text: `This wig Request will be marked as not completed`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: 'Yes',
     cancelButtonText: 'No, cancel!',
     reverseButtons: true,
     preConfirm: (login) => {
-      this.cancelDonorrequestSub = this.apiService.cancelDonorrequest(id).subscribe((data) => {
+      this.cancelWigrequestSub = this.apiService.cancelWigrequest(id).subscribe((data) => {
         console.log(data);
         this.socket.emit('decline-wig-request', data);
         if(!data)
@@ -164,17 +147,30 @@ cancelDonorrequest(id){
     if (result.value) {
       Swal.fire(
         'Success!',
-        'Donation has been declined marked as not completed',
+        'Patient wig request has been declined marked as not completed',
         'success'
       )
     } else if (result.dismiss === Swal.DismissReason.cancel) {
       Swal.fire(
         'Cancelled',
-        'Donationt was not marked as not completed',
+        'Patient wig request was not marked as not completed',
         'error'
       )
     }
   });
 }
+  ngOnDestroy() {
+
+    if (this.getPatientsSub !== undefined) {
+      this.getPatientsSub.unsubscribe();
+    }
+    if (this.finishWigrequestSub !== undefined) {
+      this.finishWigrequestSub.unsubscribe();
+    }
+    if (this.cancelWigrequestSub !== undefined) {
+      this.cancelWigrequestSub.unsubscribe();
+    }
+    
+  }
 
 }

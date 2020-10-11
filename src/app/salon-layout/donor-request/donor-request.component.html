@@ -50,25 +50,26 @@
             </tr>
         </thead>
         <tbody *ngIf="!myControl.valid" >
-            <tr *ngFor="let donor of Donor; let i = index">
-                <ng-container *ngIf="donor.lastRequest && (!donor?.lastRequest?.finished && !donor?.lastRequest?.canceled)"> 
+            <tr *ngFor="let appointment of donorAppointment; let i = index">
+                <ng-container *ngIf="appointment.donor.lastRequest && (!appointment.donor?.lastRequest?.finished && !appointment.donor?.lastRequest?.canceled)"> 
                 <!-- <th scope="row">{{i+1}}</th> -->
-                <td>{{donor['firstName']}} {{donor['lastName']}}</td>
+                <td>{{appointment.donor['firstName']}} {{appointment.donor['lastName']}}</td>
                 <!-- <td>{{donor['email']}}</td>
                 <td>{{donor['telePhone']}}</td> -->
-                <td>{{donor?.lastRequest?.address}}</td>
-                <td>{{donor?.lastRequest?.validDate}}</td>
+                <td>{{appointment.donor?.telePhone}}</td>
+                <td>{{appointment.appointmentTimeSlot.split('+')[0]}}</td>
                
                 
                 <td class="text-center edit-block">
-                   
-                    <div class="btn btn-light-success  font-weight-bold mr-2" (click)="finishDonorrequest(donor.lastRequest._id)">
+                
+                    <div class="btn btn-light-success  font-weight-bold mr-2"
+                        (click)="[finishDonorrequest(appointment), changeWigcount(email)]">
                         Finished
-                  </div>
-                  <div class="btn btn-light-danger font-weight-bold mr-2"  (click)="cancelDonorrequest(donor.lastRequest._id)">
-                    Canceled
-                </div>
-                    
+                    </div>
+                    <div class="btn btn-light-danger font-weight-bold mr-2" (click)="cancelDonorrequest(appointment)">
+                        Canceled
+                    </div>
+                
                 </td>
             
             </ng-container>
@@ -76,24 +77,24 @@
             
         </tbody>
         <tbody *ngIf="myControl.valid">
-            <tr *ngFor="let donor of filteredOptions | async; let i = index">
-                <ng-container *ngIf="donor.lastRequest && (!donor?.lastRequest?.finished && !donor?.lastRequest?.canceled)"> 
+            <tr *ngFor="let appointment of filteredOptions | async; let i = index">
+                <ng-container *ngIf="appointment['donor'].lastRequest && (!appointment['donor']?.lastRequest?.finished && !appointment['donor']?.lastRequest?.canceled)"> 
                     <!-- <th scope="row">{{i+1}}</th> -->
-                    <td>{{donor['firstName']}} {{donor['lastName']}}</td>
+                    <td>{{appointment['donor']['firstName']}} {{appointment['donor']['lastName']}}</td>
                     <!-- <td>{{donor['email']}}</td>
                     <td>{{donor['telePhone']}}</td> -->
-                    <td>{{donor?.lastRequest?.address}}</td>
-                    <td>{{donor?.lastRequest?.validDate | date: 'medium'}}</td>
+                    <td>{{appointment['donor']?.telePhone}}</td>
+                    <td>{{appointment['appointmentTimeSlot'].split('+')[0]}}</td>
         
         
                 <td class="text-center edit-block">
                     
-                    <div class="btn btn-light-success  font-weight-bold mr-2" (click)="finishDonorrequest(donor.lastRequest._id)">
+                    <div class="btn btn-light-success  font-weight-bold mr-2" (click)="[finishDonorrequest(appointment), changeWigcount(email)]">
                         Finished
                   </div>
-                  <div class="btn btn-light-danger font-weight-bold mr-2"  (click)="cancelDonorrequest(donor.lastRequest._id)">
-                    Canceled
-                </div>
+                  <div class="btn btn-light-danger font-weight-bold mr-2"  (click)="cancelDonorrequest(appointment)">
+                        Canceled
+                    </div>
         
                 </td>
         
@@ -102,10 +103,10 @@
         
         </tbody>
     </table>
-    </div>
+   </div>
     
     
-    <ng-template #dialog>
+    <!-- <ng-template #dialog>
         <mat-card>
            <mat-card-content [style.overflow]="'auto'" [style.height.px]="'300'">
                 Name of the donor: {{selectedDonor.firstName}} {{selectedDonor.lastName}}<br>
@@ -118,5 +119,5 @@
         </mat-card>
          
     
-    </ng-template>
+    </ng-template> -->
     

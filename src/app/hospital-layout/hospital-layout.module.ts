@@ -9,12 +9,18 @@ import { ProfileComponent } from './profile/profile.component';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
+import { DriverLocationComponent } from './driver-location/driver-location.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   imports: [
     CommonModule,
     BlockUIModule.forRoot(),
     RouterModule.forChild(HospitalLayoutRoutes),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAkGlhRjMfmotb0UBMf8EAcmkTB6v3WEVM',
+      libraries: ['places']
+    }),
     FormsModule,
     MatPasswordStrengthModule.forRoot(),
     MatInputModule,
@@ -25,6 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     DashboardComponent,
     ProfileComponent,
+    DriverLocationComponent,
   ]
 })
 

@@ -1,3 +1,4 @@
+import { CloseDateUpdateComponent } from './close-date-update/close-date-update.component';
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -8,7 +9,7 @@ import {ViewCalendarComponent} from './view-calendar/view-calendar.component';
 import { SaloonChatComponent } from './saloon-chat/saloon-chat.component';
 import { SalonLocationComponent } from './salon-location/salon-location.component';
 import { AfterLoginService } from '@services/after-login.service';
-
+import { DonorRequestComponent } from './donor-request/donor-request.component';
 
 export const SalonLayoutRoutes: Routes = [
     // {
@@ -57,7 +58,10 @@ export const SalonLayoutRoutes: Routes = [
     { path: 'book_appointment',      component: BookAppointmentComponent, canActivate: [AfterLoginService],},
     { path: 'appointment_details',      component: AppointmentDetailsComponent, canActivate: [AfterLoginService],},
     { path: 'profile', component: ProfileComponent, canActivate: [AfterLoginService],},
-    {path:  'view_calendar',component:ViewCalendarComponent},
+    {path:  'costomer-appointment',component:ViewCalendarComponent},
     { path: 'chat', component: SaloonChatComponent, canActivate: [AfterLoginService],},
     { path: 'wigCollect', component: SalonLocationComponent, canActivate: [AfterLoginService],},
+    { path: 'donor_request', component: DonorRequestComponent, canActivate: [AfterLoginService],},
+    { path: 'close-date-update', component: CloseDateUpdateComponent, canActivate: [AfterLoginService], },
+    
 ];

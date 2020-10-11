@@ -1,45 +1,47 @@
 <!-- <mat-toolbar color="primary">Appointment Book </mat-toolbar> -->
 <div class="content">
   <div class="col-xl-15">
-    <div class="row">
-        <div class="col-xl-4">
-             <mat-card class="example-card">
+    <div class="row" *ngIf="valid()">
+        <div class="col-xl-4" *ngFor="let salon of salonList; let i = index">
+          <mat-card class="example-card"  >
                   <mat-card-header>
                        <!-- <div mat-card-avatar ></div> -->
-                       <mat-card-title>Nishi Salon </mat-card-title>
-                       <mat-card-subtitle>nishisalon@gmail.com</mat-card-subtitle>
+                       <mat-card-title>{{salon['name']}}</mat-card-title>
+                       <mat-card-subtitle>{{salon['email']}}</mat-card-subtitle>
                   </mat-card-header>
-                  <img mat-card-image src=" ../../assets/images/salon.jpg" alt="Photo of a Salon">
+                  <img mat-card-image src="../../assets/images/salon.jpg" alt="Photo of a Salon">
                   <mat-card-content>
                        <p>
-                          67 Pamunuwa Rd, Maharagama 10280, Sri Lanka
+                        {{salon['address']}}
                       </p>
-                      <p>0778965678</p>
+                      <p>{{salon['telephone']}}</p>
 
                       <!-- <p> 011 259 9421</p> -->
                   </mat-card-content>
                   <mat-card-actions>
 
-                              <button   type="button" class="btn btn-primary mr-2" (click)="book()" >BOOK</button>
+                              <button   type="button" class="btn btn-primary mr-2" (click)="book(salon['email'])" >BOOK</button>
 
 
                   </mat-card-actions>
               </mat-card>
+            <!-- } -->
         </div>
-        <div class="col-xl-4">
+
+        <!-- <div class="col-xl-4">
               <mat-card class="example-card">
-                  <mat-card-header>
+                  <mat-card-header> -->
                        <!-- <div mat-card-avatar class="example-header-image"></div> -->
-                       <mat-card-title>Kalani Salon </mat-card-title>
-                       <mat-card-subtitle>kalanisalon@gmail.com</mat-card-subtitle>
+                       <!-- <mat-card-title>{{selectedDonor['salon.name']}} </mat-card-title>
+                       <mat-card-subtitle>{{selectedDonor['salon.email']}}</mat-card-subtitle>
                   </mat-card-header>
                   <img mat-card-image src="../../assets/images/salon1.jpg" alt="Photo of a Salon">
                   <mat-card-content>
-                         <p>Talawatugoda,Sri Jayawardanapura Kotte , Sri Lanka</p>
-                         <p>0778966543</p>
+                         <p> {{selectedDonor['salon.address']}}</p>
+                         <p>{{selectedDonor['salon.telephone']}}</p> -->
                          <!-- <p>011 233 6884</p> -->
                           <!-- <p>011 472 1153</p> -->
-                  </mat-card-content>
+                 <!-- </mat-card-content>
                  <mat-card-actions>
                          <button   type="button" class="btn btn-primary mr-2" (click)="book()" >BOOK</button>
 
@@ -48,27 +50,36 @@
         </div>
         <div class="col-xl-4">
           <mat-card class="example-card">
-              <mat-card-header>
+              <mat-card-header> -->
                    <!-- <div mat-card-avatar class="example-header-image"></div> -->
-                   <mat-card-title>Mali Salon</mat-card-title>
-                   <mat-card-subtitle>malisalon@gmail.com</mat-card-subtitle>
+                   <!-- <mat-card-title>{{selectedDonor['salon.name']}}</mat-card-title>
+                   <mat-card-subtitle>{{selectedDonor['salon.email']}}{{selectedDonor['salon.email']}}</mat-card-subtitle>
               </mat-card-header>
               <img mat-card-image src="../../assets/images/salon.jpg" alt="Photo of a Salon">
               <mat-card-content>
-                     <p>67 Nugegoda Flyover, Nugegoda, Sri Lanka</p>
-                    <p>0786799854</p>
+                     <p>  {{selectedDonor['salon.address']}}</p>
+                    <p>{{selectedDonor['salon.telephone']}}</p> -->
                     <!-- <p>011 243 7437</p> -->
 
-              </mat-card-content>
+              <!-- </mat-card-content>
              <mat-card-actions>
                <button   type="button" class="btn btn-primary mr-2" (click)="book()" >BOOK</button>
 
              </mat-card-actions>
          </mat-card>
-        </div>
+        </div> -->
 
 
       </div>
+    </div>
+
+    <div class="row" *ngIf="!valid()">
+      <div class="col-12 card">
+        <div class="container" style="padding: 15%;">
+          <h2>Wait for {{reqestDate.split('T')[0]}} get Appointment</h2>
+        </div>
+      </div>
+      
     </div>
 </div>
 

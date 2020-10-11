@@ -37,6 +37,17 @@ export class ViewCalendarService {
     return this.http.post(url, data);
   }
 
+  // Create Appointment
+  createCloseTime(data): Observable<any> {
+    const url = `${this.baseUrl}/createClose`;
+    return this.http.post(url, data);
+  }
+
+  updateCloseTime(data) {
+    const url = `${this.baseUrl}/updateCloseTime`;
+    return this.http.post(url, data, { headers: this.headers })
+  }
+
 
   // Error handling
  errorMgmt(error: HttpErrorResponse) {
@@ -58,7 +69,12 @@ export class ViewCalendarService {
   return this.http.post(url, data, { headers: this.headers }).pipe(
     catchError(this.errorMgmt)
   )
-}
+  }
+
+  updateAppointmentTime(data){
+    const url = `${this.baseUrl}/updateTime`;
+    return this.http.post(url, data, { headers: this.headers })
+  }
 
 
 
@@ -69,6 +85,18 @@ export class ViewCalendarService {
     catchError(this.errorMgmt)
   )
 }
+
+  finishDonorrequest(donorId: string): Observable<any> {
+    return this.http
+      .get(`${this.baseUrl}/finishDonorrequest/${donorId}`)
+      .pipe(catchError(this.errorMgmt));
+  }
+
+  cancelDonorrequest(donorId: string): Observable<any> {
+    return this.http
+      .get(`${this.baseUrl}/cancelDonorrequest/${donorId}`)
+      .pipe(catchError(this.errorMgmt));
+  }
 
 
 
