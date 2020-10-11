@@ -18,6 +18,7 @@ export class BookAppointmentComponent implements OnInit ,OnDestroy {
   salonList:any = [];
   selectedDonor;
   getDonorByEmailSub;
+  reqestDate;
 
 
   constructor(
@@ -53,7 +54,9 @@ export class BookAppointmentComponent implements OnInit ,OnDestroy {
 
     this.getDonorByEmailSub = this.apiService.getDonorByEmail(this.email).subscribe((data)=>{
       this.selectedDonor=data['data'];
-       this.salonList = this.selectedDonor.nearSalon;
+      this.salonList = this.selectedDonor.nearSalon;
+      this.reqestDate = data['data'].request[data['data'].request.length -1].validDate;
+      console.log(new Date(this.reqestDate) < new Date());
 
     // this.getSalonsSub = this.apiService.getDonorById().subscribe((data) => {
     // this.Donor = data["data"];
@@ -61,6 +64,10 @@ export class BookAppointmentComponent implements OnInit ,OnDestroy {
      console.log(this.selectedDonor);
     })
     
+ }
+
+ valid(){
+   return new Date(this.reqestDate) < new Date();
  }
 
 
@@ -77,7 +84,8 @@ export class BookAppointmentComponent implements OnInit ,OnDestroy {
 
   public book(data)
   {
-    this.route.navigate(['/donor/appointment_details'], { queryParams: { salon: data }, skipLocationChange: true  });
+    this.route.navigate(['/donor/appointment_details'], 
+    { queryParams: { salon: data, reqestDate: this.reqestDate}, skipLocationChange: true  });
   }
 
 
