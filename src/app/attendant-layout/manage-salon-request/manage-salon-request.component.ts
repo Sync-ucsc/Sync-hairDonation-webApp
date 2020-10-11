@@ -20,7 +20,7 @@ import {AssignDriverComponent} from './assign-driver/assign-driver.component';
 })
 export class ManageSalonRequestComponent implements OnInit,OnDestroy {
 
-  displayedColumns: string[] = ['salonName', 'address', 'createdAt', 'status', 'assign'];
+  displayedColumns: string[] = ['salonName', 'wigCount', 'createdAt', 'status', 'assign'];
   dataSource: MatTableDataSource<AllSalonNeedToDelivers>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -41,8 +41,8 @@ export class ManageSalonRequestComponent implements OnInit,OnDestroy {
 
   async buildTable(){
     const response = await this.fetchData()
-    console.log(response)
     this.showTable = true;
+    console.log(response)
     this.dataSource = new MatTableDataSource(response);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -78,7 +78,8 @@ export class ManageSalonRequestComponent implements OnInit,OnDestroy {
   assignToDriver(row) {
 
     const dialogRef = this.dialog.open(AssignDriverComponent, {
-      data: {salonDetails: row}
+      data: {salonDetails: row},
+      panelClass: 'full-width-dialog'
     });
 
     this.dialogRefSub = dialogRef.afterClosed().subscribe(async result => {
