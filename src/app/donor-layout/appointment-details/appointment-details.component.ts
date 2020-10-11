@@ -12,7 +12,10 @@ import Swal from 'sweetalert2';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import {PaymentService} from "@services/payment.service";
 
+//payment
+declare let payhere: any;
 
 //add, update and delete component
 @Component({
@@ -67,14 +70,17 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
   todayDate = moment().startOf('day');
   TODAY = this.todayDate.format('YYYY-MM-DD')
   arg;
-  
+
+  payment
+
   constructor(
     private renderer: Renderer2,
     private _ViewCalendarService: ViewCalendarService,
     private tokenService:TokenService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private paymentService: PaymentService
   ) {
-    
+
     this.route.queryParams
       .filter(params => params.salon)
       .subscribe(params => {
@@ -86,6 +92,7 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
+
     this.getall();
     this.options = {
       editable: true,
@@ -103,6 +110,97 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
 
     }
     console.log(this.options);
+    // payment
+    this.payment = {
+      sandbox: true,
+      merchant_id: '1215222',
+      return_url: 'http://sample.com/return',
+      cancel_url: 'http://sample.com/cancel',
+      notify_url: 'http://sample.com/notify',
+      order_id: 'ItemNo12345',
+      items: 'Donation payment from' + this.tokenService.getFirstName() + ' ' + this.tokenService.getLastName(),
+      amount: '70.00',
+      currency: 'LKR',
+      first_name: this.tokenService.getFirstName(),
+      last_name: this.tokenService.getLastName(),
+      email: this.tokenService.getEmail(),
+      phone: this.tokenService.getPhone(),
+      address: '',
+      city: '',
+      country: 'Sri Lanka',
+      custom_1: '',
+      custom_2: ''
+    };
+
+
+
+    const that = this;
+
+    payhere.onCompleted = function onCompleted(orderId) {
+
+      console.log('Payment completed. OrderID:' + orderId);
+      console.log(that);
+      that.paymentService.createPayment(that.payment).subscribe( data => {
+        const appointment = {
+          // aka check this salon undefined
+          SalonEmail: that.salon,
+          DonorRequest: true,
+          Donoremail: that.tokenService.getEmail(),
+          customerEmail: '',
+          systemRequestDate: new Date(),
+          appointmentDate: that.arg.date,
+          appointmentTimeSlot: that.arg.dateStr
+        }
+
+
+        that.createAppointmentSub = that._ViewCalendarService.createAppointment(appointment).subscribe(
+          data => {
+            console.log('datadrvedgvedgvb')
+            Swal.fire(
+              'Done!',
+              'You added a new appointment!',
+              'success'
+            )
+            that.showModal = false;
+            that.calendarEvents = [];
+            console.log(data)
+            that.getall();
+          },
+          error => {
+            console.log(error)
+            Swal.fire(
+              'Error!',
+              'Error!',
+              'error'
+            )
+            that.showModal = false;
+          },
+        );
+      }, error => {
+        Swal.fire(
+          'Error!',
+          'Error!',
+          'error'
+        )
+      })
+    };
+
+    payhere.onDismissed = function onDismissed() {
+      Swal.fire(
+        'Cancelled',
+        'Appointment was not submit',
+        'error'
+      )
+    };
+
+
+    payhere.onError = function onError(error) {
+      Swal.fire(
+        'Error!',
+        'Error!',
+        'error'
+      )
+    };
 
   }
 
@@ -128,57 +226,61 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
             if (!arg.allday && this.haveAppointment !== true) {
 
               this.arg = arg;
+
               console.log(arg)
-              let appointment = {
-                SalonEmail: this.salon,
-                DonorRequest: true,
-                Donoremail: this.tokenService.getEmail(),
-                customerEmail: '',
-                systemRequestDate: new Date(),
-                appointmentDate: this.arg.date,
-                appointmentTimeSlot: this.arg.dateStr
-              }
-              console.log(appointment)
 
-              this.createAppointmentSub = this._ViewCalendarService.createAppointment(appointment).subscribe(
-                data => {
-                  // Swal.fire(
-                  //   'Done!',
-                  //   'You added a new appointment!',
-                  //   'success'
-                  // )
-                  this.showModal = false;
-                  this.calendarEvents = [];
-                  console.log(data)
-                  this.getall();
-                },
-                error => {
-                  console.log(error)
-                  Swal.fire(
-                    'Error!',
-                    'Error!',
-                    'error'
-                  )
-                  this.showModal = false;
-                },
-              );
+              payhere.startPayment(this.payment);
 
-              // this.calendarEvents = this.calendarEvents.concat({
-              //   title: 'fff',
-              //   start: arg.dateStr,
-              //   id: 'dddddd'
-              // })
-              // console.log(arg)
-
-              // if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
-              //   this.event = prompt('Enter Event', '')
-              //   console.log(this.event)
-              //   this.calendarEvents = this.calendarEvents.concat({
-              //     title: this.event,
-              //     start: arg.date,
-              //     allDay: arg.allDay
-              //   })
+              // let appointment = {
+              //   SalonEmail: this.salon,
+              //   DonorRequest: true,
+              //   Donoremail: this.tokenService.getEmail(),
+              //   customerEmail: '',
+              //   systemRequestDate: new Date(),
+              //   appointmentDate: this.arg.date,
+              //   appointmentTimeSlot: this.arg.dateStr
               // }
+              // console.log(appointment)
+              //
+              // this.createAppointmentSub = this._ViewCalendarService.createAppointment(appointment).subscribe(
+              //   data => {
+              //     // Swal.fire(
+              //     //   'Done!',
+              //     //   'You added a new appointment!',
+              //     //   'success'
+              //     // )
+              //     this.showModal = false;
+              //     this.calendarEvents = [];
+              //     console.log(data)
+              //     this.getall();
+              //   },
+              //   error => {
+              //     console.log(error)
+              //     Swal.fire(
+              //       'Error!',
+              //       'Error!',
+              //       'error'
+              //     )
+              //     this.showModal = false;
+              //   },
+              // );
+              //
+              // // this.calendarEvents = this.calendarEvents.concat({
+              // //   title: 'fff',
+              // //   start: arg.dateStr,
+              // //   id: 'dddddd'
+              // // })
+              // // console.log(arg)
+              //
+              // // if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
+              // //   this.event = prompt('Enter Event', '')
+              // //   console.log(this.event)
+              // //   this.calendarEvents = this.calendarEvents.concat({
+              // //     title: this.event,
+              // //     start: arg.date,
+              // //     allDay: arg.allDay
+              // //   })
+              // // }
 
             }
 
@@ -191,13 +293,15 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
             }
           },
         }).then(function (result) {
-          if (result.value) {
-            Swal.fire(
-              'submit!',
-              'Appointment has been submit.',
-              'success'
-            )
-          } else if (result.dismiss === Swal.DismissReason.cancel) {
+          // if (result.value) {
+          //   Swal.fire(
+          //     'submit!',
+          //     'Appointment has been submit.',
+          //     'success'
+          //   )
+          // } else
+          //
+            if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire(
               'Cancelled',
               'Appointment was not submit',
@@ -299,7 +403,7 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
           //   start: element.appointmentTimeSlot.split('+')[0],
           //   id: element._id,
           // }
-          
+
 
           // this.calendar.getApi().addEvent(event);
 
@@ -471,11 +575,11 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
           'error'
         )
       }
-      
+
     }
 
 
-    
+
   }
 
 
