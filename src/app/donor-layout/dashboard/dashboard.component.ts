@@ -3,6 +3,7 @@ import { PatientApiService } from './../../service/patient-api.service';
 import { Attendant } from './../../model/attendant';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TargetService } from '@services/target.service';
+
 declare const getFingerprint: any;
 import {
   ApexAxisChartSeries,
@@ -79,6 +80,8 @@ export class DashboardComponent implements OnInit {
   nov2 = 0;
   dec1 = 0;
   dec2 = 0;
+  getDonorApponimentSub;
+  donorApponiment;
 
 
   constructor(
@@ -193,7 +196,16 @@ export class DashboardComponent implements OnInit {
 
       console.log(this.donorRequest)
     })
+
+    this.getDonorApponimentSub = this.viewCalendarService.getAll().subscribe((data)=>{
+      this.donorApponiment=data['data'];
+      // this.donorRequest = this.selectedDonor.request;
+
+      console.log(this.donorApponiment)
+    })
+
   }
+
   loadChart(){
     this.patientApiService.getPatients().subscribe(
       data => {
