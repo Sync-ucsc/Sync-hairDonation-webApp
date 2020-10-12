@@ -34,6 +34,7 @@ import { AssignDriverComponent } from './manage-salon-request/assign-driver/assi
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import { WigrequsetVerifyComponent } from './wigrequset-verify/wigrequset-verify.component';
 import { ManualRequestComponent } from './manual-request/manual-request.component';
+import {NgApexchartsModule} from "ng-apexcharts";
 
 @NgModule({
     imports: [
@@ -61,6 +62,7 @@ import { ManualRequestComponent } from './manual-request/manual-request.componen
         ReactiveFormsModule,
         MatRadioModule,
         MatPasswordStrengthModule.forRoot(),
+        NgApexchartsModule,
     ],
   declarations: [
     DashboardComponent,
