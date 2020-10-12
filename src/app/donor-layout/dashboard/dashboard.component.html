@@ -126,14 +126,34 @@
                     <table class="table table-hover">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">#</th>
+                                <!-- <th scope="col">Salon Name</th> -->
                                 <th scope="col">Apponiment date</th>
                                 <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let apponiment of donorApponiment; let i = index">
                                 
+                                <!-- <th scope="row">{{i+1}}</th>  -->
+                                <ng-container *ngIf="apponiment.Donoremail===email"> 
+                                    <td>{{apponiment.appointmentDate | date: 'dd/MM/yyyy'}}</td>
+                                    <ng-container *ngIf="!apponiment.complete && !apponiment.canceled"> 
+                                        <td>
+                                            <span class="badge badge-info">Not complete</span>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container *ngIf="apponiment.complete"> 
+                                        <td>
+                                            <span class="badge badge-success">Complete</span>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container *ngIf="apponiment.canceled"> 
+                                        <td>
+                                            <span class="badge badge-danger">Cancled</span>
+                                        </td>
+                                    </ng-container>
+                                </ng-container>
+                              
                             </tr>
                         </tbody>
                     </table>
@@ -162,7 +182,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <!-- <th scope="col">#</th> -->
                                 <th scope="col">Donation Date</th>
                                 <th scope="col">Status</th>
                             </tr>
@@ -170,8 +190,8 @@
                         <tbody>
                             <tr *ngFor="let donor of donorRequest; let i = index">
                                 
-                                <th scope="row">{{i+1}}</th> 
-                                <td>{{donor.validDate}}</td>
+                                <!-- <th scope="row">{{i+1}}</th>  -->
+                                <td>{{donor.validDate | date: 'dd/MM/yyyy'}}</td>
                                 <ng-container *ngIf="!donor.finished && !donor.canceled"> 
                                     <td>
                                         <span class="badge badge-info">Not complete</span>

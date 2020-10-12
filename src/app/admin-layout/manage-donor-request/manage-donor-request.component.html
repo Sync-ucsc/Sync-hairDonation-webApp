@@ -57,7 +57,7 @@
                 <!-- <td>{{donor['email']}}</td>
                 <td>{{donor['telePhone']}}</td> -->
                 <td>{{donor?.lastRequest?.address}}</td>
-                <td>{{donor?.lastRequest?.validDate}}</td>
+                <td>{{donor?.lastRequest?.validDate | date: 'dd/MM/yyyy'}}</td>
                
                 
                 <td class="text-center edit-block">
