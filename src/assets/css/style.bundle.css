@@ -57140,8 +57140,8 @@ button {
 .show .btn.btn-primary.btn-dropdown,
 .show>.btn.btn-primary.dropdown-toggle {
     color: #fff;
-    background-color: #7337ee;
-    border-color: #7337ee
+    background-color: #7a1a50;
+    border-color: #7a1a50;
 }
 
 .btn.btn-primary:not(:disabled):not(.disabled).active i,
