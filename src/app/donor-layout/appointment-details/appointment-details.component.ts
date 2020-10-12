@@ -125,57 +125,19 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
       last_name: this.tokenService.getLastName(),
       email: this.tokenService.getEmail(),
       phone: this.tokenService.getPhone(),
-      address: '',
-      city: '',
+      address: 'no 45,maharagama',
+      city: 'maharagama',
       country: 'Sri Lanka',
       custom_1: '',
       custom_2: ''
     };
 
 
-
-    const that = this;
-
-    payhere.onCompleted = function onCompleted(orderId) {
-
-      console.log('Payment completed. OrderID:' + orderId);
-      console.log(that);
-      that.paymentService.createPayment(that.payment).subscribe( data => {
-        const appointment = {
-          // aka check this salon undefined
-          SalonEmail: that.salon,
-          DonorRequest: true,
-          Donoremail: that.tokenService.getEmail(),
-          customerEmail: '',
-          systemRequestDate: new Date(),
-          appointmentDate: that.arg.date,
-          appointmentTimeSlot: that.arg.dateStr
-        }
-
-
-        that.createAppointmentSub = that._ViewCalendarService.createAppointment(appointment).subscribe(
-          data => {
-            console.log('datadrvedgvedgvb')
-            Swal.fire(
-              'Done!',
-              'You added a new appointment!',
-              'success'
-            )
-            that.showModal = false;
-            that.calendarEvents = [];
-            console.log(data)
-            that.getall();
-          },
-          error => {
-            console.log(error)
-            Swal.fire(
-              'Error!',
-              'Error!',
-              'error'
-            )
-            that.showModal = false;
-          },
-        );
+    payhere.onCompleted = async function onCompleted(orderId) {
+      
+      console.log('Payment completed. OrderID:' + orderId );
+      await this.paymentService.createPayment(this.payment).subscribe(data => {
+        console.log('ddd')
       }, error => {
         Swal.fire(
           'Error!',
@@ -183,14 +145,16 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
           'error'
         )
       })
+
+      
     };
 
     payhere.onDismissed = function onDismissed() {
-      Swal.fire(
-        'Cancelled',
-        'Appointment was not submit',
-        'error'
-      )
+      // Swal.fire(
+      //   'Cancelled',
+      //   'Appointment was not submit',
+      //   'error'
+      // )
     };
 
 
@@ -203,6 +167,7 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
     };
 
   }
+
 
   handleDateClick(arg) {
     console.log(arg)
@@ -230,6 +195,42 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
               console.log(arg)
 
               payhere.startPayment(this.payment);
+              const appointment = {
+                // aka check this salon undefined
+                SalonEmail: this.salon,
+                DonorRequest: true,
+                Donoremail: this.tokenService.getEmail(),
+                customerEmail: '',
+                systemRequestDate: new Date(),
+                appointmentDate: this.arg.date,
+                appointmentTimeSlot: this.arg.dateStr
+              }
+
+              console.log(appointment)
+              this.createAppointmentSub = this._ViewCalendarService.createAppointment(appointment).subscribe(
+                data => {
+                  console.log('datadrvedgvedgvb')
+                  Swal.fire(
+                    'Done!',
+                    'You added a new appointment!',
+                    'success'
+                  )
+                  this.showModal = false;
+                  this.calendarEvents = [];
+                  console.log(data)
+                  this.getall();
+                },
+                error => {
+                  console.log(error)
+                  Swal.fire(
+                    'Error!',
+                    'Error!',
+                    'error'
+                  )
+                  this.showModal = false;
+                },
+              );
+
 
               // let appointment = {
               //   SalonEmail: this.salon,

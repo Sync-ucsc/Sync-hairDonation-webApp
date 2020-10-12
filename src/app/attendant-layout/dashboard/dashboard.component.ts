@@ -185,32 +185,36 @@ export class DashboardComponent implements OnInit {
     this.patientApiService.getPatients().subscribe(
       data => {
         data['data'].forEach(e => {
-          if (e.lastRequest.canceled === false) {
-            if (new Date().getFullYear() === new Date(e.lastRequest.requestDay).getFullYear()) {
-              if (new Date(e.lastRequest.requestDay).getMonth() === 0) {
-                this.januaryPatient++
-              } else if (new Date(e.lastRequest.requestDay).getMonth() === 1) {
-                this.februaryPatient++
-              } else if (new Date(e.lastRequest.requestDay).getMonth() === 2) {
-                this.marchPatient++
-              } else if (new Date(e.lastRequest.requestDay).getMonth() === 3) {
-                this.aprilPatient++
-              } else if (new Date(e.lastRequest.requestDay).getMonth() === 4) {
-                this.mayPatient++
-              } else if (new Date(e.lastRequest.requestDay).getMonth() === 5) {
-                this.junePatient++
-              } else if (new Date(e.lastRequest.requestDay).getMonth() === 6) {
-                this.julyPatient++
-              } else if (new Date(e.lastRequest.requestDay).getMonth() === 7) {
-                this.aug1++
-              } else if (new Date(e.lastRequest.requestDay).getMonth() === 8) {
-                this.sep1++
-              } else if (new Date(e.lastRequest.requestDay).getMonth() === 9) {
-                this.oct1++
-              } else if (new Date(e.lastRequest.requestDay).getMonth() === 10) {
-                this.nov1++
-              } else if (new Date(e.lastRequest.requestDay).getMonth() === 11) {
-                this.dec1++
+          if (e.lastRequest !== undefined) {
+            if (e.lastRequest.canceled === false) {
+              if (new Date().getFullYear() === new Date(e.lastRequest.requestDay).getFullYear()) {
+                console.log(new Date(e.lastRequest.requestDay).getMonth())
+                console.log(e.lastRequest.requestDay)
+                if (new Date(e.lastRequest.requestDay).getMonth() === 0) {
+                  this.jan1++
+                } else if (new Date(e.lastRequest.requestDay).getMonth() === 1) {
+                  this.feb1++
+                } else if (new Date(e.lastRequest.requestDay).getMonth() === 2) {
+                  this.mar1++
+                } else if (new Date(e.lastRequest.requestDay).getMonth() === 3) {
+                  this.apr1++
+                } else if (new Date(e.lastRequest.requestDay).getMonth() === 4) {
+                  this.may1++
+                } else if (new Date(e.lastRequest.requestDay).getMonth() === 5) {
+                  this.jun1++
+                } else if (new Date(e.lastRequest.requestDay).getMonth() === 6) {
+                  this.jul1++
+                } else if (new Date(e.lastRequest.requestDay).getMonth() === 7) {
+                  this.aug1++
+                } else if (new Date(e.lastRequest.requestDay).getMonth() === 8) {
+                  this.sep1++
+                } else if (new Date(e.lastRequest.requestDay).getMonth() === 9) {
+                  this.oct1++
+                } else if (new Date(e.lastRequest.requestDay).getMonth() === 10) {
+                  this.nov1++
+                } else if (new Date(e.lastRequest.requestDay).getMonth() === 11) {
+                  this.dec1++
+                }
               }
             }
 
