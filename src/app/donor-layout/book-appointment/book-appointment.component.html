@@ -1,7 +1,7 @@
 <!-- <mat-toolbar color="primary">Appointment Book </mat-toolbar> -->
 <div class="content">
   <div class="col-xl-15">
-    <div class="row" *ngIf="valid()">
+    <div class="row" *ngIf="valid() && reqestState==false">
         <div class="col-xl-4" *ngFor="let salon of salonList; let i = index">
           <mat-card class="example-card"  >
                   <mat-card-header>
@@ -73,7 +73,15 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="!valid()">
+    <div *ngIf="reqestState=== true">
+      <div class="col-12 card">
+        <div class="container" style="padding: 15%;">
+          <h2>please put doation reqest</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="!valid() && reqestState=== false">
       <div class="col-12 card">
         <div class="container" style="padding: 15%;">
           <h2>Wait for {{reqestDate.split('T')[0]}} get Appointment</h2>

@@ -16,7 +16,7 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class PatientApiService {
-  baseUrl = `${environment.BASE_URL}/wigRequest/`;
+  baseUrl = `${environment.BASE_URL}/wigRequest`;
   baseUrl2 = 'http://127.0.0.1:3000/patient';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 

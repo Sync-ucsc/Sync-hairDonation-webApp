@@ -19,6 +19,7 @@ export class BookAppointmentComponent implements OnInit ,OnDestroy {
   selectedDonor;
   getDonorByEmailSub;
   reqestDate;
+  reqestState;
 
 
   constructor(
@@ -56,6 +57,7 @@ export class BookAppointmentComponent implements OnInit ,OnDestroy {
       this.selectedDonor=data['data'];
       this.salonList = this.selectedDonor.nearSalon;
       this.reqestDate = data['data'].request[data['data'].request.length -1].validDate;
+      this.reqestState = data['data'].request[data['data'].request.length - 1].finished;
       console.log(new Date(this.reqestDate) < new Date());
 
     // this.getSalonsSub = this.apiService.getDonorById().subscribe((data) => {
@@ -69,6 +71,7 @@ export class BookAppointmentComponent implements OnInit ,OnDestroy {
  valid(){
    return new Date(this.reqestDate) < new Date();
  }
+
 
 
 

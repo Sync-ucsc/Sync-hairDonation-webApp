@@ -32,6 +32,11 @@ export class UserService {
     return this.http.post(url, data, { headers: this.headers });
   }
 
+  patientadd(data) {
+    const url = `${this.baseUrl}/patientadd`;
+    return this.http.post(url, data, { headers: this.headers });
+  }
+
   login(data) {
     const url = `${this.baseUrl}/authenticate`;
     return this.http.post(url,data ,{ headers: this.headers });
