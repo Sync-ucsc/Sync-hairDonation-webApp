@@ -129,10 +129,10 @@ export class CloseDateUpdateComponent implements OnInit {
       + arg.dateStr.split('+')[0].substring(13, 19))
       Swal.fire({
         title: 'Are you sure?',
-        text: `Appointment will be Submited`,
+        text: `Salon will be mark as closed`,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, Submit it!',
+        confirmButtonText: 'Yes, I am sure!',
         cancelButtonText: 'No, cancel!',
         reverseButtons: true,
         preConfirm: (login) => {
@@ -199,13 +199,13 @@ export class CloseDateUpdateComponent implements OnInit {
         if (result.value) {
           Swal.fire(
             'submit!',
-            'Appointment has been submit.',
+            'Salon is mark as closed.',
             'success'
           )
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire(
             'Cancelled',
-            'Appointment was not submit',
+            'Salon has not been  mark as closed.',
             'error'
           )
         }
