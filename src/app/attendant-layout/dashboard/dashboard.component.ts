@@ -18,6 +18,9 @@ import {
   ApexTooltip
 } from 'ng-apexcharts';
 import { UserService } from '@services/user.service';
+import {HttpClient} from "@angular/common/http";
+import {environment} from "@environments/environment";
+import {BackendResponse} from "@model/backendResponse";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -46,19 +49,19 @@ export class DashboardComponent implements OnInit {
   driver=0;
   attendant=0;
   manager=0;
-  januaryPatient = 0;
+  jan1 = 0;
   jan2 = 0;
-  februaryPatient = 0;
+  feb1 = 0;
   feb2 = 0;
-  marchPatient = 0;
+  mar1 = 0;
   mar2 = 0;
-  aprilPatient = 0;
+  apr1 = 0;
   apr2 = 0;
-  mayPatient = 0;
+  may1 = 0;
   may2 = 0;
-  junePatient = 0;
+  jun1 = 0;
   jun2 = 0;
-  julyPatient = 0;
+  jul1 = 0;
   jul2 = 0;
   aug1 = 0;
   aug2 = 0;
@@ -70,6 +73,7 @@ export class DashboardComponent implements OnInit {
   nov2 = 0;
   dec1 = 0;
   dec2 = 0;
+  assignJobs = [];
 
 
 
@@ -77,17 +81,17 @@ export class DashboardComponent implements OnInit {
     private _targetService: TargetService,
     private userService: UserService,
     private patientApiService:PatientApiService,
-    private viewCalendarService:ViewCalendarService
+    private viewCalendarService:ViewCalendarService,
+    private _http: HttpClient
   ) {
 
-    console.log('dashboard load')
 
     this.chartOptions = {
       series: [
         {
           name: 'patient request',
           // tslint:disable-next-line: max-line-length
-          data: [this.januaryPatient, this.februaryPatient, this.marchPatient, this.aprilPatient, this.mayPatient, this.junePatient, this.julyPatient, this.aug1, this.oct1, this.sep1, this.oct1, this.nov1, this.dec1]
+          data: [this.jan1, this.feb1, this.mar1, this.apr1, this.may1, this.jun1, this.jul1, this.aug1, this.oct1, this.sep1, this.oct1, this.nov1, this.dec1]
         },
         {
           name: 'donation',
@@ -177,7 +181,42 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    try{
+      const res =  await this._http.get(`${environment.BASE_URL}/targets/all`).toPromise() as BackendResponse
+
+      if(res.success){
+        console.log(res.data)
+        res.data.map(r => {
+          const totalJobs = r.targets.length;
+          const completedJobs = r.targets.filter( d => {
+            return d.status === 'Delivered'
+          }).length
+          console.log(r.driverEmail)
+          console.log(totalJobs)
+          console.log(completedJobs)
+          let completed = 0
+          if(completedJobs !== 0){
+            completed = (totalJobs/completedJobs)*100
+          }
+
+          if(totalJobs !== 0){
+            this.assignJobs.push({
+              driver: r.driverEmail.split('@')[0],
+              // phoneNumber: 'opewf',
+              completed
+            })
+          }
+        })
+      }
+
+      console.log(this.assignJobs)
+
+    }catch (error){
+      console.log(error)
+      console.log('failed to fetch')
+    }
+
   }
 
 
@@ -187,20 +226,22 @@ export class DashboardComponent implements OnInit {
         data['data'].forEach(e => {
           if (e.lastRequest.canceled === false) {
             if (new Date().getFullYear() === new Date(e.lastRequest.requestDay).getFullYear()) {
+              console.log(new Date(e.lastRequest.requestDay).getMonth())
+              console.log(e.lastRequest.requestDay)
               if (new Date(e.lastRequest.requestDay).getMonth() === 0) {
-                this.januaryPatient++
+                this.jan1++
               } else if (new Date(e.lastRequest.requestDay).getMonth() === 1) {
-                this.februaryPatient++
+                this.feb1++
               } else if (new Date(e.lastRequest.requestDay).getMonth() === 2) {
-                this.marchPatient++
+                this.mar1++
               } else if (new Date(e.lastRequest.requestDay).getMonth() === 3) {
-                this.aprilPatient++
+                this.apr1++
               } else if (new Date(e.lastRequest.requestDay).getMonth() === 4) {
-                this.mayPatient++
+                this.may1++
               } else if (new Date(e.lastRequest.requestDay).getMonth() === 5) {
-                this.junePatient++
+                this.jun1++
               } else if (new Date(e.lastRequest.requestDay).getMonth() === 6) {
-                this.julyPatient++
+                this.jul1++
               } else if (new Date(e.lastRequest.requestDay).getMonth() === 7) {
                 this.aug1++
               } else if (new Date(e.lastRequest.requestDay).getMonth() === 8) {
@@ -221,21 +262,7 @@ export class DashboardComponent implements OnInit {
             {
               name: 'patient request',
               // tslint:disable-next-line: max-line-length
-              data: [
-                this.januaryPatient,
-                this.februaryPatient,
-                this.marchPatient,
-                this.aprilPatient,
-                this.mayPatient,
-                this.junePatient,
-                this.julyPatient,
-                this.aug1,
-                this.oct1,
-                this.sep1,
-                this.oct1,
-                this.nov1,
-                this.dec1
-              ]
+              data: [this.jan1, this.feb1, this.mar1, this.apr1, this.may1, this.jun1, this.jul1, this.aug1, this.oct1, this.sep1, this.oct1, this.nov1, this.dec1]
             },
             {
               name: 'donation',
@@ -335,7 +362,7 @@ export class DashboardComponent implements OnInit {
             {
               name: 'Patient Request',
               // tslint:disable-next-line: max-line-length
-              data: [this.januaryPatient, this.februaryPatient, this.marchPatient, this.aprilPatient, this.mayPatient, this.junePatient, this.julyPatient, this.aug1, this.oct1, this.sep1, this.oct1, this.nov1, this.dec1]
+              data: [this.jan1, this.feb1, this.mar1, this.apr1, this.may1, this.jun1, this.jul1, this.aug1, this.oct1, this.sep1, this.oct1, this.nov1, this.dec1]
             },
             {
               name: 'Donation',
