@@ -15,6 +15,8 @@ export class DriverLocationComponent implements OnInit , OnDestroy{
   drivers: any = [];
   latitude: number;
   longitude: number;
+  latitude1: number =0;
+  longitude1: number =0;
   zoom: number;
   address: string;
   placeaddress;
@@ -48,13 +50,13 @@ export class DriverLocationComponent implements OnInit , OnDestroy{
     private driverservice: DriverApiService,
     private targetService: TargetService
     ) { 
+    
     this.getAllTarget();
   }
 
   ngOnInit(): void {
     this.getDriversSub =this.driverservice.getDrivers().subscribe(
       data => {
-        console.log(data['data']);
         this.drivers = data['data'];
       }
     )
@@ -66,19 +68,29 @@ export class DriverLocationComponent implements OnInit , OnDestroy{
 
     this.myVar = setInterval(()=>{
       this.getAllTarget();
-    },60000)
+    },5000)
   }
 
   getDriverLocation(x){
     this.driverservice.getDrivers().subscribe(
       data => {
        data['data'].forEach(e=>{
-         
          if(e.email === x){
-           console.log(this.latitude+' '+this.longitude)
-           this.latitude = e.lat
-           this.longitude = e.lon
-           console.log(this.latitude + ' ' + this.longitude)
+           console.log(e)
+           if(e.lat !== 0 && e.lon !== 0)  {
+             if ((e.lat !== undefined && e.lon !== undefined)){
+               this.latitude = e.lat
+               this.longitude = e.lon
+               this.latitude1 = e.lat
+               this.longitude1 = e.lon
+             } else {
+               this.latitude1 = 0
+               this.longitude1 = 0
+             }
+           } else {
+             this.latitude1 = 0
+             this.longitude1 = 0
+           }
          }
        })
       }
@@ -86,35 +98,64 @@ export class DriverLocationComponent implements OnInit , OnDestroy{
   }
 
   load(data){
-    console.log('hihihi')
+    console.log(data)
     this.getDriverLocation(data)
     this.driver =data;
-    this.forMap = 0;
+    if(data !== undefined){
+      this.forMap = 0;
+    }
+    this.features =[];
     this.target.forEach( e => {
-      
       if (data === e.driverEmail && e.status === 'NOT_COMPLETED'){
         this.forMap = e;
-        console.log(this.latitude + ' ' + this.longitude)
-        this.features.push({
-          lat: this.latitude,
-          lon: this.longitude,
-          type: 'van'
-        })
-        e.targets.forEach( ea => {
-          if (ea.status == 'Delivered') {
-            this.features.push({
-              lat: ea.lat,
-              lon: ea.lng,
-              type: 'csalon'
-            })
-          } else {
-            this.features.push({
-              lat: ea.lat,
-              lon: ea.lng,
-              type: 'usalon'
-            })
-          }
-        });
+        console.log(this.latitude1 + ' ' + this.longitude)
+        if (this.latitude1 === 0 && this.longitude1 === 0){
+          e.targets.forEach(ea => {
+            console.log('h')
+            if (this.latitude1 === 0 && this.longitude1 === 0){
+              this.mapsAPILoader.load().then(() => {
+                this.latitude = ea.lat;
+                this.longitude = ea.lng;
+                this.zoom = 14;
+              })
+            }
+            if (ea.status == 'Delivered') {
+              this.features.push({
+                lat: ea.lat,
+                lon: ea.lng,
+                type: 'csalon'
+              })
+            } else {
+              this.features.push({
+                lat: ea.lat,
+                lon: ea.lng,
+                type: 'usalon'
+              })
+            }
+          });
+        } else {
+          console.log('y')
+          this.features.push({
+            lat: this.latitude,
+            lon: this.longitude,
+            type: 'van'
+          })
+          e.targets.forEach(ea => {
+            if (ea.status == 'Delivered') {
+              this.features.push({
+                lat: ea.lat,
+                lon: ea.lng,
+                type: 'csalon'
+              })
+            } else {
+              this.features.push({
+                lat: ea.lat,
+                lon: ea.lng,
+                type: 'usalon'
+              })
+            }
+          });
+        }
       }
 
     });
@@ -125,8 +166,6 @@ export class DriverLocationComponent implements OnInit , OnDestroy{
 
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log(results);
-      console.log(status);
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 12;
