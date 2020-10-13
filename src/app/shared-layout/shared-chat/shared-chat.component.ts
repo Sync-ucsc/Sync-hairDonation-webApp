@@ -61,8 +61,5 @@ export class SharedChatComponent implements OnInit {
   changeUser(selectedUser){
     this.receiverIds = selectedUser.id;
     this.receiverId = selectedUser.id;
-    console.log(`role ${this.senderRole}`)
-    console.log(`sender ${this.senderId}`)
-    console.log(`receiver ${this.receiverId}`)
   }
 }

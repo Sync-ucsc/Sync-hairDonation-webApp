@@ -20,6 +20,7 @@ export class SaloonChatComponent implements OnInit {
 
   ngOnInit(): void {
 
+    console.log(this._token.getFirstName())
     this.senderId = this._token.getId();
     this.senderRole = this._token.getRole();
     this.roomId = this._token.getId();
