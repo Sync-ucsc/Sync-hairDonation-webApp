@@ -10,3 +10,33 @@ table {
 td, th {
   width: 25%;
 }
+
+//.mat-table
+//{
+//  background-color:transparent!important;
+//}
+//table {
+//  width: 100%;
+//  border-collapse: collapse;
+//  border-radius: 5em;
+//}
+//table tr:last-child td /*To remove the last border*/
+//{
+//  border-bottom:0 solid
+//}
+
+
+.mat-header-cell:first-of-type,
+.mat-cell:first-of-type,
+.mat-footer-cell:first-of-type {
+  padding-left: unset !important;
+}
+
+.mat-header-cell,
+.mat-cell,
+.mat-footer-cell {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+  border-bottom-width: unset !important;
+  border-bottom-style: initial !important;
+}
